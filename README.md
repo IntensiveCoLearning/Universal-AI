@@ -35,7 +35,7 @@ Universal AI, 通用 AI, Qwen, ZetaChain, EVM, Smart Contract, 跨链 DeFi, Web3
 
   [Alibaba Cloud](https://www.alibabacloud.com/) <img alt="organization-logo" height="60px" width="60px" src="https://cdn.lxdao.io/eb59bf19-313b-421c-955a-6f2b17f0a899.png" />
 
-  [LXDAO](https://lxdao.io/) <img alt="organization-logo" height="60px" width="60px" src="https://cdn.lxdao.io/bafkreic7yeypjshk3vc6rko3rnuijygyqqlawpmlgmi3ucisyj4pj6pm4q.png" />
+  [LXDAO](https://lxdao.io/) <img alt="organization-logo" height="60px" width="60px" src="https://cdn.lxdao.io/bafkreiay6vxsvv3ksxr75lzzt3iqy3zja3o2epuxh47ivs24p2xs3awexm.png" />
 
 
 ## 社群
@@ -186,7 +186,7 @@ Telegram：https://t.me/LXDAO/1
 
 参加共学营的朋友请务必加入 ZetaChain 中国开发者社区，如有加群问题，可以添加微信：arainqinqin（备注：通用 AI）：
 
-![Image](https://github-production-user-asset-6210df.s3.amazonaws.com/95468177/514859634-fc2af118-b808-46a0-b43a-f8d80461e8da.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20251116%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251116T095407Z&X-Amz-Expires=300&X-Amz-Signature=e84db44d1387763f5aebc59a164ac4c8979616220b3fdedc7b831e0b9c0c6a9c&X-Amz-SignedHeaders=host)
+![Image](https://cdn.lxdao.io/7b27148f-9afb-4419-9402-ac4ffe7bd28e.jpg)
 
 
 ## 共学激励
@@ -299,4 +299,5 @@ Telegram：https://t.me/LXDAO/1
 ## 请假规则
 
 每周请假 2 次
+
 
