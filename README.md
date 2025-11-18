@@ -244,7 +244,9 @@ Telegram：https://t.me/zetachain_asia
 | [Max-wht](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Max-wht.md) | | | | | | | | | | | | | | |
 | [lilexi-bot](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/lilexi-bot.md) | | | | | | | | | | | | | | |
 | [linghuccc](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/linghuccc.md) | | | | | | | | | | | | | | |
+| [wukong988](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wukong988.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
