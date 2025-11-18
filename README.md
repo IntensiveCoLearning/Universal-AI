@@ -282,7 +282,9 @@ Telegram：https://t.me/zetachain_asia
 | [BiscuitCoder](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/BiscuitCoder.md) | | | | | | | | | | | | | | |
 | [wastonwashing538-arch](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wastonwashing538-arch.md) | | | | | | | | | | | | | | |
 | [EastWind0](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/EastWind0.md) | | | | | | | | | | | | | | |
+| [skcvan](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/skcvan.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
