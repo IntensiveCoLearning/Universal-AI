@@ -226,7 +226,9 @@ Telegram：https://t.me/zetachain_asia
 | [Igor777-Li](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Igor777-Li.md) | | | | | | | | | | | | | | |
 | [ququzone](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ququzone.md) | | | | | | | | | | | | | | |
 | [Plato333](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Plato333.md) | | | | | | | | | | | | | | |
+| [Darkells](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Darkells.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
