@@ -257,7 +257,9 @@ Telegram：https://t.me/zetachain_asia
 | [beyondz0110](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/beyondz0110.md) | | | | | | | | | | | | | | |
 | [ChaoyuWang04](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ChaoyuWang04.md) | | | | | | | | | | | | | | |
 | [CirCleZhouZhou](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/CirCleZhouZhou.md) | | | | | | | | | | | | | | |
+| [Aster-amellus](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Aster-amellus.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
