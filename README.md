@@ -261,7 +261,9 @@ Telegram：https://t.me/zetachain_asia
 | [LambertAlpha](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/LambertAlpha.md) | | | | | | | | | | | | | | |
 | [ja564](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ja564.md) | | | | | | | | | | | | | | |
 | [RSXLX](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/RSXLX.md) | | | | | | | | | | | | | | |
+| [fylcr](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/fylcr.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
