@@ -263,7 +263,9 @@ Telegram：https://t.me/zetachain_asia
 | [RSXLX](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/RSXLX.md) | | | | | | | | | | | | | | |
 | [fylcr](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/fylcr.md) | | | | | | | | | | | | | | |
 | [Teddy070509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Teddy070509.md) | | | | | | | | | | | | | | |
+| [INEEDYOUHELP](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/INEEDYOUHELP.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
