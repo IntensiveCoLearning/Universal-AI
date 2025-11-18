@@ -264,7 +264,9 @@ Telegram：https://t.me/zetachain_asia
 | [fylcr](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/fylcr.md) | | | | | | | | | | | | | | |
 | [Teddy070509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Teddy070509.md) | | | | | | | | | | | | | | |
 | [INEEDYOUHELP](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/INEEDYOUHELP.md) | | | | | | | | | | | | | | |
+| [jiayunlong228](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jiayunlong228.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
