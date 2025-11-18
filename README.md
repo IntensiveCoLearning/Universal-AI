@@ -222,7 +222,9 @@ Telegram：https://t.me/zetachain_asia
 | ------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | [machiwachi](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/machiwachi.md) | | | | | | | | | | | | | | |
 | [brucexu-eth](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/brucexu-eth.md) | | | | | | | | | | | | | | |
+| [SuBCweb3](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/SuBCweb3.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
