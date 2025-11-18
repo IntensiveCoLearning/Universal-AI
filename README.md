@@ -283,7 +283,9 @@ Telegram：https://t.me/zetachain_asia
 | [wastonwashing538-arch](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wastonwashing538-arch.md) | | | | | | | | | | | | | | |
 | [EastWind0](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/EastWind0.md) | | | | | | | | | | | | | | |
 | [skcvan](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/skcvan.md) | | | | | | | | | | | | | | |
+| [zylg-create](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zylg-create.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
