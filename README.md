@@ -233,7 +233,9 @@ Telegram：https://t.me/zetachain_asia
 | [xiaodian6777](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/xiaodian6777.md) | | | | | | | | | | | | | | |
 | [tumiao233](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/tumiao233.md) | | | | | | | | | | | | | | |
 | [000fan000](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/000fan000.md) | | | | | | | | | | | | | | |
+| [Coooder-Crypto](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Coooder-Crypto.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
