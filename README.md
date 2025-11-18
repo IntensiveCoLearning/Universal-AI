@@ -40,7 +40,7 @@ Universal AI, 通用 AI, Qwen, ZetaChain, EVM, Smart Contract, 跨链 DeFi, Web3
 
 ## 社群
 
-Telegram：https://t.me/LXDAO/1
+Telegram：https://t.me/zetachain_asia
 ## 学习资料/课程安排
 
 欢迎来到由 ZetaChain 与阿里云共同发起由 LXDAO 联合主办的 ”通用 AI“ 残酷共学。我们推荐参考 14 天的学习计划：<https://lxdao.notion.site/AI-14-2addceffe40b80a28a5dd0fbdd3494d2?source=copy_link>
