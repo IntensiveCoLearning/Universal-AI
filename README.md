@@ -278,7 +278,9 @@ Telegram：https://t.me/zetachain_asia
 | [muxin-web3](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/muxin-web3.md) | | | | | | | | | | | | | | |
 | [12270164](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/12270164.md) | | | | | | | | | | | | | | |
 | [chesenas](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/chesenas.md) | | | | | | | | | | | | | | |
+| [immortals1278](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/immortals1278.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
