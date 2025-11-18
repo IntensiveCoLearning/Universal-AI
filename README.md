@@ -237,7 +237,9 @@ Telegram：https://t.me/zetachain_asia
 | [younggogogo](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/younggogogo.md) | | | | | | | | | | | | | | |
 | [TPB003](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TPB003.md) | | | | | | | | | | | | | | |
 | [pillowtalk-Qy](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/pillowtalk-Qy.md) | | | | | | | | | | | | | | |
+| [Hu-Wentao](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Hu-Wentao.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
