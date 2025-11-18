@@ -273,7 +273,9 @@ Telegram：https://t.me/zetachain_asia
 | [coolzeta](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/coolzeta.md) | | | | | | | | | | | | | | |
 | [bassfuture](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/bassfuture.md) | | | | | | | | | | | | | | |
 | [debugzhao](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/debugzhao.md) | | | | | | | | | | | | | | |
+| [Readering1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Readering1.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
