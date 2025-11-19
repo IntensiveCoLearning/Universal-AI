@@ -291,7 +291,9 @@ Telegram：https://t.me/zetachain_asia
 | [Frederick2313072](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Frederick2313072.md) | | | | | | | | | | | | | | |
 | [JintolChan](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/JintolChan.md) | | | | | | | | | | | | | | |
 | [everest-an](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/everest-an.md) | | | | | | | | | | | | | | |
+| [MoMNiToT](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MoMNiToT.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
