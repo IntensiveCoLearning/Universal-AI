@@ -307,7 +307,9 @@ Telegram：https://t.me/zetachain_asia
 | [git149](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/git149.md) | | | | | | | | | | | | | | |
 | [cwj526](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/cwj526.md) | | | | | | | | | | | | | | |
 | [Zheng-Yu7463](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Zheng-Yu7463.md) | | | | | | | | | | | | | | |
+| [ShawnX-F](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ShawnX-F.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
