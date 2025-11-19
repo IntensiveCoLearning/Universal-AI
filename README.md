@@ -315,7 +315,9 @@ Telegram：https://t.me/zetachain_asia
 | [linmu115](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/linmu115.md) | | | | | | | | | | | | | | |
 | [StarryNights9527](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/StarryNights9527.md) | | | | | | | | | | | | | | |
 | [gegej1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/gegej1.md) | | | | | | | | | | | | | | |
+| [fDu-Xia](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/fDu-Xia.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
