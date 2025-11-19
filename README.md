@@ -298,7 +298,9 @@ Telegram：https://t.me/zetachain_asia
 | [slucifersz](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/slucifersz.md) | | | | | | | | | | | | | | |
 | [zane3412](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zane3412.md) | | | | | | | | | | | | | | |
 | [amandakelake](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/amandakelake.md) | | | | | | | | | | | | | | |
+| [siphonelee](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/siphonelee.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
