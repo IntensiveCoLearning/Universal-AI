@@ -334,7 +334,9 @@ Telegram：https://t.me/zetachain_asia
 | [Kgzsgod](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Kgzsgod.md) | | | | | | | | | | | | | | |
 | [willietheking](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/willietheking.md) | | | | | | | | | | | | | | |
 | [lpppy](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/lpppy.md) | | | | | | | | | | | | | | |
+| [tan9799](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/tan9799.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
