@@ -328,7 +328,9 @@ Telegram：https://t.me/zetachain_asia
 | [jvbaoge1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jvbaoge1.md) | | | | | | | | | | | | | | |
 | [ccc21800](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ccc21800.md) | | | | | | | | | | | | | | |
 | [mango-ice-cat](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/mango-ice-cat.md) | | | | | | | | | | | | | | |
+| [Free-riding](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Free-riding.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
