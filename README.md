@@ -302,7 +302,9 @@ Telegram：https://t.me/zetachain_asia
 | [zg870](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zg870.md) | | | | | | | | | | | | | | |
 | [Sifotd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Sifotd.md) | | | | | | | | | | | | | | |
 | [HUA-cyber](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/HUA-cyber.md) | | | | | | | | | | | | | | |
+| [tian-Sun](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/tian-Sun.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
