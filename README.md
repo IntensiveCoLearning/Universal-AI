@@ -342,7 +342,9 @@ Telegram：https://t.me/zetachain_asia
 | [rtxmythically](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/rtxmythically.md) | | | | | | | | | | | | | | |
 | [timerring](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/timerring.md) | | | | | | | | | | | | | | |
 | [big-dudu-mosty](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/big-dudu-mosty.md) | | | | | | | | | | | | | | |
+| [libaiwudufuyou](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/libaiwudufuyou.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
