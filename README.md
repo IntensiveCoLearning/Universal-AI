@@ -348,7 +348,9 @@ Telegram：https://t.me/zetachain_asia
 | [Xiongruijie](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Xiongruijie.md) | | | | | | | | | | | | | | |
 | [rayjun](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/rayjun.md) | | | | | | | | | | | | | | |
 | [Jack-OuCJ](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Jack-OuCJ.md) | | | | | | | | | | | | | | |
+| [NoTks0808](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/NoTks0808.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
