@@ -369,7 +369,9 @@ Telegram：https://t.me/zetachain_asia
 | [zlp528](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zlp528.md) | | | | | | | | | | | | | | |
 | [Tuscl-1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Tuscl-1.md) | | | | | | | | | | | | | | |
 | [dersteppenwolfruowen-316](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/dersteppenwolfruowen-316.md) | | | | | | | | | | | | | | |
+| [ARZER-TW](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ARZER-TW.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
