@@ -355,7 +355,9 @@ Telegram：https://t.me/zetachain_asia
 | [gooo36923-web](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/gooo36923-web.md) | | | | | | | | | | | | | | |
 | [kelvinqin7](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/kelvinqin7.md) | | | | | | | | | | | | | | |
 | [guow7394](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/guow7394.md) | | | | | | | | | | | | | | |
+| [june-in-exile](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/june-in-exile.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
