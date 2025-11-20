@@ -343,7 +343,9 @@ Telegram：https://t.me/zetachain_asia
 | [timerring](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/timerring.md) | | | | | | | | | | | | | | |
 | [big-dudu-mosty](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/big-dudu-mosty.md) | | | | | | | | | | | | | | |
 | [libaiwudufuyou](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/libaiwudufuyou.md) | | | | | | | | | | | | | | |
+| [Jerrykingone](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Jerrykingone.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
