@@ -341,7 +341,9 @@ Telegram：https://t.me/zetachain_asia
 | [lkunyang721-design](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/lkunyang721-design.md) | | | | | | | | | | | | | | |
 | [rtxmythically](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/rtxmythically.md) | | | | | | | | | | | | | | |
 | [timerring](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/timerring.md) | | | | | | | | | | | | | | |
+| [big-dudu-mosty](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/big-dudu-mosty.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
