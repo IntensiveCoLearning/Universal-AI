@@ -366,7 +366,9 @@ Telegram：https://t.me/zetachain_asia
 | [Echo-qxt](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Echo-qxt.md) | | | | | | | | | | | | | | |
 | [lyzhellook](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/lyzhellook.md) | | | | | | | | | | | | | | |
 | [xuzqyy](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/xuzqyy.md) | | | | | | | | | | | | | | |
+| [zlp528](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zlp528.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
