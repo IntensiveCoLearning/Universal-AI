@@ -344,7 +344,9 @@ Telegram：https://t.me/zetachain_asia
 | [big-dudu-mosty](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/big-dudu-mosty.md) | | | | | | | | | | | | | | |
 | [libaiwudufuyou](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/libaiwudufuyou.md) | | | | | | | | | | | | | | |
 | [Jerrykingone](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Jerrykingone.md) | | | | | | | | | | | | | | |
+| [TEDGD](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TEDGD.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
