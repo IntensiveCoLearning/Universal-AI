@@ -372,7 +372,9 @@ Telegram：https://t.me/zetachain_asia
 | [ARZER-TW](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ARZER-TW.md) | | | | | | | | | | | | | | |
 | [Toby1009](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Toby1009.md) | | | | | | | | | | | | | | |
 | [Modestide](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Modestide.md) | | | | | | | | | | | | | | |
+| [kikyou1009](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/kikyou1009.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
