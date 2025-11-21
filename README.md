@@ -382,7 +382,9 @@ Telegram：https://t.me/zetachain_asia
 | [3550625279-ux](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/3550625279-ux.md) | | | | | | | | | | | | | | |
 | [wodeche](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wodeche.md) | | | | | | | | | | | | | | |
 | [Rousseau-DeworkHub](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rousseau-DeworkHub.md) | | | | | | | | | | | | | | |
+| [MapleRhythm](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MapleRhythm.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
