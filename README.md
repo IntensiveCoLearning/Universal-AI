@@ -384,7 +384,9 @@ Telegram：https://t.me/zetachain_asia
 | [Rousseau-DeworkHub](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rousseau-DeworkHub.md) | | | | | | | | | | | | | | |
 | [MapleRhythm](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MapleRhythm.md) | | | | | | | | | | | | | | |
 | [MRzzz-cyber](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MRzzz-cyber.md) | | | | | | | | | | | | | | |
+| [yedeyu](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yedeyu.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
