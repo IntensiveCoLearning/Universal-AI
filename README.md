@@ -389,7 +389,9 @@ Telegram：https://t.me/zetachain_asia
 | [leran-133](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/leran-133.md) | | | | | | | | | | | | | | |
 | [YXZ252426](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/YXZ252426.md) | | | | | | | | | | | | | | |
 | [SkySommer](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/SkySommer.md) | | | | | | | | | | | | | | |
+| [xk666-lab](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/xk666-lab.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
