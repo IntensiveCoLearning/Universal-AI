@@ -397,7 +397,9 @@ Telegram：https://t.me/zetachain_asia
 | [TAnNbR](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TAnNbR.md) | | | | | | | | | | | | | | |
 | [neppiggy](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/neppiggy.md) | | | | | | | | | | | | | | |
 | [yhzhongc](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yhzhongc.md) | | | | | | | | | | | | | | |
+| [madison42](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/madison42.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
