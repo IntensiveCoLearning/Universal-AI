@@ -407,7 +407,9 @@ Telegram：https://t.me/zetachain_asia
 | [Micteach](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Micteach.md) | | | | | | | | | | | | | | |
 | [TigerOpt](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TigerOpt.md) | | | | | | | | | | | | | | |
 | [MartinYeung5](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MartinYeung5.md) | | | | | | | | | | | | | | |
+| [uneer143](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/uneer143.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
