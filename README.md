@@ -386,7 +386,9 @@ Telegram：https://t.me/zetachain_asia
 | [MRzzz-cyber](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MRzzz-cyber.md) | | | | | | | | | | | | | | |
 | [yedeyu](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yedeyu.md) | | | | | | | | | | | | | | |
 | [yoyos12138](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yoyos12138.md) | | | | | | | | | | | | | | |
+| [leran-133](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/leran-133.md) | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
