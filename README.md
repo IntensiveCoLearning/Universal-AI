@@ -427,7 +427,9 @@ Telegram：https://t.me/zetachain_asia
 | [wind1994ai](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wind1994ai.md) |   | | | | | | | | | | | | | |
 | [8LokyYang8](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/8LokyYang8.md) |   | | | | | | | | | | | | | |
 | [kaka666111](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/kaka666111.md) |   | | | | | | | | | | | | | |
+| [Nikoheihei](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Nikoheihei.md) |   | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
