@@ -423,7 +423,9 @@ Telegram：https://t.me/zetachain_asia
 | [0x-IHRR](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/0x-IHRR.md) |   | | | | | | | | | | | | | |
 | [nocb](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/nocb.md) |   | | | | | | | | | | | | | |
 | [chenyllove001](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/chenyllove001.md) |   | | | | | | | | | | | | | |
+| [taiaiJiaZhi](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/taiaiJiaZhi.md) |   | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
