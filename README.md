@@ -421,7 +421,9 @@ Telegram：https://t.me/zetachain_asia
 | [621-hykd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/621-hykd.md) |   | | | | | | | | | | | | | |
 | [Kunsoul](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Kunsoul.md) |   | | | | | | | | | | | | | |
 | [0x-IHRR](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/0x-IHRR.md) |   | | | | | | | | | | | | | |
+| [nocb](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/nocb.md) |   | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
