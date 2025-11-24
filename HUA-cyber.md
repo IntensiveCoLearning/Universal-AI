@@ -15,6 +15,40 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+# Day1
 
+## Environment
 
+首先是进行ZetaChain工具的安装
+
+```
+zeta-chain/cli: CLI tool for creating universal smart contracts on ZetaChain
+```
+
+以上是官网
+
+但首先需要确保电脑中有\`Node.js\`
+
+然后在cmd中运行以下命令：
+
+```
+npm install -g zetachain@latest
+```
+
+运行过程中会出现很多的warn但不影响安装
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/HUA-cyber/images/2025-11-24-1763991065278-image.png)
+
+运行完成后可以使用以下命令检查
+
+```
+zetachain --version
+```
+
+下面是其他任务的截图
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/HUA-cyber/images/2025-11-24-1763994275516-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/HUA-cyber/images/2025-11-24-1763994317153-image.png)
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
