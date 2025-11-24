@@ -18,8 +18,6 @@ AI 开发者, Qwen 实战派，看好Web3+ 模块化链
 <!-- Content_START -->
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
-# 2025-11-24
-
 ## 了解了一些基础知识
 
 ZetaChain 账户你的链上身份（地址 + 私钥）
