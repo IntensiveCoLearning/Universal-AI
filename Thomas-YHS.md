@@ -15,6 +15,8 @@ LXDAO成员，智能合约开发者，AI Agent开发者，参与了 ZetaChain �
 ## Notes
 
 <!-- Content_START -->
-
-
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+打卡第一天
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
