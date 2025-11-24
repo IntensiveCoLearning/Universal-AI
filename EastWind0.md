@@ -15,6 +15,10 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
-
-
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+1.查阅ZetaChain文档，对ZetaChain的定位有初步了解。  
+2.完成注册Qwen账号  
+3.已加入ZetaChain中国开发者社区
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
