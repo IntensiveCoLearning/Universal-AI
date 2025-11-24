@@ -15,6 +15,8 @@ A Web3 enthusiast interested in AI and DeFi.
 ## Notes
 
 <!-- Content_START -->
-
-
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+第一天学习，简单阅读了 ZetaChain 的说明文档
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
