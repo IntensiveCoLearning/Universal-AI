@@ -291,7 +291,7 @@ Telegram：https://t.me/zetachain_asia
 | [Frederick2313072](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Frederick2313072.md) |   | | | | | | | | | | | | | |
 | [JintolChan](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/JintolChan.md) |   | | | | | | | | | | | | | |
 | [everest-an](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/everest-an.md) |   | | | | | | | | | | | | | |
-| [MoMNiToT](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MoMNiToT.md) |   | | | | | | | | | | | | | |
+| [MoMNiToT](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MoMNiToT.md) | ✅ | | | | | | | | | | | | | |
 | [Quiz-web177](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Quiz-web177.md) |   | | | | | | | | | | | | | |
 | [Jizhixing-Kieran](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Jizhixing-Kieran.md) |   | | | | | | | | | | | | | |
 | [leopc999](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/leopc999.md) | ✅ | | | | | | | | | | | | | |
@@ -418,7 +418,7 @@ Telegram：https://t.me/zetachain_asia
 | [dasjfalskfjaf](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/dasjfalskfjaf.md) |   | | | | | | | | | | | | | |
 | [g15230103179-bot](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/g15230103179-bot.md) |   | | | | | | | | | | | | | |
 | [jmwasky-creative](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jmwasky-creative.md) | ✅ | | | | | | | | | | | | | |
-| [621-hykd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/621-hykd.md) |   | | | | | | | | | | | | | |
+| [621-hykd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/621-hykd.md) | ✅ | | | | | | | | | | | | | |
 | [Kunsoul](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Kunsoul.md) |   | | | | | | | | | | | | | |
 | [0x-IHRR](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/0x-IHRR.md) |   | | | | | | | | | | | | | |
 | [nocb](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/nocb.md) | ✅ | | | | | | | | | | | | | |
@@ -443,6 +443,7 @@ Telegram：https://t.me/zetachain_asia
 | [StariverKang](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/StariverKang.md) | ✅ | | | | | | | | | | | | | |
 | [shihshaoni](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/shihshaoni.md) |   | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
