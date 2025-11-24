@@ -15,6 +15,82 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+\### ZetaChain CLI
 
+\#### 安装
 
+\`\`\`
+
+npm install -g zetachain
+
+\`\`\`
+
+ZetaChain CLI可以进行跨链、转账代币、跟踪跨链交易、管理多个网络上的账号等操作。
+
+\#### 命令
+
+\`\`\`
+
+zetachain
+
+\`\`\`
+
+可以查看使用该命令的方法说明，包括：
+
+\`\`\`
+
+new \[options\] Create a new universal contract project.
+
+accounts Manage accounts for all connected chains
+
+query|q Query ZetaChain data and connected chain information
+
+faucet \[options\] Request testnet ZETA tokens from the faucet
+
+zetachain|z Withdraw tokens and call contracts on connected chains
+
+evm Deposit tokens and call universal contracts from EVM
+
+solana Deposit tokens and call universal contracts from Solana
+
+sui Deposit tokens and call universal contracts from Sui
+
+ton Deposit tokens and call universal contracts from TON
+
+bitcoin|b Deposit BTC and call universal contracts from Bitcoin
+
+localnet Local development environment
+
+mcp MCP server management commands
+
+docs \[options\] Display help information for all available commands and their subcommands
+
+ask \[prompt...\] Chat with ZetaChain Docs AI
+
+\`\`\`
+
+\### ZetaChain Mainnet
+
+\#### 网络名称
+
+ZetaChain Mainnet
+
+\#### 链 ID
+
+7000
+
+\#### RPC
+
+[https://zetachain-evm.blockpi.network/v1/rpc/public](https://zetachain-evm.blockpi.network/v1/rpc/public)
+
+\#### 货币符号
+
+zeta
+
+\#### 浏览器
+
+[https://zetascan.com/](https://zetascan.com/)
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
