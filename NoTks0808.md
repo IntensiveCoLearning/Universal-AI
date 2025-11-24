@@ -15,6 +15,8 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
-
-
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+基本环境已搭建完成
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
