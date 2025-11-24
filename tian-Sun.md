@@ -11,6 +11,8 @@ timezone: UTC+8
 ## Self-introduction
 
 ex前端开发
+ex8年产品经理
+目前在web3孵化机构——做市场、活动、社群、产品相关
 
 ## Notes
 
