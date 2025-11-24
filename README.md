@@ -299,7 +299,7 @@ Telegram：https://t.me/zetachain_asia
 | [zane3412](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zane3412.md) |   | | | | | | | | | | | | | |
 | [amandakelake](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/amandakelake.md) |   | | | | | | | | | | | | | |
 | [siphonelee](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/siphonelee.md) |   | | | | | | | | | | | | | |
-| [zg870](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zg870.md) |   | | | | | | | | | | | | | |
+| [zg870](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zg870.md) | ✅ | | | | | | | | | | | | | |
 | [Sifotd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Sifotd.md) |   | | | | | | | | | | | | | |
 | [HUA-cyber](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/HUA-cyber.md) |   | | | | | | | | | | | | | |
 | [tian-Sun](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/tian-Sun.md) |   | | | | | | | | | | | | | |
@@ -443,6 +443,7 @@ Telegram：https://t.me/zetachain_asia
 | [StariverKang](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/StariverKang.md) |   | | | | | | | | | | | | | |
 | [shihshaoni](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/shihshaoni.md) |   | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
