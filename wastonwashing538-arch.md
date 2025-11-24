@@ -15,6 +15,12 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+要在zetachain上开发有点门槛，从下载各种先决条件第一步就有些吃力，好在能用AI一步一步帮我详解步骤，后面搭建环境也顺利完成，顺便搞定了Qwen
 
+，后面搭建环境
 
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/wastonwashing538-arch/images/2025-11-24-1763991818351-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/wastonwashing538-arch/images/2025-11-24-1763991706144-image.png)
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
