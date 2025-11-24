@@ -15,6 +15,18 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-24
+<!-- DAILY_CHECKIN_2025-11-24_START -->
+-   QWEN-AI控制台账号注册（资料里提供的是国际版，国内用户感觉可以自己搜索网页，不然电话验证会很麻烦）
+    
+-   QWEN API简单调用
+    
 
+```
+curl -X POST "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation" -H "Content-Type: application/json" -H "Authorization: Bearer sk-021ed70a929f43fa9b049e8dc6dcf689" -d "{\"model\": \"qwen-turbo\", \"input\": {\"messages\": [{\"role\": \"user\", \"content\": \"请用一句话介绍你自己。\"}]}, \"parameters\": {}}"
+{"output":{"finish_reason":"stop","text":"我是一个大型语言模型，能够帮助用户回答问题、创作文字、逻辑推理、编程等多种任务。"},"usage":{"input_tokens":18,"output_tokens":22,"prompt_tokens_details":{"cached_tokens":0},"total_tokens":40},"request_id":"8ed95b94-3c6d-4a2d-a168-c92ce670e82c"}
+```
 
+-   Zetachain本地安装
+<!-- DAILY_CHECKIN_2025-11-24_END -->
 <!-- Content_END -->
