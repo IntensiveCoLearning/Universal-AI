@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+-   通过FaucetMe网站领取ZetaChain的测试币，并在小狐狸钱包里手动配置ZetaChain的网络
+    
+-   学习Universal合约模式及核心的on call方法
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 -   QWEN-AI控制台账号注册（资料里提供的是国际版，国内用户感觉可以自己搜索网页，不然电话验证会很麻烦）
     
 -   QWEN API简单调用
