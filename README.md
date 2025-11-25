@@ -260,7 +260,7 @@ Telegram：https://t.me/zetachain_asia
 | [Aster-amellus](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Aster-amellus.md) | ⭕️ | ✅ | | | | | | | | | | | | |
 | [LambertAlpha](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/LambertAlpha.md) | ⭕️ |   | | | | | | | | | | | | |
 | [ja564](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ja564.md) | ⭕️ | ✅ | | | | | | | | | | | | |
-| [RSXLX](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/RSXLX.md) | ✅ |   | | | | | | | | | | | | |
+| [RSXLX](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/RSXLX.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [fylcr](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/fylcr.md) | ✅ |   | | | | | | | | | | | | |
 | [Teddy070509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Teddy070509.md) | ✅ |   | | | | | | | | | | | | |
 | [INEEDYOUHELP](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/INEEDYOUHELP.md) | ⭕️ |   | | | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ |   | | | | | | | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ |   | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
