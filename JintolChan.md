@@ -15,8 +15,18 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+# ZetaChain ZETA 水龙头
+
+[https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
+
+[https://zetachain.faucetme.pro/](https://zetachain.faucetme.pro/)
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # 开发环境配置
 
 ### 安装node.js
