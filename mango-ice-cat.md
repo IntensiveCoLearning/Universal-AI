@@ -15,8 +15,14 @@ code everything
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+# 1，今日打卡，加油
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # 1，签到打卡
 
 # **2，ZetaChain 项目介绍**
