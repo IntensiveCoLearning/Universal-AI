@@ -15,8 +15,18 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+-   安装或尝试使用 ZetaChain CLI
+    
+-   了解测试网 RPC、Faucet、Explorer 的入口
+    
+-   在终端或 Postman 里完成一次 Qwen API 的简单请求
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 **Day 1：启动 & 环境准备（整体概览）**
 
 -   ZetaChain 总文档 (已閱)
