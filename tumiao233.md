@@ -15,6 +15,11 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+![ScreenShot_2025-11-25_100458_043.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/tumiao233/images/2025-11-25-1764036314991-ScreenShot_2025-11-25_100458_043.png)
 
-
+  
+下载工具，初步阅读 zeta 和qwen文档
+<!-- DAILY_CHECKIN_2025-11-25_END -->
 <!-- Content_END -->
