@@ -15,8 +15,112 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+Qwen API + SDK installed.
+
+Starting with Qwen3, the models are named using the scheme `Qwen3[-size][-type][-date]`:
+
+-   `size`: the notation of the structure and the parameter counts. Dense models use the total saved parameters, e.g., `4B` and `32B`, while MoE models use the total saved parameters and the activated parameters for each token with a prepended `A`, e.g., `30B-A3B` and `235B-A22B`.
+    
+-   `type`: there are currently 4 types:
+    
+    -   `-Instruct`: the instruction following models that follow the predefined chat template, used for conducting tasks in conversations, downstream fine-tuning, etc.
+        
+    -   `-Thinking`: the thinking models that follow the predefined chat template and use chain-of-thoughts (CoT) to think deeply about the questions, used for solving complex problems.
+        
+    -   `-Base`: the pre-trained models that do not know the predefined chat template, used for in-context learning, downstream fine-tuning, etc.
+        
+    -   No type: the models with hybrid thinking modes.
+        
+-   `date`: the released date in yearmonth format, e.g., `2507`.
+    
+
+## **Tokens & Tokenization**
+
+token 代表模型处理和生成的基本单位。它们可以表示人类语言中的文本（常规 token），或者表示特定功能，如编程语言中的关键字（控制 token [\[1\]](https://qwen.readthedocs.io/zh-cn/latest/getting_started/concepts.html#special)）。通常，使用 tokenizer 将文本分割成常规 token ，这些 token 可以是单词、子词或字符，具体取决于所采用的特定 tokenization 方案，并按需为 token 序列添加控制 token 。词表大小，即模型识别的唯一 token 总数，对模型的性能和多功能性有重大影响。大型语言模型通常使用复杂的 tokenization 来处理人类语言的广阔多样性，同时保持词表大小可控。Qwen 词表相对较大，有 15 1646 个 token。
+
+工作原理：用 gemini canvas 做了个交互式动画，真的很赞
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-25-1764104561324-image.png)
+
+LLM 的背后是一层层 Transformer 里向量计算，所以第一步需要将文本转换成对应的 token id。有的 token 可能是一个单词或者文字，有的可能是两个，也可能是一个长单词切割成不同的。所以计算非常简单，1K Token 上下文，就是 1-2K 的字符或者 words，然后可以换算成具体的文章和输入的文本数量。
+
+那么 200K token 的 context 就约等于：
+
+**~1 本长篇小说** 200k Token 大约等于 25-30 万汉字。相当于把《三体》第一部输入进去还有富余。
+
+**150+ 页 PDF 文档** 可以一次性读完几份复杂的财报、法律合同或学术论文，并进行跨文档分析。
+
+**10h 会议录音转录** 即使是长达数小时的会议记录，模型也能从头读到尾，总结全程细节。
+
+**词表大小 (Vocabulary Size) 的意义**
+
+你提到的 **Qwen 有 151,646 个 Token**，这就是它的词表大小。你可以把它想象成模型随身携带的“新华字典”。
+
+-   **词表大**意味着模型认识更多的“整词”。比如“人工智能”，大词表可能把它作为一个 ID (Token)；小词表可能要把它拆成“人工”+“智能” (2个 Token)。
+    
+-   **效率高**词表越大，表示同样一段话所需的 Token 数量越少。这对中文尤其重要（因为很多英文模型词表对中文支持不好，导致中文被拆得稀碎，特别费钱费算力）。
+    
+-   **代价**词表也不是越大越好。词表越大，模型预测下一个 Token 时，需要从更多选项中做选择（计算量变大），且模型的“嵌入层”参数量会显著增加。
+    
+
+## Token 数量 vs. KB / MB 文件大小
+
+容易混淆的点：
+
+1.  **token 数量**
+    
+    -   是“模型视角”的长度。
+        
+    -   需要先过一遍 tokenizer，算“切出来多少块 token”。
+        
+2.  **文件大小（KB / MB）**
+    
+    -   是“存储视角”的长度。
+        
+    -   跟编码方式（UTF-8/UTF-16）、空格、换行、图片、压缩等都有关。
+        
+
+同一个 1MB 的 PDF 文件：
+
+-   如果大量是英文 + 很多空格，token 可能相对少。
+    
+-   如果是高密度中文或代码，token 可能很多。
+    
+
+所以：
+
+> 不能简单用“文件多少 MB”推断能不能塞进 200k 上下文；  
+> 更准确的做法是用对应 tokenizer 实际数一遍 token 数量。
+
+### 如何估算 token 和内容长度
+
+-   不同模型 / tokenizer 下，**1 token ≠ 固定字数**：
+    
+    -   英文里常用估算：1 token ≈ 0.75 个英文单词。
+        
+    -   中文里，很多 tokenizer 会把一个汉字或常用词当作 1 个 token，但有时会多一点或少一点。
+        
+-   200k 是**总上下文**：包括 system prompt、你所有历史对话、文件内容，以及模型输出本身。
+    
+
+### 需要警惕的一点：有效记忆 vs 标称 context
+
+现在很多文章和 benchmark 都在讨论：  
+虽然标称 200k、1M，但在**超过 50–80k 左右**时，模型对远端信息的准确检索会明显变差，尤其是复杂推理任务。[Stefano Demiliani+1](https://demiliani.com/2025/11/02/understanding-llm-performance-degradation-a-deep-dive-into-context-window-limits/?utm_source=chatgpt.com)
+
+所以，实战里你可以理解为：
+
+> 200k 是“最大工作记忆空间”，  
+> 真正在里面做高精度查找/推理时，**有效带宽往往低于这个上限**，要配合分块、索引、RAG 等手段。
+
+TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthedocs.io/zh-cn/latest/index.html) 模型的功能整个本地跑一遍，如果涉及到微调等，使用低复杂度开源模型
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 [https://www.zetachain.com/docs/developers/tutorials/hello/](https://www.zetachain.com/docs/developers/tutorials/hello/)
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-25-1764033488074-image.png)
@@ -240,6 +344,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 今天开始学习了，先打个卡测试一下功能。
 <!-- DAILY_CHECKIN_2025-11-24_END -->
