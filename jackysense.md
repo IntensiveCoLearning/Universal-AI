@@ -17,13 +17,40 @@ Web3 builder
 <!-- Content_START -->
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
-Qwen API 的简单请求：
+**浏览器、水龙头**
+
+explorers: [https://www.zetachain.com/docs/reference/explorers](https://www.zetachain.com/docs/reference/explorers)
+
+faucet: [https://www.zetachain.com/docs/reference/faucet](https://www.zetachain.com/docs/reference/faucet)
+
+network: [https://www.zetachain.com/docs/reference/network/details](https://www.zetachain.com/docs/reference/network/details)
+
+RPC: [https://www.zetachain.com/docs/reference/network/api](https://www.zetachain.com/docs/reference/network/api)
+
+contracts address: [https://www.zetachain.com/docs/reference/network/contracts](https://www.zetachain.com/docs/reference/network/contracts)
+
+**1.安装cli**
+
+npm install -g zetachain@latest
+
+**2.创建helloworld项目**
+
+zetachain new 选hello
+
+**3.启动本地网络**
+
+zetachain localnet start
+
+![dd7034a1-7c89-4d1d-87d8-a46f418395de.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-25-1764077716227-dd7034a1-7c89-4d1d-87d8-a46f418395de.png)
+
+**Qwen API 的简单请求：**
 
 ![3a8fbf91b0d9dfe9c2c27ef268b0ad46.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-25-1764077332232-3a8fbf91b0d9dfe9c2c27ef268b0ad46.png)
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 zeta 通用AI原理 :ZetaChain 有个Gateway 协议作为桥梁：从通用应用程序向连接链上的合约调用和提取代币。
 
