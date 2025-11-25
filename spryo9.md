@@ -15,8 +15,217 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+环境搭建 _完成了，还用了 WSL + Foundry/Hardhat_ 配置。
+
+在AI的帮助下编写 Swap.sol，初步理解了 \*ZRC-20\*\*（跨链资产）、\*\*SystemContract\*\*（系统合约）和 Uniswap Router（交易逻辑）。  
+
+```
+// SPDX-License-Identifier: MIT
+```
+
+```
+pragma solidity 0.8.7;
+```
+
+```
+import "@zetachain/protocol-contracts/contracts/zevm/SystemContract.sol";
+```
+
+```
+import "@zetachain/protocol-contracts/contracts/zevm/interfaces/zContract.sol";
+```
+
+```
+import "@zetachain/toolkit/contracts/BytesHelperLib.sol";
+```
+
+```
+import "@zetachain/protocol-contracts/contracts/zevm/interfaces/IZRC20.sol";
+```
+
+```
+interface IUniswapV2Router02 {
+```
+
+```
+    function swapExactTokensForTokens(
+```
+
+```
+        uint amountIn,
+```
+
+```
+        uint amountOutMin,
+```
+
+```
+        address[] calldata path,
+```
+
+```
+        address to,
+```
+
+```
+        uint deadline
+```
+
+```
+    ) external returns (uint[] memory amounts);
+```
+
+```
+}
+```
+
+```
+contract Swap is zContract {
+```
+
+```
+    SystemContract public immutable systemContract;
+```
+
+```
+    // 修正点 1: 使用报错信息里提供的正确 checksum 地址
+```
+
+```
+    address public constant UNISWAP_ROUTER = 0x2cA7d64A7eFE2D62a04Be5E8DD160FdD46A2C37a;
+```
+
+```
+    constructor(address systemContractAddress) {
+```
+
+```
+        systemContract = SystemContract(systemContractAddress);
+```
+
+```
+    }
+```
+
+```
+    function onCrossChainCall(
+```
+
+```
+        zContext calldata context,
+```
+
+```
+        address zrc20,
+```
+
+```
+        uint256 amount,
+```
+
+```
+        bytes calldata message
+```
+
+```
+    ) external virtual override {
+```
+
+```
+        address targetToken = BytesHelperLib.bytesToAddress(message, 0);
+```
+
+```
+        address recipient = BytesHelperLib.bytesToAddress(message, 20);
+```
+
+```
+        uint256 outputAmount = amount;
+```
+
+```
+        if (zrc20 != targetToken) {
+```
+
+```
+            IZRC20(zrc20).approve(UNISWAP_ROUTER, amount);
+```
+
+```
+            address[] memory path = new address[](2);
+```
+
+```
+            path[0] = zrc20;
+```
+
+```
+            path[1] = targetToken;
+```
+
+```
+            uint256[] memory amounts = IUniswapV2Router02(UNISWAP_ROUTER).swapExactTokensForTokens(
+```
+
+```
+                amount,
+```
+
+```
+                0, 
+```
+
+```
+                path,
+```
+
+```
+                address(this), 
+```
+
+```
+                block.timestamp + 300
+```
+
+```
+            );
+```
+
+```
+            outputAmount = amounts[1];
+```
+
+```
+        }
+```
+
+```
+        // 修正点 2: 把 address 类型的 recipient 转换成 bytes 类型
+```
+
+```
+        // 因为比特币地址不仅仅是 0x 开头的，所以这里统一要求用 bytes
+```
+
+```
+        IZRC20(targetToken).withdraw(abi.encodePacked(recipient), outputAmount);
+```
+
+```
+    }
+```
+
+```
+}
+
+```
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # self-introduction:
 
 本科地理信息科学，目前在浙江大学读研，从事地物光谱研究。web3小白，只有一些二级市场交易的经验。但深深认同web3的理念，读过很多行业早期人物的作品，例如猫说，囤比特币等等。想通过这次学习，加深自己对web3领域的理解，最好希望自己能在3年后毕业时，进入自己目前心仪的web3公司从事自己想做的板块。
