@@ -15,8 +15,55 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+### ZetaChain CLI 安装与验证（本地环境：Windows）
+
+1.  **安装步骤**： 前置依赖：确认已安装Go（版本≥1.20）。打开命令提示符（CMD）或PowerShell，输入`go version`验证；若未安装，访问Go官网（[https://go.dev/dl/）下载Windows版安装包，勾选“Add](https://go.dev/dl/）下载Windows版安装包，勾选“Add) Go to PATH”选项后完成安装。
+    
+2.  安装CLI：在CMD或PowerShell中执行命令`go install github.com/zeta-chain/cli/cmd/zetacli@latest`，等待命令执行完成。
+    
+3.  验证安装：输入`zetacli --version`，若成功输出版本信息（如v1.0.0），则说明安装完成。
+    
+4.  **遇到的问题与解决**： 问题1：执行`zetacli`命令时提示“不是内部或外部命令，也不是可运行的程序”。
+    
+5.  解决1：右键“此电脑”→“属性”→“高级系统设置”→“环境变量”，在“用户变量”的“Path”中添加`%GOPATH%\bin`（GOPATH默认路径为C:\\Users\\你的用户名\\go），添加后重启CMD或PowerShell即可。
+    
+6.  问题2：安装Go后执行`go version`仍提示命令无效。
+    
+7.  解决2：重新运行Go安装包，确保“Add Go to PATH”已勾选；若已勾选，手动在“系统变量”的“Path”中添加Go安装路径（通常为C:\\Program Files\\Go\\bin），重启终端验证。
+    
+
+### **测试网关键入口汇总**：
+
+-   RPC地址：[https://zetachain-athens-evm.blockpi.network/v1/rpc/public（文档获取的具体地址）](https://zetachain-athens-evm.blockpi.network/v1/rpc/public（文档获取的具体地址）)
+    
+-   Faucet链接：[https://zetachain.faucetme.pro/（输入钱包地址即可领取测试币，每日限额）](https://zetachain.faucetme.pro/（输入钱包地址即可领取测试币，每日限额）)
+    
+-   Explorer地址：[https://testnet.zetachain.explorers.guru/](https://testnet.zetachain.explorers.guru/)
+    
+
+### Qwen API 连通性测试
+
+Postman测试
+
+1.  设置请求方式：POST，请求URL：[https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation。](https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation。)
+    
+2.  设置请求头：Content-Type: application/json；Authorization: Bearer xxx。
+    
+3.  设置请求体：与终端测试一致的JSON内容，具体如下： `{ "model": "qwen-7b", "input": { "prompt": "请简单介绍ZetaChain" }, "parameters": { "temperature": 0.7 } }`
+    
+4.  发送请求，结果：同样返回200状态码及有效响应，验证Postman环境连通性正常。
+    
+
+1\. 收获：成功完成ZetaChain CLI本地安装、Qwen API连通性测试，明确了ZetaChain测试网核心服务的使用入口，为后续开发奠定了环境基础。
+
+2\. 不足：对ZetaChain CLI的具体命令使用尚不熟悉，Qwen API的高级参数配置（如流式响应、上下文管理）未深入探索。
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # ZetaChain
 
 ### 概述
