@@ -43,9 +43,21 @@ zetachain localnet start
 
 ![dd7034a1-7c89-4d1d-87d8-a46f418395de.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-25-1764077716227-dd7034a1-7c89-4d1d-87d8-a46f418395de.png)
 
-创建账户
+**4.创建账户**
 
 ![15d259c8-a7cd-4590-9234-ea85224f53a0.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-25-1764077962082-15d259c8-a7cd-4590-9234-ea85224f53a0.png)
+
+**5.forge build 编译通用合约、获取本地私钥、部署通用合约**
+
+![cdc8d7c3-3af4-4573-bbca-b34783ed81b3.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-25-1764079280288-cdc8d7c3-3af4-4573-bbca-b34783ed81b3.png)
+
+6 调用oncall
+
+![ab540164-ca35-45bc-9b0b-b62e76c36611.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-25-1764080729822-ab540164-ca35-45bc-9b0b-b62e76c36611.png)
+
+7.查看调用tx记录和事件，看到context来自 evm 的chainId，sender，zrc20为ETH.ETH地址
+
+![b8030609-42e1-4ccc-a2f6-c3cd1e2ef058.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-25-1764080814961-b8030609-42e1-4ccc-a2f6-c3cd1e2ef058.png)
 
 **Qwen API 的简单请求：**
 
@@ -54,6 +66,7 @@ zetachain localnet start
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
