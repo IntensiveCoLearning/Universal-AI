@@ -317,7 +317,7 @@ Telegram：https://t.me/zetachain_asia
 | [gegej1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/gegej1.md) | ⭕️ |   | | | | | | | | | | | | |
 | [fDu-Xia](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/fDu-Xia.md) | ⭕️ |   | | | | | | | | | | | | |
 | [Airjiannan05](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Airjiannan05.md) | ✅ | ✅ | | | | | | | | | | | | |
-| [Kongweiyi928](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Kongweiyi928.md) | ✅ |   | | | | | | | | | | | | |
+| [Kongweiyi928](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Kongweiyi928.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [BlackGou](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/BlackGou.md) | ⭕️ |   | | | | | | | | | | | | |
 | [skelitalynn](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/skelitalynn.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [PeaSea93](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/PeaSea93.md) | ⭕️ |   | | | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ |   | | | | | | | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ |   | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
