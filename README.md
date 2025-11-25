@@ -230,7 +230,7 @@ Telegram：https://t.me/zetachain_asia
 | [wyeeeh](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wyeeeh.md) | ⭕️ |   | | | | | | | | | | | | |
 | [jeffierw](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jeffierw.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [B1u-e](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/B1u-e.md) | ⭕️ |   | | | | | | | | | | | | |
-| [xiaodian6777](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/xiaodian6777.md) | ✅ |   | | | | | | | | | | | | |
+| [xiaodian6777](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/xiaodian6777.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [tumiao233](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/tumiao233.md) | ⭕️ | ✅ | | | | | | | | | | | | |
 | [000fan000](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/000fan000.md) | ⭕️ |   | | | | | | | | | | | | |
 | [Coooder-Crypto](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Coooder-Crypto.md) | ⭕️ | ✅ | | | | | | | | | | | | |
@@ -369,7 +369,7 @@ Telegram：https://t.me/zetachain_asia
 | [zlp528](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zlp528.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [Tuscl-1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Tuscl-1.md) | ⭕️ |   | | | | | | | | | | | | |
 | [dersteppenwolfruowen-316](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/dersteppenwolfruowen-316.md) | ⭕️ |   | | | | | | | | | | | | |
-| [ARZER-TW](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ARZER-TW.md) | ⭕️ |   | | | | | | | | | | | | |
+| [ARZER-TW](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ARZER-TW.md) | ⭕️ | ✅ | | | | | | | | | | | | |
 | [Toby1009](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Toby1009.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [Modestide](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Modestide.md) | ⭕️ |   | | | | | | | | | | | | |
 | [kikyou1009](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/kikyou1009.md) | ⭕️ |   | | | | | | | | | | | | |
@@ -433,18 +433,19 @@ Telegram：https://t.me/zetachain_asia
 | [jake2020520](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jake2020520.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [Whiteoleand](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Whiteoleand.md) | ⭕️ |   | | | | | | | | | | | | |
 | [70549019i-code](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/70549019i-code.md) | ⭕️ |   | | | | | | | | | | | | |
-| [dreamR-cmd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/dreamR-cmd.md) | ✅ |   | | | | | | | | | | | | |
+| [dreamR-cmd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/dreamR-cmd.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [lynn-000-cccc](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/lynn-000-cccc.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [Professor-dev-1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Professor-dev-1.md) | ⭕️ |   | | | | | | | | | | | | |
-| [yrd241](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yrd241.md) | ✅ |   | | | | | | | | | | | | |
+| [yrd241](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yrd241.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [EternalSaint1van](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/EternalSaint1van.md) | ⭕️ |   | | | | | | | | | | | | |
 | [jack111-222-333](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jack111-222-333.md) | ⭕️ |   | | | | | | | | | | | | |
 | [Eeeeye](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Eeeeye.md) | ✅ |   | | | | | | | | | | | | |
 | [StariverKang](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/StariverKang.md) | ✅ |   | | | | | | | | | | | | |
 | [shihshaoni](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/shihshaoni.md) | ⭕️ |   | | | | | | | | | | | | |
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | | | | | | | | | | | | |
-| [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ |   | | | | | | | | | | | | |
+| [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
