@@ -15,8 +15,14 @@ ZetaChain爱好者
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 打卡  
 [https://www.bilibili.com/video/BV1pgUCBLEBL](https://www.bilibili.com/video/BV1pgUCBLEBL/?vd_source=2045f4da6f7c9bc8faa9222803551c2e)  
 [https://www.bilibili.com/video/BV1JjUCB3ErY](https://www.bilibili.com/video/BV1JjUCB3ErY/?vd_source=2045f4da6f7c9bc8faa9222803551c2e)  
