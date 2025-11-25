@@ -15,8 +15,27 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+学习了ZetaChain中的一些Tools，  
+[https://www.zetachain.com/docs/reference](https://www.zetachain.com/docs/reference)
+
+testnet是对mainnet的复制，用于开发测试
+
+localnet也是如此，但它运行于本地
+
+faucet是用于获取testnet中的测试币的一些地点
+
+如果使用localnet进行测试则不需要领取gas费
+
+Explorers是用于浏览交易，合约，搜索地址的浏览工具
+
+RPC就像HTTP API一样，HTTP API是与外部网站进行交互的接口，而RPC则是外部与区块链进行交互的接口，所有外部对区块链的操作都是通过RPC进行的。区块链内部节点之间则通过P2P进行通信。智能合约则在节点内的EVM中执行，不通过P2P也不过通过RPC，也没有对外的网络能力，它是一个“沙盒里的纯函数 + 状态机”。
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 node -v
 
 v22.14.0
