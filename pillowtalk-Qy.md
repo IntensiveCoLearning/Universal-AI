@@ -15,8 +15,26 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+[ZetaChain](https://www.zetachain.com/docs)是一个与 EVM 兼容的区块链，具有内置的跨链互操作性。
+
+部署在 ZetaChain 上的智能合约可以处理来自任何已连接区块链（例如以太坊、Base、Polygon、BNB、Solana 和比特币）的_入站合约调用。ZetaChain 上的合约也可以向已连接链上的合约发出出站合约调用_。合约调用可以包含任意数据、gas 费用以及支持的 ERC-20 代币等有效载荷。
+
+从连接链转移到 ZetaChain 合约的 Gas 和 ERC-20 代币在 ZetaChain 上以[**ZRC-20**](https://www.zetachain.com/docs/developers/tokens/zrc20)（一种类似 ERC-20 的代币）的形式呈现。例如，当您使用 ETH 发起调用时，ZetaChain 上的合约会收到 ZRC-20 ETH。实际上，ETH 被锁定在 ZetaChain 托管的以太坊服务器上，同时等量的 ZRC-20 ETH 代币被铸造到 ZetaChain 的合约中。任何人都可以无需许可地将 ZRC-20 提取回原生资产。
+
+用于实现这些传入（到 ZetaChain）和传出（从 ZetaChain）通信的机制称为[**网关（Gateway**](https://www.zetachain.com/docs/developers/evm/gateway) [）。每条连接的链都有一个网关，作为与 ZetaChain 上的合约交互的单一入口点。在以太坊和 Polygon 等连接的 EVM 链](https://www.zetachain.com/docs/developers/chains/evm)上存在网关合约， [Solana](https://www.zetachain.com/docs/developers/chains/solana)上存在网关程序，比特币上存在网关地址。ZetaChain[本身](https://www.zetachain.com/docs/developers/chains/zetachain)也有一个网关合约，用于触发传出调用。
+
+例如，[您可以编写一个合约](https://www.zetachain.com/docs/developers/tutorials/swap)，用于处理来自一条链的传入代币，将其兑换为目标代币，然后提取到目标链。要使用此合约执行跨链兑换，用户可以调用一个网关（例如以太坊上的网关），并传入一定数量的 USDC、要调用的 ZetaChain 合约以及包含目标代币地址的数据负载。监视网关的 ZetaChain 验证者会注意到这笔交易，并向 ZetaChain 上的兑换合约发起跨链交易。兑换合约接收 USDC 和负载后，执行兑换操作，并将目标代币提取到目标链（例如比特币）。通过这笔交易，以太坊用户发起了一次跨链合约调用，调用了 ZetaChain 合约，该合约将 ZRC-20 ETH 兑换为 ZRC-20 BTC，并将比特币上的原生 BTC 提取给了接收方。
+
+用户只需在选定的区块链上进行一笔交易，即可在不同区块链之间进行跨链兑换。他们无需担心 gas 费用、资产桥接或钱包切换等问题。当然，兑换只是其中一个例子。NFT 市场、借贷平台、多链治理机制、收益聚合器等等，都可以在 ZetaChain 上构建。
+
+我们将这类合约称为[**通用应用**](https://www.zetachain.com/docs/developers/apps/intro)，因为它们可以跨所有连接的区块链协调复杂的跨链交易。将跨链应用编写成通用应用非常容易，因为大部分逻辑都封装在 ZetaChain 上的单个合约中，该合约可以处理传入的调用并向其他链上的合约发出调用。
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 1.注册 / 配置好 ZetaChain 开发所需环境
 
 2.注册 Qwen 账号并确认可以进入控制台。
