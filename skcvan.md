@@ -15,8 +15,39 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+成功安装zetachain cli
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/skcvan/images/2025-11-25-1764074715810-image.png)
+
+-   Network name: `ZetaChain Testnet`
+    
+-   Chain ID: `7001`
+    
+-   Currency symbol: `ZETA`
+    
+-   EVM RPC（选一个用即可，例如）：
+    
+    -   `https://zetachain-athens-evm.blockpi.network/v1/rpc/public`
+        
+        或
+        
+    -   `https://rpc.ankr.com/zetachain_evm_athens_testnet`
+        
+-   EVM Explorer: `https://explorer.zetachain.com/`
+    
+-   Faucet 文档入口：`https://www.zetachain.com/docs/reference/faucet/`
+    
+
+根据通义千问官方的文档部署api，调用成功
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/skcvan/images/2025-11-25-1764074784923-image.png)
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # 对于zetachain的一些初步理解
 
 ZetaChain 本质上是一个基于 Cosmos SDK 构建的权益证明（PoS）区块链。
