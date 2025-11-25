@@ -17,8 +17,6 @@ web3 developer
 <!-- Content_START -->
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
-## **完成**
-
 -   本地部署Swap合约, 使用zetachain实现swap跨链交换代币
     
     ```
@@ -45,10 +43,55 @@ web3 developer
     ? Proceed with the transaction? yes
     Transaction hash: 0x0b14edbce4863bcf8d6504a2982764e6a60a49b0e4993bec3033be6e6c7c2af7
     ```
+    
+-   部署到testnet
+    
+    ```
+    UNIVERSAL=$(npx tsx commands deploy --private-key $SEPOLIA_PK | jq -r .contractAddress) && echo $UNIVERSAL
+    0x713C7D391d24323509c258BeFE95d6B08C0f8274
+    ```
+    
+
+简单说一说整个Swap的调用链路
+
+用户的需求是从链A转移一部分资产到链B，期间zetachain将A与B连接 (用户无感)
+
+首先用户需要调用A链中zetachain已经部署好的gateway网关合约中deposit-and-call这个函数，可以使用zetachain CLI。
+
+```
+zetachain evm -h                 
+​
+Usage: zetachain evm [options] [command]
+​
+Interact from EVM chains: call contracts on ZetaChain or deposit tokens (with or without a call).
+​
+Options:
+  -h, --help                  display help for command
+​
+Commands:
+  call [options]              Call a contract on ZetaChain from an EVM-compatible chain
+  deposit-and-call [options]  Deposit tokens and call a contract on ZetaChain from an EVM-compatible chain
+  deposit [options]           Deposit tokens to ZetaChain from an EVM-compatible chain
+```
+
+可以看出evm中有三个函数，分别是call， deposit-and-call，deposit
+
+在deposit-and-call这个函数中，会"触发"zetachain中swap合约的onCall函数。这个函数会处理swap逻辑。
+
+会有几个核心入参：`sender` `A.ZRC20` `amount` `B.ZRC20` `recipient`
+
+swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操作需要的gasfee, gasZRC20 ( 这个参数会在之后的逻辑中与targetToken也就是B.ZRC20做比较) 和需要swap的数量`out`
+
+第二部是emit一个swap事件
+
+第三部是调用zetachain.gateway来交换代币。在gateway中，会首先销毁B.ZRC20 然后通知B链的gateway
+
+第四部是B.gateway释放对应代币给`recipient`
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 # Day 01
 
