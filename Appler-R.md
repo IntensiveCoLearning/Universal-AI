@@ -76,17 +76,8 @@ sudo apt update && sudo apt install git make build-essential curl python3.12-ven
 
 ```
 # 安装 Go 1.22
-```
-
-```
 wget https://go.dev/dl/go1.22.0.linux-amd64.tar.gz
-```
-
-```
 sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.0.linux-amd64.tar.gz
-```
-
-```
 echo 'export PATH=$PATH:/usr/local/go/bin:~/go/bin' >> ~/.bashrc && source ~/.bashrc
 ```
 
@@ -100,13 +91,7 @@ Bash
 
 ```
 # 下载并编译
-```
-
-```
 git clone https://github.com/zeta-chain/node
-```
-
-```
 cd node
 ```
 
@@ -116,22 +101,12 @@ make install
 
 ```
 # 关键：复制到公共目录 (解决 Python 找不到命令的问题)
-```
-
-```
 sudo cp ~/go/bin/zetacored /usr/local/bin/
-```
-
-```
 sudo chmod +x /usr/local/bin/zetacored
 ```
 
 ```
-创建钱包 & 获取地址
-```
-
-```
-说明： 生成钱包并在本地保存私钥，同时获取 EVM (0x) 格式地址。
+创建钱包 & 获取地址，说明： 生成钱包并在本地保存私钥，同时获取 EVM (0x) 格式地址。
 ```
 
 ```
@@ -144,25 +119,10 @@ Bash
 
 ```
 zetacored keys add myaccount
-```
-
-```
 # 查看 0x 格式地址
-```
-
-```
 zetacored debug addr <自己的zeta1地址>
-```
-
-```
 mkdir -p ~/qwen-project && cd ~/qwen-project
-```
-
-```
 python3 -m venv venv
-```
-
-```
 source venv/bin/activate
 ```
 
@@ -186,9 +146,6 @@ Python
 
 ```
 NODE_URL = "https://zetachain-testnet-rpc.polkachu.com:443"
-```
-
-```
 cmd = f"zetacored query bank balances {MY_ADDRESS} --node {NODE_URL} --output json"
 ```
 
@@ -293,6 +250,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
