@@ -405,7 +405,7 @@ Telegram：https://t.me/zetachain_asia
 | [piscispsa](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/piscispsa.md) | ⭕️ |   | | | | | | | | | | | | |
 | [jiangjiax](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jiangjiax.md) | ⭕️ |   | | | | | | | | | | | | |
 | [Micteach](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Micteach.md) | ⭕️ |   | | | | | | | | | | | | |
-| [TigerOpt](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TigerOpt.md) | ✅ |   | | | | | | | | | | | | |
+| [TigerOpt](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TigerOpt.md) | ✅ | ✅ | | | | | | | | | | | | |
 | [MartinYeung5](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MartinYeung5.md) | ⭕️ |   | | | | | | | | | | | | |
 | [uneer143](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/uneer143.md) | ⭕️ |   | | | | | | | | | | | | |
 | [xzzlks](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/xzzlks.md) | ✅ |   | | | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ |   | | | | | | | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ |   | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
