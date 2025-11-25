@@ -170,9 +170,7 @@ source venv/bin/activate
 pip install dashscope requests
 ```
 
-```
-解决区块链连接问题 (关键点)
-```
+### 解决区块链连接问题 (关键点)
 
 ```
 说明： 本地没有节点，必须在代码中指定远程公共节点 (RPC) 才能查到数据。 代码逻辑 (Python 中)：
@@ -262,13 +260,13 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 ![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-25-1764054600969-__.png)
 
-自己重新跑时，忘了输入wsl，第一次用Linux，原谅自己啦
+**自己重新跑时，忘了输入wsl，第一次用Linux，原谅自己啦，要注意与win终端区别**
 
-`cd ~/qwen-project`：准确回到了项目“大本营”。
+### `cd ~/qwen-project`：准确回到了项目“大本营”。
 
-`source venv/bin/activate`：成功激活了装备包（注意到了绿色的 `(venv)`）。
+### `source venv/bin/activate`：成功激活了装备包（注意到了绿色的 `(venv)`）。
 
-`python agent_final.py`：顺利运行了脚本。
+### `python agent_final.py`：顺利运行了脚本。
 
 ### 此为price
 
@@ -295,6 +293,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 ## 了解了一些基础知识
