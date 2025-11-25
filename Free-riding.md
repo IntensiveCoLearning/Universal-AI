@@ -128,112 +128,6 @@ contract Universal is UniversalContract {
 
 我当时报错说是编译器是0.8.30以上版本，在0.8.26前面加^就行了表示当前合约支持大于0.8.26,小于0.9.0的版本
 
-### onCall()**是什么？**
-
-![profile](https://assets.alicdn.com/g/qwenweb/qwen-webui-fe/0.0.248/static/qwen_icon_dark_84.png)
-
-**Qwen3-Max22:58**
-
-你提供的这段 Solidity 代码是 ZetaChain **全链智能合约（Universal Contract）** 的一个典型实现，其中重写了 `onCall` 方法。这是 ZetaChain 在其 **Zeta EVM（Zeta Chain 的兼容 EVM 的执行环境）** 中用于处理**跨链调用**的核心入口函数。
-
-下面我们逐行解析这段代码，并重点讲解 `onCall` 方法的作用、参数含义、执行流程以及安全机制。
-
-* * *
-
-### **🔍 代码全貌解析**
-
-**solidity**
-
-1
-
-2
-
-3
-
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-18
-
-19
-
-20
-
-21
-
-22
-
-23
-
-24
-
-// SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.26;
-
-// 引入 ZetaChain 协议合约中的 UniversalContract 接口
-
-import "@zetachain/protocol-contracts/contracts/zevm/interfaces/UniversalContract.sol";
-
-// 继承 UniversalContract，成为“全链合约”
-
-contract Universal is UniversalContract {
-
-// 定义一个事件，用于日志输出
-
-event HelloEvent(string, string);
-
-// 重写 onCall 方法，处理跨链调用
-
-function onCall(
-
-MessageContext calldata context, // 跨链消息的上下文信息
-
-address zrc20, // 发送的 ZRC-20 代币地址（如 zBTC, zETH）
-
-uint256 amount, // 发送的代币数量
-
-bytes calldata message // 用户自定义的跨链消息数据
-
-) external override onlyGateway { // 仅允许 ZetaChain 网关调用
-
-// 从 message 中解码出一个字符串
-
-string memory name = abi.decode(message, (string));
-
-// 触发事件，打印 "Hello: \[name\]"
-
-emit HelloEvent("Hello: ", name);
-
-}
-
-}
-
 * * *
 
 ## **一、**`onCall` **是什么？**
@@ -255,7 +149,7 @@ emit HelloEvent("Hello: ", name);
 
 ## **二、**`onCall` **的四个参数详解**
 
-### **1\.** `MessageContext calldata context`
+### **1.** `MessageContext calldata context`
 
 这是一个结构体，包含跨链调用的**元信息**。定义通常如下（来自 ZetaChain SDK）：
 
@@ -268,177 +162,9 @@ struct MessageContext {
 }
 ```
 
--   `context.origin`：告诉你消息来自哪条链（例如 `0x...bitcoin`）；
-    
--   `context.caller`：源链用户的地址（ZetaChain 会将 BTC 地址等转换为 Ethereum 风格地址）
-    
-
-### **2\.** `address zrc20`
-
--   表示用户在源链上发送的**原生资产**（如 BTC、ETH、DOGE）在 ZetaChain 上对应的 **ZRC-20 代币地址**。
-    
--   例如：BTC → `zBTC`，ETH → `zETH`。
-    
--   若用户**只发消息没发资产**，则 `zrc20 = address(0)`。
-    
-
-![profile](https://assets.alicdn.com/g/qwenweb/qwen-webui-fe/0.0.248/static/qwen_icon_dark_84.png)
-
-**Qwen3-Max22:58**
-
-你提供的这段 Solidity 代码是 ZetaChain **全链智能合约（Universal Contract）** 的一个典型实现，其中重写了 `onCall` 方法。这是 ZetaChain 在其 **Zeta EVM（Zeta Chain 的兼容 EVM 的执行环境）** 中用于处理**跨链调用**的核心入口函数。
-
-下面我们逐行解析这段代码，并重点讲解 `onCall` 方法的作用、参数含义、执行流程以及安全机制。
-
 * * *
 
-### **🔍 代码全貌解析**
-
-**solidity**
-
-1
-
-2
-
-3
-
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-18
-
-19
-
-20
-
-21
-
-22
-
-23
-
-24
-
-// SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.26;
-
-// 引入 ZetaChain 协议合约中的 UniversalContract 接口
-
-import "@zetachain/protocol-contracts/contracts/zevm/interfaces/UniversalContract.sol";
-
-// 继承 UniversalContract，成为“全链合约”
-
-contract Universal is UniversalContract {
-
-// 定义一个事件，用于日志输出
-
-event HelloEvent(string, string);
-
-// 重写 onCall 方法，处理跨链调用
-
-function onCall(
-
-MessageContext calldata context, // 跨链消息的上下文信息
-
-address zrc20, // 发送的 ZRC-20 代币地址（如 zBTC, zETH）
-
-uint256 amount, // 发送的代币数量
-
-bytes calldata message // 用户自定义的跨链消息数据
-
-) external override onlyGateway { // 仅允许 ZetaChain 网关调用
-
-// 从 message 中解码出一个字符串
-
-string memory name = abi.decode(message, (string));
-
-// 触发事件，打印 "Hello: \[name\]"
-
-emit HelloEvent("Hello: ", name);
-
-}
-
-}
-
-* * *
-
-## **一、**`onCall` **是什么？**
-
-在 ZetaChain 的 **Universal Contract（通用合约）模型**中：
-
-> `onCall` **是跨链消息到达 ZetaChain 时自动触发的回调函数**。
-
-当用户在**任意已连接链**（如 Bitcoin、Ethereum、Dogecoin）上向 ZetaChain 发起跨链请求（例如发送资产 + 附加消息），ZetaChain 的协议层会：
-
-1.  验证该跨链交易；
-    
-2.  将其封装为一个标准化的“跨链消息”；
-    
-3.  **自动调用目标合约的** `onCall` **方法**，传递相关参数。
-    
-
-✅ 因此，`onCall` 就是你合约的“跨链入口”。
-
-* * *
-
-## **二、**`onCall` **的四个参数详解**
-
-### **1\.** `MessageContext calldata context`
-
-这是一个结构体，包含跨链调用的**元信息**。定义通常如下（来自 ZetaChain SDK）：
-
-```
-struct MessageContext {
-
-    address origin;      // 源链标识（如 Bitcoin 链的地址常量）
-
-    address caller;      // 源链上发起交易的用户地址（映射为 Zeta 格式）
-
-    uint256 nonce;       // 防重放攻击的随机数
-
-    bytes32 hash;        // 消息哈希
-
-}
-```
-
--   `context.origin`：告诉你消息来自哪条链（例如 `0x...bitcoin`）；
-    
--   `context.caller`：源链用户的地址（ZetaChain 会将 BTC 地址等转换为 Ethereum 风格地址）；
-    
--   可用于权限控制、链特定逻辑等。
-    
-
-> 📌 在你的代码中虽然没有使用 `context`，但它是关键信息源。
-
-* * *
-
-### **2\.** `address zrc20`
+### **2.** `address zrc20`
 
 -   表示用户在源链上发送的**原生资产**（如 BTC、ETH、DOGE）在 ZetaChain 上对应的 **ZRC-20 代币地址**。
     
@@ -449,7 +175,7 @@ struct MessageContext {
 
 * * *
 
-### **3\.** `uint256 amount`
+### **3.** `uint256 amount`
 
 -   用户在源链发送的资产数量（已转换为 ZRC-20 的最小单位）。
     
@@ -458,14 +184,14 @@ struct MessageContext {
 -   若无资产转移，则为 `0`。
     
 
-### **4\.** `bytes calldata message`
+### **4.** `bytes calldata message`
 
 -   **用户自定义的任意数据**，是你实现通用逻辑的关键。
     
 -   通常使用 `abi.encode(...)` 在源链构造，用 `abi.decode(...)` 在 `onCall` 中解析。
     
 
-string memory name = abi.decode(message, (string));表示用户在源链发送了一个字符串（如 "Alice"），合约将其解码并用于事件。
+string memory name = abi.decode(message, (string));表示用户在源链发送了一个字符串（如 “Alice”），合约将其解码并用于事件。
 
 ## **三、**`onlyGateway` **修饰符：安全核心**
 
@@ -523,6 +249,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
