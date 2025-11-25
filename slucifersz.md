@@ -15,8 +15,14 @@ hello
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+好，学到了很多
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # **ZetaChain 学习报告**
 
 ## **一、前言：为什么要学习 ZetaChain？**
