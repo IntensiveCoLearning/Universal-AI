@@ -427,7 +427,7 @@ Telegram：https://t.me/zetachain_asia
 | [wind1994ai](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wind1994ai.md) | ⭕️ |   | | | | | | | | | | | | |
 | [8LokyYang8](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/8LokyYang8.md) | ✅ |   | | | | | | | | | | | | |
 | [kaka666111](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/kaka666111.md) | ⭕️ |   | | | | | | | | | | | | |
-| [Nikoheihei](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Nikoheihei.md) | ⭕️ |   | | | | | | | | | | | | |
+| [Nikoheihei](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Nikoheihei.md) | ⭕️ | ✅ | | | | | | | | | | | | |
 | [KevinYZH](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/KevinYZH.md) | ⭕️ |   | | | | | | | | | | | | |
 | [hxzxa](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/hxzxa.md) | ⭕️ |   | | | | | | | | | | | | |
 | [jake2020520](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jake2020520.md) | ✅ | ✅ | | | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ |   | | | | | | | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ |   | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
