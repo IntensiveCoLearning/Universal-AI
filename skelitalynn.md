@@ -15,8 +15,165 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+### Day 2：环境与工具实操（ZetaChain + Qwen）
+
+**1\. 今日目标**
+
+-   在本地配置 ZetaChain CLI 并成功运行
+    
+-   掌握基本区块链开发工具使用方式
+    
+-   完成一次 AI 接口（Qwen）的真实调用
+    
+-   搭建 Web3 + AI 的基本技术通路
+    
+
+* * *
+
+**2\. ZetaChain CLI 本地部署**
+
+在本地目录执行：
+
+-   `git clone https://github.com/zeta-chain/cli.git`
+    
+-   `cd cli`
+    
+-   `npm install --legacy-peer-deps`
+    
+
+虽然过程中出现 deprecated 和 bigint 警告信息，但均不影响使用。
+
+通过执行：
+
+```
+npx tsx src/index.ts --help
+```
+
+成功看到 CLI 的完整命令列表，包括：
+
+-   new
+    
+-   faucet
+    
+-   query
+    
+-   chains
+    
+-   tokens
+    
+-   balances
+    
+-   contracts
+    
+-   ask...
+    
+
+说明：**ZetaChain 官方 CLI 工具已经在本地成功运行。**
+
+* * *
+
+**3\. 成功使用 ZetaChain 查询网络信息**
+
+通过命令：
+
+```
+npx tsx src/index.ts query
+```
+
+成功进入 query 模块，并能够访问：
+
+-   chains
+    
+-   fees
+    
+-   tokens
+    
+-   contracts 等链上数据入口
+    
+
+这意味着： 当前设备已具备与 ZetaChain 测试网交互的能力。
+
+* * *
+
+**4\. Qwen API 连通性实测成功**
+
+通过 Postman 请求：
+
+-   Method: POST
+    
+-   URL: `https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation`
+    
+-   Headers：
+    
+    -   Content-Type: application/json
+        
+    -   Authorization: Bearer <我的API Key>
+        
+-   Body：
+    
+
+```
+{
+  "model": "qwen-turbo",
+  "input": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, this is my first Qwen API request."
+      }
+    ]
+  }
+}
+```
+
+返回结果：
+
+-   HTTP 200 OK
+    
+-   成功接收到 AI 生成文本响应
+    
+
+![image-20251125113439425](file:///C:/Users/86183/AppData/Roaming/Typora/typora-user-images/image-20251125113439425.png?lastModify=1764051923)
+
+| Faucet | Chain / Asset |
+| --- | --- |
+| Google Cloud Web3 | ZetaChain ZETA |
+| FaucetMe | ZetaChain ZETA |
+| Optimism | Ethereum, Base |
+| Chainlink | Ethereum, Base, Avalanche, Arbitrum, Polygon |
+| Circle | USDC |
+| Solana | Solana |
+| Polygon | Polygon |
+| Binance Smart Chain | BSC |
+| mempool.space | Bitcoin Testnet 4 |
+| testnet4.dev | Bitcoin Testnet 4 |
+| triangleplatform.com | Bitcoin Testnet 4 |
+| Signet | Bitcoin Signet |
+
+# Explorers
+
+| Name | Mainnet | Testnet | Description |
+| --- | --- | --- | --- |
+| Blockscout | Mainnet | Testnet | EVM block explorer that lets you search transactions, addresses, and tokens, verify and interact with smart contracts, track cross-chain activity, and access data through HTTP and GraphQL APIs. |
+| ExploreMe | Mainnet | Testnet | EVM and Cosmos explorer with blocks, transactions, top accounts, contracts, tokens/NFTs, validators, proposals, params/uptime/API. |
+| Mintscan | Mainnet | — | Cosmos explorer with blocks, transactions, accounts, validators & staking, governance proposals, and params. |
+| Nodejumper | Mainnet | — | Node operator dashboard with chain indicators and APIs, and utilities. |
+| Ping.pub | Mainnet | Testnet | Cosmos explorer with blocks, transactions, accounts, validators, and governance proposals. |
+| Polkachu | Mainnet | Testnet | Node operator dashboard with RPC/API endpoints, snapshots, state-sync, upgrade watcher, tools. |
+| Explorers.guru | Mainnet | Testnet | Cosmos explorer with blocks, transactions, accounts, validators, and governance proposals. |
+| Staking Explorer | — | Testnet | Cosmos explorer with validators, delegations, rewards/APR, uptime, and validator analytics. |
+| Liveraven Explorer | — | Testnet | Cosmos explorer with blocks, transactions, accounts, validators, and governance proposals. |
+| NodeStake | Mainnet | — | Cosmos explorer with blocks, transactions, accounts, validators, and governance proposals. |
+| ITRocket | — | Testnet | Cosmos explorer with blocks, transactions, accounts, validators, and governance proposals. |
+
+连接测试：状态码200
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # Day 1 ZetaChain & Qwen 启动与环境准备
 
 ## **一、今日目标**
