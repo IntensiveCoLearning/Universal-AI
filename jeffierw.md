@@ -15,8 +15,41 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-25
+<!-- DAILY_CHECKIN_2025-11-25_START -->
+# Day 2
+
+1.  安装了 zetachain cli
+    
+
+-   npm install -g zetachain@latest
+    
+-   导入本地 eth 钱包：zetachain accounts import --type evm --private-key <私钥>
+    
+-   新建项目：zetachain new
+    
+
+2.  钱包连接 zetachain testnet
+    
+
+-   链 ID: 7001
+    
+-   链 rpc: [https://zetachain-athens-evm.blockpi.network/v1/rpc/public](https://zetachain-athens-evm.blockpi.network/v1/rpc/public)
+    
+-   faucet: [https://www.zetachain.com/docs/reference/faucet](https://www.zetachain.com/docs/reference/faucet)
+    
+
+3.  Qwen API 调用
+    
+
+-   获取 api-key: [https://bailian.console.aliyun.com/?tab=model#/api-key](https://bailian.console.aliyun.com/?tab=model#/api-key)
+    
+-   curl 调用： `shell curl -X POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions \ -H "Authorization: Bearer $Qwen_API_KEY" \ -H "Content-Type: application/json" \ -d '{ "model": "qwen-plus", "messages": [ { "role": "system", "content": "You are a helpful assistant." }, { "role": "user", "content": "你是谁？" } ] }' {"choices":[{"message":{"role":"assistant","content":"我是通义千问（Qwen），由阿里巴巴云研发的超大规模语言模型。我能够回答问题、创作文字，如写故事、公文、邮件、剧本等，还能进行逻辑推理、编程，甚至表达观点和玩游戏。我支持多种语言，包括但不限于中文、英文、德语、法语、西班牙语等。\n\n如果你有任何问题或需要帮助，欢迎随时告诉我！"},"finish_reason":"stop","index":0,"logprobs":null}],"object":"chat.completion","usage":{"prompt_tokens":22,"completion_tokens":84,"total_tokens":106,"prompt_tokens_details":{"cached_tokens":0}},"created":1764084567,"system_fingerprint":null,"model":"qwen-plus","id":"chatcmpl-f89dbfaf-fdd5-4d4a-a2c8-ab47ec1b3c63"}%`
+<!-- DAILY_CHECKIN_2025-11-25_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # Day 1
 
 学习了[zeta文档](https://www.zetachain.com/docs/start)中的简介部分
