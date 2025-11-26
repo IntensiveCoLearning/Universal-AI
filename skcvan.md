@@ -15,8 +15,22 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+**1\. Universal App（通用应用 / 全链应用）是什么？** Universal App 就是“一次部署、原生管理所有链资产和数据的智能合约”。 它只部署在 ZetaChain 上，却可以直接读写 Bitcoin、Ethereum、Solana、BSC、Polygon、Tron 等几十条链的原生资产和状态，不需要任何包装币（wBTC、wETH）、也不需要跨链桥。 一句话总结：写一份合约，就能像操作本地资产一样操作全网资产。
+
+**2\. Gateway（网关）大概做什么？** Gateway 是 ZetaChain 在每条外部链（Bitcoin、ETH、Solana 等）上部署的一组轻节点 + 智能合约，负责三件事：
+
+-   监听外部链的事件（比如你往某个地址转了 0.1 BTC）
+    
+-   把事件签名后上报给 ZetaChain 的观察者（Observers）
+    
+-   接收 ZetaChain 的指令，在外部链上执行最终操作（比如从 Gateway 地址把 BTC 转给你指定的接收者） 它相当于 ZetaChain 在每条链上的“手和眼睛”。
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 成功安装zetachain cli
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/skcvan/images/2025-11-25-1764074715810-image.png)
@@ -47,6 +61,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 # 对于zetachain的一些初步理解
 
