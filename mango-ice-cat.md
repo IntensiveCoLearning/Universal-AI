@@ -18,10 +18,120 @@ code everything
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 # 1，打卡签到
+
+# 2，Day 3 笔记 — ZetaChain & Universal Blockchain 核心概念
+
+**日期**：2025-11-26  
+**目标**：理解通用区块链概念、Universal App、Gateway，并用图示描述架构。
+
+* * *
+
+## 1️⃣ 学习目标回顾
+
+-   理解 **通用区块链 / Universal EVM / Universal App / Omnichain Smart Contract** 的概念
+    
+-   能够画出 ZetaChain + 多条公链 + Gateway 的结构图
+    
+-   在笔记中总结核心概念，用自己的话描述
+    
+
+* * *
+
+## 2️⃣ 笔记
+
+### 3.1 阅读文档与理解
+
+-   先浏览了 **Universal App 概览**，发现 **Universal App** 就是可以在 **多条公链**上执行的智能合约应用
+    
+-   文档里提到的 **Omnichain Smart Contract** 核心：
+    
+    -   一次编写 → 多链执行
+        
+    -   不需要用户手动跨链桥接资产
+        
+-   Gateway 的作用是 **连接不同链**，负责消息传递、资产转移的可靠性和安全性
+    
+
+> 我的理解：  
+> Gateway 就像高速公路的收费站，负责把不同链的数据/资产安全传输到目标链，ZetaChain 就是核心路网。
+
+* * *
+
+### 3.2 用自己的话总结
+
+**Universal App**：
+
+> 可以跨链运行的应用，单份代码可在多条链上调用，无需为每条链单独开发。
+
+**Gateway**：
+
+> 是通用应用和不同区块链之间的桥梁，处理消息、交易、资产的跨链逻辑。
+
+**Universal EVM**：
+
+> 提供统一的 EVM 环境，让 Solidity/Hardhat/Foundry 的合约无需修改即可在多链上执行。
+
+* * *
+
+### 3.3 画图
+
+我在笔记里画了一个简易架构图（ASCII 版）：
+
+```
+          +----------------+
+          |  ZetaChain     |
+          |  Core Layer    |
+          +----------------+
+             /     |      \
+            /      |       \
+      Ethereum    Solana   Bitcoin
+        |           |        |
+      Smart       Smart     Smart
+      Contract    Contract  Contract
+       (EVM)      (Rust)    (BTC script)
+             ^ Gateway ^
+```
+
+> -   中心是 ZetaChain，负责跨链消息传递
+>     
+> -   每条链保留自身的智能合约特性
+>     
+> -   Gateway 处理跨链调用的安全性和一致性
+>     
+
+* * *
+
+### 3.4 思考与笔记
+
+-   ZetaChain 核心价值：**降低跨链开发门槛**，让开发者只关注应用逻辑，不必处理每条链的细节。
+    
+-   对比传统跨链：以前需要 wrap token / 跨链桥，现在 ZetaChain 直接原生支持跨链资产。
+    
+-   结合 Day 2 学到的 CLI，我计划 **后续自己动手搭建一个 Hello World Universal App**，先在本地链跑一遍 Swap / Messaging 流程。
+    
+
+* * *
+
+### 3.6 今日收获
+
+-   理解了 **Universal App、Gateway、Universal EVM** 的概念
+    
+-   能够用自己的话描述它们的作用
+    
+-   画出了简易架构图，帮助理解跨链逻辑
+    
+-   对后续动手操作有清晰规划
+    
+
+* * *
+
+**总结**：  
+Day 3 的重点是 **概念理解 + 架构梳理**，我觉得最重要的是把 Gateway 的作用理解透彻，这样后续写跨链合约 / 使用 CLI 才不会迷路。
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 # 1，今日打卡，加油
 
@@ -188,6 +298,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
