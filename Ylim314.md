@@ -15,8 +15,37 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+**日期**：2025.11.26 **进度**：完成从 AI 指令到链上 Write 操作的闭环
+
+今天的主要工作是解决“只读不写”的问题。昨天的脚本只能查余额，今天是真枪实弹地发了一笔交易到 ZetaChain 测试网。
+
+![DAY3-1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-11-26-1764147412732-DAY3-1.png)
+
+**1\. 环境变量管理** 为了解决私钥硬编码的安全隐患，引入了 python-dotenv 库。创建了 .env 文件来存放 PRIVATE\_KEY，并在代码中通过 os.getenv 加载。这是一个比较标准的工程实践，避免代码上传 GitHub 时泄露私钥。
+
+**2\. 交易构建流程** 实现了一个 send\_transaction 函数。这里复习了一下以太坊的交易结构，主要包含 nonce、gas、gasPrice、to、value 和 chainId。 特别注意了 nonce 的获取，用 w3.eth.get\_transaction\_count 拿到当前账户的交易计数，这是为了防止重放攻击。
+
+**3\. 签名与广播** 使用了 [web3.py](http://web3.py) 的 sign\_transaction 方法进行离线签名，然后通过 send\_raw\_transaction 把签名后的二进制数据广播到 RPC 节点。 最后加了一个 wait\_for\_transaction\_receipt，这样脚本不会发完就停，而是会挂起等待区块确认，体验更好。
+
+![DAY3-2.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-11-26-1764147430928-DAY3-2.png)
+
+**遇到的问题与解决**
+
+-   **私钥混淆问题**：一开始报错 `Non-hexadecimal digit found`，排查后发现是在 .env 里错误地填入了阿里云的 API Key（sk-开头），而不是钱包私钥。修正后读取正常。
+    
+-   **Chain ID 问题**：构建交易时必须指定 chainId: 7001 (Athens-3)，否则会因为 EIP-155 防重放机制导致交易被节点拒绝。
+    
+-   **AI 指令边界**：测试“销毁”指令时 AI 报错，通过调整指令为“转账给任意地址”成功绕过，实现了等效操作。
+    
+
+**明日计划** 研究 ZRC-20 标准的 Approve 和 Swap 方法，尝试调用 Uniswap 风格的合约接口。
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 ### 通用 AI 残酷共学 - Day 2 学习日志：Agent 账户系统与链上交互
 
 📅 日期： 2025.11.25 ChaplinX
@@ -78,6 +107,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 ### 📝 通用 AI 残酷共学 - Day 1 学习日志
 
