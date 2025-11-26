@@ -15,8 +15,14 @@ code everything
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+# 1，打卡签到
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 # 1，今日打卡，加油
 
 # 2，#️⃣ Day 2 学习目标（总结）
@@ -182,6 +188,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 # 1，签到打卡
