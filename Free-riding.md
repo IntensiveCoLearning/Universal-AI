@@ -15,8 +15,134 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+### **1\. 通用区块链（Universal Blockchain）**
+
+-   **含义**：指一种支持跨多条区块链运行、具备广泛兼容性和互操作能力的区块链架构或网络。
+    
+-   **特点**：
+    
+    -   不局限于单一链的共识、状态或资产；
+        
+    -   通常通过中继、桥接、共享安全或模块化设计实现多链协同；
+        
+    -   可作为“中间层”或“聚合层”，协调多个异构链之间的交互。
+        
+-   **示例项目**：Cosmos（通过 IBC 协议）、Polkadot（通过 XCM 和平行链）、LayerZero、Chainlink CCIP 等。
+    
+
+* * *
+
+### **2\. Universal EVM（通用以太坊虚拟机）**
+
+-   **含义**：一种在多条区块链上统一部署和运行 EVM（Ethereum Virtual Machine）兼容智能合约的能力。
+    
+-   **特点**：
+    
+    -   允许开发者用 Solidity 编写一次合约，即可部署到多个 EVM 兼容链（如 Polygon、Arbitrum、Optimism、BNB Chain、Avalanche C-Chain 等）；
+        
+    -   “Universal” 强调的是跨链一致性：相同的字节码、相同的调用逻辑、相同的账户模型；
+        
+    -   有时也指通过抽象层实现“一次部署，多链运行”的运行时环境。
+        
+-   **目标**：消除 EVM 链之间的碎片化，提升开发效率和用户体验。
+    
+-   **相关技术**：EVM 等效性（EVM Equivalence）、统一账户系统、跨链合约部署工具。
+    
+
+* * *
+
+### **3\. Universal App（通用应用）**
+
+-   **含义**：指可在多条区块链上无缝运行、无需为每条链单独部署或适配的应用程序。
+    
+-   **特点**：
+    
+    -   用户无论使用哪条链（如 Ethereum、Base、zkSync、Solana 等），都能访问同一个应用；
+        
+    -   应用后端或智能合约逻辑能自动感知并适配不同链的环境；
+        
+    -   通常依赖跨链消息传递（Cross-chain Messaging）或通用账户抽象（如 ERC-4337 + 跨链钱包）。
+        
+-   **目标**：提升用户体验（无感知切换链）、聚合流动性、避免应用碎片化。
+    
+
+* * *
+
+### **4\. Omnichain Smart Contract（全链智能合约）**
+
+-   **含义**：一种原生支持跨多条区块链执行逻辑的智能合约，可在多个链之间传递状态、资产或消息，并保持一致性。
+    
+-   **关键特征**：
+    
+    -   合约逻辑分布在多个链上，但被视为一个整体；
+        
+    -   通过跨链通信协议（如 LayerZero、Wormhole、Axelar、Hyperlane）实现链间同步；
+        
+    -   支持跨链条件执行（例如：在 Chain A 上锁定资产，自动在 Chain B 上释放）。
+        
+-   **与传统跨链桥的区别**：
+    
+    -   传统桥：资产从 A 链“搬”到 B 链（1:1 锚定）；
+        
+    -   Omnichain 合约：逻辑本身跨链存在，状态动态同步，无需“搬运”。
+        
+
+在 Web3 中，**Universal App** 通常指：
+
+> **一种无需强制用户绑定特定钱包、链或身份，即可在多链、多钱包、多设备上无缝使用的去中心化应用（dApp）。**
+
+**核心特征：**
+
+-   **链无关（Chain-agnostic）**：支持以太坊、Polygon、Solana、Arbitrum 等多条区块链。
+    
+-   **钱包无关（Wallet-agnostic）**：用户可以用 MetaMask、Coinbase Wallet、Phantom、Smart Wallet（如 ERC-4337 账户抽象钱包）等任意钱包登录。
+    
+-   **基于去中心化身份（DID）**：用户以一个统一的身份（如 ENS、.eth 名称，或 DID 标准如 EIP-725/EIP-4361）登录，而不是依赖某个钱包地址。
+    
+-   **状态可迁移 / 跨链一致体验**：用户在不同链上的资产、行为、声誉可被聚合，提供一致的 UI/UX。
+    
+
+在 Web3 中，Gateway 通常指：
+
+连接 Web2 与 Web3、或连接不同区块链/协议之间的“入口”或“桥梁”服务。
+
+| 去中心化身份网关（Identity Gateway） | 允许用户用邮箱、Google 登录等方式创建/恢复钱包（如 Web3Auth、Privy），降低 Web3 入门门槛。 |
+| 跨链网关（Cross-chain Gateway） | 实现资产或消息在不同链之间传递，比如 LayerZero、Synapse、Wormhole 提供的跨链桥服务（虽然“Bridge”更常用，但有时也称 Gateway）。 |
+| API 网关（Web3 API Gateway） | 开发者通过统一接口访问多链数据，如Alchemy、Infura、Moralis提供的节点+API服务，隐藏底层区块链复杂性。 |
+| 应用入口网关（App Gateway） | 某些 dApp 或钱包提供“网关”功能，让用户从 Web2 应用（如 Twitter、Gmail）直接进入 Web3 体验（例如：通过 Farcaster Frame 嵌入互动）。 |
+
+# ZetaChain 架构图
+
+```
+          +---------------------+
+          |                     |
+          |    ZetaChain        |  ← 中心链（共识层 + 跨链逻辑）
+          |   (Central Chain)   |
+          |                     |
+          +----------+----------+
+                     |
+          +----------+----------+
+          |                     |
+          |      Gateway        |  ← 跨链网关（监听/中继/验证）
+          |                     |
+          +----------+----------+
+                     |
+      +--------------+--------------+
+      |              |              |
++-----v-----+  +-----v-----+  +-----v-----+
+|           |  |           |  |           |
+|  Bitcoin  |  | Ethereum  |  |  Solana   |
+| (外链 A)  |  | (外链 B)  |  | (外链 C)  |
+|           |  |           |  |           |
++-----------+  +-----------+  +-----------+
+```
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 # ZetaChain和区块链一些基础
 
 ## ZetaChain
@@ -249,6 +375,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
