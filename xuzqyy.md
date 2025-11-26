@@ -15,8 +15,24 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+**1\. Universal App（通用应用） 是什么？**
+
+> **Universal App 是部署在 ZetaChain 上的一种智能合约，它能“天然地”和多条区块链（如 Ethereum、Bitcoin、Solana 等）直接通信和交互。**  
+> 比如：一个用户从 Bitcoin 发起一笔交易，这个合约就能收到 BTC，并自动在 Ethereum 上调用另一个合约，全程只需一次用户操作。  
+> 它打破了传统“一条链一个合约”的限制，真正做到“一次部署，全链可用”。
+
+### **2\. Gateway（网关） 大概做什么？**
+
+> **Gateway 是每条连接链（如 Ethereum、Solana）上的一个特殊合约（或 Bitcoin 上的地址），它是用户与 ZetaChain Universal App 之间的“入口”和“出口”。**
+
+![Native Token Transfer](https://www.zetachain.com/docs/_next/image/?url=%2Fdocs%2F_next%2Fstatic%2Fmedia%2Fwhy-custody.32697805.png&w=3840&q=75)
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 1安装调试cli
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/xuzqyy/images/2025-11-25-1764079243379-image.png)
@@ -42,6 +58,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 | 能打开并浏览 ZetaChain Docs 和 Developers 页面 | ✅ |
 | 注册阿里云账号，进入 DashScope 控制台，确认可使用 Qwen | ✅ |
