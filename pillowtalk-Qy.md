@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+摸鱼一天
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 [ZetaChain](https://www.zetachain.com/docs)是一个与 EVM 兼容的区块链，具有内置的跨链互操作性。
 
 部署在 ZetaChain 上的智能合约可以处理来自任何已连接区块链（例如以太坊、Base、Polygon、BNB、Solana 和比特币）的_入站合约调用。ZetaChain 上的合约也可以向已连接链上的合约发出出站合约调用_。合约调用可以包含任意数据、gas 费用以及支持的 ERC-20 代币等有效载荷。
@@ -34,6 +40,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 1.注册 / 配置好 ZetaChain 开发所需环境
 
