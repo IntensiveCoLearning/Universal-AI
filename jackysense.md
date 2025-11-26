@@ -15,8 +15,38 @@ Web3 builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+通用应用
+
+可以接收来自连接链上用户和合约的合约调用和代币
+
+可以触发合约调用和代币转移到连接的链
+
+可以自动处理跨链交易的 gas 费用
+
+完全兼容 EVM 链、 Cosmos（通过 IBC）和其他链的支持
+
+网关
+
+Gateway 是一个接口，它作为 ZetaChain 上连接链上的合约与通用应用程序之间交互的统一入口点。
+
+将原生 Gas 代币存入 ZetaChain 上的通用应用程序或账户
+
+将支持的 ERC-20 代币（包括 ZETA 代币）存入 ZetaChain 上的通用应用程序或账户
+
+存入原生 gas 代币并向通用应用程序发出合约调用（可传递任意数据）
+
+存入受支持的 ERC-20 代币，并向通用应用程序发出合约调用（可传递任意数据）。
+
+向通用应用程序发出合约调用（传递任意数据）
+
+![ba5351a69bfb4ae8af46fe18eb2235f2.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-26-1764119951580-ba5351a69bfb4ae8af46fe18eb2235f2.jpg)
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 **浏览器、水龙头**
 
 explorers: [https://www.zetachain.com/docs/reference/explorers](https://www.zetachain.com/docs/reference/explorers)
@@ -66,6 +96,7 @@ zetachain localnet start
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
