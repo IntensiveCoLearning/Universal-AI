@@ -15,8 +15,92 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+Created a new education tool for anaylzing solidity [https://github.com/brucexu-eth/evm-runtime-visualizer](https://github.com/brucexu-eth/evm-runtime-visualizer) with Gemini 3 Pro.
+
+## Storage vs Memory vs Calldata
+
+```
+function sumArray(uint[] memory array) public pure returns (uint) {
+    uint sum = 0;
+    for (uint i = 0; i < array.length; i++) {
+        sum += array[i];
+    }
+    return sum;
+}
+```
+
+memory in the function params indicate variable array is a temporary variable only exists during function execution. It won't store in the storage, but it might be changed later in the function.
+
+Calldata is used for function arguments that are passed in from an external caller, such as a user or another smart contract. Calldata is read-only, meaning that it cannot be modified by the function.
+
+```
+function isOwner(address ownerAddress) public view returns (bool) {
+    return ownerAddress == msg.sender;
+}
+```
+
+ownerAddress is defined in calldata, and it will be loaded in calldata, and read-only. therefore, gas cost is lowest.
+
+The function only needs to read the value of `ownerAddress` to compare it to the `msg.sender` value, so it doesn’t need to be stored in memory or storage.
+
+```
+contract ColorStorage {
+    mapping(address => string) private favoriteColors;
+    
+    function setFavoriteColor(string calldata vs memory color) public {
+        favoriteColors[msg.sender] = color;
+    }
+    
+    function getFavoriteColor(address userAddress) public view returns (string memory) {
+        return favoriteColors[userAddress];
+    }
+}
+```
+
+Use calldata:
+
+Deployment gas
+
+| transaction cost | 421340 gas |
+| execution cost | 341378 gas |
+
+Set color: red gas
+
+| transaction cost | 24854 gas |
+| execution cost | 3346 gas |
+
+Use memory:
+
+Deployment gas
+
+| transaction cost | 454211 gas |
+| execution cost | 371809 gas |
+
+Set color: red gas
+
+| transaction cost | 25317 gas |
+| execution cost | 3809 gas |
+
+Slightly reduced.
+
+```
+TypeError: Data location can only be specified for array, struct or mapping types, but "calldata" was given.
+ --> test.sol:8:31:
+  |
+8 |     function getFavoriteColor(address calldata userAddress) public view returns (string memory) {
+  |           
+```
+
+Only specify data location for complex data types.
+
+In summary, `memory` is used for temporary variables that are only needed during the execution of a function, `calldata` is used for function arguments that are passed in from an external caller and cannot be modified, and `storage` is used to permanently store data on the blockchain that can be accessed and modified by any function within the contract.
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 Qwen API + SDK installed.
 
 Starting with Qwen3, the models are named using the scheme `Qwen3[-size][-type][-date]`:
@@ -120,6 +204,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 [https://www.zetachain.com/docs/developers/tutorials/hello/](https://www.zetachain.com/docs/developers/tutorials/hello/)
 
@@ -344,6 +429,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 今天开始学习了，先打个卡测试一下功能。
