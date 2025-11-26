@@ -17,17 +17,18 @@ web3 developer
 <!-- Content_START -->
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
-# Q1: Universal App 是什么?
+### Q1: Universal App 是什么?
 
 简单来说，部署在zetachain，并且继承了UniversalContract.sol的合约，实现了`OnCall`函数，就可以是Universal App，它可以处理跨链请求。
 
-# Q2: Gateway 大概做什么？
+### Q2: Gateway 大概做什么？
 
 可以理解为，其他链连接zetachain的入口 & 出口。它会接收交易，广播交易。广播出来的交易会被zetachain节点发现，而后节点对这笔交易进行“是否允许”的投票，如果投票通过，则进入对应的OnCall。OnCall会处理交易逻辑。同样可以通过zetachain侧的gateway向其他链发送交易。交易的参数定义在Universal App中 (OnCall function)，自定义的参数会被encode成bytes，OnCall中会将这个bytes decode成对饮参数。
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 -   本地部署Swap合约, 使用zetachain实现swap跨链交换代币
     
@@ -103,6 +104,7 @@ swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
