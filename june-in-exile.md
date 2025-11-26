@@ -15,8 +15,22 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+-   **ZetaChain Sui Localnet 啟動失敗**：原因是 CLI 錯誤抓取了 Git `main` 分支（缺少必要函式），正確的合約程式碼應在 `develop` 分支。
+    
+-   **Qwen API 啟用**：完成阿里巴巴雲註冊與信用卡驗證，在新加坡 Playground 獲取 API Key，並成功配置環境變數 `DASHSCOPE_API_KEY` 進行調用。
+    
+-   **ZetaChain 基礎**：基於 Cosmos SDK/Comet BFT POS，具備出塊快、確定性高特性，TPS 約 100，由 **ZetaCore**（區塊生成/狀態維護）和 **ZetaClient**（觀察/簽署外部鏈）組成。
+    
+-   **驗證者角色**：每個驗證者包含**核心驗證者**（共識）與**觀察者-簽署者**（監控外部鏈、使用 **TSS 門檻簽名**執行跨鏈操作）。
+    
+-   **潛在挑戰**：驗證者需運行 ZetaChain 與多個外部鏈全節點，對硬體資源和質押量要求高，需關注加入門檻是否會引發中心化問題。
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 ## ZetaChain 簡明摘要
 
 ### 核心功能與優勢
