@@ -15,8 +15,24 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-26
+<!-- DAILY_CHECKIN_2025-11-26_START -->
+-   Universal App 是什么？
+    
+
+它是部署在ZetaChain上的智能合约，作为一个Dapp（去中心化应用），它能够与包括以太坊、比特币、Solana 等在内的多个区块链无缝交互的应用程序。
+
+-   Gateway 大概做什么？
+    
+
+它是一个服务接口，能够连接 任一运行在L1链上（以太坊、Solana等）的智能合约与 ZetaChain 上的通用应用程序之间交互的统一入口点，进而支持它们之间的合约调用和代币转移（交易）。
+
+-   画一张简单的架构图：ZetaChain 中心 + Bitcoin / Ethereum / Solana 等外围链 + Gateway。
+<!-- DAILY_CHECKIN_2025-11-26_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 -   ZetaChain CLI本地环境安装及使用：
     
 
@@ -37,6 +53,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 ## 开发环境准备步骤
 
