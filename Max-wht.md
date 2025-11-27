@@ -15,8 +15,18 @@ web3 developer
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+hello和swap的demo都已经在前几天的笔记中分享过了。今天事情有点多，学习的时间实在是少。
+
+大概的想法是做一个rebase token，可以在所有链上交易。
+
+会用Foundry来写，用测试网（测试网的水能统一发一下吗，好少啊😂😂）
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ### Q1: Universal App 是什么?
 
 简单来说，部署在zetachain，并且继承了UniversalContract.sol的合约，实现了`OnCall`函数，就可以是Universal App，它可以处理跨链请求。
@@ -28,6 +38,7 @@ web3 developer
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 -   本地部署Swap合约, 使用zetachain实现swap跨链交换代币
@@ -104,6 +115,7 @@ swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
