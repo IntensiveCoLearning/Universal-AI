@@ -15,8 +15,20 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+## 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
+
+> 想做一个全链留言板，用户可以从任何链提交留言，ZetaChain 统一记录。
+
+## 为后续的 Hello World Demo 决定一种工作流：
+
+> 使用Foundry + ZetaChain测试网。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ### Qwen
 
 刚看到notion中还有实践作业。。。
@@ -94,6 +106,7 @@ Gateway的架构图
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 ## 部署在本地的universal合约
 
 ```Solidity
@@ -153,6 +166,7 @@ forge create Universal \
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 搭建了zetachain的cli环境
