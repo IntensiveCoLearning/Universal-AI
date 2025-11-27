@@ -15,8 +15,18 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+项目：全链许愿墙
+
+工具：CLI+Hardhat
+
+环境：测试网
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 关于Universal App:
 
 Universal App是在zetachain部署的智能合约，可以在多链上进行多步骤操作，可以在EVM上部署，可以启动代币转账和合同调用 链条，能够通过 ZetaChain 的协议层，接收来自外部链的消息，处理逻辑，并触发对外部链的写操作
@@ -29,11 +39,13 @@ Gateway 是部署在**外部连接链（Connected Chains，如 Ethereum mainnet,
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 今天终于是把环境搭建完了，foundry的搭建在国内一定要提前了解好端口，要在梯子里开启局域网连接，AI给你推荐的直接关掉梯子是不可行的，因为GitHub没办法登上去，qwen的API调用刚开始可能是因为挂着梯子直接注册到国际服了，一直没有权限，最后关掉梯子用支付宝登录了以后才获得权限，有了API key，这个环境搭建对一个小白来讲真的非常痛苦，不过这样的学习确实会了不少关于API调用的知识
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 基本环境已搭建完成
