@@ -17,17 +17,19 @@ ZetaChain爱好者
 <!-- Content_START -->
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
-打个卡了，最近在体验Zeta中文社区新上线的产品
+打个卡先，最近在体验Zeta中文社区新上线的产品
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 打卡
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 打卡  
@@ -37,6 +39,7 @@ ZetaChain爱好者
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
