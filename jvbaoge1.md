@@ -15,8 +15,34 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+1\. 我的第一个 Universal App 想实现的功能：
+
+当用户从任意连接链（如 Ethereum、BNB 等）发送一条文本消息（例如 "Hello from Ethereum!"），我的 Universal Contract 会：
+
+\- 记录发送者地址
+
+\- 记录来源链 ID
+
+\- 存储消息内容
+
+\- 发出一个 CrossChainGreeting 事件
+
+后续可通过前端或区块浏览器查看所有跨链问候记录。
+
+2\. 开发工作流决定：
+
+\- **开发框架**：Hardhat（因官方教程和工具链支持完善）
+
+\- **部署网络**：ZetaChain Athens 3 测试网（支持真实跨链交互，可领测试币）
+
+\- **不使用本地链**：因为本地环境无法模拟多链互操作场景
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ### **1\. Universal App 是什么？**
 
 Universal App（通用应用）是部署在 **ZetaChain** 上的一种智能合约，它能 **原生地与多个区块链（如 Ethereum、Bitcoin、Solana 等）进行交互**。
@@ -50,6 +76,7 @@ Gateway（网关）是 **每条连接到 ZetaChain 的公链上的一个特殊�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 📝 Day 2：环境与工具实战（ZetaChain + Qwen）
 
@@ -212,6 +239,7 @@ GitHub 仓库：[https://github.com/jvbaoge1/zetachain](https://github.com/jvbao
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 成功的部署了环境，从以太坊链（Sepolia）发送到 ZetaChain Universal Contract 的跨链调用过程
