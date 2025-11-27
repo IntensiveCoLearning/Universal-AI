@@ -15,8 +15,49 @@ WEB3 ROOKIE
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+Universal App 是一种**跨链应用**形式：  
+应用逻辑只写在 ZetaChain 上，但能让不同链的用户（ETH / BNB / Polygon / …）都像是在**同一条链上直接交互**。  
+
+###   
+ZetaChain 作为“连接层”，负责：
+
+-   接收来源链发来的数据 / 资产
+    
+-   在 ZetaChain 上执行合约逻辑
+    
+-   把结果分发到目标链
+    
+-   所有这套跨链流程对用户透明
+    
+
+Universal App规划：ZetaChain 把这些参数带进来，
+
+我在合约记录：
+
+\- 谁调用了
+
+\- 从哪条链来
+
+\- 输入内容是什么
+
+maybe当成一个print  
+
+#   
+  
+明天计划：
+
+1.  用 CLI 创建一个 universal app skeleton
+    
+2.  用 Hardhat 成功编译官方示例合约
+    
+3.  在测试网上部署 “跨链打印机”
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ## Universal App = 一个合约控制所有链的资产
 
 **Universal App是部署在 ZetaChain 的 Universal EVM 上 的智能合约，它可以 直接操作多条外部区块链上的资产与数据，而不需要部署多链版本的合约（很蛋疼的就是之前做一个项目做完evm就要继续肝solana，其实差不多但是工作量会翻倍，还有联调测试的一些环节）**
@@ -34,6 +75,7 @@ Universal App 负责逻辑，Gateway 负责和每条链沟通、执行真实链�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 未来两周希望可以理解到zetachain的特性，链与链交互原理之类的：  
 ① 每条外链上有 “ZetaChain 控制的链上账户”
@@ -148,6 +190,7 @@ API的调用
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
