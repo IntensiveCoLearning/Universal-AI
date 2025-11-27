@@ -15,8 +15,54 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+# 我的第一个 ZetaChain Universal App 设想
+
+## 背景与目标
+
+基于 ZetaChain 的 Universal EVM + 多链互操作能力，我想先做一个 “最简单的跨链事件日志 / 记录” 应用 —— 用来测试跨链调用、跨链消息 + 资产转移 + 跨链合约回调。
+
+目标是：\*\*用户在任意连接链（Ethereum / Bitcoin / Solana …）触发一次调用 → Universal App 在 ZetaChain 上接收 → 记录日志 + optionally 发回一个简单回执 / 状态。\*\*
+
+这个应用主要不是 DeFi，也不是复杂金融逻辑 — 而是一个 **跨链“打印 / 记录 /回执”** 工具，用来验证 ZetaChain 的跨链基础设施，也可作为后续复杂应用（跨链 swap / vault / RWA …）的基础。
+
+\---
+
+## 功能 / 业务流程（What／Why）
+
+\- **跨链调用 & 日志记录**：
+
+任意连接链用户 → 调用 Gateway → deposit token 或 native coin + 携带 message → Universal App 的 `onCall(...)` 被触发。
+
+Universal App 读取 context（sender 链、sender 地址、token / amount、message 数据等），将这些信息以事件或 on–chain 存储的形式记录到 ZetaChain。
+
+\- **回执 / 状态返回（可选）**：
+
+Universal App 可生成一个回执 — 例如一个字符串、事件 ID、时间戳、调用链 + 合约 + sender 信息等。
+
+如果用户希望，也可以通过 Gateway 将这个回执或者某种 token/asset 发回原链。
+
+\- **跨链调用兼容 / 测试多链**：
+
+\- 用户可以从 Ethereum 发起调用，也可以从 Bitcoin / Solana /其他支持链调用同一个合约。
+
+\- 测试不同链资产 deposit → ZetaChain 接收 → 记录 → (可选) 再 withdraw / 回调。
+
+\- 利用 ZetaChain 的 “通用 + 多链 + gas 抽象 + ZRC-20 机制”，验证跨链基础设施是否稳定。
+
+\- **轻量 & 安全**：
+
+\- 合约逻辑非常简单，只负责记录和回执，不做复杂金融运算。
+
+\- 方便调试、开发测试，不易出大问题。
+
+\---
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # \# ZetaChain — Universal App 与 Gateway 说明
 
 ## \## 1. Universal App 是什么
@@ -106,6 +152,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 # ZetaChain 开发精要文档
 
