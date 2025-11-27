@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+今天下班太晚了，先打卡，明天笔记补两天的内容
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 \### 什么是Universal App?
 
 Universal App 是部署在 ZetaChain 区块链上的智能合约。
@@ -127,6 +133,7 @@ Bitcoin 本身不支持复杂的智能合约。但是，通过 ZetaChain：
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 1.  注册了Qwen账号，尝试了Qwen官方的在线调试请求，申请了api key，返回Access Denied
     
 2.  按照Zetachain官方文档开始学习Zetachain CLI，卡在了forge build上。
@@ -134,6 +141,7 @@ Bitcoin 本身不支持复杂的智能合约。但是，通过 ZetaChain：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 1.  了解本次共学的计划
