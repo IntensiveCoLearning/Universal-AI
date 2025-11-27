@@ -15,6 +15,8 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
-
-
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+学习文档
+<!-- DAILY_CHECKIN_2025-11-27_END -->
 <!-- Content_END -->
