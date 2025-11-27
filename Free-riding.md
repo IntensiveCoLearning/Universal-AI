@@ -15,8 +15,14 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+加班，明天补笔记
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ### **1\. 通用区块链（Universal Blockchain）**
 
 -   **含义**：指一种支持跨多条区块链运行、具备广泛兼容性和互操作能力的区块链架构或网络。
@@ -142,6 +148,7 @@ Again and again ~
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 # ZetaChain和区块链一些基础
 
@@ -375,6 +382,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
