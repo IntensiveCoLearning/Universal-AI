@@ -15,8 +15,17 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+今天学校事情太多，很多学习资料都没有看，workshop也因为组会错过。周末补上。  
+1.环境配置选择Foundry (Rust/Solidity): **首先** 其速度极快，用 Solidity 写测试。是现在高阶开发者的心头好，但学习曲线陡峭。虽然我没有 Rust 基础，但还是想N+100挑战一下。  
+2.网络选择：我决定使用 **Testnet (Athens 测试网)**。  
+虽然本地链速度快，但作为第一次体验，我想亲眼看到真实的跨链交互（例如在比特币测试网浏览器上看到交易），这能让我对“全链互操作性”有更直观的体感。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 今天把昨天没有做的部分补齐了一下：
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-11-26-1764157976016-image.png)
@@ -169,6 +178,7 @@ except Exception as e:
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 环境搭建 _完成了，还用了 WSL + Foundry/Hardhat_ 配置。
 
@@ -378,6 +388,7 @@ contract Swap is zContract {
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 # self-introduction:
