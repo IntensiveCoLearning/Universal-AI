@@ -15,8 +15,734 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+# Zetachain Web app 本地部署记
+
+解决系统内 yarn 冲突问题
+
+Ubuntu 系统内自带了一个很久的 yarn ,在
+
+`/usr/bin/yarn`
+
+经过实验 无法在 ZetaChain 的 webapp 安装中使用
+
+故查找系统环境变量下的所有 yarn
+
+`which -a yarn`
+
+\`\`\`
+
+/home/xboxpig/.nvm/versions/node/v20.19.6/bin/yarn
+
+/usr/bin/yarn
+
+/bin/yarn
+
+\`\`\`
+
+并删除`/bin/yarn`
+
+\`\`\`
+
+xboxpig@XBPG-PC:~/zetachin\_proj/hello/frontend$ yarn
+
+\`\`\`
+
+\`\`\`
+
+yarn install v1.22.22
+
+\[1/4\] Resolving packages...
+
+...
+
+\[2/4\] Fetching packages...
+
+...
+
+\[3/4\] Linking dependencies...
+
+...
+
+\[4/4\] Building fresh packages...
+
+Done in 84.38s.
+
+\`\`\`
+
+\`\`\`
+
+xboxpig@XBPG-PC:~/zetachin\_proj/hello/frontend$ yarn dev
+
+\`\`\`
+
+\`\`\`
+
+yarn run v1.22.22
+
+$ vite
+
+VITE v7.1.6 ready in 141 ms
+
+➜ Local: [http://localhost:5173/](http://localhost:5173/)
+
+➜ Network: use --host to expose
+
+➜ press h + enter to show help
+
+\[baseline-browser-mapping\] The data in this module is over two months old. To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+
+5:30:51 PM \[vite\] (client) ✨ new dependencies optimized: @zetachain/wallet
+
+5:30:51 PM \[vite\] (client) ✨ optimized dependencies changed. reloading
+
+\`\`\`
+
+部署成功.  
+
+* * *
+
+# ZetaChain nodejs based localnet安装记
+
+\## 安装zetachain
+
+`npm install -g zetachain`
+
+\### 报错
+
+In:
+
+\`\`\`
+
+xboxpig@XBPG-PC:/mnt/c/Users/xboxpig$ sudo npm install -g zetachain
+
+\`\`\`
+
+Out:
+
+\`\`\`
+
+npm WARN ERESOLVE overriding peer dependency
+
+npm WARN While resolving: @ton/ton@15.4.0
+
+npm WARN Found: @ton/core@0.60.1
+
+npm WARN node\_modules/zetachain/node\_modules/@zetachain/toolkit/node\_modules/@ton/core
+
+npm WARN @ton/core@"^0.60.1" from @zetachain/toolkit@16.3.0
+
+npm WARN node\_modules/zetachain/node\_modules/@zetachain/toolkit
+
+npm WARN @zetachain/toolkit@"16.3.0" from zetachain@7.4.0
+
+npm WARN node\_modules/zetachain
+
+npm WARN
+
+npm WARN Could not resolve dependency:
+
+npm WARN peer @ton/core@">=0.62.0 <1.0.0" from @ton/ton@15.4.0
+
+npm WARN node\_modules/zetachain/node\_modules/@zetachain/toolkit/node\_modules/@ton/ton
+
+npm WARN @ton/ton@"^15.2.1" from @zetachain/toolkit@16.3.0
+
+npm WARN node\_modules/zetachain/node\_modules/@zetachain/toolkit
+
+npm WARN
+
+npm WARN Conflicting peer dependency: @ton/core@0.62.0
+
+npm WARN node\_modules/@ton/core
+
+npm WARN peer @ton/core@">=0.62.0 <1.0.0" from @ton/ton@15.4.0
+
+npm WARN node\_modules/zetachain/node\_modules/@zetachain/toolkit/node\_modules/@ton/ton
+
+npm WARN @ton/ton@"^15.2.1" from @zetachain/toolkit@16.3.0
+
+npm WARN node\_modules/zetachain/node\_modules/@zetachain/toolkit
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'posthog-node@5.14.0',
+
+npm WARN EBADENGINE required: { node: '>=20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/codecs-numbers@2.3.0',
+
+npm WARN EBADENGINE required: { node: '>=20.18.0' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/wallet-adapter-react@0.15.39',
+
+npm WARN EBADENGINE required: { node: '>=20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/wallet-adapter-base@0.9.27',
+
+npm WARN EBADENGINE required: { node: '>=20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'react-native@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/codecs-strings@4.0.0',
+
+npm WARN EBADENGINE required: { node: '>=20.18.0' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr-darwin-arm64@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr-darwin-x64@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr-linux-arm64-gnu@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr-linux-arm64-musl@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr-linux-x64-gnu@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr-linux-x64-musl@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@nomicfoundation/edr-win32-x64-msvc@0.12.0-next.16',
+
+npm WARN EBADENGINE required: { node: '>= 20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/assets-registry@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/codegen@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/community-cli-plugin@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/gradle-plugin@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/js-polyfills@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/virtualized-lists@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-runtime@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-source-map@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/dev-middleware@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-config@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-core@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/debugger-frontend@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@react-native/debugger-shell@0.82.1',
+
+npm WARN EBADENGINE required: { node: '>= 20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'fb-dotslash@0.5.8',
+
+npm WARN EBADENGINE required: { node: '>=20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-babel-transformer@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-cache@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-cache-key@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-file-map@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-resolver@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-symbolicate@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-transform-plugins@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-transform-worker@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'ob1@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'metro-minify-terser@0.83.3',
+
+npm WARN EBADENGINE required: { node: '>=20.19.4' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/codecs-core@4.0.0',
+
+npm WARN EBADENGINE required: { node: '>=20.18.0' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/codecs-numbers@4.0.0',
+
+npm WARN EBADENGINE required: { node: '>=20.18.0' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/errors@4.0.0',
+
+npm WARN EBADENGINE required: { node: '>=20.18.0' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'commander@14.0.1',
+
+npm WARN EBADENGINE required: { node: '>=20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/codecs-core@2.3.0',
+
+npm WARN EBADENGINE required: { node: '>=20.18.0' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: '@solana/errors@2.3.0',
+
+npm WARN EBADENGINE required: { node: '>=20.18.0' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+npm WARN EBADENGINE Unsupported engine {
+
+npm WARN EBADENGINE package: 'commander@14.0.2',
+
+npm WARN EBADENGINE required: { node: '>=20' },
+
+npm WARN EBADENGINE current: { node: 'v18.19.1', npm: '9.2.0' }
+
+npm WARN EBADENGINE }
+
+\`\`\`
+
+大抵是nodejs版本太旧了 需要新的
+
+\>\*但是我刚刚不是用apt装完了吗？
+
+Gemini推荐我用nvm解决
+
+\#### Q: 什么是nvm?
+
+\> \*似乎是nodejs自己的版本管理app吧 我猜是nodejs version manager
+
+\`\`\`
+
+curl -o- [https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh](https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh) | bash
+
+nvm install 20
+
+nvm use 20
+
+\`\`\`
+
+\### 修正并重新安装
+
+`npm install -g zetachain`
+
+`xboxpig@XBPG-PC:/mnt/c/Users/xboxpig$ zetachain --version 7.4.0`
+
+`xboxpig@XBPG-PC:/mnt/c/Users/xboxpig$ zetachain query chains list`
+
+安装完成 我们看到链了！
+
+`✔ Successfully fetched 13 supported chains, 32 tokens, and 13 chain params`
+
+\`\`\`
+
+┌──────────┬────────────────────┬───────┬──────────────────────────────────┐
+
+│ Chain ID │ Chain Name │ Count │ Tokens │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 97 │ bsc\_testnet │ 20 │ USDC.BSC, BNB.BSC │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 7001 │ zeta\_testnet │ 3 │ - │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 11155111 │ sepolia\_testnet │ 14 │ ETH.ETHSEP, USDTT.SEPOLIA, │
+
+│ │ │ │ USDC.ETHSEP, USDCT.SEPOLIA │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 80002 │ amoy\_testnet │ 32 │ POL.AMOY, USDC.AMOY │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 84532 │ base\_sepolia │ 32 │ ETH.BASESEP, USDCT.BASESEP, │
+
+│ │ │ │ USDTT.BASESEP, USDC.BASESEP │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 901 │ solana\_devnet │ 32 │ SOL.SOL, USDC.SOL │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 18333 │ btc\_signet\_testnet │ 2 │ sBTC.BTC │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 18334 │ btc\_testnet4 │ 10 │ tBTC.BTC │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 421614 │ arbitrum\_sepolia │ 5 │ USDTT.ARBSEP, UPKRW.ARBSEP, │
+
+│ │ │ │ ETH.ARBSEP, USDC.ARBSEP, │
+
+│ │ │ │ USDCT.ARBSEP │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 43113 │ avalanche\_testnet │ 20 │ USDC.FUJI, USDCT.FUJI, │
+
+│ │ │ │ HanaKRW.FUJI, AVAX.FUJI, │
+
+│ │ │ │ USDTT.FUJI │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 2015141 │ ton\_testnet │ 1 │ TON.TON │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 103 │ sui\_testnet │ 1 │ SUI.SUI, USDC.SUI │
+
+├──────────┼────────────────────┼───────┼──────────────────────────────────┤
+
+│ 1001 │ kaia\_testnet │ 1 │ KBKRW.KAIROS, TSKRW.KAIROS, │
+
+│ │ │ │ KAIA.KAIROS │
+
+└──────────┴────────────────────┴───────┴──────────────────────────────────┘
+
+Note: Count refers to the number of confirmations required for a transaction
+
+from that connected chain to be observed
+
+\`\`\`
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 ## Day2 半休日
 
 ### 配置了 WSL 环境
@@ -45,6 +771,7 @@ memory=4GB
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 \## 什么是ZetaChain?
 
