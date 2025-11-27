@@ -30,6 +30,8 @@ Gateway就是一个内置复杂跨链功能的跨链桥入口, 通过监听不�
 ## 画一张简单的架构图：
 
 ZetaChain 中心 + Bitcoin / Ethereum / Solana 等外围链 + Gateway。
+<img width="628" height="501" alt="image" src="https://github.com/user-attachments/assets/84d5402a-65a5-4509-b6f5-7d60c6a5136a" />
+
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
