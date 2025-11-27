@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+改天补笔记
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 ## 一、zetachain核心概念与愿景
 
 -   **1.1 ZetaChain 是什么？**
