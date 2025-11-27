@@ -15,8 +15,18 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+# 我想做的第一个 Universal App
+
+实现所有链的资产都汇集到同一条链的同一个地址上。
+
+（目前打算用hardhat和测试网）
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # 什么是 Universal App？
 
 Universal App 是 ZetaChain 上地原生智能合约，可以与其他链进行交互。
@@ -36,6 +46,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 # 安装 ZetaChain CLI
 
@@ -291,6 +302,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 # 注册 qwen api 账号
