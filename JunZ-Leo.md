@@ -15,8 +15,47 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
+
+ERC-20（以太坊/单链视角）
+
+-   是在单一 EVM 链上定义和运行的代币接口标准（balanceOf/transfer/approve/transferFrom 等）。
+    
+-   所有状态和余额都由该链上的智能合约维护；跨链使用时通常需要桥或包装（wrapped token）。
+    
+-   转账和事件是在本链上发生，开发者关注本链交易/Gas 与合约安全性。
+    
+
+ZRC-20（多链/跨链视角）
+
+简单来说：如果 ERC-20 是某条链上的“本地钱”，ZRC-20 就像是在不同链之间通用的“旅行货币”。它看起来像 ERC-20（有 balanceOf/transfer 等），但它还带着“这钱从哪儿来”的标签。
+
+它比 ERC-20 多了
+
+来源信息（origin chain / origin address）——能告诉你这笔资产是不是某条链上的“真货”还是另外一条链上铸的代替物（wrapped）。 跨链流程（mint/burn 或 lock/release）——当资产从 A 链来到 B 链时，会在接收端新建（mint）或在原链上锁定（lock），回去时再销毁（burn）或释放（release）。 跨链事件/状态——转移不是瞬时的，它有 "等待确认" 的过程，事件里会带上 messageId、网关签名和状态pending/confirmed/failed）。
+
+从开发者视角来看：
+
+跨链要处理异步和最终性：不同链的确认速度不同，所以得在代码里考虑“可能要等一会儿才算完成”。  
+防止重复（重放）：需要 message\_id 或 nonce 来保证同一笔跨链消息不会被重复执行。  
+网关很关键：建议使用多节点签名（阈签）或多网关来降低信任风险。
+
+举一个「通用资产」可能的应用场景：
+
+  
+背景：用户在不同链（比如 Ethereum、BSC、Polygon）持有多种稳定币或资产，平时在各链之间流动受限、流动性碎片化。  
+目标：在 ZetaChain 上提供一个“通用储蓄合约”，接受来自任意支持链的资产，并以统一的 ZRC-20 表示来管理存款与收益。  
+工作流程（高层）：  
+1\. 用户在链 A 把 USDC 存入链级桥（网关），网关在 ZetaChain 上 mint 对应的 ZRC-20 USDC 代币并转入用户在 ZetaChain 的 Vault 地址。  
+2\. Vault 把多链资产以统一符号计价并集中投放到跨链收益策略（例如借贷协议、DEX 聚合策略），收益以 ZRC-20 形式计入用户份额。  
+3\. 用户可以随时在 ZetaChain 上赎回为 ZRC-20 资产，然后网关把赎回请求路由回对应来源链并释放或 mint 回原资产。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # **Universal App + Hello World 心智模型**
 
 ```markdown
@@ -91,6 +130,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 ````markdown
 # ZetaChain + Qwen API 环境与工具实战
@@ -328,6 +368,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
