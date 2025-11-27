@@ -34,7 +34,7 @@ ZRC-20（多链/跨链视角）
 
 它比 ERC-20 多了
 
-来源信息（origin chain / origin address）——能告诉你这笔资产是不是某条链上的“真货”还是另外一条链上铸的代替物（wrapped）。 跨链流程（mint/burn 或 lock/release）——当资产从 A 链来到 B 链时，会在接收端新建（mint）或在原链上锁定（lock），回去时再销毁（burn）或释放（release）。 跨链事件/状态——转移不是瞬时的，它有 "等待确认" 的过程，事件里会带上 messageId、网关签名和状态pending/confirmed/failed）。
+来源信息（origin chain / origin address）——能告诉你这笔资产是不是某条链上的“真货”还是另外一条链上铸的代替物（wrapped）。 跨链流程（mint/burn 或 lock/release）——当资产从 A 链来到 B 链时，会在接收端新建（mint）或在原链上锁定（lock），回去时再销毁（burn）或释放（release）。 跨链事件/状态——转移不是瞬时的，它有 “等待确认” 的过程，事件里会带上 messageId、网关签名和状态pending/confirmed/failed）。
 
 从开发者视角来看：
 
@@ -42,19 +42,40 @@ ZRC-20（多链/跨链视角）
 防止重复（重放）：需要 message\_id 或 nonce 来保证同一笔跨链消息不会被重复执行。  
 网关很关键：建议使用多节点签名（阈签）或多网关来降低信任风险。
 
+PS：
+
+```markdown
+常见实现模式和取舍
+        - Mint/Burn（wrapped token）
+          - 优点：目标链上持有的 ZRC-20 完全由链上合约控制，操作简单；便于审计和合约交互。
+          - 缺点：需要信任网关和证明机制；原生性信息需保留在元数据。
+
+        - Lock/Release（在来源链上锁定并在目标链释放对应代表资产）
+          - 优点：更明确地映射来源资产；当网关是托管型时会较常用。
+          - 缺点：跨链复杂度高，状态同步与证明要求严格。
+
+        - Canonical token registry（对跨链资产建立唯一映射）
+          - 通过链上 registry 定义 canonicalId->(originChain, originAddress) 的唯一映射，便于在不同链上识别同一资产。
+```
+
 举一个「通用资产」可能的应用场景：
 
-  
 背景：用户在不同链（比如 Ethereum、BSC、Polygon）持有多种稳定币或资产，平时在各链之间流动受限、流动性碎片化。  
 目标：在 ZetaChain 上提供一个“通用储蓄合约”，接受来自任意支持链的资产，并以统一的 ZRC-20 表示来管理存款与收益。  
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/JunZ-Leo/images/2025-11-27-1764256054439-image.png)
+
 工作流程（高层）：  
 1\. 用户在链 A 把 USDC 存入链级桥（网关），网关在 ZetaChain 上 mint 对应的 ZRC-20 USDC 代币并转入用户在 ZetaChain 的 Vault 地址。  
 2\. Vault 把多链资产以统一符号计价并集中投放到跨链收益策略（例如借贷协议、DEX 聚合策略），收益以 ZRC-20 形式计入用户份额。  
 3\. 用户可以随时在 ZetaChain 上赎回为 ZRC-20 资产，然后网关把赎回请求路由回对应来源链并释放或 mint 回原资产。
+
+优点是用户只需在一个界面管理跨链资产集合；更高效的策略聚合与流动性利用；使用 ZRC-20 可保留资产来源与安全语义（是否是原生资产或 wrapped）。
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 # **Universal App + Hello World 心智模型**
 
@@ -130,6 +151,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ````markdown
@@ -368,6 +390,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
