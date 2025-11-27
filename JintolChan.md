@@ -15,8 +15,34 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+# **Swap**
+
+Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
+
+Swap合约执行以下步骤：
+
+1.  接收来自连接链的跨链调用以及原生代币或 ERC-20 代币。
+    
+2.  解码消息有效载荷以提取：
+    
+    -   目标代币（ZRC-20）的地址
+        
+    -   收件人在目的地链上的地址
+        
+3.  查询将目标代币发送回目标链所需的提现 gas 费用。
+    
+4.  如果提现到连接的链，则使用 Uniswap v2 池将一部分传入的代币兑换成 ZRC-20 gas 代币，以支付提现费用。
+    
+5.  将剩余余额兑换成目标代币。
+    
+6.  将交换后的代币提取给目标链上的接收者。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # Universal App
 
 universal app是 ZetaChain 上的智能合约，它原生连接到以太坊、BNB 和比特币等其他区块链。
@@ -48,6 +74,7 @@ Gateway支持以下功能：
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -57,6 +84,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
