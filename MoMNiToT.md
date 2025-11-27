@@ -15,8 +15,72 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+# **Day4：心智模型**
+
+EVM架构：
+
+NaN.  中心辐射模型：中心ZetaChain和辐射外部区块链
+      
+NaN.  核心验证者：参与共识，维护块的状态，有奖励和惩罚
+      
+NaN.  观察者签名验证者：检测和处理跨链交易，以投票形式，用TSS确保密钥不是一人独有
+      
+
+EVM模块：
+
+NaN.  跨链模块：管理交易记录、维护交易状态、存储交易细节（CCTX有两个）
+      
+NaN.  观察者模块：管理观察者节点、事件投票、定义共识规则
+      
+NaN.  可替代模块：把其他链的代币全部转化为ZRC-20
+      
+NaN.  排放模块：计算奖励、发放奖励
+      
+NaN.  权限模块：对敏感事件的进一步限制监管
+      
+
+EVM协议合约：
+
+NaN.  GatewayZEVM、ZRC-20、ContractRegistry
+      
+NaN.  GatewayEVM、ERC20Custody、ContractRegistry
+      
+
+💫 **跨链流程**
+
+NaN.  入站：在外部链交易Gateway、观察者模块观察和投票、跨链模块创建交易、可替代模块转化代币
+      
+NaN.  出站：发起要求、验证者准备、TSS签名、提交广播、跨链模块更新交易状态
+      
+
+![屏幕截图 2025-11-27 205336.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/MoMNiToT/images/2025-11-27-1764249452364-_____2025-11-27_205336.png)
+
+**💫Gas费**
+
+1.  入链：只付「源链的原生 gas 费」
+    
+2.  直接调用：需要付「ZetaChain EVM 的 gas 费」，有基础费（销毁） + 小费（奖励）
+    
+3.  出链：需要付「提现 gas 费」，而且只能用对应ZRC代币
+    
+
+跨链操作：
+
+1.  CCTX是主要内容、里面包含Inbound 和 Outbound
+    
+2.  CCTX追踪：用入链Inbound哈希算CCTX，用前一个CCTX算后一个CCTX
+    
+
+所以所有的跨链操作都可以根据入站CCTX和出站CCTX的存在与否，以及他们的连接状态判断操作状态
+
+工作流：CLI + Hardhat + ZetaChain Localnet
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # **Day3：核心概念**
 
 ## **Universal Apps 概览**
@@ -98,6 +162,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 # **Day2：环境和工具实战**
 
@@ -271,6 +336,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
