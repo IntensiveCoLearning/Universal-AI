@@ -18,10 +18,193 @@ code everything
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 # 1，打卡签到
+
+# 2，今日学习内容
+
+## 1\. 什么是 Universal App（全链应用）
+
+经过阅读官方文档，我总结出 Universal App 的核心概念：
+
+```
+传统 Web3 = 只在一个链上运行
+Universal App = 一个合约，可以同时对多个链的资产 / 信息进行操作
+```
+
+依托 ZetaChain 的跨链 Messaging，Universal App 可以做到：
+
+-   **一个合约，管理多链资产（BTC / ETH / BNB 等）**
+    
+-   **在链 A 触发，链 B 执行逻辑**
+    
+-   **不用部署多个跨链合约，不用自己写桥逻辑**
+    
+-   **所有跨链安全由 ZetaChain 代办**
+    
+
+> 这种架构一眼就理解成类似「一个总后台，多个前端分店」，  
+> 而 ZetaChain 就是帮我跑物流的“跨链快递公司”。
+
+* * *
+
+## 2\. Hello World Demo 的结构理解
+
+我看了官方文档，发现 Hello World 跨链 Demo 一般分成三部分：
+
+* * *
+
+### **（1）合约层（Solidity）**
+
+这个合约会包含：
+
+-   `onCrossChainCall`
+    
+-   `crossChainMessage`
+    
+-   `_zetaChainReceive()`
+    
+
+简单说，就是接收消息 → 处理 → 回调。
+
+我的理解：
+
+```
+链 A：前端发起 → CLI/SDK 调用 → 发消息到 ZetaChain
+ZetaChain：中转消息
+链 B：合约收到消息 → 执行逻辑
+```
+
+Hello World 最小版本可以是：
+
+```
+emit Hello("Hello from Ethereum");
+```
+
+* * *
+
+### **（2）前端 / 调用层**
+
+通常使用：
+
+-   CLI
+    
+-   Hardhat task
+    
+-   SDK
+    
+-   或者自己写一个 HTML 前端 + ethers.js
+    
+
+Hello World 用 CLI 已经够了。
+
+* * *
+
+### **（3）RPC / 钱包 / 节点连接层**
+
+这里主要是：
+
+-   使用 ZetaChain 的 testnet RPC
+    
+-   从 wallet（Keplr / MetaMask）发 tx
+    
+-   测试跨链事件是否触发
+    
+
+* * *
+
+# 今天建立的心智模型
+
+我把 Universal App 的思维总结成一句话：
+
+> 不是多链合约，而是一个能够“感知多链”的合约。
+
+传统方式：  
+👉 每条链部署一个合约 + 自己写桥消息 + 自己负责安全
+
+ZetaChain：  
+👉 一个主合约即可，跨链消息由 ZetaChain 负责  
+👉 类似“写一次逻辑，多链都能让你执行”
+
+把复杂封装掉，非常容易上手。
+
+* * *
+
+# 自己计划做的第一个 Universal App（作业）
+
+按照要求，我写了我希望的“第一个 demo 应用”：
+
+### 🧪 **我决定做的 Demo：跨链 Hello World（带链名输出）**
+
+逻辑：
+
+```
+从链 A 发送消息 → 合约在链 B 输出：
+"Hello from A to B!"
+```
+
+进一步扩展：
+
+-   记录调用链的信息
+    
+-   计数器累加（跨链调用次数）
+    
+-   前端展示调用结果
+    
+
+我觉得这对理解跨链生命周期非常直观。
+
+* * *
+
+# Hello World 的工具链
+
+官方推荐 Hardhat，所以我决定：
+
+### **我选择的工作流：ZetaChain CLI + Hardhat（不用 Foundry）**
+
+原因：
+
+-   Hardhat 插件齐全
+    
+-   官方教程大部分使用 Hardhat
+    
+-   对 EVM 新手更友好
+    
+-   测试网调试更容易
+    
+
+具体流程如下：
+
+### ✔️ 会用到：
+
+-   ZetaChain CLI
+    
+-   Hardhat（部署、编译）
+    
+-   测试网（非本地链）
+    
+-   钱包：MetaMask + ZetaChain Testnet RPC
+    
+
+### ❌ 不用到：
+
+-   本地链（Hardhat node）
+    
+-   Foundry（后面可选）
+    
+
+* * *
+
+# \## 📝 总结（Day4）
+
+今天不写代码，但完成了最关键的一步：
+
+### **理解架构 + 拆解 Hello World 的所有模块 + 制定工作流**
+
+这会让明天开始写合约的时候不会迷路。
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 # 1，打卡签到
 
@@ -137,6 +320,7 @@ Day 3 的重点是 **概念理解 + 架构梳理**，我觉得最重要的是把
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -305,6 +489,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
