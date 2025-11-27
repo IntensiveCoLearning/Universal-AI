@@ -15,8 +15,24 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+\- Hello World Demo工作流：
+
+\- 问题1：使用 CLI + Hardhat / Foundry
+
+\- 区别在于2个框架。Hardhat（ JavaScript/TypeScript ） 或 Foundry（Solidity）
+
+\- 问题2：用本地链还是测试网
+
+\- 本地链（本地私有环境，仅在自己电脑运行）
+
+\- 测试网（公开测试网络，与主网技术特性一致）
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 \## zeta架构
 
 \- 交互路径：区块链→zetaclient→zetavm→zetacore（ Tendermint 共识和 PoS 验证者网络）→ZetaCore / Blockchain（核心区块链）→签名者签名
@@ -31,6 +47,7 @@ timezone: UTC+8
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 \- 安装zetachain CLI：npm install -g zetachain
 
 \- 检查版本：zetachain --version
@@ -42,6 +59,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 检查安装版本
