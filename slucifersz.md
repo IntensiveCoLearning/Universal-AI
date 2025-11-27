@@ -15,13 +15,51 @@ hello
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+-   解本次共学的整体方向与黑客松赛道（通用 DeFi / 通用 AI 应用）。
+    
+-   完成 ZetaChain / Qwen 账号与基础环境准备。
+    
+
+**学习资料**
+
+-   ZetaChain 总文档
+    
+    [https://www.zetachain.com/docs/](https://www.zetachain.com/docs/)
+    
+-   ZetaChain Developers（入口总览）
+    
+    [https://www.zetachain.com/docs/developers](https://www.zetachain.com/docs/developers)
+    
+-   Qwen 总文档（Quickstart / Key Concepts）
+    
+    [https://qwen.readthedocs.io/zh-cn/latest/](https://qwen.readthedocs.io/zh-cn/latest/)
+    
+
+**扩展资料（可选）**
+
+-   Qwen API 平台
+    
+    [https://qwen.ai/](https://qwen.ai/)
+    
+
+**实践 / 作业**
+
+-   注册 / 配置好 ZetaChain 开发所需环境（浏览 Docs，确认能访问 Developers 页面）。
+    
+-   注册 Qwen 账号并确认可以进入控制
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 好，学到了很多
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 # **ZetaChain 学习报告**
 
