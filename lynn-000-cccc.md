@@ -15,13 +15,20 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+今日听了workshop
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 今日 co-building
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 今天是第一天
 <!-- DAILY_CHECKIN_2025-11-24_END -->
