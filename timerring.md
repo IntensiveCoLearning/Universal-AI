@@ -15,8 +15,41 @@ Dev
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+## ZetaChain Universal App
+
+Universal App 是部署在 ZetaChain Universal EVM 上的智能合约，支持从 Ethereum、BNB、Bitcoin 等多链接收调用、消息和代币，并可发起跨链调用和转账，实现复杂多链交易编排。​
+
+## 核心概念
+
+-   **Universal EVM**：ZetaChain 的 EVM 扩展，内置全链互操作性，现有的 EVM 合约可直接运行，并通过少量修改获得跨链能力。​
+    
+-   **Universal App**：继承 UniversalContract 的合约，通过 `onCall` 方法处理来自 Gateway 的跨链调用，接收 MessageContext、ZRC-20 代币和消息数据。​
+    
+-   **ZRC-20**：连接链的原生 gas 和 ERC-20 代币在 ZetaChain 上的表示，可无许可提现回原链。​
+    
+-   **Omnichain Smart Contract**：指 Universal App，支持 EVM 链、Bitcoin、Solana 等，未来扩展 TON 和 Cosmos。​
+    
+
+## 系统结构
+
+ZetaChain 通过每个连接链上的单一 **Gateway 合约** 作为入口，用户从源链（如 Ethereum）调用 Gateway 发送代币和消息，触发 ZetaChain 上 Universal App 的 `onCall`；App 可调用 Gateway 发起出链转账或调用。​
+
+多链用户经 Gateway 入链到 ZetaChain Universal App，App 处理后出链到目标链，支持 gas 抽象（入链仅源链 gas，出链由 App 管理 ZRC-20 gas）。​
+
+## 关键特性
+
+-   **Gas Abstraction**：入链调用仅需源链 gas，ZetaChain 执行免费；出链需 App 预换 ZRC-20 gas 代币覆盖目标链费用。​
+    
+-   **Bitcoin 支持**：Bitcoin 用户直接发 BTC+数据到 Gateway，无需 ZetaChain 账户或 gas 代币。​
+    
+-   **前向兼容**：新链接入后，现有 App 自动支持，无需修改合约。​
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 -   **Universal NFT标准**可以让ERC-721类NFT在任意连接链上铸造和无缝转移，无需“包装”或外部桥接合约，支持多链间NFT真正的互操作。
     
 -   **主要特性：**
@@ -52,6 +85,7 @@ Dev
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 **Universal Apps** 是指在 ZetaChain 区块链上运行的智能合约，它们能够原生连接多个区块链（如 Ethereum, Bitcoin, BNB, Solana 等），实现真正的多链交互和资产转移。
 
