@@ -15,8 +15,140 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+**学习目标**
+
+-   建立对 “全链应用 / Universal App 合约” 的直观理解。
+    
+-   清楚后面要实现的 Hello World / Demo 会包含哪些模块（合约 + 前端 + RPC）。
+    
+
+**学习资料**
+
+-   继续浏览 ZetaChain Developers 中的 EVM / Tutorials 部分
+    
+-   [https://www.zetachain.com/docs/developers](https://www.zetachain.com/docs/developers)
+    
+
+**扩展资料（可选）**
+
+-   如果有时间，可提前快速扫一眼 Tutorials 中的 Swap / Messaging 结构。
+    
+
+**实践 / 作业**
+
+-   在笔记中写出：
+    
+    -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
+        
+-   为后续的 Hello World Demo 决定一种工作流：
+    
+    -   使用 CLI + Hardhat / Foundry？
+        
+    -   用本地链还是测试网？
+        
+
+# 1.实现一个简单的合约
+
+## 环境建立
+
+初始化一个新项目 ZetaChain CLI（命令行界面）。
+
+```Solidity
+npx zetachain@latest new --project hello
+cd hello
+yarn 或者 npm install
+forge soldeer update
+```
+
+## hello模板
+
+```Solidity
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+
+import "@zetachain/protocol-contracts/contracts/zevm/interfaces/UniversalContract.sol";
+
+contract Universal is UniversalContract {
+    event HelloEvent(string, string);
+
+    function onCall(
+        MessageContext calldata context,
+        address zrc20,
+        uint256 amount,
+        bytes calldata message
+    ) external override onlyGateway {
+        string memory name = abi.decode(message, (string));
+        emit HelloEvent("Hello: ", name);
+    }
+}
+```
+
+## testnet 部署
+
+```Solidity
+UNIVERSAL=$(forge create Universal \
+  --rpc-url https://zetachain-athens-evm.blockpi.network/v1/rpc/public \
+  --private-key $PRIVATE_KEY \
+  --broadcast \
+  --json | jq -r .deployedTo)
+```
+
+```Solidity
+#查看合约地址：
+echo $UNIVERSAL
+```
+
+用合约地址在[https://testnet.zetascan.com/上查询即可。](https://testnet.zetascan.com/上查询即可。)
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=MjEwZmU0OWYzNTQxZmEyZjFkNTMzNzU5NWVjZGI1OGVfZkwxMXNSM3l6UjhGdkJmdzFtNjFaalhtb3NXUVlvd0lfVG9rZW46TWZRd2J1Mm5rb0QyVnp4bEFMMWM5eEhZbkllXzE3NjQyNTAzNzc6MTc2NDI1Mzk3N19WNA)
+
+其实还可以这样编译和部署，这个会返回所有的部署信息：
+
+```Solidity
+# 1. 加载 Node 环境
+source /root/.nvm/nvm.sh
+
+# 2. 安装依赖（如果未安装）
+npm install
+
+# 3. 编译合约
+npx hardhat compile
+
+# 4. 部署
+# 创建 .env 文件并配置私钥
+echo "PRIVATE_KEY=你的64位私钥" > .env
+npx tsx commands/index.ts deploy --private-key $(grep PRIVATE_KEY .env | cut -d '=' -f2)
+```
+
+# 2.CrossChainEcho (跨链传声筒)
+
+目标：**我在以太坊（Sepolia）喊一句，ZetaChain 必须能听见并记下来。**
+
+-   **输入 (Input)：**
+    
+    -   不转账代币，只从 Sepolia 发一笔交易，带上一段话（字符串，比如 "Hello Zeta!"）。
+        
+-   **简单逻辑 (Logic)：**
+    
+    -   ZetaChain 上的合约收到那串乱糟糟的十六进制数据后，得把它**解码**成人类能看懂的文字。
+        
+    -   顺便检查一下是不是发了个空消息。
+        
+-   **记录与打印 (Record & Print)：**
+    
+    -   **记下来：** 用个小本本（`mapping`）在链上存好：_“谁（Address）在什么时候说了什么”_。
+        
+    -   **吼出来：** 虽然不能 `console.log`，但我可以 `emit Event`。只要能在 ZetaScan 浏览器上看到这个 Event 弹出来，就算大功告成！
+        
+
+使用CLI + Hardhat+测试网
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ZetaChain & Universal Blockchain 核心概念
 
 **学习目标**
@@ -372,6 +504,7 @@ ZetaChain 无法在比特币网络上部署智能合约。比特币不支持这�
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 **学习目标**
 
 -   本地 / 云端完成基础开发环境落地。
@@ -687,6 +820,7 @@ B. gRPC & REST (Cosmos SDK 层)
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 # DAY1
