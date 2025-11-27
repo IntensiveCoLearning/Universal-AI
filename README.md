@@ -272,7 +272,7 @@ Telegram：https://t.me/zetachain_asia
 | [veithly](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/veithly.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [coolzeta](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/coolzeta.md) | ✅ | ✅ | ⭕️ | ✅ | | | | | | | | | | |
 | [bassfuture](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/bassfuture.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [debugzhao](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/debugzhao.md) | ✅ | ⭕️ | ✅ |   | | | | | | | | | | |
+| [debugzhao](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/debugzhao.md) | ✅ | ⭕️ | ✅ | ✅ | | | | | | | | | | |
 | [Readering1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Readering1.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [anqi42196-crypto](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/anqi42196-crypto.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [muxin-web3](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/muxin-web3.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ |   | | | | | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ |   | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
