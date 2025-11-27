@@ -15,8 +15,74 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+### ZetaChain Mainnet
+
+网络名称
+
+ZetaChain Mainnet
+
+链 ID
+
+7000
+
+RPC
+
+[https://zetachain-evm.blockpi.network/v1/rpc/public](https://zetachain-evm.blockpi.network/v1/rpc/public)
+
+货币符号
+
+zeta
+
+浏览器
+
+[https://zetascan.com/](https://zetascan.com/)
+
+### ZetaChain Testnet
+
+网络名称
+
+ZetaChain Testnet
+
+链 ID
+
+7001
+
+RPC
+
+[https://zetachain-athens-evm.blockpi.network/v1/rpc/public](https://zetachain-athens-evm.blockpi.network/v1/rpc/public)
+
+货币符号
+
+zeta
+
+浏览器
+
+[https://testnet.zetascan.com](https://testnet.zetascan.com)
+
+### ZetaChain网络
+
+[页面入口](https://www.zetachain.com/docs/reference/network/details)
+
+### ZetaChain RPC
+
+[页面入口](https://www.zetachain.com/docs/reference/network/api)
+
+### ZetaChain 浏览器
+
+[主网](https://zetascan.com/)
+
+[测试网](https://testnet.zetascan.com/)
+
+### 阿里云百炼
+
+[页面入口](https://bailian.console.aliyun.com/)
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 \### ZetaChain CLI
 
 \#### 安装
