@@ -15,8 +15,22 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+# Day 4
+
+1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
+    
+
+-   跨链支付的 ai 投资助手？
+    
+
+2.  测试网使用 Hardhat
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # Day 3
 
 1.  什么是 Universal App？
@@ -41,6 +55,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 # Day 2
 
@@ -74,6 +89,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 # Day 1
