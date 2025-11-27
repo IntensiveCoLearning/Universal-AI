@@ -15,8 +15,23 @@ AI & Web3 Builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+**Day3**
+
+终于通过Vscode打开了新建立的hello文件夹
+
+在终端输入Yarn进行安装依赖项：安装出现多项警告
+
+选择清洗并重新安装（失败）
+
+选择忽略错误直接forge soldeer update👉结果显示无"forge"  
+选择下载Foundry
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 **DAY2**
 
 搞明白了如何使用npm下载zetachain并完成运行准备工作:
@@ -54,6 +69,7 @@ C:\\Users\\MR>zetachain new
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 **进入学习项目第一天**
 
