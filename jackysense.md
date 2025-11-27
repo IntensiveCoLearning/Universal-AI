@@ -15,8 +15,18 @@ Web3 builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+1.  通用app，打印出输入记录，输出，tx记录，错误信息，输出信息到对话输入框，通过ai转成参数，调用记录。
+    
+2.  使用 CLI + Foundry
+    
+3.  优先使用测试网 ，初步是base + zeta测试能通
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 通用应用
 
 可以接收来自连接链上用户和合约的合约调用和代币
@@ -46,6 +56,7 @@ Gateway 是一个接口，它作为 ZetaChain 上连接链上的合约与通用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 **浏览器、水龙头**
 
@@ -96,6 +107,7 @@ zetachain localnet start
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
