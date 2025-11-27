@@ -15,8 +15,22 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+-   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
+    
+
+结合ZetaChain的特点，在以太坊上发起一个call（比如说，莎士比亚的一段话），通过gateway和zetaChain链的转发，能够在SUI链上接收到这个消息并记录到链上，具体实现逻辑明天设计一下。
+
+-   为后续的 Hello World Demo 决定一种工作流：使用 CLI + Hardhat / Foundry？用本地链还是测试网？
+    
+
+我选择使用CLI+Foundry（个人技术栈熟悉），同时选择本地链（也会尝试在测试网上跑通这个Dapp）。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 -   Universal App 是什么？
     
 
@@ -32,6 +46,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 -   ZetaChain CLI本地环境安装及使用：
     
@@ -53,6 +68,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 ## 开发环境准备步骤
