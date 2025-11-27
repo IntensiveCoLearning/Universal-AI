@@ -15,8 +15,374 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+## 笔记Day4
+
+**目标：**
+
+1.  搞清楚什么是 **Universal App / 全链应用合约**。
+    
+2.  搭好后面 Hello World Demo 的心智模型：
+    
+    -   合约在 ZetaChain 上
+        
+    -   前端在浏览器
+        
+    -   调用通过连接链上的 Gateway + RPC 完成（例如 Arbitrum / Base 等测试网）。
+        
+
+可以把它想象成：
+
+> 「所有链（ETH、BNB、BTC…）都只是**客户端**，真正的业务逻辑集中在 ZetaChain 上那一个 Universal App 合约。」
+
+* * *
+
+## 2\. 什么是 Universal App（全链应用）？
+
+### 2.1 官方定义（翻译 + 压缩版）
+
+-   **Universal App = 部署在 ZetaChain 的智能合约**，但它**天然连着别的链**（Ethereum、BNB、Bitcoin 等）。
+    
+-   和普通合约不同，它可以：
+    
+    -   接收来自任意连接链的：**合约调用 + 消息 + 代币转账**
+        
+    -   反过来再发起：**跨链合约调用 + 代币转账**。
+        
+-   Universal App 部署在 **Universal EVM** 上，这个 EVM 在普通 EVM 之上扩展了跨链互操作能力。
+    
+
+### 2.2 关键组件
+
+1.  **onCall 函数：跨链入口**
+    
+    智能合约：
+    
+    ```
+    contract Universal is UniversalContract {
+        event HelloEvent(string, string);
+    
+        function onCall(
+            MessageContext calldata context,
+            address zrc20,
+            uint256 amount,
+            bytes calldata message
+        ) external override onlyGateway {
+            string memory name = abi.decode(message, (string));
+            emit HelloEvent("Hello: ", name);
+        }
+    }
+    ```
+    
+    -   所有从其它链（例如 Base Sepolia）经由 Gateway 过来的调用，最终都会进入 `onCall`。
+        
+    -   `context` 告诉你：源链 ID、调用者地址等。
+        
+    -   `zrc20` + `amount` 代表从源链带来的 Token（映射为 ZRC-20）。
+        
+    -   `message` 是任意 ABI 编码的数据（Hello 例子里是一个字符串）。
+        
+2.  **ZRC-20：统一表示跨链资产**
+    
+    -   每个连接链上的原生 gas / ERC-20，在 ZetaChain 上都有一个对应的 **ZRC-20**。
+        
+    -   例如：
+        
+        -   Ethereum 上的 ETH ↔ ZetaChain 上的 `ZRC-20 ETH`
+            
+        -   这些 ZRC-20 代币可以随时“提现”回原链（ZRC-20 ETH → 以太坊上的 ETH）。
+            
+3.  **Gateway：所有链进入 Universal App 的“门”**
+    
+    -   每条连接链上有一个 **Gateway 合约**，专门负责：
+        
+        -   接收用户 / 合约的调用、消息、代币
+            
+        -   转发到 ZetaChain 上指定的 Universal App。
+            
+    -   调用路径是：
+        
+        > 源链 EVM 合约 / 用户 → 源链 Gateway → ZetaChain Universal App →（可选）再往其它链发射调用
+        
+4.  **对 Bitcoin 的支持（很重要的卖点）**
+    
+    -   BTC 用户可以直接往 Gateway 地址 **发送一笔 BTC + data**，就完成对 Universal App 的调用。
+        
+    -   只需要**一笔 Bitcoin 交易**，无需在其他链开钱包、准备 gas（由 Universal App 帮忙处理 gas，称为 gas 抽象）。
+        
+
+### 2.3 心智模型一句话总结
+
+> **Universal App = 一个部署在 ZetaChain 的“总控合约”。  
+> 所有其他链只是入口（Gateway），资产都映射成 ZRC-20，业务逻辑集中在 onCall 里。**
+
+* * *
+
+## 3\. Hello World Universal App 教程拆解
+
+### 3.1 效果
+
+官方的 _First Universal Contract_ 教程里，你会完成：
+
+-   编写一个 Universal 合约，当收到跨链调用时：
+    
+    -   从 `message` 里解码一个字符串
+        
+    -   `emit HelloEvent("Hello: ", name)`
+        
+-   在 **Localnet 或 Testnet** 上部署该合约。
+    
+-   从一个连接链（本地 EVM / Base Sepolia）通过 Gateway 发起跨链调用，看到 ZetaChain 上的事件日志。
+    
+
+### 3.2 环境与工具
+
+1.  **ZetaChain CLI + Foundry 是官方推荐组合**
+    
+    从教程和 Intro 文档：
+    
+    -   CLI：创建项目、启动 Localnet、发起跨链调用、查询 CCTX。
+        
+    -   Foundry：`forge build` 编译、`forge create` 部署、`cast` 管理私钥等。
+        
+    
+    初始化 Hello 项目：
+    
+    ```
+    npx zetachain@latest new --project hello
+    cd hello
+    yarn
+    forge soldeer update
+    ```
+    
+2.  **Localnet：本地多链实验室**
+    
+    -   `npx zetachain localnet start` 可以在本机拉起：ZetaChain + 多条链（EVM、Solana、Sui、TON），以及预部署好的 Gateway、ZRC-20、Uniswap 池等。
+        
+    -   可以理解为 “ZetaChain on ”：
+        
+        -   快速调试跨链逻辑
+            
+        -   不花真实测试币
+            
+        -   一条命令就能重置环境
+            
+3.  **Testnet：对接真实公共测试网**
+    
+    -   教程中使用 ZetaChain testnet（Athens）+ Base Sepolia 等测试网。
+        
+    -   通过公共 RPC + Gateway 合约地址完成跨链调用，整体流程更接近真实生产环境。
+        
+
+### 3.3 合约侧的逻辑
+
+核心逻辑：
+
+-   `Universal` 合约实现 `UniversalContract` 接口，必须实现 `onCall`。
+    
+-   `onCall` 收到参数：
+    
+    -   `context.chainID`：源链 ID
+        
+    -   `context.sender`：源链调用 Gateway 的地址
+        
+    -   `zrc20`：源链资产映射
+        
+    -   `amount`：资产数量
+        
+    -   `message`：ABI 编码的业务参数
+        
+-   Hello 示例里只做一件事：
+    
+    -   `string name = abi.decode(message, (string));`
+        
+    -   `emit HelloEvent("Hello: ", name);`
+        
+
+> 心智模型：**这是一个“跨链 printf”** —— 从任何链发一个字符串，它在 ZetaChain 上打印出 `Hello: XXX` 事件。
+
+### 3.4 调用
+
+大致步骤：
+
+1.  启动 Localnet
+    
+    ```
+    npx zetachain localnet start
+    ```
+    
+2.  `forge build` 编译合约。
+    
+3.  从本地 EVM（Anvil）拿一个预置私钥 + 测试币。
+    
+4.  使用 `forge create` 把 Universal 合约部署到 ZetaChain。
+    
+5.  找到连接链（如本地 ETH）的 Gateway 地址。
+    
+6.  用 CLI 从连接链调用 Universal：
+    
+    ```
+    npx zetachain evm call \
+      --rpc http://localhost:8545 \
+      --gateway $GATEWAY_EVM \
+      --receiver $UNIVERSAL \
+      --private-key $PRIVATE_KEY \
+      --types string \
+      --values hello
+    ```
+    
+7.  在 Localnet 终端里看到 `[ZetaChain]: Event from onCall` 的日志（说明 Universal App 收到了跨链消息）。
+    
+
+Testnet 版本则是类似的 `npx zetachain evm call --chain-id 84532 ...`，只是把 RPC、链 ID 换成公共测试网。
+
+* * *
+
+## 4\. 前端 + RPC 心智模型
+
+在 **Build a Web App** 教程里，会在 Hello 合约之上加一层 React 前端：
+
+### 4.1 前端
+
+1.  连接一个 EVM 测试网钱包（例如 Arbitrum Sepolia）。
+    
+2.  使用 ZetaChain Toolkit 的 `evmCall` 发送跨链调用到 Gateway。
+    
+3.  记录源链的交易 hash。
+    
+4.  轮询 ZetaChain 的 CCTX API，拿到 ZetaChain 上执行的交易 hash。
+    
+5.  在 UI 中展示：
+    
+    -   源链 explorer 链接
+        
+    -   ZetaChain explorer 链接
+        
+
+> 于是你有了一个**完整的跨链调用闭环**：用户在前端点一下按钮 → 源链发送交易 → ZetaChain 执行 → 用户看到两个链上的结果。
+
+### 4.2 RPC / 网络角色拆分
+
+可以简单地把“后端 + RPC”想象为三类东西：
+
+1.  **源链 RPC**（例如 Arbitrum Sepolia 的 RPC）
+    
+    -   负责发送用户签名的交易（调用 Gateway）。
+        
+2.  **ZetaChain RPC / API**
+    
+    -   负责查询 CCTX 状态、ZetaChain 上的交易执行情况。
+        
+3.  **Gateway 合约地址 / 协议 Contracts**
+    
+    -   写死在前端配置中，或通过 CLI / Docs 查到
+        
+    -   统一入口，前端不会直接连 ZetaChain 的 Universal 合约，而是先打到 Gateway，再由协议转发到 Universal App。
+        
+
+* * *
+
+## 5\. 为后续 Swap / Messaging 铺路：Universal App 可以做什么？
+
+在 Hello 之后，官方 Tutorials 会带你做：Swap / Messaging 等更复杂例子。它们本质上只是 **onCall 里面的逻辑变复杂** 而已：
+
+1.  **跨链留言本 / 事件记录**
+    
+    -   Hello 已经是最小版本：跨链字符串 → 事件。
+        
+2.  **跨链 Swap（示例思路）**
+    
+    -   从 Ethereum 接收 ZRC-20 ETH + “我想要 BNB” 的 message
+        
+    -   在 ZetaChain 上用 DEX 把 ZRC-20 ETH 换成 ZRC-20 BNB
+        
+    -   再通过 Gateway 把 ZRC-20 BNB 提现到 BNB Chain 用户地址。
+        
+3.  **跨链 NFT / Game / Social**
+    
+    -   所有状态与规则写在 ZetaChain 的 Universal App 中。
+        
+    -   不同链的用户只需通过「本链的钱包 + Gateway」，就能玩同一套逻辑。
+        
+
+> 心智模型：**你只写一份“主脑合约”，不同链的用户排队来问它问题 / 给它资产。**
+
+* * *
+
+## 6\. 工具 & 工作流选择建议（CLI + Hardhat / Foundry？Localnet 还是 Testnet？）
+
+我觉得需要思考这个问题：
+
+后面的 Hello World / Demo，打算用哪一套工具 + 哪个网络？
+
+来做一一个对比 + 建议吧
+
+### 6.1 开发工具：Hardhat vs Foundry
+
+ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers.js 等主流工具，你可以继续用自己熟悉的工作流。
+
+**Hardhat：**
+
+-   优点：
+    
+    -   JS / TS 生态友好，插件多（与前端、脚本集成方便）。
+        
+    -   自带 Hardhat Network，本地调试 EVM 很顺手。
+        
+-   适合：
+    
+    -   你更熟悉 JS / TS，喜欢用 Hardhat 脚本部署。
+        
+    -   想和前端工程整合得很紧（比如一套 monorepo）。
+        
+
+**Foundry：**
+
+-   优点：
+    
+    -   更偏 **Solidity 原生**，`forge build / forge test` 很快。
+        
+    -   CLI 体验统一，和 ZetaChain 官方教程深度绑定（包括 Localnet、`forge create` 等）。
+        
+
+### 6.2 网络：Localnet vs Testnet
+
+**Localnet（个人比较推荐）：**
+
+-   优点：
+    
+    -   本地跑在 Docker / 本机，多链一起启动，极快迭代。
+        
+    -   不依赖测试网 RPC 稳定性，不用到处找 faucet。
+        
+    -   可以自由重置环境，适合“乱试”。
+        
+-   缺点：
+    
+    -   与真实用户环境有一点差距（没有真实的测试网 Explorer UX）。
+        
+    -   需要本地环境配置（Docker、Foundry 等）。
+        
+
+**Testnet：**
+
+-   优点：
+    
+    -   完全贴近真实环境：公共 RPC、浏览器（Blockscout / Basescan）、真实延迟。
+        
+    -   前端 Demo 给别人看时更“像真的”。
+        
+-   缺点：
+    
+    -   依赖测试网状态（RPC 慢 / 挂）。
+        
+    -   流程稍长，跨链确认需要等待时间。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # 学习笔记 Day 3：ZetaChain & Universal Blockchain 核心概念
 
 ## 1\. 整体认识：什么是 “Universal Blockchain / Universal EVM”？
@@ -218,6 +584,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 Day 2 学习笔记：环境与工具实战（ZetaChain + Qwen）
 
@@ -569,6 +936,7 @@ Body（raw + JSON）示例：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 它有一个叫 **Universal EVM** 的东西，本质是「带跨链能力的 EVM」，你在这条链上写一个合约，就可以从这一个逻辑中心去操作多条链（包括以太坊、BNB、Solana 甚至比特币）的资产和合约，是一个专门为跨链 / 全链应用准备的开发环境
