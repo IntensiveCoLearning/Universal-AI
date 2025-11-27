@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+![wechat_2025-11-27_220450_264.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/kuove/images/2025-11-27-1764252340702-wechat_2025-11-27_220450_264.png)
+
+使用测试链实现hello信息传递
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 Universal apps在24号的笔记中总结过，
 
 -   可以接收已连接的链上的合约调用
@@ -73,6 +81,7 @@ The implementation of the gateway depends on the connected chain:
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 1.  注册qwen，获取api，能在本地通过node调用
     
 2.  阅读[**Getting Started**](https://www.zetachain.com/docs/developers/tutorials/intro)
@@ -86,6 +95,7 @@ The implementation of the gateway depends on the connected chain:
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 -   Universal apps:
