@@ -25,13 +25,20 @@ tg写的微信号
 
 出站：对于从 ZetaChain 流向连接链的交易，ZetaChain 采用了一个速率限制器。
 
+## 通用资产
+
+zrc20
+
 ## 通用应用
 
 一个实现了 UniversalContract 接口的智能合约。
+
+前端->源链网关gateway->被zetachain上的验证者监控到->监控投票后达成共识->自动调用通用应用
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ## cctx
 
@@ -52,6 +59,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -78,6 +86,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
