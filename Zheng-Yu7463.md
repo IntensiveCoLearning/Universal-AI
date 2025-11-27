@@ -15,8 +15,24 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+**“全链涂鸦墙”**
+
+> 这是一块立在 ZetaChain 上的**公共黑板**。
+> 
+> 无论你是住在“比特币村”还是“以太坊城”，你都不用出门（不用跨链桥），直接在家里发一条短信（发交易），这块黑板上就会自动刻上：
+> 
+> **“来自 \[比特币/以太坊\] 的 \[你的地址\]，在 \[时间\] 到此一游。”**
+> 
+> **同时加入类似于微信摇一摇和QQ空间漂流瓶的功能，打造一个链上的随机漂流平台**
+
+采用CLI + Hardhat + 测试网
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 **Q1: Universal App (通用应用) 是什么？**
 
 > “一次部署，全链连接。”
@@ -51,6 +67,7 @@ Gateway 是 ZetaChain 与外部区块链（如 Ethereum, Bitcoin）进行沟通�
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 -   安装尝试Zeta cli ✅
     
 -   ZetaChain Node / RPC / Faucet / Explorer / 测试币获取 ✅
@@ -76,6 +93,7 @@ Qwen api调试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 -   添加共学微信群 ✅
