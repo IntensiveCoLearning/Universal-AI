@@ -15,19 +15,29 @@ NA
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+今天跑了下First Universal Contract，通过本地网进行了测试。。。。。。
+
+好吧，笔记被我丢了。。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/TigerOpt/images/2025-11-26-1764169857509-__.png)
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 今天请个假！
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 **已完成ZetaChain / Qwen 账号与基础环境准备。**
