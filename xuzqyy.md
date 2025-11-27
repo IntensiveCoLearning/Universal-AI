@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+今天看课程没看懂，明天再花时间看看回放
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 **1\. Universal App（通用应用） 是什么？**
 
 > **Universal App 是部署在 ZetaChain 上的一种智能合约，它能“天然地”和多条区块链（如 Ethereum、Bitcoin、Solana 等）直接通信和交互。**  
@@ -32,6 +38,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 1安装调试cli
 
@@ -58,6 +65,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 | 能打开并浏览 ZetaChain Docs 和 Developers 页面 | ✅ |
