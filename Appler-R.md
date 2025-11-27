@@ -16,8 +16,14 @@ AI 开发者, Qwen 实战派，看好Web3+ 模块化链
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+![1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-27-1764250272995-1.png)
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ### Universal EVM 与 Universal App
 
 _这是 ZetaChain 最具革命性的地方。_
@@ -305,6 +311,7 @@ Merkle树用哈希聚合交易 → 一个根哈希代表所有交易，轻节点
 
 
 
+
 ## 1\. 开发环境处理 (WSL Linux)
 
 起步发现WSL被 Docker 占用、WSL 无法启动、忘记密码。
@@ -537,6 +544,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
