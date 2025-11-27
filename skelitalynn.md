@@ -15,8 +15,81 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+# Day 4 学习笔记
+
+## Universal App + Hello World 心智模型
+
+### 一、核心理解
+
+**Universal App 的最小结构包含三层：**
+
+1.  **合约层（ZetaChain 上）**
+    
+    -   存储数据、执行逻辑
+        
+    -   提供写入/读取函数（例如 `writeMessage()` / `getMessages()`）
+        
+2.  **RPC/脚本层（Hardhat / ethers.js）**
+    
+    -   负责向 ZetaChain 发送交易、读取链上数据
+        
+3.  **前端层（简单 UI）**
+    
+    -   输入 → 发送到链上
+        
+    -   再从链上读取 → 展示结果
+        
+
+**整体链路：**  
+前端 → RPC → Universal 合约（ZetaChain）→ RPC → 前端展示
+
+* * *
+
+### 二、我设计的第一个 Universal App
+
+主题：**Universal Affirmation Log（全链显化留言板）**
+
+**功能：**
+
+-   用户从任意链写入一条“自我肯定语句”
+    
+-   合约记录：文本 + 地址 + 来源链 + 时间
+    
+-   前端展示所有链上的显化语句
+    
+
+**合约最小逻辑：**
+
+-   `writeAffirmation(string text)`
+    
+-   `getAffirmations()`
+    
+
+这是一个最简单、最适合作为 Hello World 的“打印 + 记录”应用。
+
+* * *
+
+### 三、我的开发工作流选择
+
+**工具链：ZetaChain CLI（内置 Hardhat）**
+
+理由：已成功配置、本身面向 Universal App、入门成本最低。
+
+**网络选择：**
+
+-   开发阶段：本地 Hardhat 网络（轻量、易调试）
+    
+-   最终验证：ZetaChain 测试网（已有 RPC 和测试币）
+    
+
+这套流程兼顾：轻量、本地资源占用低、可直接部署到真实链。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # Day 3 Universal App&EVM
 
 ### 一、今日学习目标
@@ -131,6 +204,7 @@ Gateway 是一个非常关键的组件，它负责：
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 ### Day 2：环境与工具实操（ZetaChain + Qwen）
 
@@ -288,6 +362,7 @@ npx tsx src/index.ts query
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 # Day 1 ZetaChain & Qwen 启动与环境准备
