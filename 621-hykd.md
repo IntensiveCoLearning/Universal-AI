@@ -15,8 +15,38 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+**我的第一个 Universal App**
+
+**名称**：
+
+游戏成就通行证
+
+**1.核心逻辑**：
+
+**记录**：在 ZetaChain 上记录玩家在不同链游中的成就完成情况
+
+**打印**：当玩家在Game A完成新手任务时：
+
+记录玩家地址 + 成就时间戳 + 来源链
+
+自动为玩家在Game B解锁“跨界勇者”称号
+
+**前端展示**：显示玩家的跨链成就徽章和游戏履历
+
+**2\. 工作流选择：**
+
+**Hardhat**：插件生态丰富，测试框架成熟，最适合游戏类复杂逻辑的调试
+
+**本地链**：即时确认交易，免费测试代币，完美适配多链游戏场景的快速迭代
+
+![deepseek_mermaid_20251127_b67792.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/621-hykd/images/2025-11-27-1764257656027-deepseek_mermaid_20251127_b67792.png)
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 1\. Universal App（通用应用）是一种跨链智能合约应用，部署在 ZetaChain 上，但可以直接与多条外部区块链（如 Bitcoin、Ethereum、BNB Chain 等）交互，而无需依赖跨链桥或封装资产。它的核心特点是：
 
 （1）统一流动性：用户可以在不同链上使用原生资产（如原生 BTC、ETH）与合约交互。
@@ -44,6 +74,7 @@ Gateway 像是“邮局”，把不同链的消息打包并安全送达 ZetaChai
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 任务完成
 
@@ -96,6 +127,7 @@ ZetaChain 生态: 完整掌握测试网资源和使用方法，Qwen API: 熟练�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/621-hykd/images/2025-11-24-1763995745508-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/621-hykd/images/2025-11-24-1763997052598-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/621-hykd/images/2025-11-24-1763997569752-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/621-hykd/images/2025-11-24-1763997775045-image.png)![5db8cbf760dc718384aeaa1823e0a431.jpeg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/621-hykd/images/2025-11-24-1763997833750-5db8cbf760dc718384aeaa1823e0a431.jpeg)
