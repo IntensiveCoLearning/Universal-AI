@@ -15,8 +15,24 @@ tg写的微信号
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+选择CLI + Hardhat / Foundry做demo
+
+## liquidity throughput
+
+为了维护网络稳定：入站：ZetaChain 为每一种支持的代币都设定了一个预定义的最大存入金额（上限）避免网络因某一特定资产的大量涌入而承受过大的托管和铸造压力。
+
+出站：对于从 ZetaChain 流向连接链的交易，ZetaChain 采用了一个速率限制器。
+
+## 通用应用
+
+一个实现了 UniversalContract 接口的智能合约。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ## cctx
 
 跨链交易
@@ -36,6 +52,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 RPC 让app连接到测试网：[https://zetachain-athens-evm.blockpi.network/v1/rpc/public](https://zetachain-athens-evm.blockpi.network/v1/rpc/public)
@@ -61,6 +78,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
