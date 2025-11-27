@@ -15,8 +15,25 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+ZetaChain是有许多节点组成的分布式网络，这些节点又叫Validator  
+在ZetaChain中有两种Validator，  
+一种是Core Validators主要负责ZetaChain中区块的产生和状态更新，负责内部  
+一种是Observer-Signer Validators，主要负责监视外部链上的跨链事件，和对外交易，负责对外。
+
+外部链上的GateWay负责与交易发起者和接收者进行交互  
+GateWay和Observer-Signer 的配合，完成了交易在外部链和ZetaChain之间的传递  
+当交易能够在外部链和ZetaChain中进行传递之后，那么在ZetaChain中部署的智能合约自然就具有了与外部链进行交互的能力，成为了通用智能合约
+
+代币在外部链和ZetaChain之间进行传递的时候，会在ZetaChain中统一被映射成ZRC-20，这样不同的代币也能一致的进行处理
+
+交易传递的道路被连通，统一的货币被建立，于是ZetaChain就将各个链连接到了一起
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ERC-20是Ethereum Request for Comment 20，是在以太坊上创建同质化代币的标准。  
 ZRC-20是ERC-20代币或者比特币等等在ZetaChain上的映射
 
@@ -31,6 +48,7 @@ ZetaChian上的gateway的功能是将universal contract执行的结果传出到�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 学习了ZetaChain中的一些Tools，  
 [https://www.zetachain.com/docs/reference](https://www.zetachain.com/docs/reference)
@@ -50,6 +68,7 @@ RPC就像HTTP API一样，HTTP API是与外部网站进行交互的接口，而R
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
