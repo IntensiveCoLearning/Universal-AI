@@ -15,8 +15,22 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+我将做一个 **跨链留言板（Cross-Chain Message Board）** 作为我的第一个 Universal App。
+
+用户可以在前端输入一句话，提交后通过 ZetaChain 测试网的 RPC 将该消息写入合约并由前端展示。未来我会扩展成：用户可以从其他链发送消息，通过 Zeta Messaging 做跨链同步。
+
+**Hardhat + ZetaChain CLI + 测试网 RPC（Athens）**
+
+原因是 Hardhat 更适合初学者，官方教程配套，Zeta CLI 能简化跨链流程，而 Universal App 必须在测试网才能正确运行。
+
+Universal App 需要使用 Zeta Messaging 做跨链通信，本地链无法模拟这种跨链架构，因此必须使用 **ZetaChain Athens Testnet** 来验证跨链消息与完整流程。
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ZetaChain 上的 Universal App 是一种能够在单一合约中直接调用并处理多条区块链资产与消息的跨链原生应用。 它通过统一的资产包装、跨链消息协议以及完整的开发者工具链，让开发者只写一次代码，就能在所有支持的链上提供完整的 DeFi、NFT、治理等功能，从而大幅降低跨链开发的技术门槛和运营成本。
 
 Gateway的作用：
@@ -28,6 +42,7 @@ Gateway是ZetaChain生态中的统一入口接口（Unified Entry Point），部
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 要在zetachain上开发有点门槛，从下载各种先决条件第一步就有些吃力，好在能用AI一步一步帮我详解步骤，后面搭建环境也顺利完成，顺便搞定了Qwen
 
