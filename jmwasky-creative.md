@@ -15,8 +15,20 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+-   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
+    
+-   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
+    
+-   后续的工作流，使用 CLI+Foundry+测试网实现
+    
+-   今天了解粗略了解了swap和messaging
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # 基础知识点
 
 -   Universal App 是什么？
@@ -48,6 +60,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 -   安装或尝试使用 ZetaChain CLI（本地或云端环境均可）。
@@ -134,6 +147,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
