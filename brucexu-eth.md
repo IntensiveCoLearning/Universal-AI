@@ -15,8 +15,67 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+[https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-27-1764275585407-image.png)
+
+ZetaChain is like a bridge.
+
+In this example a universal app:
+
+-   accepts 6 ETH and "I want BNB" (bytes that represent the destination token) from Ethereum
+    
+-   swaps 6 ZRC-20 ETH for ZRC-20 BNB using a decentralized exchange on ZetaChain
+    
+-   calls the Gateway contract to withdraw ZRC-20 BNB and call a contract on the BNB chain
+    
+
+Of course, a single universal app call can trigger more than one call to different chains.
+
+DeFi and Oracle is very important.
+
+TODO implement a demo to use ETH buy BTC on BTC.
+
+* * *
+
+Incoming call to universal apps do not incur additional gas costs. But outgoing calls from universal apps require gas, need to deposit ZRC-20 gas token.
+
+In practice it means that a universal app would swap a fraction of the incoming ZRC-20 token to the ZRC-20 of the gas token of the chain to which an outgoing call is made. When an outgoing call or withdrawal is made, a required amount of ZRC-20 gas token is deducted to cover the gas fees on the destination chain.
+
+TODO how ZRC-20 and gas fee calculated? if the token price is uncertain?
+
+* * *
+
+[https://www.zetachain.com/docs/start/build](https://www.zetachain.com/docs/start/build)
+
+One of the core capabilities of universal apps on ZetaChain is the ability to transfer value using native tokens across all connected chains. This means users can perform transactions involving the actual native assets of each blockchain, rather than wrapped or synthetic versions.
+
+ZetaChain runs smart contracts on its Universal Ethereum Virtual Machine (UEVM), which is fully compatible with Ethereum's EVM.
+
+Another compelling feature of ZetaChain is its Gasless EVM Execution Environment. Universal apps run on ZetaChain's EVM and can be called by users and contracts from all connected chains. When a universal app is called from a connected chain, it requires gas payment only on that connected chain.
+
+Execution on ZetaChain does not impose any additional fees, making ZetaChain a cost-effective, gasless environment for deploying contracts.
+
+TODO how ZetaChain make profits?
+
+* * *
+
+[https://www.zetachain.com/docs/developers/architecture/overview](https://www.zetachain.com/docs/developers/architecture/overview)
+
+At a high level, ZetaChain is a Proof of Stake (PoS) blockchain built on the Cosmos SDK and Comet BFT consensus engine.
+
+TODO check Cosmos [https://github.com/cosmos/cosmos-sdk](https://github.com/cosmos/cosmos-sdk)
+
+Contained within each validator is the ZetaCore and ZetaClient. ZetaCore is responsible for producing the blockchain and maintaining the replicated state machine. ZetaClient is responsible for observing events on connected chains and signing outbound transactions.
+
+Validators are comprised of 2 different roles: Core Validators and Observer-Signer Validators. Fees from transactions and rewards are distributed to validators in return for their service of processing transactions and keeping the network secure.
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 Created a new education tool for anaylzing solidity [https://github.com/brucexu-eth/evm-runtime-visualizer](https://github.com/brucexu-eth/evm-runtime-visualizer) with Gemini 3 Pro.
 
 ## Storage vs Memory vs Calldata
@@ -100,6 +159,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 Qwen API + SDK installed.
 
@@ -204,6 +264,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 [https://www.zetachain.com/docs/developers/tutorials/hello/](https://www.zetachain.com/docs/developers/tutorials/hello/)
@@ -429,6 +490,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
