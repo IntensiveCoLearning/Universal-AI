@@ -15,8 +15,58 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+听了老师的讲解
+
+\## Universal blockchain
+
+原生连接L1 链
+
+传统方式：A锁B铸
+
+像一个 链的中心Hub ， 多链互联互通
+
+\## Universal EVM
+
+btc 模板
+
+solana rust
+
+sui move
+
+\## 通用智能合约
+
+\## 通用的Dapp
+
+观测者 验证者 签名者
+
+\## 网关
+
+在不同的链上 都有 一个网关
+
+\## ZRC20 标准
+
+多链的标准
+
+function deposit() payabl external
+
+function withdraw external;
+
+function transfer(address to, unit256 amount) external return (bool);
+
+function balanceOf(address account) extrnal view returns(unit256);
+
+重质押 ，多链质押
+
+跨链swap
+
+eth -> eth.eth ---swap--- btc.btc -->btc
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 ## ZetaChain 是什么？
 
 -   一个 **L1 公链**（基于 Cosmos SDK），但核心能力不是性能，而是 **跨链互操作性**。
