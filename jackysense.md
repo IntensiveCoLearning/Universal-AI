@@ -22,10 +22,130 @@ Web3 builder
 2.  使用 CLI + Foundry
     
 3.  优先使用测试网 ，初步是base + zeta测试能通
+    
+
+**Qwen agent:**
+
+```python
+
+import os
+import json5
+from qwen_agent.tools.base import BaseTool, register_tool
+from qwen_agent.agents import Assistant
+
+
+# 步骤 1：配置您所使用的 LLM
+llm_cfg = {
+    # 使用 DashScope 提供的模型服务：
+    'model': 'qwen-max',
+    'model_server': 'dashscope',
+    'api_key': os.getenv('DASHSCOPE_API_KEY'),
+    # 如果这里没有设置 'api_key'，它将读取 `DASHSCOPE_API_KEY` 环境变量。
+
+    # 使用与 OpenAI API 兼容的模型服务，例如 vLLM 或 Ollama：
+    # 'model': 'Qwen2-7B-Chat',
+    # 'model_server': 'http://localhost:8000/v1',  # base_url，也称为 api_base
+    # 'api_key': 'EMPTY',
+    # （可选） LLM 的超参数：
+    'generate_cfg': {
+        'top_p': 0.8
+    }
+}
+
+# 步骤 2：创建一个智能体。这里我们以 `Assistant` 智能体为例，它能够使用工具并读取文件。
+system_instruction = '你是一位区块链专家，根据你的经验来精准的回答用户提出的问题,根据用户的意图，适当调用工具，返回json格式'
+
+
+@register_tool('mul_tool')
+class MulTool(BaseTool):
+    description = 'Multiply two numbers: a * b'
+    parameters = [{
+        'name': 'a',
+        'type': 'float',
+        'description': 'first  parameter',
+        'required': True,
+    },
+    {
+        'name': 'b',
+        'type': 'float',
+        'description': 'second  parameter',
+        'required': True,
+    }
+    ]
+    def call(self, params: str, **kwargs) -> str:
+        print('params', params)  # {"a": 3.5, "b": 4}
+        a = json5.loads(params)['a']
+        b = json5.loads(params)['b']
+        result = a * b  # 乘法运算
+        print('call mul_tool tool', a, b, 'result:', result)
+        # 返回字符串格式的结果
+        return str(result)
+
+@register_tool('upper_case')
+class upper_case(BaseTool):
+    description = 'upper case string'
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': 'first  parameter',
+        'required': True,
+    }
+   
+    ]
+    def call(self, params: str, **kwargs) -> str:
+        print('params', params)  # {"a": 3.5, "b": 4}
+        text = json5.loads(params)['text']    
+        result =  text.upper()   # 乘法运算
+        print('call upper_case tool','result:', result)
+        # 返回字符串格式的结果
+        return str(result)
+
+tools = ['mul_tool','upper_case']  # 使用已注册的工具名称字符串
+
+bot = Assistant(llm=llm_cfg,
+                system_message=system_instruction,
+                function_list=tools)
+
+# 步骤 3：作为聊天机器人运行智能体。
+messages = []  # 这里储存聊天历史。
+while True:
+    query = input('\n用户请求: ')
+    if query == '-1':
+        break
+    # 将用户请求添加到聊天历史。
+    messages.append({'role': 'user', 'content': query})
+    response = []
+    current_index = 0
+    
+    for response in bot.run(messages=messages):
+        # 调试：如果需要查看完整响应结构，取消下面的注释
+        #print('\n[DEBUG] response:', json.dumps(response, indent=2, ensure_ascii=False))
+        
+        if response and len(response) > 0:          
+            
+            # 流式输出最后一个 assistant 消息的内容（最终回复）
+            for msg in reversed(response):  # 从后往前找最后一个 assistant 消息
+                if msg.get('role') == 'assistant' and 'content' in msg and msg['content']:
+                    content = msg['content']
+                    # 只输出新增的内容部分
+                    if len(content) > current_index:
+                        current_response = content[current_index:]
+                        current_index = len(content)
+                        print(current_response, end='', flush=True)
+                    break  # 找到最后一个就退出
+       
+    # 输出换行，确保结果清晰
+    print()
+    # 将机器人的回应添加到聊天历史。
+    messages.extend(response)
+```
+
+![638bc56d-4337-4cb2-8023-fbe768e8d6fb.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/jackysense/images/2025-11-27-1764226236959-638bc56d-4337-4cb2-8023-fbe768e8d6fb.png)
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 通用应用
 
@@ -56,6 +176,7 @@ Gateway 是一个接口，它作为 ZetaChain 上连接链上的合约与通用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 **浏览器、水龙头**
@@ -107,6 +228,7 @@ zetachain localnet start
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
