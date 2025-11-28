@@ -15,8 +15,42 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+# **ZRC-20**
+
+ZRC-20 是一种代币标准，集成到 ZetaChain 的 Omnichain 智能合约平台中。借助 ZRC-20，开发者可以构建 dApp，在任何连接的链上协调原生资产。这使得从单一平台构建 Omnichain DeFi 协议和 dApp变得极其简单。
+
+已连接区块链的原生 Gas 代币和已列入白名单的 ERC-20 代币可以存入 ZetaChain，生成 ZRC-20 代币。在存入过程中，原生/ERC-20 代币将被转移并锁定在 TSS 地址/ERC-20 托管合约中，ZetaChain 会铸造 ZRC-20 代币并存入接收地址。
+
+ZRC-20 代币可以从 ZetaChain 提现到连接的区块链。提现过程中，ZRC-20 代币会在 ZetaChain 上销毁，原生/ERC-20 代币会通过 TSS 地址/ERC-20 托管合约转移到连接链上的接收地址。
+
+# ZRC-20 和普通 ERC-20 的直观区别
+
+**部署环境**：ERC‑20 部署在以太坊或其他 EVM 兼容链上；ZRC‑20 部署在 ZetaChain 的全链 Omnichain 环境，天然支持多链互操作。
+
+**跨链能力**：ERC‑20 本身不具备跨链功能，需要使用桥接或包装合约；ZRC‑20 通过内置的接口实现 1:1 跨链映射（如 zBTC、zBNB），无需额外桥。
+
+**原生资产支持**：ZRC‑20 可以直接包装其他链的原生资产（BTC、BSC 等），在 ZetaChain 上表现为原生代币；ERC‑20 只能包装 ERC‑20 代币或通过合约实现包装。
+
+**地址与标识**：ZRC‑20 使用 ZetaChain 的统一地址体系，跨链时保持同一合约地址；ERC‑20 在每条链上都有独立的合约地址，需要映射表维护。
+
+**Gas 费用**：在 ZetaChain 上执行 ZRC‑20 操作的 gas 计费基于 ZetaChain 原生代币（ZETA），而 ERC‑20 操作则使用部署链的原生代币（如 ETH）。
+
+**安全模型**：ZRC‑20 受益于 ZetaChain 的跨链验证机制（Omnichain 验证器），提供更统一的安全审计；ERC‑20 的安全性仅限于单链的合约审计。
+
+# 「通用资产」可能的应用场景
+
+## 跨链身份凭证
+
+利用通用资产作为去中心化身份（DID）令牌，用户在不同链上验证身份、签署合约或领取空投，无需重复 KYC 流程。
+
+通过去中心化身份标识符（Decentralized Identifier，DID）在不同链之间实现统一的身份认证与权限证明，能够在多个区块链网络上安全、可信地共享用户的身份属性。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 # **Swap**
 
 Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
@@ -42,6 +76,7 @@ Swap合约执行以下步骤：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 # Universal App
@@ -77,6 +112,7 @@ Gateway支持以下功能：
 
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -86,6 +122,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
