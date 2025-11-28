@@ -15,8 +15,43 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+-   从开发者视角，说明ZRC-20 和普通 ERC-20 的直观区别；
+    
+
+| 特性 | ERC-20 | ZRC-20 |
+| --- | --- | --- |
+| 部署位置 | 单一区块链（如以太坊） | ZetaChain（但代表多链资产） |
+| 跨链能力 | ❌ 需要外部桥 | ✅ 原生支持 |
+| 代表资产 | 本链代币 | 外部链资产（如 ETH.ETH, BTC.BTC） |
+| withdraw 函数 | ❌ 没有 | ✅ 提款到原生链 |
+| Gas 费处理 | 只需本链 Gas | 自动处理目标链 Gas |
+
+-   举一个「通用资产」可能的应用场景（比如跨链储蓄、通用 NFT 通行证等）；
+    
+
+我想到的是可以在GameFI领域使用「通用资产」，使得游戏角色的装备NFT可以在多个游戏和公链间任意的、自由的流转。
+
+跨链游戏资产的应用场景：
+
+1.  玩家在以太坊上mint游戏装备NFT。
+    
+2.  利用zatachain的技术，可以无缝转移到：
+    
+
+\- Polygon（低费用的游戏内交易）
+
+\- BSC（在 BSC 的 NFT 市场出售）
+
+\- Avalanche（参与其他游戏）
+
+从而保持tokenId不变、元数据一致性不变、以及满足玩家对某链的依赖。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
     
 
@@ -30,6 +65,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 -   Universal App 是什么？
     
@@ -46,6 +82,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 -   ZetaChain CLI本地环境安装及使用：
@@ -68,6 +105,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
