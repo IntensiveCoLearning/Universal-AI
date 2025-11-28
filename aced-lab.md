@@ -15,8 +15,20 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+NFT是non fungible tokens，非同质化代币的意思  
+具体来说它可以指代几乎任何东西，其背后的资产是独特的，一片树叶，签名了的书，谁穿过的旧衣服，地球上的第一滴水。。  
+而它的反面则是同质化代币，其背后的资产是标准化的  
+两个同质化代币，如果其市场价值一样，那么进行交换也无妨。  
+而两个非同质化代币，即使其市场价值一样，双方也很可能不愿意进行交换  
+虽然非同质化代币所指代的资产可以代币化，但它其实依然还是独特的  
+给货币进行编号，或者给虚假装备进行编号，虽然它们变得唯一了，但其实依然可以进行互换，所以它们不能算作NFT
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 ZetaChain是有许多节点组成的分布式网络，这些节点又叫Validator  
 在ZetaChain中有两种Validator，  
 一种是Core Validators主要负责ZetaChain中区块的产生和状态更新，负责内部  
@@ -34,6 +46,7 @@ GateWay和Observer-Signer 的配合，完成了交易在外部链和ZetaChain之
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
+
 ERC-20是Ethereum Request for Comment 20，是在以太坊上创建同质化代币的标准。  
 ZRC-20是ERC-20代币或者比特币等等在ZetaChain上的映射
 
@@ -48,6 +61,7 @@ ZetaChian上的gateway的功能是将universal contract执行的结果传出到�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 学习了ZetaChain中的一些Tools，  
@@ -68,6 +82,7 @@ RPC就像HTTP API一样，HTTP API是与外部网站进行交互的接口，而R
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
