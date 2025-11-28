@@ -15,8 +15,91 @@ web3独立开发者，曾编写过solana合约、套利等
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+# 跨链代币总量控制机制
+
+  
+实际项目中的最佳实践
+
+🎯 推荐做法 1: 单一源头发行
+
+只在 一条链(通常是 ZetaChain)上进行初始铸造:
+
+// ✅ 正确做法:只在 ZetaChain 铸造
+
+await [zetaToken.mint](http://zetaToken.mint)(deployer, ethers.utils.parseEther("1000000"));
+
+// 初始总量: 1,000,000 MTK
+
+// ❌ 错误做法:在多条链都铸造
+
+await [zetaToken.mint](http://zetaToken.mint)(deployer, ethers.utils.parseEther("1000000"));
+
+await [ethToken.mint](http://ethToken.mint)(deployer, ethers.utils.parseEther("1000000")); // 会导致总量翻倍!
+
+await [bnbToken.mint](http://bnbToken.mint)(deployer, ethers.utils.parseEther("1000000")); // 会导致总量三倍!
+
+🎯 推荐做法 2: 设置固定总量后禁用 Mint
+
+修改合约,初始化后禁用 mint:
+
+contract EVMUniversalToken is ... {
+
+bool public mintingFinished = false;
+
+function mint(address to, uint256 amount) public onlyOwner {
+
+require(!mintingFinished, "Minting is finished");
+
+\_mint(to, amount);
+
+}
+
+function finishMinting() public onlyOwner {
+
+mintingFinished = true;
+
+}
+
+}
+
+部署流程:
+
+// 1. 在 ZetaChain 铸造初始总量
+
+await [zetaToken.mint](http://zetaToken.mint)(deployer, TOTAL\_SUPPLY);
+
+// 2. 完成后禁用铸造
+
+await zetaToken.finishMinting();
+
+await ethToken.finishMinting();
+
+await bnbToken.finishMinting();
+
+// 3. 现在任何人都无法再 mint
+
+🎯 推荐做法 3: 添加总量上限
+
+contract EVMUniversalToken is ... {
+
+uint256 public constant MAX\_SUPPLY = 1\_000\_000 _10_\*18;
+
+function mint(address to, uint256 amount) public onlyOwner {
+
+require(totalSupply() + amount <= MAX\_SUPPLY, "Exceeds max supply");
+
+\_mint(to, amount);
+
+}
+
+}
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # Swap 合约系统性分析
 
 解决的核心问题
@@ -48,6 +131,7 @@ web3独立开发者，曾编写过solana合约、套利等
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -113,6 +197,7 @@ web3独立开发者，曾编写过solana合约、套利等
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 # ERC20和ZRC20：
