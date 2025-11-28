@@ -15,13 +15,79 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+# 跨链
+
+也称互操作性，是指不同的区块链系统之间能够进行**数据和资产**的通信和协同工作的能力。
+
+### **跨链的常见实现方式**
+
+**跨链桥**（Cross-chain Bridge）
+
+-   用户在源链锁定资产，目标链铸造等值的“封装资产”（如 WBTC、wETH）。 ------- A锁B铸，B销毁A释放，中间会有消息监听
+    
+
+### ZetaChain的跨链
+
+-   星线型结构
+    
+
+ZetaChain作为中心hub，其他链通过ZetaChain进行交互
+
+# Universal EVM(通用的以太坊虚拟机)
+
+也成为全链以太坊虚拟机，使ZetaChain可以直接操作以太坊和其他链上的资产。以往在不同链上开发跨链应用，需要学习不同环境下的技术：
+
+-   Solana rust
+    
+-   Sui Move
+    
+-   Bitcoin 模板
+    
+
+ZetaChain使用通用智能合约完成不同链上的操作，极大降低了学习成本
+
+# Universal Contract(通用智能合约)
+
+ZetaChain内置了不同跨链操作的智能合约模板，向外暴露接口，内部相当于是黑盒，用户只需关注接口的规范性，不需要关心底层做的交互
+
+# Universal DAPP(通用应用)
+
+能实时的读取并更新连接网络状态。得益于ZetaChain的GateWay客户端，这个客户端充当了观测者和验证者。
+
+ZetaChain有三种不同的节点：观察者，验证者，签名者（有不同的激励机制来确保安全性）
+
+状态监听：
+
+观测者监听其他链的网络（BitCoin,ETH等）的信息，这些网络与ZetaChian的GateWay发生交互后，观测者就会读取这些网络的状态，经过验证者的5秒的出块确认（未来会继续降低）。在通过GateWay与目标链进行交互。
+
+资产转移：
+
+其他链上符合要求的资产会转化成ZRC-20（通用资产）放到一个pool里面，用于资产的流动。
+
+# GateWay(网关)
+
+不同的链，ZetaChain对应了不同的网关，部署了不同网关合约
+
+大致的跨链流程为：A链——网关——ZetaChain——通用合约处理——网关——B链
+
+# 架构
+
+TODO
+
+ZetaChain 的共识机制
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ### **1\. 通用区块链（Universal Blockchain）**
 
@@ -148,6 +214,7 @@ Again and again ~
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 # ZetaChain和区块链一些基础
@@ -382,6 +449,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
