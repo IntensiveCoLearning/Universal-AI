@@ -15,13 +15,20 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+先打個卡，晚點補上 Zeta 概念統整
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 今天主要看了 zeta 架構 明天開始實作
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 -   **ZetaChain Sui Localnet 啟動失敗**：原因是 CLI 錯誤抓取了 Git `main` 分支（缺少必要函式），正確的合約程式碼應在 `develop` 分支。
     
@@ -36,6 +43,7 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ## ZetaChain 簡明摘要
