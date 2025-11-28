@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+-   使用example-contructs里面提供的封装好的Messaging.sol接口用来替换UniversalContract接口
+    
+-   对Sepolia发送消息到ZetaChain不成功的问题进行调试
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 -   简单跨链消息传递的代码案例
     
 
@@ -330,6 +338,7 @@ contract DeployZetaEasyMQ is Script {
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
+
 -   设计跨链消息传递的入门demo用来驱动学习
     
 -   编写合约代码，并做好部署、测试的相应准备
@@ -339,6 +348,7 @@ contract DeployZetaEasyMQ is Script {
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 -   通过FaucetMe网站领取ZetaChain的测试币，并在小狐狸钱包里手动配置ZetaChain的网络
     
 -   学习Universal合约模式及核心的on call方法
@@ -346,6 +356,7 @@ contract DeployZetaEasyMQ is Script {
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
