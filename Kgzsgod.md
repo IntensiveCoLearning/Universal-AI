@@ -15,8 +15,144 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+### Swap实操
+
+首先先通过下面几条命令新建swap项目以及更新和安装对应依赖
+
+```Shell
+//新建swap项目
+zetachain new --project swap
+
+//进入swap项目并安装依赖
+cd swap
+yarn
+
+//更新
+forge soldeer update
+
+//编译合约
+forge build
+```
+
+接下来部署swap合约到测试网上
+
+```Shell
+//这里得到了universal的地址并传入universal变量中
+UNIVERSAL=$(npx tsx commands deploy --private-key $PRIVATE_KEY | jq -r .contractAddress) && echo $UNIVERSAL
+0x3b73b9285D77f22179C70B5834d00A63468EC646
+```
+
+分别得到evm发送方地址和speolia中eth的zrc-20地址
+
+```Shell
+RECIPIENT=$(cast wallet address $PRIVATE_KEY) && echo $RECIPIENT
+0xAa79ED23Adf4A21fE58736d60fEEcec17BD9E33B
+
+ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && echo $ZRC20_ETHEREUM_ETH
+0x05BA149A7bd6dC1F937fA9046A9e05C05f3b18b0
+```
+
+发起一个从sepolia到base的swap交易
+
+```SQL
+npx zetachain evm deposit-and-call \
+  --chain-id 11155111 \
+  --amount 0.001 \
+  --types address bytes bool \
+  --receiver $UNIVERSAL \
+  --values $ZRC20_BASE_ETH $RECIPIENT true \
+  --private-key $PRIVATE_KEY
+
+From:   0xAa79ED23Adf4A21fE58736d60fEEcec17BD9E33B
+To:     0x3b73b9285D77f22179C70B5834d00A63468EC646 on ZetaChain
+Amount: 0.001 native tokens
+Refund: 0xAa79ED23Adf4A21fE58736d60fEEcec17BD9E33B
+Call on revert: false
+
+Contract call details:
+Function parameters: 0x236b0DE675cC8F46AE186897fCCeFe3370C9eDeD, 0xAa79ED23Adf4A21fE58736d60fEEcec17BD9E33B, true
+Parameter types: ["address","bytes","bool"]
+
+? Proceed with the transaction? yes
+Transaction hash: 0xfdd43db63ed3e2f24b0484d6077db5561d850c756c197d0ccd73576a58a542cb
+```
+
+得到交易哈希后可以从sepolia测试网上进行查看[https://sepolia.etherscan.io/](https://sepolia.etherscan.io/)
+
+虽然成功了，但是只是进行transfer，因为要swap的代币太少，导致在测试网上的流动性不足，所以真正swap的并没有执行
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=N2FlNTQxY2I1NTk4YjZmYzIzZDBjNDZiZjU3ZjYyMWNfRmJEcFF3VU03a0pFZEoyWkNBWU1SYWNpaHp1NjFwbXZfVG9rZW46VkI2R2JSQlBEb21NYUp4UlllNWM5ck1WbkhkXzE3NjQzMzY4NDQ6MTc2NDM0MDQ0NF9WNA)
+
+也可使用命令查看跨链的上下文
+
+```SQL
+zetachain query cctx --hash 0xfdd43db63ed3e2f24b0484d6077db5561d850c756c197d0ccd73576a58a542cb
+11155111 → 7001 ❌ Reverted
+CCTX:     0x1e4a7ff5e985c2551f65b4733af616a1f48b80609724fbad2121b0453f882c96
+Tx Hash:  0xfdd43db63ed3e2f24b0484d6077db5561d850c756c197d0ccd73576a58a542cb (on chain 11155111)
+Tx Hash:  0xa2907f86bafdacf38c211e5e1ba4fc65df88eff3a0acd1518a662e517f0e9c6e (on chain 7001)
+Sender:   0xAa79ED23Adf4A21fE58736d60fEEcec17BD9E33B
+Receiver: 0x3b73b9285D77f22179C70B5834d00A63468EC646
+Message:  000000000000000000000000236b0de675cc8f46ae186897fccefe3370c9eded000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000014aa79ed23adf4a21fe58736d60feecec17bd9e33b000000000000000000000000
+Amount:   1000000000000000 Gas tokens
+Error:    {"type":"contract_call_error","message":"contract call failed when calling EVM with data","error":"execution reverted: ret 0x: evm transaction execution failed","method":"depositAndCall0","contract":"0x6c533f7fE93fAE114d0954697069Df33C9B74fD7","args":"[{[170 121 237 35 173 244 162 31 229 135 54 214 15 238 206 193 123 217 227 59] 0xAa79ED23Adf4A21fE58736d60fEEcec17BD9E33B 11155111} 0x05BA149A7bd6dC1F937fA9046A9e05C05f3b18b0 1000000000000000 0x3b73b9285D77f22179C70B5834d00A63468EC646 [0 0 0 0 0 0 0 0 0 0 0 0 35 107 13 230 117 204 143 70 174 24 104 151 252 206 254 51 112 201 237 237 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 96 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 20 170 121 237 35 173 244 162 31 229 135 54 214 15 238 206 193 123 217 227 59 0 0 0 0 0 0 0 0 0 0 0 0]]"}
+
+7001 → 11155111 ✅ Revert executed
+Reason for revert: 
+Reason for abort:  
+Revert Address:    0xAa79ED23Adf4A21fE58736d60fEEcec17BD9E33B
+Call on Revert:    false
+Abort Address:     0x0000000000000000000000000000000000000000
+Revert Message:    -
+Revert Gas Limit:  200000
+Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e20e6c (on chain 11155111)
+```
+
+### ZRC-20与ERC-20的区别
+
+首先最本质的区别是：
+
+-   erc-20 是一个单链代币的标准，只存在一条链上
+    
+-   zrc-20 是一个多链代币的标准，可以在其他链上并跨链使用
+    
+
+更核心的区别：
+
+1.  erc-20的transfer只是在同一条链上，zrc-20可以转账可以触发跨链转账
+    
+2.  在zetachain上可以使用任意zrc-20支持的代币支付gas fee，erc-20只能使用原生代币进行支付gas fee
+    
+3.  erc-20合约可以自己部署，zrc-20由zetachain官方统一部署
+    
+
+### 跨链存储
+
+在多链生态的背景下，可能会同时拥有许多资产，比如btc，eth，bnb，sol等
+
+如果想要在以太坊进行存储获利，需要先将资产转移到ETH中，还想要在solana进行流动性挖矿，又需要将eth中的资产转移到solana中
+
+缺点：多链操作复杂，每次换链都需要跨链费，等待时间长
+
+使用通用资产即可解决这一问题：
+
+可以将任意链的资产映射成zetachain上的统一代币
+
+-   BTC - ZRC-BTC
+    
+-   ETH - ZRC-ETH
+    
+-   USDT - ZRC-USDT
+    
+
+用户直接存入上面在zetachian链上的资产，只需要看zetachain上的界面，更加简单便捷，省去了很多跨链步骤和跨链费
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 ## 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
 > 想做一个全链留言板，用户可以从任何链提交留言，ZetaChain 统一记录。
@@ -28,6 +164,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ### Qwen
 
@@ -107,6 +244,7 @@ Gateway的架构图
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 ## 部署在本地的universal合约
 
 ```Solidity
@@ -166,6 +304,7 @@ forge create Universal \
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
