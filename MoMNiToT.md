@@ -15,8 +15,48 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+# **Day5：Universal DeFi & 全链资产**
+
+**💫通用资产：通用合约和连接合约**
+
+通用合约：在 ZetaChain 上铸造资产、将资产从 ZetaChain 转移到连接的链、处理从连接的链到 ZetaChain 的资产转入
+
+连接合约：在连接的链上铸造资产、将资产转移到另一个连接的链或 ZetaChain、处理来自 ZetaChain 或其他已连接链的资产转账
+
+通用资产部署：
+
+1.  在 ZetaChain 上部署通用合约。这是必需的步骤，因为 ZetaChain 作为所有跨链转账的中心枢纽，即使是在已连接的 EVM 链之间也是如此。
+    
+2.  在支持的 EVM 链（例如 Ethereum、Base、Polygon、BNB）上部署一个连接合约。
+    
+3.  在 ZetaChain 上的通用合约上运行 `setConnected(zrc20, connectedAddress)` ，其中：
+    
+    -   `zrc20` 是目标 EVM 链的燃料代币的 ZRC-20 合约。它充当链标识符。
+        
+    -   `connectedAddress` 是 EVM 链上连接合约的地址（来自步骤 2）。
+        
+
+4.  在连接的 EVM 链上运行 `ConnectedAsset.setUniversal(universalAddress)` ，其中 `universalAddress` 是 ZetaChain 上通用合约的地址（来自步骤 1）。
+    
+
+回滚处理：从ZetaChain中把资产退还，防止原链的高成本操作
+
+ZRC20 和 ERC20：
+
+ZRC20：可表示任何链上的资产，实现 "全链资产" 概念
+
+ERC20：以太坊生态系统的 "通用语言"，几乎所有 DeFi 应用都支持
+
+应用场景：
+
+跨链的游戏通行证，能够使得玩家在一个链游上的NFT宠物等能够应用于其他游戏。在经济上，一方面资产能够增值，稀有产品的价值更加充分；另一方面，能够提升开发者的收益，特权的定制，增加用户留存和付费意愿。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 # **Day4：心智模型**
 
 EVM架构：
@@ -80,6 +120,7 @@ NaN.  出站：发起要求、验证者准备、TSS签名、提交广播、跨�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 # **Day3：核心概念**
 
@@ -162,6 +203,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 # **Day2：环境和工具实战**
@@ -336,6 +378,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
