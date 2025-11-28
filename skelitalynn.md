@@ -15,8 +15,125 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+# Day 5 Universal DeFi & 全链资产基础（概念向）
+
+### 一、核心概念理解
+
+1\. 什么是 ZRC-20
+
+ZRC-20 是 ZetaChain 上的“通用资产标准”，它的作用不是取代 ERC-20，而是**统一表示来自不同链的资产**。
+
+直观理解：
+
+-   ERC-20：只属于以太坊生态
+    
+-   ZRC-20：属于 **多链世界的统一资产形态**
+    
+
+通过 ZRC-20，不同链上的资产（BTC、ETH、BNB 等）可以在 ZetaChain 上用**一致的接口和规则**被操作。
+
+* * *
+
+2\. Universal Token / Universal NFT
+
+**Universal Token：**
+
+-   可以代表来自任意链的资产
+    
+-   在 ZetaChain 上被统一建模
+    
+-   可以被一个合约同时读取、转移、组合
+    
+
+**Universal NFT：**
+
+-   不局限于某条链
+    
+-   拥有“跨链身份”
+    
+-   可作为多个链共同承认的凭证 / 资产
+    
+
+本质是：  
+**跨链资产被抽象成“统一对象”进行处理。**
+
+* * *
+
+### 二、多链资产在 ZetaChain 上如何被统一表示
+
+传统世界：
+
+```
+BTC -> Ethereum 不兼容
+ETH -> Solana 不互认
+```
+
+ZetaChain 通过 ZRC-20：
+
+```
+Bitcoin 资产 ┐
+Ethereum 资产 ├ → ZRC-20 统一表示 → Universal App 处理
+Solana 资产  ┘
+```
+
+也就是说：
+
+-   不同来源资产在 ZetaChain 上被“翻译”为一种统一标准
+    
+-   开发者只需操作 ZRC-20，不再管资产来自哪条链
+    
+
+这使得：真正的跨链 DeFi / NFT / 应用成为可能。
+
+* * *
+
+### 三、ZRC-20 与普通 ERC-20 的直观区别（开发者视角）
+
+| 对比点 | ERC-20 | ZRC-20 |
+| --- | --- | --- |
+| 所属链 | 只在以太坊 | 属于 ZetaChain（跨链） |
+| 资产范围 | 单链资产 | 可对应多链资产 |
+| 目标 | 同链转账 & DeFi | 跨链统一资产 |
+| 适用场景 | DApp / DeFi | Universal App |
+| 视角 | Blockchain-native | Omnichain-native |
+
+一句话总结：
+
+> ERC-20 是“某一国家的货币”，ZRC-20 是“全球通行货币”。
+
+* * *
+
+### 四、一个「通用资产」的应用场景举例
+
+场景：跨链储蓄 / 通用 NFT 凭证
+
+例子 1：跨链储蓄池
+
+-   用户可以存入 BTC / ETH / SOL
+    
+-   这些资产在 ZetaChain 上被转为 ZRC-20
+    
+-   在同一个合约中进行质押、计息、借贷
+    
+-   本质：多链资产 → 同一资金池
+    
+
+例子 2：Universal NFT 通行证
+
+-   用户在任何一条链 mint NFT
+    
+-   该 NFT 在 ZetaChain 上被识别为“通用身份”
+    
+-   可用于多链会员、权限、身份认证
+    
+-   本质：一个 NFT，全球通用
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 # Day 4 学习笔记
 
 ## Universal App + Hello World 心智模型
@@ -89,6 +206,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 # Day 3 Universal App&EVM
 
@@ -204,6 +322,7 @@ Gateway 是一个非常关键的组件，它负责：
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ### Day 2：环境与工具实操（ZetaChain + Qwen）
@@ -362,6 +481,7 @@ npx tsx src/index.ts query
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
