@@ -15,8 +15,20 @@ tg写的微信号
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+**多链资产被包装成zrc20然后在zetachain上使用于defi**
+
+**作业**
+
+zrc20相比于erc20多实现了跨链相关函数withdraw(),能发送跨链资产和消息
+
+通用资产使用场景：全链支付钱包，商家只收solana，用户直接用eth支付
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 选择CLI + Hardhat / Foundry做demo
 
 ## liquidity throughput
@@ -45,6 +57,7 @@ onlyGateway确保只有网关能调用
 
 
 
+
 ## cctx
 
 跨链交易
@@ -64,6 +77,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -92,6 +106,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
