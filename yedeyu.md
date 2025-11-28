@@ -41,7 +41,9 @@ Web3 新手
 
 [https://www.zetachain.com/docs/developers/tutorials/frontend](https://www.zetachain.com/docs/developers/tutorials/frontend)
 
-[https://gemini.google.com/share/736605480d85](https://gemini.google.com/share/736605480d85)
+[https://gemini.google.com/share/736605480d85](https://gemini.google.com/share/736605480d85)  
+  
+<details>
 
 ````
 ### Set Up Your Environment
@@ -431,10 +433,13 @@ https://sepolia.basescan.org/tx/0x1b899bd40edce5199e572f579d50c4bfdfe55c429cc754
 https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac417c729d4d9602bdad5
 
 ````
+
+</details>
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 ## 回顾与反思
@@ -462,6 +467,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1035,6 +1041,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
