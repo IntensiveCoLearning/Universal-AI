@@ -15,8 +15,16 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+1.  ERC-20 是单链代币标准，ZRC-20 是跨链原生资产标准。
+    
+2.  全球储蓄钱包，可以用一个钱包走遍全球，玩遍全网。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 1.  接收跨链信息，解码这个信息，然后打印/记录一个问候事件到链上
     
 2.  使用CLI+Foundry
@@ -27,6 +35,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
+
 1.  universal app是一种可以“一链部署，全链通用”的超级Dapp，用户可实现无感跨链
     
 2.  Gateway 就是 ZetaChain 的统一跨链入口接口，开发者通过它轻松实现单链合约与全链 Universal Apps 的双向互动，简化跨链开发，支持资产存款/提取和合约调用。
@@ -36,6 +45,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 1.  成功安装zetachain CLI
@@ -50,6 +60,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
