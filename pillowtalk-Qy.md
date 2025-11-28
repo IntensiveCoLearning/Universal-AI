@@ -15,13 +15,24 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+Workshop回放：
+
+【ZetaChain 通用资产与跨链 DeFi 开发导论】 [https://www.bilibili.com/video/BV1zWSgBnEcE/?share\_source=copy\_web&vd\_source=fd6ac63c6fb1f02dcdf46371c30b2168](https://www.bilibili.com/video/BV1zWSgBnEcE/?share_source=copy_web&vd_source=fd6ac63c6fb1f02dcdf46371c30b2168)
+
+1.观看昨天的回放，根据回放复盘前几天的操作内容
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 摸鱼一天
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 [ZetaChain](https://www.zetachain.com/docs)是一个与 EVM 兼容的区块链，具有内置的跨链互操作性。
 
@@ -40,6 +51,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 1.注册 / 配置好 ZetaChain 开发所需环境
