@@ -15,8 +15,429 @@ Web3 新手
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-27
+<!-- DAILY_CHECKIN_2025-11-27_START -->
+## 回顾与反思
+
+### 笔记编辑器
+
+复制粘贴时，这个编辑器会把 "\`" 前面的中文字 或者 任何字符 吞掉，例如：
+
+```
+开启`localnet` //“启”会被吞掉
+
+开启 `localnet` // 需用空格隔开
+```
+
+## 今日总结
+
+成功运行 Hello 项目，并测试了在 Ethereum 和 Base 的 Testnet 发起合约调用。
+
+## Build a Web App
+
+以下内容需要结合教程和 AI 翻译与解读 查看
+
+[https://www.zetachain.com/docs/developers/tutorials/frontend](https://www.zetachain.com/docs/developers/tutorials/frontend)
+
+[https://gemini.google.com/share/736605480d85](https://gemini.google.com/share/736605480d85)
+
+<details>
+
+````
+### Set Up Your Environment
+
+```
+cd hello/frontend
+yarn
+```
+
+<details>
+
+```
+yarn install v1.22.22
+[1/4] Resolving packages...
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.2.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.3.2"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.9.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.2.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.3.2"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.2.0"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@~1.8.1"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@~1.7.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.9.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.4.2"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.4.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@~1.2.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@~1.2.0"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@~1.4.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@~1.4.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@~1.4.0"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.9.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.9.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.9.2"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.8.2"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.7.2"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.8.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.7.0"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.9.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@~1.8.1"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@~1.7.1"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@~1.7.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.4.0"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.4.0"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.8.1"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.7.1"
+warning Resolution field "@noble/curves@1.9.7" is incompatible with requested version "@noble/curves@1.8.1"
+warning Resolution field "@noble/hashes@1.8.0" is incompatible with requested version "@noble/hashes@1.7.1"
+[2/4] Fetching packages...
+warning eciesjs@0.4.15: The engine "bun" appears to be invalid.
+warning eciesjs@0.4.15: The engine "deno" appears to be invalid.
+warning @ecies/ciphers@0.2.4: The engine "bun" appears to be invalid.
+warning @ecies/ciphers@0.2.4: The engine "deno" appears to be invalid.
+[3/4] Linking dependencies...
+warning "@zetachain/toolkit > @nomiclabs/hardhat-ethers@2.2.3" has incorrect peer dependency "ethers@^5.0.0".
+warning "@zetachain/toolkit > @solana/wallet-adapter-react@0.15.39" has incorrect peer dependency "@solana/web3.js@^1.98.0".
+warning "@zetachain/toolkit > @solana/wallet-adapter-react > @solana/wallet-adapter-base@0.9.27" has incorrect peer dependency "@solana/web3.js@^1.98.0".
+warning "@zetachain/toolkit > @solana/wallet-adapter-react > @solana-mobile/wallet-adapter-mobile > @react-native-async-storage/async-storage@1.24.0" has unmet peer dependency "react-native@^0.0.0-0 || >=0.60 <1.0".
+warning "@zetachain/toolkit > @solana/wallet-adapter-react > @solana/wallet-standard-wallet-adapter-react > @solana/wallet-standard-wallet-adapter-base@1.1.4" has incorrect peer dependency "@solana/web3.js@^1.98.0".
+warning "@zetachain/toolkit > @solana/wallet-adapter-react > @solana-mobile/wallet-adapter-mobile > @solana-mobile/mobile-wallet-adapter-protocol-web3js > @solana-mobile/mobile-wallet-adapter-protocol@2.2.3" has unmet peer dependency "react-native@>0.69".
+warning "@zetachain/toolkit > @zetachain/protocol-contracts-solana > @solana/spl-token > @solana/spl-token-group > @solana/codecs > @solana/codecs-strings@2.0.0-rc.1" has unmet peer dependency "fastestsmallesttextencoderdecoder@^1.0.22".
+warning "@zetachain/wallet > @react-native-async-storage/async-storage@2.2.0" has unmet peer dependency "react-native@^0.0.0-0 || >=0.65 <1.0".
+warning "@zetachain/wallet > @dynamic-labs/ethereum > @walletconnect/ethereum-provider > @reown/appkit > valtio > use-sync-external-store@1.2.0" has incorrect peer dependency "react@^16.8.0 || ^17.0.0 || ^18.0.0".
+warning "@zetachain/wallet > @dynamic-labs/ethereum > @dynamic-labs/embedded-wallet-evm > @turnkey/viem > @turnkey/sdk-browser > @turnkey/crypto > react-native@0.74.0" has incorrect peer dependency "react@18.2.0".
+warning "@zetachain/wallet > @dynamic-labs/ethereum > @dynamic-labs/embedded-wallet-evm > @turnkey/viem > @turnkey/sdk-browser > @turnkey/crypto > react-native > @react-native/codegen@0.74.81" has unmet peer dependency "@babel/preset-env@^7.1.6".
+warning "@zetachain/wallet > @dynamic-labs/ethereum > @dynamic-labs/embedded-wallet-evm > @turnkey/viem > @turnkey/sdk-browser > @turnkey/crypto > react-native > react-shallow-renderer@16.15.0" has incorrect peer dependency "react@^16.0.0 || ^17.0.0 || ^18.0.0".
+warning "@zetachain/wallet > @dynamic-labs/ethereum > @dynamic-labs/embedded-wallet-evm > @turnkey/viem > @turnkey/sdk-browser > @turnkey/crypto > react-native > @react-native/codegen > jscodeshift@0.14.0" has unmet peer dependency "@babel/preset-env@^7.1.6".
+warning "@zetachain/wallet > @dynamic-labs/ethereum > @dynamic-labs/embedded-wallet-evm > @turnkey/viem > @turnkey/sdk-browser > @turnkey/crypto > react-native > @react-native/community-cli-plugin > @react-native/metro-babel-transformer@0.74.81" has unmet peer dependency "@babel/core@*".
+warning Workspaces can only be enabled in private projects.
+warning Workspaces can only be enabled in private projects.
+warning Workspaces can only be enabled in private projects.
+warning Workspaces can only be enabled in private projects.
+warning Workspaces can only be enabled in private projects.
+[4/4] Building fresh packages...
+Done in 402.30s.
+```
+
+</details>
+
+### How It Works
+
+#### Import the Toolkit
+
+Actual code file:
+[`hello/frontend/src/hooks/useHandleCall.ts`](../projects/hello/frontend/src/hooks/useHandleCall.ts)
+
+```ts
+import { evmCall } from "@zetachain/toolkit/chains/evm";
+import { ethers, ZeroAddress } from "ethers";
+```
+
+#### Get a Signer from the Wallet
+
+
+教程中的文件路径与代码：`frontend/src/MessageFlowCard.tsx`
+
+```ts
+const ethersProvider = new ethers.BrowserProvider(selectedProvider.provider);
+const signer = (await ethersProvider.getSigner()) as ethers.AbstractSigner;
+```
+
+实际文件路径与代码：
+
+[`hello/frontend/src/utils/ethersHelpers.ts`](../projects/hello/frontend/src/utils/ethersHelpers.ts)
+
+```ts
+const provider = new ethers.BrowserProvider(selectedProvider.provider);
+const signer = (await provider.getSigner()) as ethers.AbstractSigner;
+```
+
+#### Define the Hello Contract Address
+
+这里换成我们自己部署的测试链合约地址。
+
+[`hello/frontend/src/constants/contracts.ts`](../projects/hello/frontend/src/constants/contracts.ts)
+
+```ts
+export const HELLO_UNIVERSAL_CONTRACT_ADDRESS =
+  '0xc7Fcf45721f141319240a7955F553C9d54827C79';
+```
+
+#### Build the Call Parameters
+
+教程中的文件路径与代码：`frontend/src/MessageFlowCard.tsx`
+
+```ts
+const evmCallParams = {
+  receiver: helloUniversalContractAddress,
+  types: ["string"],
+  values: [stringValue],
+  revertOptions: {
+    callOnRevert: false,
+    revertAddress: ZeroAddress,
+    revertMessage: "",
+    abortAddress: ZeroAddress,
+    onRevertGasLimit: 1000000,
+  },
+};
+ 
+const evmCallOptions = {
+  signer,
+  txOptions: {
+    gasLimit: 1000000,
+  },
+};
+```
+
+实际文件路径与代码：
+
+[`hello/frontend/src/hooks/useHandleCall.ts`](../projects/hello/frontend/src/hooks/useHandleCall.ts)
+
+```ts
+const callParams: CallParams = {
+  receiver,
+  types: ['string'],
+  values: [message],
+  revertOptions: {
+    callOnRevert: false,
+    revertAddress: walletAddress,
+    revertMessage: '',
+    abortAddress: ZeroAddress,
+    onRevertGasLimit: 1000000,
+  },
+};
+
+const { signer } = signerAndProvider;
+
+const evmCallOptions = {
+  signer,
+  txOptions: {
+    gasLimit: 1000000,
+  },
+};
+
+```
+
+#### Send the Cross-Chain Call
+
+教程中的文件路径与代码：`frontend/src/MessageFlowCard.tsx`
+
+```ts
+const result = await evmCall(evmCallParams, evmCallOptions);
+await result.wait();
+ 
+setConnectedChainTxHash(result.hash);
+```
+
+实际文件路径与代码：
+
+[`hello/frontend/src/MessageFlowCard.tsx`](../projects/hello/frontend/src/MessageFlowCard.tsx)
+
+```ts
+const { handleCall } = useHandleCall({
+  primaryWallet,
+  selectedProvider,
+  supportedChain,
+  receiver: HELLO_UNIVERSAL_CONTRACT_ADDRESS,
+  message: stringValue,
+  account,
+  onSigningStart: () => setIsUserSigningTx(true),
+  onTransactionSubmitted: () => setIsTxReceiptLoading(true),
+
+  onTransactionConfirmed: (txHash: string) => setConnectedChainTxHash(txHash), // onTransactionConfirmed 对应 例子中的 `await result.wait();`
+  // 即，有交易结果了
+
+
+  onError: (error: Error) => console.error('Transaction error:', error),
+  onComplete: () => {
+    setIsUserSigningTx(false);
+    setIsTxReceiptLoading(false);
+  },
+});
+```
+
+#### Configure Networks and Explorers
+
+
+在这里设置支持的链的信息。
+
+[`frontend/src/constants/chains.ts`](../projects/hello/frontend/src/constants/chains.ts)
+
+```ts
+export const SUPPORTED_CHAINS: SupportedChain[] = [
+  {
+    explorerUrl: (txHash: string) => `https://sepolia.arbiscan.io/tx/${txHash}`,
+    name: 'Arbitrum Sepolia',
+    chainId: 421614,
+    chainType: 'EVM',
+    icon: '/logos/arbitrum-logo.svg',
+    colorHex: '#28446A',
+  }
+]
+ 
+export const ZETACHAIN_ATHENS_BLOCKSCOUT_EXPLORER_URL = (txHash: string) =>
+  `https://zetachain-testnet.blockscout.com/tx/${txHash}`;
+
+```
+
+#### Poll for Cross-Chain Status
+
+教程中的文件路径与代码：`frontend/src/MessageFlowCard.tsx`
+
+```ts
+const response = await fetch(`${CCTX_POLLING_URL}/${connectedChainTxHash}`);
+if (response.ok) {
+  const data = (await response.json()) as CrossChainTxResponse;
+  const txHash = data.CrossChainTxs?.[0]?.outbound_params?.[0]?.hash;
+  if (txHash) setZetachainTxHash(txHash);
+}
+```
+
+实际文件路径与代码：
+
+[`hello/frontend/src/ConfirmedContent.tsx`](../projects/hello/frontend/src/ConfirmedContent.tsx)
+
+```ts
+const poll = async () => {
+  try {
+    const response = await fetch(
+      `${CCTX_POLLING_URL}/${connectedChainTxHash}`
+    );
+    if (response.ok) {
+      const data = (await response.json()) as CrossChainTxResponse;
+      const txHash = data.CrossChainTxs?.[0]?.outbound_params?.[0]?.hash;
+      if (txHash) {
+        setZetachainTxHash(txHash);
+      }
+    }
+  } catch (error) {
+    console.error('Polling error:', error);
+  }
+};
+```
+
+应用使用源链的交易哈希定期查询 ZetaChain 的公共 API。一旦 ZetaChain 处理了该调用，响应中就会包含 ZetaChain 的交易哈希，随后该哈希会显示在 UI 上。
+
+
+#### AI:区块链新手启示
+
+```md
+这里涉及了 Web3 前端开发（DApp Development）的核心心法。
+
+## 1. 核心概念：前端不再持有逻辑
+
+在传统 Web2 中，前端通常把数据发给后端服务器，后端处理逻辑存入数据库。
+在 Web3 中，**没有后端服务器**（严格来说）。
+
+  * 你的 React 前端直接与用户的**钱包 (MetaMask)** 对话。
+  * 用户的钱包直接与**区块链节点**对话。
+  * ZetaChain Toolkit (`evmCall`) 只是一个帮手，它帮你组装好数据包，递给钱包说：“老板，请在这个交易上签个字。”
+
+## 2. 思维模型：异步中的异步
+
+作为新手，你必须习惯**极度的慢**。
+
+  * 用户点击按钮 -> 钱包弹出（等待用户操作）。
+  * 用户签名 -> 交易发送到源链（等待出块，约 2-12 秒）。
+  * 源链确认 -> ZetaChain 观察员发现（等待若干秒）。
+  * ZetaChain 处理 -> 目标链执行（又是若干秒）。
+
+这不像你以前写的 API 接口 `await fetch()` 马上就有结果。所以代码里必须有 **Polling (轮询)** 机制。你的 UI 必须设计得让用户知道“正在处理中”，否则用户会以为网站卡死了。
+
+## 3. 与传统编程的对比：Signer vs Session
+
+  * **Web2:** 用户输入账号密码 -> 服务器给一个 Session Token -> 后续请求带上 Token。
+  * **Web3:** 用户不需要注册。`signer` 对象就是一切。只要用户连上了钱包，你就有了 `signer`。用 `signer` 发出的任何指令（如 `evmCall`），都代表用户本人的意愿。
+
+## 4. 新手注意事项
+
+  * **`ZeroAddress` 的坑:** 代码里用到了 `ZeroAddress` (`0x000...000`) 作为回滚地址。这在测试时没问题，意味着“如果不退款，就销毁资产”。但在生产环境中，如果涉及真金白银，**务必**把 `revertAddress` 设置为用户的钱包地址，否则一旦跨链失败，钱就真的没了（打入黑洞）。
+  * **ABI Encoding:** 注意 `types: ["string"]` 和 `values: [stringValue]`。这一步非常关键。如果你在合约里写的参数是 `uint256`（数字），而这里前端传了 `string`，交易会发送成功，但在链上执行时会**直接崩溃**，而且很难调试。一定要保证前端的 `types` 和合约里的 `function` 参数严格对应。
+```
+
+### End-to-End Flow in the UI
+
+UI 端到端流程
+
+前端界面引导用户完成一个简单但完整的跨链操作流程，具体如下：
+
+1.  **连接钱包：** 应用自动检测兼容 EIP-6963 标准的钱包，并通过 `WalletProvider` 进行连接。连接后的账户将用于对交易进行签名和发送。
+2.  **选择网络：** 用户必须从预定义的 `SUPPORTED_CHAINS`（支持链列表）中选择一个**源链**。列表中的每条链都包含了其名称、ID 以及区块浏览器链接。
+3.  **输入消息：** 用户在 UI 界面中输入纯文本字符串。应用会强制执行字节长度限制，以确保输入内容能够被安全地编码并在跨链调用中发送。
+4.  **发送调用：** 当用户点击 **Send（发送）** 按钮时，前端执行 `evmCall` 函数。该函数将 ZetaChain 上的 Hello 合约地址指定为**接收者 (receiver)**。随后，生成的源链交易哈希会被保存下来用于后续追踪。
+5.  **追踪结果：** UI 会立即显示源链上的交易状态，随即开始**轮询 (Polling)** ZetaChain 以查询跨链交易 (CCTX) 的进度。一旦查询到结果，应用将同时显示指向源链浏览器和 ZetaChain 浏览器的链接。
+
+#### AI：区块链新手启示
+
+```md
+## 1. 核心思维模型：跨链交互的“三段式”体验
+做 Web2 开发时，用户点击按钮 -> 菊花转圈 -> 成功。
+做跨链开发时，你必须设计**“三段式”反馈**，否则用户会以为你的应用坏了：
+* **阶段一（本地确认）：** 钱包弹出，用户签名。UI 显示：“正在发送到源链...”。
+* **阶段二（源链上链）：** 几秒后，拿到 Source Tx Hash。UI 显示：“源链已确认！正在跨链传输中...（此时开始轮询）”。
+* **阶段三（目标链确认）：** 几十秒后，拿到 ZetaChain CCTX Hash。UI 显示：“跨链成功！Hello 消息已送达。”
+
+## 2. 为什么“字节限制”很重要？
+我在解析里提到了 Gas 费。对于新手来说，**前端校验**至关重要。
+* 如果你不在前端限制用户输入 10000 字的小说，用户点击发送后，钱包会弹出一个**天价 Gas 费**（比如 $500），或者交易直接失败。
+* **最佳实践：** 始终在前端计算 `Bytes` 大小，并在用户输入过长时禁用“发送”按钮。
+
+## 3. 关于 `evmCall` 的幕后
+流程第 4 步看似简单（执行 `evmCall`），其实它是整个 Toolkit 的精华。
+如果你不使用这个工具包，你需要手动写以下代码：
+1.  判断当前连的是哪条链。
+2.  去查表找到这条链对应的 ZetaChain Gateway 合约地址。
+3.  把 "Hello" 编码成 Hex 字符串。
+4.  构造一笔发给 Gateway 的交易，把数据塞进 payload。
+`evmCall` 把这些繁琐且容易出错的步骤都抽象掉了。
+```
+
+### Install and Start
+
+```
+cd hello/frontend
+yarn
+yarn dev
+```
+
+```
+yarn run v1.22.22
+$ vite
+
+  VITE v7.1.6  ready in 985 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+```
+
+### Wallets
+
+需要改成 `false`，点击“链接钱包”才有反应。
+
+[frontend/src/constants/wallets.ts](../projects/hello/frontend/src/constants/wallets.ts)
+
+```ts
+export const USE_DYNAMIC_WALLET = false;
+```
+
+### 成功完成交互
+
+测试了在 Ethereum 和 Base 的 Testnet 发起合约调用，在网站页面都分别显示成功。
+
+但是，Base 测试网上的交易哈希在 BaseScan 上找不到！
+
+https://sepolia.basescan.org/tx/0x1b899bd40edce5199e572f579d50c4bfdfe55c429cc754f191db823af21b984c
+https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac417c729d4d9602bdad5
+
+````
+
+</details>
+<!-- DAILY_CHECKIN_2025-11-27_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ## 回顾与反思
 
 ### 继续探究昨天提到的内存不足导致编译失败问题
@@ -42,6 +463,7 @@ Web3 新手
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ## 回顾与反思
@@ -613,6 +1035,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
