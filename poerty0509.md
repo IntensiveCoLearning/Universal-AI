@@ -43,12 +43,13 @@ forge bulid
 需要zetachain测试网的RPC👉使用zetachain CLI查询Zetachain 测试网的ID是71
 
 ```
-zetachain g chains show--chain-id 7001 -f rpc
+zetachain q chains show --chain-id 7001 -f rpc
 ```
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 **Day3**
 
@@ -64,6 +65,7 @@ zetachain g chains show--chain-id 7001 -f rpc
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 **DAY2**
@@ -103,6 +105,7 @@ C:\\Users\\MR>zetachain new
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
