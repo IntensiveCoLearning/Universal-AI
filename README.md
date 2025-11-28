@@ -301,7 +301,7 @@ Telegram：https://t.me/zetachain_asia
 | [siphonelee](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/siphonelee.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
 | [zg870](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zg870.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
 | [Sifotd](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Sifotd.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [HUA-cyber](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/HUA-cyber.md) | ✅ | ✅ | ✅ | ⭕️ |   | | | | | | | | | |
+| [HUA-cyber](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/HUA-cyber.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | | | | | | | | | |
 | [tian-Sun](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/tian-Sun.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [spryo9](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/spryo9.md) | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | |
 | [git149](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/git149.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
