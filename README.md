@@ -233,7 +233,7 @@ Telegram：https://t.me/zetachain_asia
 | [xiaodian6777](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/xiaodian6777.md) | ✅ | ✅ | ⭕️ | ✅ |   | | | | | | | | | |
 | [tumiao233](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/tumiao233.md) | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | | | | | | | | | |
 | [000fan000](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/000fan000.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [Coooder-Crypto](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Coooder-Crypto.md) | ⭕️ | ✅ | ⭕️ | ✅ |   | | | | | | | | | |
+| [Coooder-Crypto](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Coooder-Crypto.md) | ⭕️ | ✅ | ⭕️ | ✅ | ✅ | | | | | | | | | |
 | [younggogogo](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/younggogogo.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
 | [TPB003](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TPB003.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [pillowtalk-Qy](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/pillowtalk-Qy.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | | | | | | | | | |
@@ -267,7 +267,7 @@ Telegram：https://t.me/zetachain_asia
 | [jiayunlong228](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jiayunlong228.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [alexsupa597](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/alexsupa597.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 | [kuove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/kuove.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
-| [baicaiyihao](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/baicaiyihao.md) | ⭕️ | ✅ | ✅ | ✅ |   | | | | | | | | | |
+| [baicaiyihao](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/baicaiyihao.md) | ⭕️ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
 | [catcatcash](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/catcatcash.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [veithly](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/veithly.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [coolzeta](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/coolzeta.md) | ✅ | ✅ | ⭕️ | ✅ |   | | | | | | | | | |
@@ -306,7 +306,7 @@ Telegram：https://t.me/zetachain_asia
 | [spryo9](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/spryo9.md) | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | |
 | [git149](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/git149.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
 | [cwj526](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/cwj526.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
-| [Zheng-Yu7463](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Zheng-Yu7463.md) | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | |
+| [Zheng-Yu7463](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Zheng-Yu7463.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
 | [ShawnX-F](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ShawnX-F.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
 | [JoyWQ](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/JoyWQ.md) | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | | | | |
 | [JoenHonwang](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/JoenHonwang.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ |   | | | | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
