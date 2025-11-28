@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+在 ZetaChain 的 EVM 里，并没有真的 BTC（因为 BTC 链没有智能合约），只有 **ZRC-20 版本的 BTC**。写一个智能合约，不需要专门为 Bitcoin 写一套逻辑，为 Ethereum 写另一套逻辑。只需要写一套处理 **ZRC-20** 的逻辑，就能通吃所有链的资产。无论原来的资产是 BTC、ETH 还是 MATIC，一旦跨入 ZetaChain，它们在代码层面看起来**完全一样**。它们都有 `transfer`\=、`balanceOf`、`approve`这些标准接口。在普通链上，必须有 ETH 才能转账 USDT，在 ZetaChain 上，用户做跨链提现时，**不需要持有外部链的 Gas 币**。ZRC-20 协议会自动从你的资产里扣除一小部分，兑换成外部链的 Gas 费帮你付掉。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 graph TD
 
 classDef zeta fill:#005741,stroke:#00b06f,stroke-width:2px,color:white;
@@ -105,11 +111,13 @@ class EthGW,BscGW,BtcVault gateway;
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 今天部署了cli，能用ai调用它的mcp服务器了，还没获取测试币，明天再试试
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 已完成zetachain钱包配置和测试币获取
