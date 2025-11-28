@@ -15,8 +15,219 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+**学习目标**
+
+-   理解 ZRC-20、Universal Token / NFT 的基本概念和作用。
+    
+-   明白多链资产在 ZetaChain 上如何被统一表示。
+    
+
+**学习资料**
+
+-   ZRC-20 标准
+    
+-   [https://www.zetachain.com/docs/developers/evm/zrc20/](https://www.zetachain.com/docs/developers/evm/zrc20/)
+    
+-   Universal 资产文档
+    
+-   [https://www.zetachain.com/docs/developers/standards/overview](https://www.zetachain.com/docs/developers/standards/overview)
+    
+
+**扩展资料（可选）**
+
+-   Example code repo（以后会用到，今天先收藏）
+    
+-   [https://github.com/zeta-chain/example-contracts](https://github.com/zeta-chain/example-contracts)
+    
+
+**实践 / 作业**
+
+-   在笔记中写出：
+    
+    -   ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）。
+        
+    -   举一个「通用资产」可能的应用场景（比如跨链储蓄、通用 NFT 通行证等）。
+        
+
+# ZRC-20
+
+## 基本概念
+
+ZetaChain 上对外部链原生资产与 ERC-20 的“原生表示”。当从以太坊/BNB/比特币等连接链把资产“存入”ZetaChain 时，协议在连接链侧托管这些资产（TSS 地址或托管合约），**并在 ZetaChain 上按 1:1 铸造对应的 ZRC-20**。**（托管映射）**提出时则销毁 ZRC-20，并从托管处把原生资产打回目标链。
+
+## 性质
+
+-   只能由协议铸造
+    
+-   同名代币跨不同源链被当作不同资产（如 ETH Mainnet 的 USDT 与 BSC 的 USDT 是两个 ZRC-20）。
+    
+-   支持查询/扣除跨链所需 gas 费用
+    
+-   可实现资产回退（revert）处理。
+    
+
+## 使用场景
+
+-   跨链资产转移：源链资产-->ZRC-20-->目标链资产，
+    
+-   Gas 抽象：合约可用部分输入资产兑换成目的链 gas 对应的 ZRC-20 以支付跨链执行费用。
+    
+
+# Universal Token（通用代币）
+
+## 基本概念
+
+一种“可在任意链铸造与转移、保持总量与元数据一致”的跨链 ERC-20 标准。
+
+**但是他不是托管映射的方式，而是同一种代币在多链上的原生流转，它会在源链销毁，在目标链按同一供应铸造。**
+
+## 架构
+
+两类合约：
+
+-   Universal（部署在 ZetaChain，必需）：充当跨链中枢与信任根。
+    
+-   Connected（部署在各 EVM 连接链，可选多条）：与 Universal 建立互信映射。
+    
+
+## 转移路径
+
+任意链之间的转移都会经由 ZetaChain 路由（例如 Ethereum → ZetaChain → BNB）
+
+-   费用模型：
+    
+    -   EVM → ZetaChain：无额外跨链费。
+        
+    -   ZetaChain → EVM：以 ZETA 支付，对应自动兑换为目标链 gas 的 ZRC-20。
+        
+    -   EVM → EVM：源链 gas 资产承担费用，协议会在 ZetaChain 上完成所需 ZRC-20 兑换。
+        
+
+# Universal NFT（通用 NFT，ERC-721 级）
+
+## 定义
+
+可在任意连接链铸造与转移的 NFT 标准。跨链时源链销毁、目标链按相同 tokenId 重铸；元数据保持一致，tokenId 跨链持久。
+
+## 架构
+
+也是Universal和Connected两个合约，并通过互信列表限制只接受同一集合的跨链调用。
+
+# ZRC-20 vs Universal Token/NFT：本质差异
+
+-   ZRC-20：代表“外部链已有资产”的在链内的**可编程镜像**，由协议管理铸销，适合“把外部价值带入 ZetaChain 进行逻辑编排后再原样提出”。
+    
+-   Universal Token/NFT：你自己的“原生跨链资产标准”，在多链之间通过**“销毁/重铸”**保持单一供应与一致性，不依赖外部链既有资产或托管余额。
+    
+
+# ZRC-20 和普通 ERC-20 的直观区别
+
+从开发者（Developer）的视角来看，**ZRC-20** (ZetaChain Request for Comment 20) 和普通的 **ERC-20** 的核心区别在于：**资产的“管辖范围”和“交互能力”**。
+
+简单的一句话总结：**ERC-20 是“孤岛内”的账本，而 ZRC-20 是连接外部原生链资产的“遥控器”。**
+
+以下是具体的直观区别：
+
+### 资产的所有权与映射逻辑 (State & Ownership)
+
+-   **普通 ERC-20:**
+    
+    -   **逻辑：** 资产只存在于当前这条链（如 Ethereum 或 Polygon）的合约状态里。
+        
+    -   **开发者视角：** 如果你想把 ETH 跨链变成 Polygon 上的 ETH，你需要依赖第三方“桥”（Lock & Mint 机制），生成的是一个 Wrapped Token（如 WETH）。这个 WETH 和原链的 ETH 是割裂的，合约无法直接感知原链状态。
+        
+-   **ZRC-20:**
+    
+    -   **逻辑：** ZRC-20 代币代表了**外部链上的原生资产**（如 Ethereum 上的 ETH，Bitcoin 上的 BTC，BSC 上的 BNB），这些资产被锁定在 ZetaChain 的 TSS（阈值签名）账户中。
+        
+    -   **开发者视角：** 你在 ZetaChain 上部署合约，可以通过 ZRC-20 合约直接管理和操作外部链的资产。你虽然在操作 ZetaChain 上的代币，但协议层会自动将其转化为外部链的原生交易。
+        
+
+### 核心接口功能的扩展 (`withdraw` 是大杀器)
+
+这是代码层面最直观的区别。ZRC-20 兼容 ERC-20 接口（意味着可以配合 Uniswap, Metamask 使用），但多了一个关键功能。
+
+-   **普通 ERC-20:**
+    
+    -   标准方法：`transfer`, `approve`, `transferFrom`, `balanceOf`。
+        
+    -   **局限：** 调用 `transfer` 只是改变了当前链上的数字，外部世界毫无变化。
+        
+-   **ZRC-20:**
+    
+    -   标准方法：`transfer`, `approve`... (同 ERC-20)。
+        
+    -   **扩展方法：** `withdraw(bytes recipient, uint256 amount)`。
+        
+    -   **开发者视角：** 当你在合约里调用 `ZRC20.withdraw(btc_address, amount)` 时，**魔法发生了**：ZetaChain 协议层会捕获这个事件，通过 TSS 节点在**比特币主网**上发起一笔真正的 BTC 转账给 `btc_address`。
+        
+    -   **直观感受：** 你在写 Solidity，但你居然控制了比特币网络！
+        
+
+### Gas 费用的处理 (Gas Abstraction)
+
+-   **普通 ERC-20:**
+    
+    -   你在以太坊上转账，消耗 ETH；在 Polygon 上转账，消耗 MATIC。逻辑很简单，也是隔离的。
+        
+-   **ZRC-20:**
+    
+    -   **要解决的问题：** 跨链操作通常**需要用户持有目标链的 Gas 代币**。
+        
+    -   **开发者视角：** ZRC-20 内置了 Gas 扣除逻辑。当你调用 `withdraw` 把资产提回原链（例如提现 BTC 回比特币网络）时，ZetaChain 协议会自动计算比特币网络的 Gas 费，并直接从你提现的 ZRC-20 金额中扣除（以 ZRC-20 代币支付）。
+        
+    -   **优势：** 你的用户不需要持有 BTC 也能完成涉及 BTC 的复杂交互，因为 Gas 费是自动从交易额里“扣”出来的。
+        
+
+### 对比特币（非智能合约链）的支持
+
+这是 ZRC-20 最具颠覆性的地方。
+
+-   **普通 ERC-20:**
+    
+    -   无法直接与比特币交互。你只能使用 WBTC（中心化托管的 ERC-20 代币）。你无法通过 Solidity 代码触发一笔比特币主网的转账。
+        
+-   **ZRC-20:**
+    
+    -   ZetaChain 为 BTC 这种非智能合约链的原生资产创建了 ZRC-20 版本的 BTC。
+        
+    -   **开发者视角：** 你可以写一个 Uniswap 风格的 DEX 合约（Solidity），一边是 ZRC-20 ETH，一边是 ZRC-20 BTC。用户通过比特币钱包转账 BTC 到 ZetaChain TSS 地址，你的合约自动接收并 Swap 成 ETH，然后用户在以太坊钱包收到 ETH。全程不需要 WBTC 这种中间商。
+        
+
+### 交互流程对比 (举例：跨链 Swap)
+
+假设你要做一个应用：**用户支付 BTC，获得 ETH。**
+
+-   **普通 ERC-20 开发路径：**
+    
+    -   用户去中心化交易所把 BTC 换成 WBTC。
+        
+    -   用户把 WBTC 跨链桥接到以太坊。
+        
+    -   用户在以太坊 DEX 用 WBTC 换 ETH。
+        
+    -   _开发者需要接入多个协议，用户体验极其割裂。_
+        
+-   **ZRC-20 开发路径 (Omnichain Contract)：**
+    
+    -   你在 ZetaChain 上部署一个合约。
+        
+    -   合约监听：当收到 BTC (通过 ZRC-20 hook `onCrossChainCall`)。
+        
+    -   合约逻辑：自动将 ZRC-20 BTC 换成 ZRC-20 ETH (在 ZetaChain 本地 Swap)。
+        
+    -   合约逻辑：调用 ZRC-20 ETH 的 `withdraw` 方法，填入用户的 ETH 地址。
+        
+    -   结果：用户发出 BTC，收到了 ETH。
+        
+    -   _开发者只需在一个合约里写逻辑，即由 ZetaChain 编排全链。_
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 **学习目标**
 
 -   建立对 “全链应用 / Universal App 合约” 的直观理解。
@@ -148,6 +359,7 @@ npx tsx commands/index.ts deploy --private-key $(grep PRIVATE_KEY .env | cut -d 
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ZetaChain & Universal Blockchain 核心概念
 
@@ -505,6 +717,7 @@ ZetaChain 无法在比特币网络上部署智能合约。比特币不支持这�
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 **学习目标**
 
 -   本地 / 云端完成基础开发环境落地。
@@ -820,6 +1033,7 @@ B. gRPC & REST (Cosmos SDK 层)
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
