@@ -15,8 +15,22 @@ web3 developer
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+\### ZRC20
+
+开发者不能铸造 ZRC20,开发者在 zetachain 铸造的 ERC20，不叫 ZRC20。简单来说，ZRC20 可以看作,外部链上的原生 gas 资产或在白名单的 ERC-20 在 ZetaChain 上的 representation,比如跨链的转账，ETH -> ZRC-ETH -> SOL。
+
+开发者可以在 zetachain 中铸造 ERC20，不具备天生跨链提取的特性，这一部分可以叫做 Universal Token
+
+\### Universal Asset
+
+包括 Universal Token 和 Universal NFT。这一部分是我们开发者要着重开发的部分。我认为一个可行的 Defi 方向是统一用户钱包，用户将自己有代币的钱包转移到 zetachain，在 zetachain 中开发一个借贷协议或者算法，自动将资产最优分配一下。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 hello和swap的demo都已经在前几天的笔记中分享过了。今天事情有点多，学习的时间实在是少。
 
 大概的想法是做一个rebase token，可以在所有链上交易。
@@ -26,6 +40,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ### Q1: Universal App 是什么?
 
@@ -38,6 +53,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -115,6 +131,7 @@ swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
