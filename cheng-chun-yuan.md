@@ -15,8 +15,31 @@ a student developer with interest in AI and blockchain
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+**ZRC20 是外部鏈資產在 ZetaChain 上的映射與統一標準**  
+例如：  
+ETH（以太坊） → ZRC-ETH（ZetaChain） → SOL（Solana）  
+它代表原生 gas 資產或白名單內的 ERC20，在 ZetaChain 上的跨鏈表示形式。
+
+###Lending Platform
+
+包含能管理 Universal Token 與跨鏈資產的借貸機制。  
+這部分是開發者最值得深耕的領域。
+
+我認為非常有前景的 DeFi 方向：  
+➡️ **統一用戶錢包資產管理**  
+使用者將各鏈錢包資產匯聚至 ZetaChain  
+在 Lending Platform 中透過借貸協議或演算法  
+自動做最優化資產配置與收益策略
+
+真正做到：  
+「一個錢包、所有鏈的流動性」
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/cheng-chun-yuan/images/2025-11-26-1764170707675-image.png)
 
 ## What is a Universal App?
@@ -71,6 +94,7 @@ The "secure gate" that lets data and assets move between chains. It's powered by
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 -   Qwen Request: get api key from website and request through terminal !!
     
 
@@ -94,6 +118,7 @@ The "secure gate" that lets data and assets move between chains. It's powered by
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 打卡一下
