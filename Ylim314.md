@@ -15,8 +15,32 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+**Day 4 学习日志：从原生交互进阶到智能合约读取**
+
+日期：2025.11.28
+
+进度：智能合约交互 (Smart Contract Interaction)
+
+今天的主要精力都花在了如何让 Python 脚本与 ZetaChain 上的 ZRC-20 合约进行通信上。前两天虽然跑通了转账，但那只是针对原生 ZETA 代币的 Layer 1 操作，今天才算是真正触碰到了可编程区块链的核心——智能合约交互。
+
+刚开始我觉得读取余额应该很简单，像查原生币一样调用个 API 就行。但实际写代码时才发现，操作 ZRC-20 代币（比如 ETH 合约资产）必须引入 ABI (Application Binary Interface) 的概念。我不得不去翻了 [web3.py](http://web3.py) 的文档，重新构建了一个包含 `balanceOf`、`decimals` 和 `symbol` 的最小化 ABI 列表。这里有个很重要的工程细节：实例化合约对象时，必须同时传入合约地址和 ABI，缺一不可。
+
+在调试过程中，我深刻理解了 `call()` 和 `transact` 的区别。之前做转账用的是发交易，需要签名、消耗 Gas；而今天做的余额查询只是本地节点的状态读取，直接用 `.call()` 方法就能瞬间返回结果，完全不需要私钥签名。这一点对于后续设计 AI Agent 的查询逻辑很重要，因为查询操作是可以无限高频进行的。
+
+今天还踩了一个非常坑的环境依赖 Bug。代码写好后运行一直报错提示找不到 `cytoolz` 模块。我排查了很久，最后发现是 VS Code 的终端环境自动切回了系统默认的 Python，而不是我配置好的 Anaconda 环境。这让我意识到工程开发中环境隔离的重要性，以后必须养成检查 `(base)` 标识的习惯，或者直接在脚本头部强制指定解释器路径。
+
+另外在数据处理上也花了点时间。链上返回的余额是 uint256 格式的 Wei，数值巨大，直接显示给用户看肯定不行。我在代码里加了一步动态获取 `decimals()` 的逻辑，自动进行除法换算，这样不管是 6 位精度的 USDC 还是 18 位精度的 ETH，Agent 都能正确显示人类可读的数字。
+
+![DAY41.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-11-28-1764335922077-DAY41.png)
+
+目前的进度是已经能让 Agent “看到”合约里的资产了。明天打算引入 Streamlit 框架，赶紧把这个黑底白字的命令行界面换成一个 Web 网页，不然演示起来确实太干涩了
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 **日期**：2025.11.26 **进度**：完成从 AI 指令到链上 Write 操作的闭环
 
 今天的主要工作是解决“只读不写”的问题。昨天的脚本只能查余额，今天是真枪实弹地发了一笔交易到 ZetaChain 测试网。
@@ -45,6 +69,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 ### 通用 AI 残酷共学 - Day 2 学习日志：Agent 账户系统与链上交互
 
@@ -107,6 +132,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 ### 📝 通用 AI 残酷共学 - Day 1 学习日志
