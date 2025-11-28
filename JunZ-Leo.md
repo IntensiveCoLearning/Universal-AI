@@ -15,8 +15,67 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+-   **项目设置**：
+    
+    -   命令：zetachain new --project swap && cd swap && yarn && forge soldeer update && forge build
+        
+    -   配置：这会初始化一个带有 ZetaChain 依赖的 Foundry 项目。除了将 zetachain CLI 配置为测试网（默认是 Athens-3 测试网）外，无需自定义配置。
+        
+-   **在测试网上部署 Swap 合约**：
+    
+    -   命令：UNIVERSAL=$(npx tsx commands/deploy --private-key $PRIVATE\_KEY | jq -r '.contractAddress') && echo $UNIVERSAL
+        
+    -   配置：
+        
+        -   $PRIVATE\_KEY：我的测试网钱包私钥（例如，从 MetaMask 获取，已充入测试 ZETA）。
+            
+        -   使用默认的测试网 Gateway 和 Uniswap v2 路由器地址（通过 CLI 自动查询）。
+            
+        -   输出：部署的合约地址（例如，0x123...abc – 我记录了自己的地址以便重用）。
+            
+-   **获取接收者地址**：
+    
+    -   命令：RECIPIENT=$(cast wallet address $PRIVATE\_KEY) && echo $RECIPIENT
+        
+    -   配置：与上面的 $PRIVATE\_KEY 相同。这是最终交换代币将落入的 EVM 地址。
+        
+-   **获取目标代币的 ZRC-20 地址**（例如，以太坊 ETH 作为目标）：
+    
+    -   命令：ZRC20\_ETHEREUM\_ETH=$(zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20) && echo $ZRC20\_ETHEREUM\_ETH
+        
+    -   配置：符号基于目标链/代币（例如，sETH.SEPOLIA 对应 Sepolia ETH）。这会查询 ZetaChain 上的 ZRC-20 表示。
+        
+-   **从 Base Sepolia 发起到 Ethereum Sepolia 的 Swap**（示例 1）：
+    
+    -   命令：npx zetachain evm deposit-and-call --chain-id 84532 --amount 0.001 --types address bytes bool --receiver $UNIVERSAL --values $ZRC20\_ETHEREUM\_ETH $RECIPIENT true --private-key $BASE\_PRIVATE\_KEY
+        
+    -   配置：
+        
+        -   \--chain-id 84532：Base Sepolia。
+            
+        -   \--amount 0.001：测试金额，以 ETH 计（确保钱包有资金；我使用了 Base Sepolia 水龙头）。
+            
+        -   $BASE\_PRIVATE\_KEY：Base 钱包的单独私钥。
+            
+        -   \--types 和 --values：消息负载（目标 ZRC-20、接收者作为字节、撤回标志 true 用于跨链撤回）。
+            
+        -   输出：Base 上的交易哈希，我通过 Base 浏览器监控。
+            
+-   **检查跨链交易**：
+    
+    -   命令：zetachain query cctx --hash <base\_tx\_hash>
+        
+    -   配置：将 <base\_tx\_hash> 替换为 deposit-and-call 的哈希（例如，0x8def0ff...）。这会显示完整的 CCTX（跨链交易）流程。
+        
+
+我在第一个测试中从源链发起调用，具体是从 Base Sepolia（一个 EVM 链）使用 ZetaChain CLI 的 deposit-and-call 命令。这发送了一个小额 ETH，以及一个编码的消息负载，指定目标代币（Ethereum ETH）、接收者地址，以及跨链撤回的标志。该调用与 Base 上的 Gateway 交互，后者处理存款并转发到 ZetaChain。最终，在 ZetaChain 上，传入的 ETH 被包装为 ZRC-20 代币（sETH.SEPOLIA），交付到我部署的 Universal Swap 合约中，其中 onCall 函数解码负载，查询撤回的 gas 费用，使用 Uniswap v2 池将输入的一部分交换为目标链的 gas 代币，将剩余部分交换为目标 ZRC-20（Ethereum ETH），然后批准并执行 gateway.withdraw 以将最终代币发送到 Ethereum Sepolia 上的接收者。整个过程感觉无缝——就像一个单一的 DeFi 操作——尽管跨越多个链，ZetaChain 充当协调、代币标准化和执行的枢纽。我通过 CCTX 查询确认结果，看到状态更新为 "OutboundSuccess"，带有最终撤回哈希。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
 
 ERC-20（以太坊/单链视角）
@@ -75,6 +134,7 @@ PS：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 # **Universal App + Hello World 心智模型**
@@ -151,6 +211,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -390,6 +451,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
