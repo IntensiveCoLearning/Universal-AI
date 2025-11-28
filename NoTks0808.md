@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+ZRC-20和ERC-20的区别主要在于ZRC-20是zetachain的原生代币，能在zetachain上流通，是在zetachain上做开发时使用的主流代币，而ERC-20不能直接在zetachain上使用
+
+通用资产可用于全链借贷
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 项目：全链许愿墙
 
 工具：CLI+Hardhat
@@ -26,6 +34,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 关于Universal App:
 
@@ -40,11 +49,13 @@ Gateway 是部署在**外部连接链（Connected Chains，如 Ethereum mainnet,
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 今天终于是把环境搭建完了，foundry的搭建在国内一定要提前了解好端口，要在梯子里开启局域网连接，AI给你推荐的直接关掉梯子是不可行的，因为GitHub没办法登上去，qwen的API调用刚开始可能是因为挂着梯子直接注册到国际服了，一直没有权限，最后关掉梯子用支付宝登录了以后才获得权限，有了API key，这个环境搭建对一个小白来讲真的非常痛苦，不过这样的学习确实会了不少关于API调用的知识
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
