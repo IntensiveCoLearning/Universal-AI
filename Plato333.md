@@ -15,8 +15,14 @@ web3 building
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+再鸽一天hhh
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 **ZRC-20 的核心特性**
 
 1.  **跨链映射与流通**
@@ -64,11 +70,13 @@ ERC-20 是以太坊单链的代币标准，仅能在以太坊生态内流通；�
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
+
 今天忙的事太多了，鸽一天hh
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 测试网RPC是指向测试链的HTTP/WebSocket 接口用于进行链上操作，Faucet是水龙头，Explorer区块链浏览器如Etherscan。
@@ -78,6 +86,7 @@ ERC-20 是以太坊单链的代币标准，仅能在以太坊生态内流通；�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
