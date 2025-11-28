@@ -15,8 +15,14 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+-   solidity 编程基础
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 # General Blockchain Knowledge
 
 -   immutability
@@ -246,6 +252,7 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 -   学习了一些和浏览器相关的知识
     
 -   完成message box项目前期UI改进的工作
@@ -255,6 +262,7 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 -   完成TailwindCSS的学习
