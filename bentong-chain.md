@@ -15,8 +15,23 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+### Universal App
+
+Universal App是部署在ZetaChain上的智能合约，可以与Ethereum、BSC、Bitcoin等区块链进行连接。既可以接受来自其他链的合约调用、消息和代币转账，也可以触发其他链上的合约调用和代币转账。  
+Universal App部署在ZetaChain的Universal EVM上。Universal EVM在原EVM上扩展了全链互操作功能。
+
+![1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/bentong-chain/images/2025-11-28-1764344182500-1.png)
+
+### Gas抽象
+
+![2.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/bentong-chain/images/2025-11-28-1764344193931-2.png)
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 ### ZetaChain Mainnet
 
 网络名称
@@ -82,6 +97,7 @@ zeta
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 \### ZetaChain CLI
 
