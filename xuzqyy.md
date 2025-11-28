@@ -15,13 +15,29 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+## **一、ZRC-20 与普通 ERC-20 的直观区别（开发者视角）**
+
+|   |   |   |
+| --- | --- | --- |
+| 部署位置 | 仅存在于单一链（如 Ethereum） | 存在于 ZetaChain 上，但代表其他链的资产（如 ETH 上的 USDT） |
+| 跨链能力 | ❌ 无法直接在其他链使用（需桥接） | ✅ 原生支持跨链：用户从 ETH 存入 USDT → 自动 mint 为 ZRC-20 USDT → 可在 ZetaChain 合约中直接使用 |
+| 转账目标 | 只能转给该链上的地址 | 可通过 ZetaChain 合约直接 withdraw 到其他链（如转回 ETH、Solana、甚至 Bitcoin） |
+| 合约交互 | 只能被该链的合约调用 | 可被 ZetaChain 的通用合约（Universal Contract）直接操作，无需额外封装 |
+| Gas 支付 | 用本链原生代币（如 ETH） | 用ZETA（ZetaChain 原生 Gas 代币） |
+| 开发者操作 | transfer(to, amount) | 除transfer外，还可调用：withdrawAndCall(chainId, to, data)→ 直接跨链调用目标链合约 |
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 今天看课程没看懂，明天再花时间看看回放
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 **1\. Universal App（通用应用） 是什么？**
 
@@ -38,6 +54,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 1安装调试cli
@@ -65,6 +82,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
