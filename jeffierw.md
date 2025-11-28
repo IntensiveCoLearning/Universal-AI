@@ -15,8 +15,29 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+# Day 5
+
+1.  ZRC-20 和普通 ERC-20 的直观区别
+    
+
+-   白名单的 ERC-20 token 和 Zeta 原生 token 都通过 ZRC-20 标准再 ZetaChain 展示
+    
+-   存款过程：连接链将白名单的 ERC-20 token 存入 ERC-20 的 TSS 地址，并在 ZetaChain 铸造相同的 ZRC-20 token
+    
+-   ZRC-20 token 只能在 ZetaChain 铸造，在 ZetaChain 铸造的 ERC-20 token 不能跨链到别的连接链
+    
+
+2.  举一个【通用资产】可能的应用场景。
+    
+
+-   全链 DEX，全链订单簿撮合系统
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 # Day 4
 
 1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
@@ -30,6 +51,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 # Day 3
 
@@ -55,6 +77,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 # Day 2
@@ -89,6 +112,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
