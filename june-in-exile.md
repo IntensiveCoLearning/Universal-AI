@@ -15,19 +15,225 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+今天試著白話分享一下自己對 ZetaChain 的理解：
+
+### ZetaChain 在解決什麼問題？
+
+**跨鏈操作的問題**，包括但不限於跨鏈轉賬、跨鏈借貸、跨鏈交易、跨鏈訊息等
+
+其實從名稱就可以略知一二  
+ZetaChain 標榜自己為「通用鏈」(Universal Blockchain)  
+換句話說它的目標是打通過去區塊鏈之間的壁壘  
+Ethereum, Solana, Bitcoin, Sui, Ton 等目前比較主流的生態系都可以透過 ZetaChain 互相連接
+
+### 跨鏈操作問題可以怎麼解？
+
+如果要直接討論所有跨鏈操作那 Scope 有點太廣了  
+所以先把 Scope 縮小，改成只處理兩條鏈之間的資產搬運 (bridging)  
+因為我本身比較熟 Etherem，然後最近在學 Sui，就用這兩條鏈為例好了  
+只要能處理好這兩條鏈，接下來就只是擴容問題
+
+所以問題變成：**我要怎麼幫用戶把 ETH 從 Etherem 上的錢包轉到 Sui 上的錢包?**
+
+首先直接轉帳是不可能的，因為 Sui 不是 EVM-compatible  
+即便它是，在 Sui 上面就沒有 ETH 這種東西，你轉過去都成了啥？
+
+那透過人為介入把 ETH 換成 Sui 呢？可以  
+假設馬爺想做這筆生意，並且他在 Ethereum 跟 Sui 上面都有鉅額資產  
+那用戶可以跟馬爺簽一份民事契約，規定如下：
+
+-   當用戶需要換匯 (Swapping) 的時候就在 Ethereum 上面把 ETH 轉給馬爺
+    
+-   馬爺必須根據當下市場匯率把相對應的 SUI 在 Sui 上面轉給那位用戶
+    
+-   轉帳細節，比如用戶在兩條鏈上的地址，由用戶跟馬爺雙方確認
+    
+-   ...
+    
+
+這種方式雖然土炮，但已經有了個雛形 (早期幣圈其實也是這麼幹的)
+
+問題是什麼？
+
+1.  效率：馬爺不是 AI，他不會即時在線，就算在線他處理得也不會比電腦快
+    
+2.  資訊差：用戶跟馬爺之間對於市場匯率的認知可能不同
+    
+3.  手續費：馬爺做這件事肯定是不能虧錢的，問題是用戶手續費怎麼給? 用 ETH? SUI? USDC? 還是法幣?
+    
+4.  信任：如果哪天用戶轉給馬爺的金額很大，他可能直接拿著 ETH 就跑了
+    
+5.  流動性：即便馬爺沒跑，可能也沒有足夠的 SUI 轉給用戶
+    
+
+來看看 ZetaChain 怎麼處理這些問題
+
+### 程式化
+
+ZetaChain 其實就是程式化且去中心化的馬爺
+
+先説説怎麼程式化  
+首先我可以建個 Server 並在每條鏈上都部署一份合約讓用戶去呼叫他們要執行的操作  
+最後把合約地址寫死在 Server 裡  
+在 ZetaChain 的架構中部署在每條鏈上的合約稱為 Gateway  
+這個 "Server + Gateways" 的架構 ([hub-and-spoke architecture](https://www.zetachain.com/docs/developers/evm#architecture-overview)) 就構成了中心化跨鏈系統
+
+當用戶呼叫 Gateway 以後會發出 Event  
+Server 可以監聽 Event 得知用戶呼叫了什麼功能、使用哪些參數  
+接下來 Server 要做的就是原本馬爺要做的那些事：查價格、換匯、轉帳
+
+但馬爺不可能白白把錢轉給用戶  
+所以當用戶希望「將 1ETH 從 Ethereum 轉到 Sui 上變成 SUI 的時候」  
+Ethereum Gateway 會先把用戶的 1 ETH 扣起來  
+然後收到 Event 的 Server 會自動幫馬爺處理前述任務  
+同時也把該收的手續費收一收  
+這些手續費包含了 Ethereum 上的 gas (ETH) 以及 Sui 上的 gas (SUI)  
+Server 本身可以不收 gas (gasless)  
+所有的手續費都會從那 1 ETH 裡面扣  
+所以實際轉到 Sui 上面的 SUI 的價值會比 1 ETH 少
+
+上面提到的「把用戶的 1 ETH 扣起來」  
+實際上是把 ETH 從用戶的 Ethereum 錢包轉進 Ethereum vault  
+相對應的  
+在 Sui 那邊就是從 Sui vault 把扣掉 gas 後的 SUI 轉給用戶的 Sui 錢包
+
+小結一下  
+目前已經搞出了一套程式化但中心化的跨鏈轉帳系統  
+比原本手動轉帳的方式好在：
+
+1.  效率：現在用戶透過調用 Gateway 觸發轉帳，Server 會主動監聽 Event，馬爺本人不需要時刻在線，電腦處理也比人類處理快多了
+    
+2.  資訊差：只要 Server 代碼運作正常、市場的 API 也正確運作，資訊差基本不太會發生
+    
+3.  手續費：從用戶調用合約時給的代幣中扣，Server 會幫忙處理幣種之間的轉換
+    
+4.  信任：問題還沒解決，馬爺隨時可以 shut down server
+    
+5.  流動性：問題還沒解決
+    
+
+### 去中心化
+
+去中心化為的就是解決信任問題  
+眾所周知去中心化第一步就是把 Server 給拆了  
+換成一坨拉庫的 Validators  
+Validators 就想像是一群抵押資產共同組成公司的會計  
+大家依規定達到共識、按貢獻分紅  
+誰違規就扣誰錢  
+只讓守規矩的人有利可圖  
+透過這套賽局理論讓地位平等的 Validators 乖乖做事  
+這就是去中心化的核心理念  
+(注意上述「抵押資產」的概念其實是 PoS 的處理方式，不是一定要這樣才能達到共識)
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/june-in-exile/images/2025-11-28-1764366324392-image.png)
+
+ZetaChain 把 Validators 分為[兩類](https://www.zetachain.com/docs/developers/architecture/overview#validators)：
+
+-   **Core Validators**: 搞內勤的，包含收交易、排序、打包出塊、投票共識等
+    
+-   **Observer-Signer Validators**: 搞外務的，處理跨鏈交易 (cross-chain transactions, CCTX)
+    
+
+CCTX 的部份不外乎就是
+
+-   **Incoming** (Connected Chain -> ZetaChain): 因為 Connected Chain 不可能主動跟 validators 互動，所以是 validators 要主動去 “observe” connected chain 上的 Event
+    
+-   **Outgoing** (ZetaChain -> Connected Chain): Validator 之間要先達到一定共識以後才去 “sign” 某一筆發生在 connected chain 上的交易
+    
+
+講到 Sign 就要小心了，如果說這整串流程哪裡最危險，那肯定就是涉及到簽章的部份，私鑰交給哪個 validator 都不對，因為很容易形成 SPOF，但你要求每位 validator 都要 sign 又太沒效率  
+折衷的辦法就是 t-of-n 門檻簽名 (Threshold Signature Scheme, TSS)：把一把私鑰拆成 n 份，一筆交易只要其中任意 t 份簽章就算有效  
+怎麼做到的？反正是密碼學，別問這麼多
+
+至此問題 1.- 4. 都解決了  
+至於 5. 流動性問題，舉個例子：**如果用戶要把某 ERC20 從 Ethereum 轉到 Sui 上面 但該 ERC20 在 Sui Vault 的餘額不足怎麼辦？**
+
+首先要知道 ZetaChain 面對上述的跨鏈資產轉移 實際執行的流程是：
+
+1.  **Incoming CCTX**  
+    1-1. 透過 Ethereum Gateway 把用戶的 ERC20 存入 vault  
+    1-2. 在 ZetaChain mint 給用戶相對應的代幣，稱為 ZRC20
+    
+2.  **Outgoing CCTX**  
+    2-1. 在 ZetaChain burn 用戶的 ZRC20  
+    2-2. 透過 Sui Gateway 從 vault 釋出對應 ERC20 與對應數量給用戶 (這裡會有流動性問題)
+    
+
+為了緩解流動性問題，ZetaChain 本身有出入金限流：
+
+-   Incoming CCTX 透過 [liquidity caps](https://www.zetachain.com/docs/developers/evm/throughput#incoming-transactions:-liquidity-caps) 限制每筆資產在該鏈存入的總量上限
+    
+-   Outgoing CCTX 透過 [rate limiter](https://www.zetachain.com/docs/developers/evm/throughput#outgoing-transactions:-rate-limiter) 限制某單位時間內提領的價值上限
+    
+
+但單靠這個並不能防止結構性缺口  
+協議還是要想辦法激勵用戶去把各種代幣存在 Vault 裡面  
+提供流動性、讓其他鏈的用戶可以進行跨鏈交易
+
+如果協議設計得不好  
+導致 Vault 長期缺乏供給  
+用戶們又有大量跨鏈需求  
+要嘛運營商自行注資到 Sui vault  
+要嘛臨時到 Sui 上面用其他數量充裕的 ERC20 或是 SUI 進行 Swapping  
+不過這可能要動用 Universal Apps
+
+### 什麼是 Universal Apps？
+
+上面舉的例子很簡單，單純幫用戶做 Bridging，而且條件都很理想 (Vault 金額充足)  
+但一開始也說了，ZetaChain 是 Universal Chain，他可以做的事情不只是 Bridging，還可以處理更複雜的業務邏輯  
+像是上面提到的流動性不足問題，其中一個解法就是:
+
+1.  先把用戶的 Ethereum ERC20 換成 Sui 上的 SUI
+    
+2.  再在 Sui 上面用 SUI swap 成用戶要的 ERC20
+    
+
+「在 SUI 上面做 Swapping」這件事就屬於複雜的業務邏輯，Gateway 本身不支援  
+這時候就需要由開發者 (比如在座的你我) 在 ZetaChain 上面撰寫一些程式來驅動這件事  
+而部署在 ZetaChain 上面的程式就被稱為 Universal Apps  
+它能夠接收來自任意鏈的訊息與資產，也可以接著發起跨鏈呼叫與提領
+
+這邊舉例他還可以做什麼：
+
+-   跨鏈 NFT 操作: 在任意鏈觸發鑄造/轉移，最終在另一條鏈上持有相同 tokenId 的 NFT
+    
+-   跨鏈支付/訂閱與結算: 用戶從 Ethereum 支付訂閱費，協議在多條鏈按期結算給服務商
+    
+-   跨鏈合約呼叫: 從一條鏈啟動，依序在多條鏈呼叫合約完成一個策略（如借貸->兌換->質押）
+    
+-   (剩下的就由各位自行發揮)
+    
+
+另外 ZetaChain 生態裡還有一些被冠上 “Universal” 之稱的名詞：
+
+-   Universal EVM: ZetaChain 的執行環境
+    
+-   Universal Assets: 跨鏈 ERC20 或 ERC721 (目前 NFT 部份只支援 ERC721)
+    
+
+目前我的理解差不多到這邊  
+接下來就要開始[實作](https://www.zetachain.com/docs/developers/tutorials/intro)了  
+明天見
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 先打個卡，晚點補上 Zeta 概念統整
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 今天主要看了 zeta 架構 明天開始實作
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 -   **ZetaChain Sui Localnet 啟動失敗**：原因是 CLI 錯誤抓取了 Git `main` 分支（缺少必要函式），正確的合約程式碼應在 `develop` 分支。
@@ -43,6 +249,7 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
