@@ -15,8 +15,22 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+# ZRC-20 VS ERC-20
+
+ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部署。ZRC-20 具有跨链地能力，而 ERC-20 不能跨链。
+
+# Zetachain 的使用场景
+
+跨链资金转账：使用 Zetachain 就不需要调用 Bridge 的 API，可以通过纯智能合约实现。
+
+聚合资金：通过智能合约，可以自动地将多链资产聚集在同一个钱包里。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 # 我想做的第一个 Universal App
 
 实现所有链的资产都汇集到同一条链的同一个地址上。
@@ -26,6 +40,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 # 什么是 Universal App？
 
@@ -46,6 +61,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 # 安装 ZetaChain CLI
@@ -302,6 +318,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
