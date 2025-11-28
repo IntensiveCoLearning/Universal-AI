@@ -15,8 +15,86 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+## **ZRC-20和ERC-20的区别**
+
+|   | ZRC‑20 | ERC‑20 |
+| --- | --- | --- |
+| 资产来源 | 代表其他链的原生代币或指定 ERC‑20 代币，通过锁定资产后铸造 | 在部署链上发行，资产只存在于该链 |
+| 跨链能力 | 内置跨链存取功能，可从任何连接链存入或提取到原链 | 无跨链机制，需要借助桥或第三方协议 |
+| 铸造限制 | 只能由 ZetaChain 协议铸造，受总流动性上限限制 | 任意合约可按逻辑铸造，不具备跨链流动性上限 |
+| 统一接口 | 具备扩展方法用于查询跨链余额、执行跨链调用等 | 标准仅定义基本的转账与授权接口 |
+| 典型应用 | 构建 Omnichain DEX、跨链借贷等可统一管理多链资产的 DeFi 协议 | 单链内的代币发行、交易与支付 |
+
+**ZRC-20 Standard**
+
+according to [zetachain.com](http://zetachain.com)
+
+-   **Cross-Chain Support**: The ZRC-20 standard is a token standard on ZetaChain that facilitates the cross-chain transfer of assets. Tokens created using this standard can represent native tokens from other blockchains, such as Ethereum or Bitcoin, and can be moved across different chains without the need for intermediary services.
+    
+-   **Asset Locking and Minting**: When a user deposits an asset from a connected chain, the native token is locked in a trusted secure storage (TSS) or an ERC-20 wrapper on ZetaChain, and an equivalent ZRC-20 token is minted and sent to the user’s ZetaChain address.
+    
+-   **Withdrawal and Burning**: When a user wants to withdraw assets, the ZRC-20 tokens are burned, and the equivalent amount of the original asset is released from the secure storage.
+    
+-   **Cross-Chain Interoperability**: ZRC-20 allows for the seamless flow of assets between different chains by creating representations of native assets that are standardized across chains.
+    
+
+## **Universal Token / NFT: Cross-Chain**
+
+Universal Token and Universal NFT standards enable seamless cross-chain asset deployment and transfer across all connected EVM-compatible chains. ZetaChain serves as the central routing hub, coordinating asset destruction on source chains and re-minting on destination chains.
+
+### **Dual-Contract Architecture**
+
+Each universal asset implementation requires two contract types:
+
+**Universal Contract** (deployed on ZetaChain)
+
+-   Handles asset minting on ZetaChain
+    
+-   Manages cross-chain inbound/outbound transfers
+    
+-   Coordinates inter-chain asset movements
+    
+
+**Connected Contract** (deployed on target EVM chains)
+
+-   Manages asset minting on connected chains
+    
+-   Processes local chain deposit/withdrawal operations
+    
+
+### **Deployment Workflow**
+
+1.  Deploy Universal contract on ZetaChain
+    
+2.  Deploy Connected contracts on target EVM chains (Ethereum, Polygon, BSC)
+    
+3.  Establish bidirectional trust relationships:
+    
+    -   Universal contract: `setConnected(zrc20, connectedAddress)`
+        
+    -   Connected contract: `setUniversal(universalAddress)`
+        
+
+## **Universal Asset Application Scenarios 通用资产应用场景**
+
+### **Cross-Chain Yield Aggregation**
+
+Universal Tokens enable sophisticated yield strategies across multiple chains. Users can deposit Bitcoin assets that automatically deploy across Ethereum lending protocols and other chain yield opportunities, with returns consolidated back to user accounts through ZetaChain's unified accounting.
+
+### **Universal NFT Membership Protocol**
+
+Enterprises can deploy Universal NFT passes that maintain consistent identity across all connected chains. Members can purchase NFTs on any supported chain and access privileges across multiple dApps without cross-chain bridging operations, leveraging unique cross-chain token identifiers.
+
+### **Cross-Chain Payment Infrastructure**
+
+Businesses can utilize Universal Tokens for streamlined multi-chain payroll and vendor payments. Payment initiations on ZetaChain automatically distribute assets to recipients across different blockchain networks, eliminating complex multi-wallet management and bridge dependencies.
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 ## **对 “全链应用 / Universal App 合约” 的直观理解**
 
 universal App是zetachain上的一个范式，与传统方式需要在每条链上分别部署合约不同，全链应用允许我们**只在 ZetaChain 上部署一个主合约**。对于用户来说，无需切换网络，就可以直接从他们资产所在的任何链（包括bitcoin这样的非智能合约链）通过发送交易来调用Universal App合约
@@ -109,6 +187,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ## **今天的关键概念**
 
@@ -263,6 +342,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ## **Getting start（CLI）**
@@ -435,6 +515,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
