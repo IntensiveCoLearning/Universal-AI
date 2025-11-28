@@ -15,8 +15,18 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+ZRC-20 就是 ZetaChain 上的“全链 ERC20”。长得跟普通 ERC20 一模一样，但每个 ZRC-20 代币都 1:1 锚定某条外部链的原生资产。
+
+所有链的资产进入 ZetaChain 后都变成统一可组合的 ZRC-20
+
+这才是真正全链 DeFi 的底层基础设施——流动性终于不再碎片化
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 想搞一个全链留言板，任何人可以从任意链（Bitcoin、Ethereum、BNB Chain、Polygon、Solana…）往 ZetaChain 上发一条带文字的转账，合约自动把留言永久记录下来，并且可以在网页上看到来自不同链的留言
 
 准备使用测试网，cli+hardhat
@@ -24,6 +34,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 **1\. Universal App（通用应用 / 全链应用）是什么？** Universal App 就是“一次部署、原生管理所有链资产和数据的智能合约”。 它只部署在 ZetaChain 上，却可以直接读写 Bitcoin、Ethereum、Solana、BSC、Polygon、Tron 等几十条链的原生资产和状态，不需要任何包装币（wBTC、wETH）、也不需要跨链桥。 一句话总结：写一份合约，就能像操作本地资产一样操作全网资产。
 
@@ -38,6 +49,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 成功安装zetachain cli
@@ -70,6 +82,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
