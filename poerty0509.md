@@ -15,8 +15,41 @@ AI & Web3 Builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+**Day5**
+
+1.想要运行forge语令，失败
+
+在github上找到Foundry的官方GitHub发布页面，下载foundry\_nightly\_win32\_[amd64.zip](http://amd64.zip)
+
+解压后添加到电脑高级系统设置里的环境变量path
+
+接着运行
+
+```
+forge soldeer update
+成功！
+```
+
+2.打开Universal.sol，查看合同
+
+```
+forge bulid
+```
+
+3.部署合同
+
+需要zetachain测试网的RPC👉使用zetachain CLI查询Zetachain 测试网的ID是71
+
+```
+zetachain g chains show--chain-id 7001 -f rpc
+```
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 **Day3**
 
 终于通过Vscode打开了新建立的hello文件夹
@@ -31,6 +64,7 @@ AI & Web3 Builder
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 **DAY2**
 
@@ -69,6 +103,7 @@ C:\\Users\\MR>zetachain new
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 **进入学习项目第一天**
