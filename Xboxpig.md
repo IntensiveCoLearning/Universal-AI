@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+## 智能合约学习
+
+## 项目构思
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 # Zetachain Web app 本地部署记
 
 解决系统内 yarn 冲突问题
@@ -743,6 +751,7 @@ from that connected chain to be observed
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 ## Day2 半休日
 
 ### 配置了 WSL 环境
@@ -771,6 +780,7 @@ memory=4GB
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 \## 什么是ZetaChain?
