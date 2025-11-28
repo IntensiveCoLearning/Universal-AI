@@ -15,8 +15,310 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+### Day 5 学习笔记：
+
+## 一、今天要搞清楚的三个核心概念
+
+1.  **ZRC-20**：
+    
+    -   ZetaChain 上的一种 _ERC-20 兼容_ 代币标准。
+        
+    -   用来在 ZetaChain 上“镜像”各条链上的原生资产（BTC、ETH、USDT 等），让合约可以在一个地方统一编排多链资产。
+        
+2.  **Universal Assets（通用资产）**：
+    
+    -   包括 **Universal Token（通用 ERC-20）** 和 **Universal NFT（通用 ERC-721）**。
+        
+    -   核心：一种“真正跨链”的代币 / NFT 标准，本身就可以在任意连接链之间 _铸造 & 转移_，而不是被“桥接成包装资产（wrapped）”。
+        
+3.  **多链资产在 ZetaChain 上的统一表示**：
+    
+    -   外部链上的原生资产 → 存入 ZetaChain 时被锁在 TSS 地址 / 托管合约里 → 在 ZetaChain 上铸造出对应的 ZRC-20。
+        
+    -   对 ZetaChain 上的合约来说，它们只需要操作本地的 ZRC-20，就像操作普通 ERC-20 一样，就能“间接控制”外部链上的真实资产。
+        
+
+## 二、ZRC-20 是什么？如何工作的？
+
+### 1\. 高层定义
+
+一句话概括：
+
+> ZRC-20 是集成进 ZetaChain 全链智能合约平台的代币标准，使 dApp 可以在一个地方编排任意连接链上的原生资产，就好像这些资产都在同一条链上一样。
+
+可以代表的资产包括：
+
+-   各链的 **原生 Gas 资产**（如 BTC、ETH）
+    
+-   **白名单 ERC-20**（USDT、USDC 等）
+    
+
+### 2\. 存入（Deposit）流程
+
+当用户把某条链上的资产存入 ZetaChain 时：
+
+1.  用户在连接链（例如 Ethereum）上发送资产到 **TSS 地址 / ERC-20 托管合约**。
+    
+2.  这些资产在该链上被锁定。
+    
+3.  ZetaChain 协议在 ZetaChain 上 **铸造等量的 ZRC-20 代币**，发给指定地址。
+    
+
+> 结果：ZRC-20 变成了“这笔外部资产在 ZetaChain 上的代表”。
+
+### 3\. 提取（Withdraw）流程
+
+当用户要从 ZetaChain 提回资产到原链时：
+
+1.  在 ZetaChain 上 **销毁（burn）对应数量的 ZRC-20**。
+    
+2.  协议从 TSS 地址 / 托管合约中，把等量的原生资产转给目标链上的接收地址。
+    
+
+### 4\. 一些关键细节
+
+-   **只允许协议铸造**：  
+    ZRC-20 只能由 ZetaChain 协议铸造；  
+    普通开发者在 ZetaChain 上部署的 ERC-20，_即使接口一样，也不具备 ZRC-20 的跨链属性_，不能从 ZetaChain 提到其它链。
+    
+-   **同一 ERC-20 在不同链上会对应不同的 ZRC-20**：  
+    例如：
+    
+    -   Ethereum 上的 USDT → ZRC-20 USDT(ETH)
+        
+    -   BSC 上的 USDT → ZRC-20 USDT(BSC)  
+        在 ZetaChain 看来这两类 ZRC-20 是不同资产，但可以在 ZetaChain 内部通过兑换实现“跨链换链”。
+        
+-   **从开发者视角**：
+    
+    -   On-chain 接口：仍是熟悉的 `balanceOf`, `transfer` 等 ERC-20 接口。
+        
+    -   Off-chain 语义：多了“背后锁着某条链的真实资产”的语义。
+        
+
+## 三、ZRC-20 vs ERC-20
+
+### 1\. 直观思维模型
+
+-   **普通 ERC-20**：
+    
+    > “只属于这一条链的记账单位”
+    
+-   **ZRC-20**：
+    
+    > “某条外部链原生资产，在 ZetaChain 上的镜像凭证”
+    
+
+### 2\. 维度对比表
+
+| 维度 | 普通 ERC-20 | ZRC-20 |
+| --- | --- | --- |
+| 部署位置 | 某一条 EVM 链（以太坊、L2…） | 仅部署在 ZetaChain 上 |
+| 发行主体 | 合约拥有 mint 权限的账户（项目方） | 仅限 ZetaChain 协议 自身，根据跨链存取逻辑铸造 / 销毁 |
+| 资产来源 | 该链的“内部资产”，不会自然指向外部某条链 | 映射某条连接链上的 原生 Gas 或 ERC-20 资产（资产真实锁在 TSS / 托管合约中） |
+| 跨链能力 | 原生不支持，需要桥 / 消息通道，自行设计 | 内建跨链语义：通过 deposit / withdraw 把外部链资产“搬进 / 搬出” ZetaChain，配合 Gateway 可以进一步跨链调用合约 |
+| 接口兼容性 | 标准 ERC-20 接口 | 接口上是 ERC-20 扩展，在 ZetaChain 文档中也被描述为 ERC-20 的扩展标准 |
+| 使用场景 | 单链 DeFi、DAO、支付等 | Omnichain DEX、跨链借贷、跨链资产组合管理等，需要统一编排多条链的原生资产 |
+
+### 3\. 开发视角的“手感”差异
+
+-   写普通 ERC-20：
+    
+    -   只考虑本链的 `totalSupply`，转账就是同一条链上的账户间记账变化。
+        
+-   写使用 ZRC-20 的合约：
+    
+    -   同样调用 `transfer`/`balanceOf`，但是你要意识到：
+        
+        -   `balanceOf` 背后对应的是“被锁在其他链 TSS 地址中的真实资产”。
+            
+        -   一次 `withdraw` 最终会触发 **外部链上真实资产的转账**，而不是简单的本链记账。
+            
+
+## 四、Universal Assets（Universal Token / Universal NFT）
+
+> 关键词：**资产本身就是跨链的**，而不是靠额外桥接。
+
+### 1\. 总体概念
+
+-   Universal NFT + Universal Token 这两个标准的共同点是：
+    
+    -   允许 **在任意连接链上铸造**
+        
+    -   允许在链与链之间 **无包装（no wrapping）、无桥代币（no wrapped token）地直接转移**
+        
+-   文档里把它们统称为 **“assets”**，方便统一讨论。
+    
+
+跨链转移的逻辑：
+
+1.  在源链上 **销毁（burn）** 该资产；
+    
+2.  将资产的元数据 + 信息通过消息发给目标链上的资产合约；
+    
+3.  在目标链 **铸造（mint）** 对应资产。
+    
+
+> 这是一种“单一逻辑、多条链实体”的设计。
+
+### 2\. Universal / Connected 合约结构
+
+每个 Universal 资产项目由两类合约组成：
+
+1.  **Universal 合约（部署在 ZetaChain）**
+    
+    -   在 ZetaChain 上铸造资产
+        
+    -   负责 ZetaChain ↔ 各连接链的资产转移
+        
+    -   处理“链 A → 链 B”的中枢逻辑
+        
+2.  **Connected 合约（部署在一条或多条 EVM 链上）**
+    
+    -   在对应 EVM 链上铸造资产
+        
+    -   处理从该链发出的跨链转移请求
+        
+    -   处理来自 ZetaChain 或其他连接链的资产转入
+        
+
+> 整体拓扑：**ZetaChain 作为 Hub，各 EVM 链作为 Spoke**。  
+> 例如 Ethereum → ZetaChain → BNB，两步跨链，但对用户来说时延 / 费用上被抽象得比较平滑。
+
+### 3\. Universal Token（通用 ERC-20）
+
+-   定义：
+    
+    > 一种 **完全互操作的 ERC-20**，可以在任意连接链之间铸造和转移，无需 wrapped token / 传统桥。
+    
+-   特性：
+    
+    -   **供应 & 元数据在多链间保持一致**（chain-agnostic fungibility）。
+        
+    -   基于标准 OpenZeppelin ERC-20 + UUPS 可升级代理模式，方便未来升级逻辑。
+        
+-   对开发者来说：
+    
+    -   基本接口仍是 ERC-20；
+        
+    -   通过官方 `@zetachain/standard-contracts` 继承 UniversalTokenCore，就可以给现有 ERC-20 增加跨链能力。
+        
+
+### 4\. Universal NFT（通用 ERC-721）
+
+-   定义：
+    
+    > 一种 **可在任意连接链铸造 & 转移的 NFT 标准（ERC-721）**，同样无需 wrapped NFT。
+    
+-   核心特性：
+    
+    -   每个 NFT 拥有一个 **跨链唯一且持久的 token ID**，在各链间转移不会改变这个 ID。
+        
+    -   元数据在跨链过程中会被完整保留。
+        
+-   场景：
+    
+    -   跨链游戏资产
+        
+    -   跨链身份 / 徽章 / 会员 NFT
+        
+    -   多链市场（同一 NFT 可在不同链的市场自由流动）
+        
+
+## 五、ZetaChain 上“多链资产统一表示”的整体视图
+
+从“资产视角”来看，ZetaChain 提供了两层抽象：
+
+### 1\. ZRC-20：外部原生资产的“镜像层”
+
+-   任何连接链的 **原生 Gas / ERC-20** → 通过存入流程变成 ZRC-20。
+    
+-   合约只需要处理 ZRC-20，就能统一编排多个链上的真实资产。
+    
+-   适合的理解是：
+    
+    > “我有一堆真实资产散落在各条链上，ZRC-20 帮我在 ZetaChain 上建立了统一的余额视图，并提供跨链出入金能力。”
+    
+
+### 2\. Universal Token / NFT：真正意义上的“全链资产层”
+
+-   这时资产本身就是跨链存在的：
+    
+    -   Token / NFT 可以在任何支持的链被铸造。
+        
+    -   持有人把它从 A 链转到 B 链，本质是 **burn + mint**，逻辑上仍然是“同一份资产”。
+        
+-   它解决的问题：
+    
+    > 不同链上出现一堆“有点像同一个东西”的 wrapped 资产（liquid-staked token、bridged token），容易导致流动性碎片、价格偏离。Universal 资产把这些合为“一个逻辑资产，多链存在”。
+    
+
+## 六、通用资产的应用场景示例
+
+### 场景 1：跨链储蓄 / 收益聚合器（基于 Universal Token）
+
+**设想：**
+
+-   产品发行一个 **Universal Token：uSAVE**，代表用户在“全链储蓄池”中的份额。
+    
+-   用户可以在任意支持链（比如 Ethereum、Base、Polygon）存入 USDC：
+    
+    -   存入后，在对应链上铸造 / 增发 uSAVE（Universal Token）。
+        
+    -   uSAVE 总供应 & 元数据跨链统一。
+        
+
+**在后台：**
+
+-   ZetaChain 上的 Universal App 调度策略：
+    
+    -   一部分资金部署到以太坊上的借贷协议；
+        
+    -   一部分资金部署到 L2 上更高收益的仓位；
+        
+    -   甚至可以通过 ZRC-20 控制非智能合约链的资产（如 BTC）参与某些收益策略。
+        
+
+**对用户体验：**
+
+-   无需关心资金最后在哪条链上耕作；
+    
+-   只要持有 uSAVE，就共享整个多链策略池的收益；
+    
+-   换链时，只需把 uSAVE 从 A 链转到 B 链（Universal Token 的跨链转移），整个过程无 wrapped 资产。
+    
+
+### 场景 2：通用 NFT 通行证（Universal NFT）
+
+**设想一个“Web3 会员 / 身份 NFT Pass”：**
+
+-   项目发一个 **Universal NFT** 系列：`UniversalPass`。
+    
+-   用户可以在任意链铸造这张 NFT（例如在 Polygon 铸造，Gas 便宜）。
+    
+
+**使用方式：**
+
+-   以后如果某个高级 DeFi 协议只在 Ethereum 上部署，  
+    用户可以把 `UniversalPass` 从 Polygon 转到 Ethereum，而 NFT 的 `tokenId` 和元数据都保持不变。
+    
+-   不同链的前端 / 协议只要认同 `UniversalPass` 合约，即可统一识别用户的会员身份，无需为每条链单独发一个“类似但不完全一样”的 NFT。
+    
+
+**价值：**
+
+-   用户身份与权益真正跨链，而不是“这条链一张会员卡，那条链再发一张近似的卡”。
+    
+-   项目方运营也更简单：
+    
+    -   所有统计、空投、治理都围绕“单一 NFT 系列”进行，只是它的持有人分布在不同链上。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 ## 笔记Day4
 
 **目标：**
@@ -383,6 +685,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
+
 # 学习笔记 Day 3：ZetaChain & Universal Blockchain 核心概念
 
 ## 1\. 整体认识：什么是 “Universal Blockchain / Universal EVM”？
@@ -584,6 +887,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 Day 2 学习笔记：环境与工具实战（ZetaChain + Qwen）
@@ -936,6 +1240,7 @@ Body（raw + JSON）示例：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
