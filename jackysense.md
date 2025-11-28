@@ -15,8 +15,16 @@ Web3 builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+zrc-20 是对其他链代币的映射zeta链代币资产，可以直接交换其他链的映射，用于跨链交换，erc20以evm链的代币
+
+一个例子：一个银行存钱取钱的，兑换外汇，还可以抵押贷
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 1.  通用app，打印出输入记录，输出，tx记录，错误信息，输出信息到对话输入框，通过ai转成参数，调用记录。
     
 2.  使用 CLI + Foundry
@@ -147,6 +155,7 @@ while True:
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
 
+
 通用应用
 
 可以接收来自连接链上用户和合约的合约调用和代币
@@ -176,6 +185,7 @@ Gateway 是一个接口，它作为 ZetaChain 上连接链上的合约与通用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -228,6 +238,7 @@ zetachain localnet start
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
