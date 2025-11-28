@@ -15,13 +15,20 @@ MOVE Smart Contract Dev and Security Researcher
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 今日学习聚焦Solidity gas优化与数据管理，结合工具开发实践，深化Web3技能。继续加油！
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 安装zeta cli并且尝试qwen api调用
 
@@ -30,6 +37,7 @@ MOVE Smart Contract Dev and Security Researcher
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 学习了[zeta 文档](https://www.zetachain.com/docs/start)中的简介部分
