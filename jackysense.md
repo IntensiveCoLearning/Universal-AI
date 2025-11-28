@@ -20,10 +20,158 @@ Web3 builder
 zrc-20 是对其他链代币的映射zeta链代币资产，可以直接交换其他链的映射，用于跨链交换，erc20以evm链的代币
 
 一个例子：一个银行存钱取钱的，兑换外汇，还可以抵押贷
+
+qwen实现 parse\_swap\_intent
+
+```
+
+import os
+import json
+
+import json5
+from pydantic import BaseModel, Field
+from qwen_agent.llm import get_chat_model
+from qwen_agent.tools.base import BaseTool, register_tool
+
+
+
+from qwen_agent.agents import Assistant
+
+# 定义你的输出对象
+class Intent(BaseModel):
+    #  { "chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10" }
+    chain: str = Field(description="Chain")
+    tokenIn: str = Field(description="Token input")
+    tokenOut: str = Field(description="token Output")
+    amount: str = Field(description="token input amount")
+
+# 步骤 1：配置您所使用的 LLM
+llm_cfg = {
+    # 使用 DashScope 提供的模型服务：
+    'model': 'qwen-max',
+    'model_server': 'dashscope',
+    'api_key': os.getenv('DASHSCOPE_API_KEY'),
+    # 如果这里没有设置 'api_key'，它将读取 `DASHSCOPE_API_KEY` 环境变量。
+
+    # 使用与 OpenAI API 兼容的模型服务，例如 vLLM 或 Ollama：
+    # 'model': 'Qwen2-7B-Chat',
+    # 'model_server': 'http://localhost:8000/v1',  # base_url，也称为 api_base
+    # 'api_key': 'EMPTY',
+    # （可选） LLM 的超参数：
+    'generate_cfg': {
+        'top_p': 0.8
+    }
+}
+
+# 步骤 2：创建一个智能体。这里我们以 `Assistant` 智能体为例，它能够使用工具并读取文件。
+system_instruction = f'你是一位区块链专家，根据你的经验来精准的回答用户提出的问题,根据用户的意图，适当调用工具，返回json格式 result'
+
+intent_prompt = (
+    "你是擅长解析区块链代币兑换意图的助手。"
+    "请严格根据用户输入，提取链名称、输入代币、输出代币以及数量，并返回形如"
+    '{"chain": "...", "tokenIn": "...", "tokenOut": "...", "amount": "..."} 的 JSON。'
+    "若信息缺失，用字符串 \"unknown\" 占位，禁止输出额外文本。"
+)
+
+# 单独实例化一个LLM用于结构化解析，避免与Agent相互影响
+intent_llm = get_chat_model(llm_cfg)
+
+
+
+@register_tool('parse_swap_intent')
+class ParseSwapIntent(BaseTool):
+    description = 'eg: 帮我在 Base 上用 10 USDC 换成 ETH { "chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10" }'
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': 'prompt',
+        'required': True,
+    }  
+    ]
+    def call(self, params: str, **kwargs) -> str:
+        payload = json5.loads(params)
+        user_text = payload.get('text', '').strip()
+        if not user_text:
+            raise ValueError('text 不能为空')
+
+        messages = [
+            {'role': 'system', 'content': intent_prompt},
+            {'role': 'user', 'content': user_text}
+        ]
+
+        llm_response = intent_llm.chat(messages=messages, stream=False)
+        final_msg = llm_response[-1]
+        if isinstance(final_msg, dict):
+            content = final_msg.get('content', '')
+        else:
+            content = getattr(final_msg, 'content', '')
+
+        content = (content or '').strip()
+        if not content:
+            raise ValueError('解析失败，模型未返回内容')
+
+        try:
+            parsed = json.loads(content)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f'解析失败，模型未返回合法 JSON: {content}') from exc
+
+        intent = Intent(**parsed)
+        try:
+            intent_json = intent.model_dump_json()
+        except TypeError:
+            intent_json = intent.model_dump_json() if hasattr(intent, 'model_dump_json') else ''
+        if not intent_json:
+            if hasattr(intent, 'json'):
+                intent_json = intent.json()
+            else:
+                intent_json = json.dumps(intent.dict())
+        print('call parse_swap_intent', 'result:', intent_json)
+        return intent_json
+
+tools = ['parse_swap_intent']  # 使用已注册的工具名称字符串
+
+bot = Assistant(llm=llm_cfg,
+                system_message=system_instruction,
+                function_list=tools)
+
+# 步骤 3：作为聊天机器人运行智能体。
+messages = []  # 这里储存聊天历史。
+while True:
+    query = input('\n用户请求: ')
+    if query == '-1':
+        break
+    # 将用户请求添加到聊天历史。
+    messages.append({'role': 'user', 'content': query})
+    response = []
+    current_index = 0
+    
+    for response in bot.run(messages=messages):
+        # 调试：如果需要查看完整响应结构，取消下面的注释
+        #print('\n[DEBUG] response:', json.dumps(response, indent=2, ensure_ascii=False))
+        
+        if response and len(response) > 0:
+          
+            # 流式输出最后一个 assistant 消息的内容（最终回复）
+            for msg in reversed(response):  # 从后往前找最后一个 assistant 消息
+                if msg.get('role') == 'assistant' and 'content' in msg and msg['content']:
+                    content = msg['content']
+                    # 只输出新增的内容部分
+                    if len(content) > current_index:
+                        current_response = content[current_index:]
+                        current_index = len(content)
+                        print(current_response, end='', flush=True)
+                    break  # 找到最后一个就退出
+       
+    # 输出换行，确保结果清晰
+    print()
+    # 将机器人的回应添加到聊天历史。
+    messages.extend(response)
+```
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 1.  通用app，打印出输入记录，输出，tx记录，错误信息，输出信息到对话输入框，通过ai转成参数，调用记录。
     
@@ -156,6 +304,7 @@ while True:
 
 
 
+
 通用应用
 
 可以接收来自连接链上用户和合约的合约调用和代币
@@ -185,6 +334,7 @@ Gateway 是一个接口，它作为 ZetaChain 上连接链上的合约与通用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -238,6 +388,7 @@ zetachain localnet start
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
