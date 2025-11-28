@@ -30,10 +30,17 @@ zrc20相比于erc20多实现了跨链相关函数withdraw(),能发送跨链资�
 用本地网测试虽然要部署两个合约但只用forge创建一个项目
 
 onRevert():从 ZetaChain 往外部链发一个跨链调用,如果目标链执行失败,执行onRevert中的回调逻辑
+
+receive() external payable {}允许不带calldata接受裸eth，在zetachain场景中connected contract必须写这行用来退款或找零
+
+gateway.depositAndCall()函数的RevertOptions结构体参数会在跨链调用失败，需要回转时给到通用合约中的onRevert()函数
+
+本地网要用wsl运行，要在wsl里安装foundry
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 选择CLI + Hardhat / Foundry做demo
@@ -66,6 +73,7 @@ onlyGateway确保只有网关能调用
 
 
 
+
 ## cctx
 
 跨链交易
@@ -85,6 +93,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -115,6 +124,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
