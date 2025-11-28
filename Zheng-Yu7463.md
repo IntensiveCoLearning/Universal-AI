@@ -15,8 +15,29 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+**1\. ZRC-20 和普通 ERC-20 的直观区别（开发者视角）**
+
+虽然在写代码时，ZRC-20 也可以用 `transfer`、`approve` 这些熟悉的接口，但我觉得两者在**底层逻辑**上有两个最大的不同：
+
+-   **“记账” vs “遥控”**： 普通 ERC-20 只是合约内部的一个记账数字，转来转去资产都在这条链上。而 ZRC-20 更像是外部原生资产（比如 BTC 或 ETH）的\*\*“远程遥控器”\*\*。你在 ZetaChain 上操作 ZRC-20，实际上是在映射外部链上的资产状态。
+    
+-   **提现逻辑（Withdraw）**： 这是 ZRC-20 最特殊的地方。普通 ERC-20 的燃烧（Burn）就是把币毁了；但 ZRC-20 如果调用 `withdraw`，不仅是销毁 ZetaChain 上的代币，还会**直接触发** ZetaChain 协议层在**比特币主网或以太坊主网**上发起一笔真实的转账交易给目标地址。这一点是普通 ERC-20 做不到的。
+    
+
+**2\. 「通用资产」应用场景脑洞**
+
+**场景：全链通用的“原生资产”理财池**
+
+-   **痛点**：现在的 DeFi，我想存 BTC 赚利息，通常得先把 BTC 跨链包装成 WBTC，这中间有跨链桥的风险。
+    
+-   **通用资产玩法**： 用户可以直接从 **Bitcoin 钱包**把 BTC 转入 ZetaChain 的协议地址。 在 ZetaChain 上，这些 BTC 自动变成 ZRC-20 BTC 并存入一个流动性池子。 其他的用户（比如来自以太坊的用户）可以直接借走这些 BTC（在以太坊端收到真实的 BTC），或者用 ETH 来做抵押。 **核心优势**：用户全程持有的都是原生资产（Native Asset），不需要持有包装资产（Wrapped Asset），也不需要手动去操作复杂的跨链桥，体验就像在同一个 App 里操作一样。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 **“全链涂鸦墙”**
 
 > 这是一块立在 ZetaChain 上的**公共黑板**。
@@ -32,6 +53,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 **Q1: Universal App (通用应用) 是什么？**
 
@@ -68,6 +90,7 @@ Gateway 是 ZetaChain 与外部区块链（如 Ethereum, Bitcoin）进行沟通�
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 -   安装尝试Zeta cli ✅
     
 -   ZetaChain Node / RPC / Faucet / Explorer / 测试币获取 ✅
@@ -93,6 +116,7 @@ Qwen api调试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
