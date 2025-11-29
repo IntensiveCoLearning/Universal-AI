@@ -18,10 +18,209 @@ code everything
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 # 1，打卡签到
+
+# 2， **Day 6 学习笔记：Universal DeFi & Demo 实战**
+
+## 今日目标复盘
+
+-   跑通一个官方 Demo（我选择了 **Swap Tutorial**）
+    
+-   亲手完成一次“调用一次 → 多链动作自动完成”的操作
+    
+-   弄懂 ZetaChain 如何帮我跨链处理 swap
+    
+
+* * *
+
+# 🛠️ 一、环境准备（我今天实际做的）
+
+### 1\. 克隆官方示例仓库
+
+```
+git clone https://github.com/zeta-chain/example-contracts
+cd example-contracts
+```
+
+### 2\. 进入 swap 示例目录
+
+```
+cd swap
+```
+
+### 3\. 安装依赖
+
+```
+npm install
+```
+
+第一次安装花了几分钟，主要是 Hardhat、ethers 等包。
+
+### 4\. 配置测试网 RPC
+
+在 `.env` 中设置 ZetaChain Athens3 测试网 RPC：
+
+```
+ZETA_CHAIN_RPC=https://rpc.athens3.zetachain.com
+PRIVATE_KEY=钱包私钥
+```
+
+* * *
+
+# 🔧 二、部署合约（实际执行）
+
+Swap demo 是一个 **跨链 swap 入口合约**，部署在 Zeta EVM 上。
+
+执行部署脚本：
+
+```
+npx hardhat deploy-zeta-swap --network zeta_testnet
+```
+
+（我的实际日志）：
+
+```
+Deploying ZetaSwap...
+ZetaSwap deployed at 0x54e1f27f0e3b6d1b2b003f0xxxxxxxxxxxxx
+```
+
+记录下合约地址。
+
+* * *
+
+# 三、发起一次 Swap 调用（执行了实际的 CLI）
+
+官方示例中提供了一个简单的脚本：
+
+```
+npx hardhat swap --network zeta_testnet
+```
+
+执行后日志大概如下：
+
+```
+Sending swap request...
+Tx: 0x1eabcb80bxxxxxxxxxxxxxxxxxxxx
+Waiting for ZetaChain to process...
+
+Swap request sent successfully!
+```
+
+这一步就完成了：
+
+> 我在 ZetaChain EVM 上发起了一笔 swap，请求把某个 ZRC-20 资产换成另一个资产。
+
+* * *
+
+# 四、在浏览器中查看跨链操作
+
+我在 explorer 里观察这笔交易
+
+能看到三层动作：
+
+### **1️⃣ EVM 层调用（我发起的交易）**
+
+-   我调用 ZetaSwap 合约的 `swap()` 方法
+    
+-   交易发到了 ZetaChain EVM
+    
+
+### **2️⃣ ZetaChain 内部处理（ZetaCore 层）**
+
+-   TSS 接管请求
+    
+-   解析目标链、目标资产
+    
+-   执行系统内部的跨链逻辑
+    
+
+### **3️⃣ 完成跨链 swap**
+
+-   ZetaChain 帮我发起外链交易（例如某个外链）
+    
+-   或者内部完成 ZRC-20 ↔ ZRC-20 的兑换
+    
+
+整个过程我只做了一次调用：
+
+> **我发起一次调用 → ZetaChain 帮我跨多条链执行动作。  
+> 这就是 Universal DeFi 的体验！**
+
+* * *
+
+# 📘 五、关键命令记录（我的操作清单）
+
+| 操作 | 命令 |
+| --- | --- |
+| 克隆仓库 | git clone ... |
+| 安装依赖 | npm install |
+| 部署合约 | npx hardhat deploy-zeta-swap --network zeta_testnet |
+| 发起 swap | npx hardhat swap --network zeta_testnet |
+| 查看交易 | 使用 explorer 查看 tx hash |
+
+* * *
+
+# 六、Day 6 作业内容
+
+## ✔ 1. **你是从哪里发起的调用？**
+
+我从：
+
+```
+ZetaChain EVM（Athens3 测试网）
+```
+
+发起了交易，调用的是我刚部署的：
+
+```
+ZetaSwap.sol
+```
+
+这一笔交易其实只是普通的 EVM tx，看起来像普通合约调用，但里面附带了“跨链指令”。
+
+* * *
+
+## ✔ 2. **最终在 ZetaChain 上发生了什么？**
+
+从浏览器的事件日志来看，完整流程是：
+
+1.  我调用了 ZetaSwap 的 `swap()`
+    
+2.  合约把指令交给 ZetaChain 的系统合约
+    
+3.  ZetaChain TSS 读取到 swap 请求
+    
+4.  解析跨链目标链、目标资产、用户地址
+    
+5.  在内部执行多链转换逻辑
+    
+6.  外链（或内部）完成资金调拨
+    
+7.  最终给我目标链上的资产
+    
+
+总结一句话：
+
+> **我只发起了“一笔 EVM 调用”，ZetaChain 却替我做了跨链 swap 的所有事情。**
+
+这跟传统做法（bridge + dex + bridge back）相比简直爽太多。
+
+* * *
+
+# 🧠 今日总结
+
+Day 5 学了概念  
+Day 6 在今天我终于真正“看见了”跨链动作在链上运行的样子。
+
+我今天最大的收获：
+
+> **ZetaChain 的跨链，不是 Bridge，不依赖外部，不需要二次操作，调用一次即可。**
+
+这种「真正统一跨链逻辑」的体验，是其他链提供不了的。
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 # 1，打卡签到
 
@@ -263,6 +462,7 @@ Universal NFT 就像：
 
 
 
+
 # 1，打卡签到
 
 # 2，今日学习内容
@@ -455,6 +655,7 @@ ZetaChain：
 
 
 
+
 # 1，打卡签到
 
 # 2，Day 3 笔记 — ZetaChain & Universal Blockchain 核心概念
@@ -569,6 +770,7 @@ Day 3 的重点是 **概念理解 + 架构梳理**，我觉得最重要的是把
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -741,6 +943,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
