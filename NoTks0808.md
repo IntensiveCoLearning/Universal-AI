@@ -15,8 +15,34 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/NoTks0808/images/2025-11-29-1764421337977-__.png)
+
+选用了hello-world的demo，因为运行时发现swap的gas费用太高，领的水不够支付gas fee
+
+![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/NoTks0808/images/2025-11-29-1764421223082-__.png)
+
+这是由于npm无法install，走的yarn路线
+
+![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/NoTks0808/images/2025-11-29-1764421717089-__.png)
+
+部署的时候没有找到文件，让AAI重新帮我写了一个上传
+
+![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/NoTks0808/images/2025-11-29-1764421760439-__.png)
+
+上传成功
+
+> 我是从 **本地开发环境 (Localhost/Hardhat)** 发起的部署调用。  
+> 具体来说，我配置好了包含 ZetaChain 测试网 RPC ([https://zetachain-athens-evm.blockpi.network/v1/rpc/public](https://zetachain-athens-evm.blockpi.network/v1/rpc/public)) 的 hardhat.config.ts 文件，并通过本地终端运行部署脚本。Hardhat 使用我配置的私钥对交易进行签名，并将部署请求直接发送到了 ZetaChain Athens 3 测试网的节点。
+> 
+> 最终，我的 Universal.sol 智能合约代码被编译成字节码，并成功**上传/存储到了 ZetaChain 区块链上**。  
+> ZetaChain 网络验证了我的交易，从我的钱包 (0x93B...) 中扣除了约 0.02 ZETA 作为 Gas 费，并在链上生成了一个全新的合约地址 (0x28E5...)。现在，这个合约已经存在于 ZetaChain 全链环境（Omnichain）中，具备了接收和处理跨链消息的能力，任何人都可以在区块链浏览器上查看到该合约的创建记录和代码状态。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ZRC-20和ERC-20的区别主要在于ZRC-20是zetachain的原生代币，能在zetachain上流通，是在zetachain上做开发时使用的主流代币，而ERC-20不能直接在zetachain上使用
 
 通用资产可用于全链借贷
@@ -24,6 +50,7 @@ ZRC-20和ERC-20的区别主要在于ZRC-20是zetachain的原生代币，能在ze
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 项目：全链许愿墙
 
@@ -34,6 +61,7 @@ ZRC-20和ERC-20的区别主要在于ZRC-20是zetachain的原生代币，能在ze
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 关于Universal App:
@@ -50,11 +78,13 @@ Gateway 是部署在**外部连接链（Connected Chains，如 Ethereum mainnet,
 
 
 
+
 今天终于是把环境搭建完了，foundry的搭建在国内一定要提前了解好端口，要在梯子里开启局域网连接，AI给你推荐的直接关掉梯子是不可行的，因为GitHub没办法登上去，qwen的API调用刚开始可能是因为挂着梯子直接注册到国际服了，一直没有权限，最后关掉梯子用支付宝登录了以后才获得权限，有了API key，这个环境搭建对一个小白来讲真的非常痛苦，不过这样的学习确实会了不少关于API调用的知识
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
