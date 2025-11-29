@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+## 在localnet上部署了Swap应用
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ## 智能合约学习
 
 ## 项目构思
@@ -24,6 +30,7 @@ timezone: UTC+8
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 # Zetachain Web app 本地部署记
 
@@ -752,6 +759,7 @@ from that connected chain to be observed
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 ## Day2 半休日
 
 ### 配置了 WSL 环境
@@ -780,6 +788,7 @@ memory=4GB
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
