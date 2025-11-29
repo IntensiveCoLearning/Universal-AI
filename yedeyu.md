@@ -15,8 +15,76 @@ Web3 新手
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-28
+<!-- DAILY_CHECKIN_2025-11-28_START -->
+## 探究 Hello Webapp Base Testnet 交易页面显示无此交易问题
+
+今天重新创建 Hello Webapp 项目，在网页端，分别在 Ethereum 和 Base 测试，结果和昨天一样。
+
+在网页端，都显示成功。
+
+Ethereum 链的两个交易记录页面都没问题。
+
+[https://sepolia.etherscan.io/tx/0xa96868aeefdb95df671fc3f9a7f486a010714bfaf4f570ad4f3ad245611e3a94](https://sepolia.etherscan.io/tx/0xa96868aeefdb95df671fc3f9a7f486a010714bfaf4f570ad4f3ad245611e3a94)
+
+[https://testnet.zetascan.com/tx/0x78549d3c6e9eb0dd1b9b88f14eac90ff927aff3aa927a7f095499a5f0406c8e5?tab=index](https://testnet.zetascan.com/tx/0x78549d3c6e9eb0dd1b9b88f14eac90ff927aff3aa927a7f095499a5f0406c8e5?tab=index)
+
+Base 链的发起端交易页面显示无此记录，ZetaChain 端的交易记录显示正常。
+
+[https://sepolia.basescan.org/tx/0xac782e2bd386726e711e1e1e34305c0f6c1d9fc5bbc1273762882ebb728c79b6](https://sepolia.basescan.org/tx/0xac782e2bd386726e711e1e1e34305c0f6c1d9fc5bbc1273762882ebb728c79b6)
+
+[https://testnet.zetascan.com/tx/0x6d49b59790c3324c4de5c8126552f18b89df263f896b2fb4a56aa2511b21c485?tab=index](https://testnet.zetascan.com/tx/0x6d49b59790c3324c4de5c8126552f18b89df263f896b2fb4a56aa2511b21c485?tab=index)
+
+查看合约的 Log 记录，两次调用都有记录。
+
+[https://testnet.zetascan.com/address/0x2B78686636F8A99cD0686E1b85B38427980C5E52?tab=logs](https://testnet.zetascan.com/address/0x2B78686636F8A99cD0686E1b85B38427980C5E52?tab=logs)
+
+所以，两次调用，实际都是成功的。
+
+此外，在网页端，使用 Base 发起交易时，网页 Console 有错误的 Log。
+
+<details>
+
+MetaMask - RPC Error: Unrecognized chain ID "0x14a34". Try adding the chain using wallet\_addEthereumChain first.
+
+\`\`\`
+
+{
+
+"code": 4902,
+
+"message": "Unrecognized chain ID \\"0x14a34\\". Try adding the chain using wallet\_addEthereumChain first.",
+
+"stack": "{\\n \\"code\\": 4902,\\n \\"message\\": \\"Unrecognized chain ID \\\\\\"0x14a34\\\\\\". Try adding the chain using wallet\_addEthereumChain first.\\",\\n \\"stack\\": \\"Error: Unrecognized chain ID \\\\\\"0x14a34\\\\\\". Try adding the chain using wallet\_addEthereumChain first.\\\\n at new o (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:239442)\\\\n at new <anonymous> (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:240041)\\\\n at Object.custom (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:244420)\\\\n at implementation (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:287903)\\\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:244997\\\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:150038\\\\n at new Promise (<anonymous>)\\\\n at _.p (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149696)\\\\n at_ .h (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149614)\\\\n at async _.d (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149415)\\\\n at async_ .l (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149241)\\"\\n}\\n at new o (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:239442)\\n at new <anonymous> (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:240041)\\n at Object.custom (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:244420)\\n at implementation (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:287903)\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:244997\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:150038\\n at new Promise (<anonymous>)\\n at _.p (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149696)\\n at_ .h (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149614)\\n at async _.d (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149415)\\n at async_ .l (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149241)"
+
+}
+
+\`\`\`
+
+Failed to switch chain:
+
+\`\`\`
+
+{
+
+"code": 4902,
+
+"message": "Unrecognized chain ID \\"0x14a34\\". Try adding the chain using wallet\_addEthereumChain first.",
+
+"stack": "{\\n \\"code\\": 4902,\\n \\"message\\": \\"Unrecognized chain ID \\\\\\"0x14a34\\\\\\". Try adding the chain using wallet\_addEthereumChain first.\\",\\n \\"stack\\": \\"Error: Unrecognized chain ID \\\\\\"0x14a34\\\\\\". Try adding the chain using wallet\_addEthereumChain first.\\\\n at new o (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:239442)\\\\n at new <anonymous> (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:240041)\\\\n at Object.custom (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:244420)\\\\n at implementation (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:287903)\\\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:244997\\\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:150038\\\\n at new Promise (<anonymous>)\\\\n at _.p (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149696)\\\\n at_ .h (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149614)\\\\n at async _.d (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149415)\\\\n at async_ .l (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149241)\\"\\n}\\n at new o (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:239442)\\n at new <anonymous> (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:240041)\\n at Object.custom (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-3.js:1:244420)\\n at implementation (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:287903)\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/background-2.js:1:244997\\n at chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:150038\\n at new Promise (<anonymous>)\\n at _.p (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149696)\\n at_ .h (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149614)\\n at async _.d (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149415)\\n at async_ .l (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/common-2.js:3:149241)"
+
+}
+
+\`\`\`
+
+</details>
+
+打卡截止时间快到了，先记录这些。
+<!-- DAILY_CHECKIN_2025-11-28_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 ## 回顾与反思
 
 ### 笔记编辑器
@@ -442,6 +510,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 
 
+
 ## 回顾与反思
 
 ### 继续探究昨天提到的内存不足导致编译失败问题
@@ -467,6 +536,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1041,6 +1111,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
