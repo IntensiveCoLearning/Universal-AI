@@ -15,8 +15,25 @@ AI & Web3 Builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+**Day6**
+
+阅读Beginning Ethereum Smart constracts Programming 心得
+
+-   理解了交易中信任的核心作用，明白了区块链在现代交易中的本质创新是decentralized
+    
+-   接触了区块链如何运行：
+    
+
+各个block是如何chained:通过hashing（deterministic,单向的不可反解，单射）进行指纹建立，并将该指纹印在下一个block，该机制有效地应对了block被篡改地风险（如果有一个hacker要篡改一个交易，更改其中一个block，那么该block的hash就会发生巨大更改，和下一页block的hash无法对应上，那么该chain就会断开，除非他能继续更改下一个block的hash，并且追上更新的速度）；
+
+mining:如果有多个node同时通过broadcast制作blocks，那么选择哪一个block接到block chain上来保证内容的可行度？机制：hash具有deterministic。但是平台给block留下了每个节点可自由发挥的Nonce,这样一来，hash就不确定了。所以每个Node就需要不断随机填入Nonce来计算hash，直到满足计算出来的hash符合要求，接着就可以交卷。这个时候，其他Nodes都会停下来验证他是否作弊，由于验证过程非常简单，所以能判断交卷的Node是否作弊并给予奖惩。如果验证正确就将其加入电子帐本。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **Day5**
 
 1.想要运行forge语令，失败
@@ -51,6 +68,7 @@ zetachain q chains show --chain-id 7001 -f rpc
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 **Day3**
 
 终于通过Vscode打开了新建立的hello文件夹
@@ -65,6 +83,7 @@ zetachain q chains show --chain-id 7001 -f rpc
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -105,6 +124,7 @@ C:\\Users\\MR>zetachain new
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
