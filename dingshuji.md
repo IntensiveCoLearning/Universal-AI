@@ -15,13 +15,36 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+部署swap：
+
+\- Node.js（22+）、yarn、git、jq、foundry
+
+\- 下载zetachain包
+
+\- npm install -g zetachain
+
+\- zetachain new --project 文件名hello
+
+\- cd hello
+
+\- yarn
+
+\- forge soldeer update --更新
+
+\- 设置RPC
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通过 ZRC-20，开发者可以构建 dApp，在任何连接链上协调本地资产。这使得构建全链 DeFi 协议和 dApps，如全链去中心化交易所（Omnichain DEX）、全链借贷、全链投资组合管理，以及任何涉及多条链上的同质化代币，从一个地方变得极其简单——就像它们都存在于一条链上一样。
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 \- Hello World Demo工作流：
 
@@ -40,6 +63,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
 
+
 \## zeta架构
 
 \- 交互路径：区块链→zetaclient→zetavm→zetacore（ Tendermint 共识和 PoS 验证者网络）→ZetaCore / Blockchain（核心区块链）→签名者签名
@@ -56,6 +80,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 
 
+
 \- 安装zetachain CLI：npm install -g zetachain
 
 \- 检查版本：zetachain --version
@@ -67,6 +92,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
