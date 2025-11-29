@@ -15,8 +15,14 @@ LXDAO成员，智能合约开发者，AI Agent开发者，参与了 ZetaChain �
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Thomas-YHS/images/2025-11-29-1764429918263-image.png)
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 今天整理了笔记，之后看了昨天workspace的回放，先打个卡，之后今天有了一个AI金库的想法，先打个卡免得被淘汰，正在想可行性。
 
 # ZetaChain 介绍
@@ -91,6 +97,7 @@ ZetaChain 采用了PoS 的质押模式，基于Cosmos SDK + CometBFT 来构建�
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 今天先打个卡，刚到家，准备一会写一个ZRC-20合约，本地部署一下
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
@@ -98,11 +105,13 @@ ZetaChain 采用了PoS 的质押模式，基于Cosmos SDK + CometBFT 来构建�
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
 
+
 今天主要看了ZetaChain的文档，搭建了ZetaChain cli 测试网节点
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
