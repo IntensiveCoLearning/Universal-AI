@@ -15,8 +15,129 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+### **搭建官方 Swap Demo 项目**
+
+**创建项目骨架**
+
+根据官方文档 直接使用CLI脚手架创建项目：
+
+```
+# 1）初始化项目
+npx zetachain@next new --project swap
+​
+# 2）进入项目目录
+cd swap
+​
+# 3）安装依赖
+yarn
+​
+# 4）拉取 Solidity 依赖
+forge soldeer update
+​
+# 5）编译合约
+forge build
+```
+
+### **部署Swap合约到ZetaChain Testnet**
+
+```
+UNIVERSAL=$(npx tsx commands deploy --private-key $PRIVATE_KEY | jq -r .contractAddress) && echo $UNIVERSAL
+​
+0x7Ff868a3158c134aF373a4228d02bf52d7404473
+```
+
+### **配置跨链Swap所需要的参数**
+
+**调用人地址（EVM）**
+
+```
+RECIPIENT=$(cast wallet address $PRIVATE_KEY) && echo $RECIPIENT
+```
+
+**查询“目标链资产”的 ZRC-20 地址**
+
+```
+ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20) && echo $ZRC20_ETHEREUM_ETH
+​
+```
+
+此时出现报错：
+
+**网络请求失败**：`PostHogFetchNetworkError: Network error while fetching PostHog … ECONNREFUSED` 表示 CLI 在向远程服务获取数据时连不上（可能是本地网络代理、VPN、或临时的网络故障）。这会阻止 CLI 查询可用 ZRC-20 资产列表。
+
+**代币符号不存在**：最后提示 `Token with symbol 'sETH.SEPOLIA' not found`，意味着当前网络环境中并没有名为 `sETH.SEPOLIA` 的 ZRC‑20 资产，或者 CLI 无法从链上获取到它。
+
+查阅
+
+```
+zetachain q tokens list  
+```
+
+发现是当前没有sETH.SEPOLIA这个链 进而将命令转为，成功执行
+
+```
+ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && echo $ZRC20_ETHEREUM_ETH 
+```
+
+返回地址：
+
+```
+0x05BA149A7bd6dC1F937fA9046A9e05C05f3b18b0
+```
+
+### **发起跨链调用与问题定位**
+
+-   通过 CLI 运行 `npx zetachain evm deposit-and-call --chain-id 11155111 --amount 0.001 --types address bytes bool --receiver $UNIVERSAL --values $ZRC20_ETHEREUM_ETH $RECIPIENT true` 发起跨链调用时，出现 `Failed to retrieve private key: Private key not found` 错误。这表明 CLI 无法找到用于签名交易的私钥。
+    
+-   查阅官方文档可知，部署或调用任何通用合约前，必须准备一个在 **ZetaChain 测试网** 和 **连接的 EVM 测试网** [上都有余额的私钥zetachain.com](http://上都有余额的私钥zetachain.com)。而 CLI 的 `deposit-and-call` 命令也提供了 `--private-key` 选项用于传入私钥。如果未指定，CLI 会尝试从账户管理工具读取默认账户，但若未导入私钥则会报错。
+    
+
+**解决方案与执行步骤**
+
+1.  **导入或指定私钥**：
+    
+    -   通过 `zetachain accounts import --type evm --name default --private-key <私钥>` 导入 EVM 私钥（仅需一次）。之后可以不再在命令中指定私钥。
+        
+    -   或者在 `deposit-and-call` 命令中显式加入 `--private-key $PRIVATE_KEY` 参数，以便 CLI 正确签名交易：
+        
+        ```
+        npx zetachain evm deposit-and-call \ 
+          --chain-id 11155111 \ 
+          --amount 0.001 \ 
+          --receiver $UNIVERSAL \ 
+          --private-key $PRIVATE_KEY \ 
+          --types address bytes bool \ 
+          --values $ZRC20_ETHEREUM_ETH $RECIPIENT true
+        ```
+        
+    
+    使用 `--private-key` 后即可避免“私钥未找到”的报错。
+    
+2.  **资金准备**：确保私钥对应地址在 ZetaChain 测试网及 Ethereum Sepolia 上都有足够资金支付 gas。文档中强调部署前需要在两个链上为私钥充值。
+    
+
+### **调用结果分析**
+
+-   本次测试的来源链为 **Ethereum Sepolia (chain ID 11155111)**。通过 `deposit-and-call` 命令，用户从 Sepolia 发送 0.001 ETH 及 ABI 编码的参数到 ZetaChain。CLI 会将 Sepolia 的 ETH 锁定，并在 ZetaChain 上铸造等量 ZRC‑20 代币，随后调用 Universal Swap 合约。
+    
+-   在 ZetaChain 上，Universal Swap 合约的 `onCall` 函数接收跨链调用，其中包含：
+    
+    -   从源链转入的 ETH 的 ZRC‑20 表示；
+        
+    -   目标资产的 ZRC‑20 地址（如 Ethereum Sepolia ETH 对应的 ZRC‑20）；
+        
+    -   目标收款地址（Ethereum Sepolia 的 EVM 地址）；
+        
+    -   是否自动提现的布尔标记。
+        
+-   合约首先使用部分 ZRC‑20 资产兑换目的链的 gas 代币以支付跨链提款手续费；然后在 ZetaChain 的 Uniswap v2 池中将剩余 ZRC‑20 资产交换为目标 ZRC‑20；最后调用 Gateway 的 `withdraw`，将目标 ZRC‑20 烧毁并把等值原生资产发送到用户的目标链地址。整个过程由一次交易完成，用户无需在目的链预存 gas 或手动执行桥接。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -94,6 +215,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 ## **对 “全链应用 / Universal App 合约” 的直观理解**
 
@@ -187,6 +309,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 ## **今天的关键概念**
@@ -342,6 +465,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -515,6 +639,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
