@@ -15,8 +15,69 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+1.普通 ERC-20: 你只能在这个链内部转来转去。
+
+ERC-20 只有这些标准动作 token.transfer(recipient, amount); // 转给别人 token.approve(spender, amount); // 授权
+
+ZRC-20:除了上面那些，它多了一个核心函数`withdraw`（提现）。 \`\`\`solidity // ZRC-20 多了这个动作 // 意思：销毁我的 ZRC-20，去目标链上把真钱转给 receiver zrc20.withdraw(receiverAddress, amount); \`\`\`
+
+**区别点：** 调用 ERC-20 的 `burn` 只是数字减少；调用 ZRC-20 的 `withdraw` 会触发\*\*跨链交易\*\*（TSS 节点开始工作）。
+
+2\. Gas 费用的处理：自带“路费”计算
+
+普通 ERC-20: 转账消耗的是链的原生代币（如 ETH）。转账 USDC 本身不需要消耗 USDC，消耗的是 ETH。
+
+ZRC-20: 当你调用 `withdraw` 时，因为要在外部链（如比特币）发交易，那边的矿工费很贵。 ZRC-20 合约会自动从你提现的金额里扣除一部分作为 Gas 费。
+
+普通 ERC-20:转 100 块，到账 100 块（Gas 是另外付的）。
+
+ZRC-20: 提现 100 块，可能实际到账外部钱包是 99.5 块（0.5 块被扣去做路费了）。这就是为什么我们上一节课要学 `withdrawGasFee`。
+
+3\. 身份与触发器：系统合约的“傀儡” 这是最深层的区别，也是 ZetaChain 的魔法所在。
+
+普通 ERC-20:它是独立的。你给它转账，它只是默默地改了账本，除非你专门写合约去监听它，否则它不会主动触发什么逻辑。
+
+ZRC-20: 它是被ZetaChain 协议层（System Contract）高度管控的。 当有人在比特币链上转账进来：协议层会自动调用 ZRC-20 的 `deposit`（存款/铸造）函数。
+
+当 ZRC-20 被转入全链应用时： 它不仅仅是转账，还会携带一个信号 `onCrossChainCall`，告诉应用：“嘿，有人从比特币那边打钱过来了，附带了这行留言，你快处理一下！”
+
+  
+2.借助AI帮我想象了构建一个去中心化的众筹平台的点子
+
+原理一：单一事实来源 (Single Source of Truth)
+
+技术点：全链合约（Universal App）。
+
+众筹合约只部署在 ZetaChain 这一条链上。 “进度条 = 50%”这个数据（State），不需要在各条链之间同步。 它就像一个记账中心，比特币、以太坊只是负责“运钞”进来。
+
+优势： 彻底消灭了“跨链桥”带来的状态不同步问题。
+
+原理二：ZRC-20 的“统一度量衡”
+
+技术点： `onCrossChainCall` 和 ZRC-20 代币。
+
+当 BTC 进来时，ZetaChain 把它变成 `ZRC-20 BTC`。 当 ETH 进来时，变成 `ZRC-20 ETH`。
+
+合约代码不需要写 `if (isBitcoin) ... else if (isEthereum)...`。
+
+只需要写`InputToken.value * PriceOracle`。
+
+在合约眼里，比特币和以太坊没有区别，都是ZRC-20 格式的数字。这就是资产抽象。
+
+原理三：反向控制 (Outbound Control)
+
+技术点： TSS 门限签名 + 简单的逻辑判断。
+
+如果众筹失败（比如没达到目标金额），合约会自动触发 `withdraw` 函数。
+
+一个部署在 ZetaChain 上的 Solidity 合约，竟然能指挥比特币网络发起一笔转账，把 BTC 退还给用户。 这利用了的“出站”和 Gas 费计算逻辑。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 今天学校事情太多，很多学习资料都没有看，workshop也因为组会错过。周末补上。  
 1.环境配置选择Foundry (Rust/Solidity): **首先** 其速度极快，用 Solidity 写测试。是现在高阶开发者的心头好，但学习曲线陡峭。虽然我没有 Rust 基础，但还是想N+100挑战一下。  
 2.网络选择：我决定使用 **Testnet (Athens 测试网)**。  
@@ -25,6 +86,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 今天把昨天没有做的部分补齐了一下：
 
@@ -178,6 +240,7 @@ except Exception as e:
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 环境搭建 _完成了，还用了 WSL + Foundry/Hardhat_ 配置。
@@ -388,6 +451,7 @@ contract Swap is zContract {
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
