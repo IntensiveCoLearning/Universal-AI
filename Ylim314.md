@@ -15,8 +15,33 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+**Day 5 学习日志：Web3 Agent 可视化与全流程闭环**
+
+**日期**：2025.11.28 **进度**：完成Web UI 搭建与项目闭环
+
+今天目标是将 Python 后端包装成可视化的 DApp。
+
+**1\. 可视化实现** 使用了 Streamlit 框架搭建了类似 ChatGPT 的交互界面。为了提升专业度，我自定义了 CSS 样式，实现了深色模式的仪表盘布局。左侧实时显示钱包连接状态和链上资产（ZETA/zETH），右侧为 AI 对话窗口。
+
+**2\. 核心功能验证** 在今天的测试中，我重点验证了“自然语言转账”功能。
+
+-   **输入**：“帮我转 1 个 ZETA 给 Bob”
+    
+-   **执行**：AI 成功解析意图 -> 后端构建交易 -> 签名上链。
+    
+-   **结果**：通过侧边栏刷新发现，ZETA 余额从 2.99 变更为 1.99，证明链上交互真实成功。
+    
+
+![DAY5_1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-11-29-1764406053891-DAY5_1.png)
+
+**3\. 架构思考与待优化项** 目前 Agent 对于 Layer 1 的原生转账支持非常完美。但在测试“Swap”指令时，虽然 AI 能解析意图，但由于后端尚未部署 Uniswap Router 的交互逻辑（缺少 Approve 和 Swap 合约调用），导致 zETH 余额未变动。这也是未来优化的重点：引入 DEX SDK，实现真正的链上资产兑换。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **Day 4 学习日志：从原生交互进阶到智能合约读取**
 
 日期：2025.11.28
@@ -40,6 +65,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 **日期**：2025.11.26 **进度**：完成从 AI 指令到链上 Write 操作的闭环
 
@@ -69,6 +95,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ### 通用 AI 残酷共学 - Day 2 学习日志：Agent 账户系统与链上交互
@@ -132,6 +159,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
