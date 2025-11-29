@@ -93,7 +93,7 @@ ZRC-20
 
 通用定义：ZetaChain 版的 ERC-20 标准。
 
-用途：任何外来代币（BTC、BNB、DOGE...）锁进来都会 1:1 变成 ZRC-20，在 zEVM 里可组合、可 DeFi，提回时再销毁，保证总量刚性锚定。
+用途：任何外来代币（BTC、BNB、DOGE…）锁进来都会 1:1 变成 ZRC-20，在 zEVM 里可组合、可 DeFi，提回时再销毁，保证总量刚性锚定。
 
 智能合约
 
@@ -141,7 +141,7 @@ RPC
 
 人话：区块链的“数据线”，钱包/代码通过它读写链上数据。
 
-场景：把 MetaMask 的 RPC 改成 [https://api.athens2.zetachain.com，才能连到](https://api.athens2.zetachain.com，才能连到) ZetaChain 测试网。
+场景：把 MetaMask 的 RPC 改成 [https://api.athens2.zetachain.com，才能连到](https://api.athens2.zetachain.xn--com-bk2eq05e085b20vse1r) ZetaChain 测试网。
 
 Explorer
 
@@ -231,7 +231,7 @@ Structured DeFi Params
 
 人话：AI 输出给合约的“标准 JSON”，防止手工拼参数出错。
 
-场景：Agent 返回 {tokenIn: "USDC", tokenOut: "DAI", amount: "100000000", chain: "zeta"}，前端直接喂给 Universal Swap 合约。
+场景：Agent 返回 {tokenIn: “USDC”, tokenOut: “DAI”, amount: “100000000”, chain: “zeta”}，前端直接喂给 Universal Swap 合约。
 
 OpenAI-Compatible API
 
@@ -255,11 +255,13 @@ Gas Limit / Gas Price
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 2025年11月27日22点49分
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 今天有点麻烦，完成币安账号创建，一直都没创建币安账号，以及水龙头绑定，搭建起来zetachain的基本运行环境。
@@ -272,11 +274,13 @@ Gas Limit / Gas Price
 
 
 
+
 刚下班，打个卡，现在开始学，待会儿补齐笔记。。。。。
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
