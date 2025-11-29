@@ -15,8 +15,51 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+# Swap实践（测试网）
+
+CLI 创建一个新的 ZetaChain 项目：
+
+```
+zetachain new --project swap
+```
+
+安装依赖：
+
+```
+cd swap
+yarn
+```
+
+使用 Foundry 的包管理器拉取 Solidity 依赖项：
+
+```
+forge soldeer update
+```
+
+部署合约：
+
+```
+UNIVERSAL=$(npx tsx commands deploy --private-key $PRIVATE_KEY | jq -r .contractAddress) && echo $UNIVERSAL
+```
+
+从 Solana 兑换到 Ethereum Sepolia
+
+```
+npx zetachain solana deposit-and-call \
+  --recipient $UNIVERSAL \
+  --types address bytes bool \
+  --values $ZRC20_ETHEREUM_ETH $RECIPIENT true \
+  --chain-id 901 \
+  --private-key $SOLANA_PRIVATE_KEY \
+  --amount 0.01
+```
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 # **ZRC-20**
 
 ZRC-20 是一种代币标准，集成到 ZetaChain 的 Omnichain 智能合约平台中。借助 ZRC-20，开发者可以构建 dApp，在任何连接的链上协调原生资产。这使得从单一平台构建 Omnichain DeFi 协议和 dApp变得极其简单。
@@ -52,6 +95,7 @@ ZRC-20 代币可以从 ZetaChain 提现到连接的区块链。提现过程中�
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 # **Swap**
 
 Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
@@ -77,6 +121,7 @@ Swap合约执行以下步骤：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -116,6 +161,7 @@ Gateway支持以下功能：
 
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -125,6 +171,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
