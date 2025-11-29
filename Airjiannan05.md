@@ -15,8 +15,642 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+**学习目标**
+
+-   能从官方示例中跑起来一个基础的跨链 Demo（建议 Swap 或 Messaging）。
+    
+-   亲手体验“调用一次全链 DeFi 动作”的流程。
+    
+
+**学习资料**
+
+-   Tutorials（Swap / Messaging / Calls to-from EVM）
+    
+-   [https://www.zetachain.com/docs/developers/tutorials/swap](https://www.zetachain.com/docs/developers/tutorials/swap)
+    
+-   Example code repo
+    
+-   [https://github.com/zeta-chain/example-contracts](https://github.com/zeta-chain/example-contracts)
+    
+
+**扩展资料（可选）**
+
+-   结合架构文档，再看一下对应调用在架构中的位置。
+    
+
+**实践 / 作业**
+
+-   任选一个官方 Demo（推荐 Swap 或 Messaging），按文档说明跑通：
+    
+    -   本地或测试网都可以。
+        
+    -   记录下关键命令、配置项。
+        
+-   写一段文字：
+    
+    -   你是从哪里发起的调用？
+        
+    -   最终在 ZetaChain 上发生了什么？
+        
+
+# Swap
+
+## [环境搭建](https://www.zetachain.com/docs/developers/tutorials/swap#setting-up-your-environment)
+
+首先，使用CLI创建一个新的ZetaChain项目：
+
+```Solidity
+zetachain new --project swap
+```
+
+安装依赖：
+
+```Solidity
+cd swap
+yarn
+```
+
+使用 Foundry 的包管理器拉取 Solidity 依赖：
+
+```Solidity
+forge soldeer update
+```
+
+编写合同：
+
+```Solidity
+forge build
+```
+
+## [在Testnet上部署](https://www.zetachain.com/docs/developers/tutorials/swap#option-1:-deploy-on-testnet)
+
+将交换合约部署到 ZetaChain 测试网：
+
+```Solidity
+UNIVERSAL=$(npx tsx commands deploy --private-key $PRIVATE_KEY | jq -r .contractAddress) && echo $UNIVERSAL
+```
+
+这会使用指定的私钥部署预编译的合同， 输出已部署的地址。部署脚本会自动使用正确的网关和Uniswap路由器 测试网的地址。完成后，环境变量将包含你在测试网上部署的交换合约。你会在触发连接链的交换。
+
+例如我用我的密钥部署后得到的地址：
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=NWI0M2VjMzI3OWUyYjAyNzk1NTZmMmNjNDI2MWQ2YjJfZU9DMXQwNmF3WnY4VlJZSndKQUZ1d29UdzZDMG9DZkFfVG9rZW46Um1ZUGJzY1E3b2Z6eHB4U2tjQ2NhR1BPbkJkXzE3NjQ0MDMyMTI6MTc2NDQwNjgxMl9WNA)
+
+通过私钥获取你的EVM发件地址：
+
+```Solidity
+RECIPIENT=$(cast wallet address $PRIVATE_KEY) && echo $RECIPIENT
+```
+
+查询代表以太坊 Sepolia ETH 的 ZRC-20 地址：
+
+```Solidity
+ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20) && echo $ZRC20_ETHEREUM_ETH
+```
+
+# 理解swap合约
+
+## 1.代币交换事件
+
+```Solidity
+event TokenSwap(
+        bytes sender,
+        bytes indexed recipient,
+        address indexed inputToken,
+        address indexed targetToken,
+        uint256 inputAmount,
+        uint256 outputAmount
+    );
+    
+   /**
+     * @notice 代币交换事件
+     * @dev 记录每次成功的代币交换操作
+     * @param sender 发起交换的用户地址（字节格式，支持不同链的地址格式）
+     * @param recipient 接收代币的目标地址（字节格式）
+     * @param inputToken 输入代币的 ZRC20 地址
+     * @param targetToken 目标代币的 ZRC20 地址
+     * @param inputAmount 输入的代币数量
+     * @param outputAmount 输出的代币数量（扣除 gas 费用后）
+     */
+```
+
+## 2.构造函数-禁止初始化器
+
+```Solidity
+/// @notice 构造函数，禁用初始化器以防止实现合约被直接初始化
+    constructor() {
+        _disableInitializers();
+    }
+```
+
+## 3.初始化合约
+
+```Solidity
+/**
+     * @notice 初始化合约
+     * @dev 只能调用一次，设置 Uniswap 路由和 gas 限制
+     * @param gasLimitAmount 回滚操作的 gas 限制
+     * @param owner 合约所有者地址
+     */
+function initialize(
+    uint256 gasLimitAmount,
+    address owner
+) external initializer {
+    // 初始化 UUPS 升级功能
+    __UUPSUpgradeable_init();
+    
+    // 初始化所有权管理，设置合约所有者
+    __Ownable_init(owner);
+    
+    // 从系统注册表获取当前链的 Uniswap V2 路由地址
+    (bool active, bytes memory uniswapRouterBytes) = registry
+      .getContractInfo(block.chainid, "uniswapV2Router02");
+    
+    // 如果路由地址未激活，则抛出错误
+    if (!active) revert InvalidAddress();
+    
+    // 将字节数组转换为地址类型
+    uniswapRouter = address(uint160(bytes20(uniswapRouterBytes)));
+    
+    // 设置回滚操作的 gas 上限
+    gasLimit = gasLimitAmount;
+}
+```
+
+## 4.提现参数结构体
+
+```Solidity
+    struct Params {
+        address target;
+        bytes to;
+        bool withdraw;
+    }
+```
+
+用于在 withdraw 函数中传递参数：
+
+-   target： 目标代币的 ZRC20 地址
+    
+-   to： 接收地址（字节格式，支持不同链）
+    
+-   withdraw： 是否提现到外部链（true）或留在 ZetaChain（false）
+    
+
+## 5.onCall函数-处理来自外部链的跨链交换请求
+
+```Solidity
+function onCall(
+    MessageContext calldata context,
+    address zrc20,
+    uint256 amount,
+    bytes calldata message
+) external override onlyGateway {
+    // 解码跨链消息，获取目标代币、接收地址和提现标志
+    (address targetToken, bytes memory recipient, bool withdrawFlag) = abi
+        .decode(message, (address, bytes, bool));
+
+    // 处理 gas 费用并执行代币交换
+    (uint256 out, address gasZRC20, uint256 gasFee) = handleGasAndSwap(
+        zrc20,        // 输入代币
+        amount,       // 输入数量
+        targetToken,  // 目标代币
+        withdrawFlag  // 是否需要提现
+    );
+    
+    // 发出交换事件，记录此次交换
+    emit TokenSwap(
+        abi.encodePacked(context.sender),  // 解码原始发送者（来自其他链）
+        recipient,                          // 接收者
+        zrc20,                             // 输入代币
+        targetToken,                       // 目标代币
+        amount,                            // 输入数量
+        out                                // 输出数量
+    );
+    
+    // 执行提现或转账
+    withdraw(
+        Params({
+            target: targetToken,
+            to: recipient,
+            withdraw: withdrawFlag
+        }),
+        abi.encodePacked(context.sender),  // 用于回滚的原始发送者
+        gasFee,                            // gas 费用
+        gasZRC20,                          // gas 代币
+        out,                               // 输出金额
+        zrc20                              // 原始输入代币（用于回滚）
+    );
+}
+```
+
+\- **调用者**: 只能由 ZetaChain Gateway 调用`onlyGateway` 修饰符）
+
+\- **参数解码**: 从 `message` 中解析目标代币、接收地址和提现标志
+
+\- **交换执行**: 调用 `handleGasAndSwap` 处理 gas 并执行交换
+
+\- **事件记录**: 发出 `TokenSwap` 事件供链下监控
+
+\- **最终操作**: 根据 `withdrawFlag` 决定是提现还是内部转账
+
+举个例子：
+
+用户从以太坊发送 USDC，想换成 BNB Chain 上的 BNB：
+
+1\. 用户在以太坊调用 ZetaChain Gateway，发送 USDC
+
+2\. Gateway 在 ZetaChain 上调用此合约的 `onCall` 函数 --调用函数，解码message
+
+3\. 合约将 USDC 换成 BNB（ZRC20）--handleGasAndSwap ， emit TokenSwap
+
+4\. 合约将 BNB 提现到用户的 BNB Chain 地址 --withdraw
+
+## 6.**swap 函数 - ZetaChain 内部交换**
+
+```Solidity
+/**
+ * @notice 在 ZetaChain 上直接发起代币交换
+ * @dev 用户可以从 ZetaChain 发起交换，可选择提现到外部链
+ * 
+ * 使用场景：
+ * - 用户在 ZetaChain 上持有代币，想换成其他代币
+ * - 可以选择将兑换后的代币留在 ZetaChain 或提现到外部链
+ * 
+ * @param inputToken 输入代币的 ZRC20 地址
+ * @param amount 输入代币数量
+ * @param targetToken 目标代币的 ZRC20 地址
+ * @param recipient 接收地址（字节格式）
+ * @param withdrawFlag 是否提现到外部链
+ */
+function swap(
+    address inputToken,
+    uint256 amount,
+    address targetToken,
+    bytes memory recipient,
+    bool withdrawFlag
+) external {
+    // 从调用者转入代币到合约
+    bool success = IZRC20(inputToken).transferFrom(
+        msg.sender,
+        address(this),
+        amount
+    );
+    
+    // 检查转账是否成功
+    if (!success) {
+        revert TransferFailed(
+            "Failed to transfer ZRC-20 tokens from the sender to the contract"
+        );
+    }
+
+    // 处理 gas 费用并执行代币交换
+    (uint256 out, address gasZRC20, uint256 gasFee) = handleGasAndSwap(
+        inputToken,
+        amount,
+        targetToken,
+        withdrawFlag
+    );
+    
+    // 发出交换事件
+    emit TokenSwap(
+        abi.encodePacked(msg.sender),
+        recipient,
+        inputToken,
+        targetToken,
+        amount,
+        out
+    );
+    
+    // 执行提现或转账
+    withdraw(
+        Params({
+            target: targetToken,
+            to: recipient,
+            withdraw: withdrawFlag
+        }),
+        abi.encodePacked(msg.sender),
+        gasFee,
+        gasZRC20,
+        out,
+        inputToken
+    );
+}
+```
+
+\- **调用者**: 任何持有 ZRC20 代币的用户
+
+\- **代币转入**: 使用 `transferFrom` 将用户代币转入合约
+
+\- **交换逻辑**: 与 `onCall` 相同，复用 `handleGasAndSwap` 和 `withdraw`
+
+## 7.**handleGasAndSwap 函数 - Gas 处理与交换核心逻辑**
+
+上面的oncall函数和swap函数都调用了这个函数
+
+```Solidity
+/**
+ * @notice 处理 gas 费用并执行代币交换的核心逻辑
+ * @dev 内部函数，先计算并预留 gas 费用，然后用剩余代币进行交换
+ * 
+ * 处理步骤：
+ * 1. 如果需要提现，查询目标链的 gas 费用
+ * 2. 检查输入金额是否足够支付 gas
+ * 3. 如果 gas 代币与输入代币不同，先换一部分用于支付 gas
+ * 4. 用剩余的输入代币交换成目标代币
+ * 
+ * @param inputToken 输入代币地址
+ * @param amount 输入代币总量
+ * @param targetToken 目标代币地址
+ * @param withdraw 是否需要提现到外部链
+ * @return out 交换得到的目标代币数量
+ * @return gasZRC20 用于支付 gas 的代币地址
+ * @return gasFee gas 费用金额
+ */
+function handleGasAndSwap(
+    address inputToken,
+    uint256 amount,
+    address targetToken,
+    bool withdraw
+) internal returns (uint256, address, uint256) {
+    uint256 inputForGas;      // 用于支付 gas 的输入代币数量
+    address gasZRC20;         // gas 代币地址
+    uint256 gasFee = 0;       // gas 费用金额
+    uint256 swapAmount = amount;  // 实际用于交换的金额
+
+    // 如果需要提现到外部链
+    if (withdraw) {
+        // 查询目标链的 gas 费用和 gas 代币类型
+        (gasZRC20, gasFee) = IZRC20(targetToken).withdrawGasFee();
+        
+        // 计算支付 gas 所需的最少输入代币
+        uint256 minInput = quoteMinInput(inputToken, targetToken);
+        
+        // 检查输入金额是否足够
+        if (amount < minInput) {
+            revert InsufficientAmount(
+                "The input amount is less than the min amount required to cover the withdraw gas fee"
+            );
+        }
+        
+        // 如果 gas 代币就是输入代币，直接扣除 gas 费用
+        if (gasZRC20 == inputToken) {
+            swapAmount = amount - gasFee;
+        } 
+        // 如果 gas 代币与输入代币不同，需要先换一部分用于支付 gas
+        else {
+            inputForGas = SwapHelperLib.swapTokensForExactTokens(
+                uniswapRouter,
+                inputToken,    // 输入代币
+                gasFee,        // 需要的 gas 代币数量
+                gasZRC20,      // gas 代币类型
+                amount         // 最大输入金额
+            );
+            swapAmount = amount - inputForGas;  // 剩余金额用于交换
+        }
+    }
+
+    // 用剩余的输入代币交换成目标代币
+    uint256 out = SwapHelperLib.swapExactTokensForTokens(
+        uniswapRouter,
+        inputToken,      // 输入代币
+        swapAmount,      // 输入数量
+        targetToken,     // 目标代币
+        0                // 最小输出（0 表示接受任何数量，生产环境应设置滑点保护）
+    );
+    
+    return (out, gasZRC20, gasFee);
+}
+```
+
+## **8.withdraw 函数 - 执行转账或提现**
+
+```Solidity
+/**
+ * @notice 执行代币转账或提现操作
+ * @dev 根据参数决定是在 ZetaChain 内部转账还是提现到外部链
+ * 
+ * 两种模式：
+ * 1. 提现模式 (withdraw = true): 
+ *    - 授权 gateway 使用代币和 gas 费
+ *    - 调用 gateway.withdraw() 发送到目标链
+ *    - 如果失败会触发 onRevert 回滚
+ * 
+ * 2. 内部转账模式 (withdraw = false):
+ *    - 直接在 ZetaChain 上转账给接收地址
+ *    - 不需要跨链操作
+ * 
+ * @param params 提现参数（目标代币、接收地址、是否提现）
+ * @param sender 原始发送者地址（用于回滚）
+ * @param gasFee gas 费用金额
+ * @param gasZRC20 用于支付 gas 的代币地址
+ * @param out 要转账/提现的代币数量
+ * @param inputToken 输入代币地址（用于回滚）
+ */
+function withdraw(
+    Params memory params,
+    bytes memory sender,
+    uint256 gasFee,
+    address gasZRC20,
+    uint256 out,
+    address inputToken
+) internal {
+    // 如果需要提现到外部链
+    if (params.withdraw) {
+        // 情况 1: gas 代币与目标代币相同
+        if (gasZRC20 == params.target) {
+            // 授权 gateway 使用 (代币金额 + gas 费用)
+            if (!IZRC20(gasZRC20).approve(address(gateway), out + gasFee)) {
+                revert ApprovalFailed();
+            }
+        } 
+        // 情况 2: gas 代币与目标代币不同
+        else {
+            // 分别授权 gas 代币和目标代币
+            if (!IZRC20(gasZRC20).approve(address(gateway), gasFee)) {
+                revert ApprovalFailed();
+            }
+            if (!IZRC20(params.target).approve(address(gateway), out)) {
+                revert ApprovalFailed();
+            }
+        }
+        
+        // 调用 gateway 执行跨链提现
+        gateway.withdraw(
+            abi.encodePacked(params.to),  // 目标链的接收地址
+            out,                          // 提现金额
+            params.target,                // 目标代币
+            RevertOptions({
+                revertAddress: address(this),           // 回滚时调用本合约
+                callOnRevert: true,                     // 启用回滚回调
+                abortAddress: address(0),               // 不使用中止地址
+                revertMessage: abi.encode(sender, inputToken),  // 回滚信息
+                onRevertGasLimit: gasLimit              // 回滚操作的 gas 上限
+            })
+        );
+    } 
+    // 如果只是在 ZetaChain 内部转账
+    else {
+        // 直接转账给接收地址
+        bool success = IWETH9(params.target).transfer(
+            address(uint160(bytes20(params.to))),  // 将 bytes 转换为地址
+            out
+        );
+        
+        // 检查转账是否成功
+        if (!success) {
+            revert TransferFailed(
+                "Failed to transfer target tokens to the recipient on ZetaChain"
+            );
+        }
+    }
+}
+```
+
+\- **提现模式**:
+
+\- 授权 gateway 使用代币
+
+\- 设置回滚选项，确保失败时可以退款
+
+\- 调用 gateway 的 `withdraw` 执行跨链操作
+
+\- **内部转账模式**:
+
+\- 直接在 ZetaChain 上转账
+
+\- 不涉及跨链，更快且更便宜
+
+## 9.**onRevert 函数 - 处理失败回滚**
+
+```Solidity
+/**
+ * @notice 处理跨链操作失败时的回滚逻辑
+ * @dev 当目标链无法接收代币时（如接收地址是无法接收代币的合约），会触发此函数
+ * 
+ * 回滚流程：
+ * 1. 解码原始发送者和输入代币信息
+ * 2. 将失败的代币换回原始代币
+ * 3. 将原始代币退回给发送者
+ * 
+ * 常见失败场景：
+ * - 目标地址是不支持接收代币的智能合约
+ * - 目标链上的操作 gas 不足
+ * - 目标链网络拥堵或暂时不可用
+ * 
+ * @param context 回滚上下文，包含失败的代币、数量和回滚消息
+ */
+function onRevert(RevertContext calldata context) external onlyGateway {
+    // 解码回滚消息，获取原始发送者和输入代币
+    (bytes memory sender, address zrc20) = abi.decode(
+        context.revertMessage,
+        (bytes, address)
+    );
+    
+    // 将失败的代币（context.asset）换回原始代币（zrc20）
+    (uint256 out, , ) = handleGasAndSwap(
+        context.asset,   // 失败的代币（目标代币）
+        context.amount,  // 失败的金额
+        zrc20,          // 原始输入代币
+        true            // 需要提现回原始链
+    );
+
+    // 将原始代币退回给发送者
+    gateway.withdraw(
+        sender,    // 原始发送者地址
+        out,       // 退款金额
+        zrc20,     // 原始代币
+        RevertOptions({
+            revertAddress: address(bytes20(sender)),  // 如果再次失败，直接发给发送者
+            callOnRevert: false,                      // 不再调用回滚函数
+            abortAddress: address(0),
+            revertMessage: "",                        // 无需回滚消息
+            onRevertGasLimit: gasLimit
+        })
+    );
+}
+```
+
+## **10.quoteMinInput 函数 - 计算最小输入**
+
+```Solidity
+/**
+ * @notice 计算支付 gas 费用所需的最少输入代币数量
+ * @dev 用于提现前检查用户的输入金额是否足够支付跨链 gas
+ * 
+ * 计算逻辑：
+ * 1. 查询目标链提现需要的 gas 费用和 gas 代币类型
+ * 2. 如果输入代币就是 gas 代币，直接返回 gas 费用
+ * 3. 如果不是，通过 Uniswap 计算需要多少输入代币才能换到足够的 gas 代币
+ * 
+ * 使用场景：
+ * - 前端在发起交换前检查用户余额是否足够
+ * - 合约内部验证输入金额是否满足最小要求
+ * 
+ * @param inputToken 输入代币地址
+ * @param targetToken 目标代币地址（决定了目标链和 gas 类型）
+ * @return 需要的最少输入代币数量
+ */
+function quoteMinInput(
+    address inputToken,
+    address targetToken
+) public view returns (uint256) {
+    // 查询目标链的 gas 费用信息
+    (address gasZRC20, uint256 gasFee) = IZRC20(targetToken)
+        .withdrawGasFee();
+
+    // 如果输入代币就是 gas 代币，直接返回 gas 费用
+    if (inputToken == gasZRC20) {
+        return gasFee;
+    }
+
+    // 获取 WETH 地址（Uniswap 的基础交易对）
+    address zeta = IUniswapV2Router01(uniswapRouter).WETH();
+
+    // 构建交换路径
+    address[] memory path;
+    
+    // 如果输入代币或 gas 代币是 WETH，使用两步路径
+    if (inputToken == zeta || gasZRC20 == zeta) {
+        path = new address[](2);
+        path[0] = inputToken;
+        path[1] = gasZRC20;
+    } 
+    // 否则使用三步路径：输入代币 -> WETH -> gas 代币
+    else {
+        path = new address[](3);
+        path[0] = inputToken;
+        path[1] = zeta;
+        path[2] = gasZRC20;
+    }
+
+    // 通过 Uniswap 计算需要多少输入代币才能换到所需的 gas 代币
+    uint256[] memory amountsIn = IUniswapV2Router02(uniswapRouter)
+        .getAmountsIn(gasFee, path);
+
+    // 返回第一个代币（输入代币）的所需数量
+    return amountsIn[0];
+}
+```
+
+## **11.\_authorizeUpgrade 函数 - 升级授权**
+
+```Solidity
+/**
+ * @notice 授权合约升级
+ * @dev UUPS 升级模式要求的函数，只有所有者可以升级合约
+ * @param newImplementation 新的实现合约地址
+ */
+function _authorizeUpgrade(
+    address newImplementation
+) internal override onlyOwner {}
+```
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **学习目标**
 
 -   理解 ZRC-20、Universal Token / NFT 的基本概念和作用。
@@ -228,6 +862,7 @@ ZetaChain 上对外部链原生资产与 ERC-20 的“原生表示”。当从�
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 **学习目标**
 
 -   建立对 “全链应用 / Universal App 合约” 的直观理解。
@@ -359,6 +994,7 @@ npx tsx commands/index.ts deploy --private-key $(grep PRIVATE_KEY .env | cut -d 
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 ZetaChain & Universal Blockchain 核心概念
@@ -718,6 +1354,7 @@ ZetaChain 无法在比特币网络上部署智能合约。比特币不支持这�
 
 
 
+
 **学习目标**
 
 -   本地 / 云端完成基础开发环境落地。
@@ -1033,6 +1670,7 @@ B. gRPC & REST (Cosmos SDK 层)
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
