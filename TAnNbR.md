@@ -15,8 +15,32 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+## 我的调用 & ZetaChain 上发生的事情
+
+### 我是从哪里发起的调用？
+
+我从一个支持链（例如 Base / 以太坊 测试网）发起调用。调用方式是通过 ZetaChain 的 Gateway，也就是用户在源链使用 `deposit-and-call`，把资产 + 目标资产／接收者信息提交给 ZetaChain。
+
+### 最终在 ZetaChain 上发生了什么？
+
+1.  源链资产（比如 ETH / ERC-20 / native gas token）被 Gateway 接收并锁定。
+    
+2.  ZetaChain 将该资产映射为对应的 ZRC-20 代币 — 也就是在 ZetaChain 内部创建一个统一表示该资产的 ZRC-20。
+    
+3.  Swap 合约 (部署在 ZetaChain) 接收到跨链调用（`onCall(...)`），并解析调用参数 (目标 ZRC-20 token 地址、接收者地址、是否提现标识等) 。
+    
+4.  合约使用 ZetaChain 内流动性池 (例如 Uniswap v2 路由) 将输入资产兑换为目标 ZRC-20 资产。
+    
+5.  如果需要提现 (withdraw)，合约调用 Gateway 的 `withdraw(...)`，销毁 (burn) 得到的 ZRC-20 资产，并触发跨链提现机制 — 最终目标链上释放真实资产给接收者。
+    
+6.  用户在目标链收到目标资产。整个流程对用户相当于 “一次交易 + 跨链 swap + 提现 / 转账”。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 # ZRC-20 与 ERC-20 的区别及通用资产应用示例
 
 ## 一、ZRC-20 与 ERC-20 的主要区别（开发者视角）
@@ -83,6 +107,7 @@ ZRC-20 是 ZetaChain 提供的跨链资产标准，它与传统 ERC-20 的核心
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 # 我的第一个 ZetaChain Universal App 设想
 
 ## 背景与目标
@@ -128,6 +153,7 @@ Universal App 可生成一个回执 — 例如一个字符串、事件 ID、时�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 # \# ZetaChain — Universal App 与 Gateway 说明
@@ -219,6 +245,7 @@ Universal App 可生成一个回执 — 例如一个字符串、事件 ID、时�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
