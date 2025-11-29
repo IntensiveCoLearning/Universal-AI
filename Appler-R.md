@@ -22,11 +22,117 @@ AI 开发者, Qwen 实战派，看好Web3+ 模块化链
 
 克服了资金不足、地址格式错误、命令拼接断行等困难，成功将合约部署到 **Athens Testnet**。
 
+### 从哪里发起的调用？(The Origin)
+
+（ WSL 系统
+
+**数字身份：** **MetaMask 钱包**（地址 `0x737FB...dD7B9`）。
+
+虽然钱包是装在浏览器插件里的，但当你把**私钥**粘贴到终端命令里时，
+
+**Foundry (forge)** 这个工具就临时获得了代表你“签字”的权力。
+
+**发送路径是这样的：**
+
+1.  **打包与签名 (Local)**：
+    
+    -   Foundry 先把你写的 `PiggyBank.sol` 编译成机器能读懂的乱码（Bytecode/字节码）。
+        
+    -   然后，它用你的**私钥**对这堆乱码进行加密签名。这相当于你在信封上盖了个红章：“我同意支付手续费，请把这段代码存到区块链上。”
+        
+2.  **投递 (RPC)**：
+    
+    -   你的电脑通过网络，把这个签好名的“信封”（交易数据）发送给了 **RPC 节点**（`zetachain-athens-evm.blockpi.network`）。
+        
+    -   RPC 节点就像是一个“邮局”，它收到了你的信，检查签名无误后，把它广播给了 ZetaChain 网络里的验证者节点。
+        
+
 ![全球.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-29-1764426603073-__.png)
+
+最终在 ZetaChain 上发生了什么？
+
+```
+sequenceDiagram
+```
+
+```
+    participant User as 你的电脑 (WSL)
+```
+
+```
+    participant Wallet as 你的私钥 (0x737...)
+```
+
+```
+    participant RPC as RPC 节点 (BlockPi)
+```
+
+```
+    participant ZetaChain as ZetaChain 网络 (zEVM)
+```
+
+```
+    participant Contract as 新合约 (PiggyBank)
+```
+
+```
+    Note over User, Wallet: 1. 编译代码 & 本地签名
+```
+
+```
+    User->>Wallet: 调用私钥签名
+```
+
+```
+    Wallet-->>User: 生成已签名的交易数据(Raw Tx)
+```
+
+```
+    Note over User, RPC: 2. 广播交易
+```
+
+```
+    User->>RPC: 发送交易请求
+```
+
+```
+    RPC->>ZetaChain: 广播给验证者节点
+```
+
+```
+    Note over ZetaChain, Contract: 3. 上链执行
+```
+
+```
+    ZetaChain->>ZetaChain: 验证签名 & 扣除 Gas (ZETA)
+```
+
+```
+    ZetaChain->>Contract: 创建新地址 0xBf68...
+```
+
+```
+    ZetaChain->>Contract: 写入 PiggyBank 的代码
+```
+
+```
+    Contract-->>User: 返回合约地址 (部署成功)
+```
+
+-   **发起点**：你的**本地终端**（利用私钥签名）。
+    
+-   **传输者**：**RPC 节点**（互联网上的公共网关）。
+    
+-   **终点**：**ZetaChain 区块链**。
+    
+-   **结果**：区块链的账本上多了一行记录——**“地址 0xBf68... 现在属于 PiggyBank 合约，**
+    
+-   **它的代码逻辑是X（**一个会存钱、会取钱、绝对铁面无私的自动柜员机程序**）”**
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 ## ZetaChain ZRC-20 跨链资产统一与 Swap 流程图
@@ -105,6 +211,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 
 
+
 ![1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-27-1764250272995-1.png)
 
 终于克服了依赖缺失和路径配置等重重报错，**成功在本地跑通了最核心的跨链 Swap 业务模拟**。
@@ -114,6 +221,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -411,6 +519,7 @@ Merkle树用哈希聚合交易 → 一个根哈希代表所有交易，轻节点
 
 
 
+
 ## 1\. 开发环境处理 (WSL Linux)
 
 起步发现WSL被 Docker 占用、WSL 无法启动、忘记密码。
@@ -643,6 +752,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
