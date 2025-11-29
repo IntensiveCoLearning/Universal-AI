@@ -15,13 +15,20 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+打卡，Gateway和协议相关
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 学习了workshop中的大部分概念，看了zrc20等等，笔记就交给考试周之后的我罢
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 依旧考试，大概看了看zetachain的evm和erc文档
 <!-- DAILY_CHECKIN_2025-11-26_END -->
@@ -30,11 +37,13 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 有考试，简单测试了一下CLI和Qwen的功能，正常
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
