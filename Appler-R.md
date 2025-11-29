@@ -51,6 +51,8 @@ AI 开发者, Qwen 实战派，看好Web3+ 模块化链
 
 最终在 ZetaChain 上发生了什么？
 
+如下：
+
 ```
 sequenceDiagram
 ```
@@ -125,13 +127,14 @@ sequenceDiagram
     
 -   **终点**：**ZetaChain 区块链**。
     
--   **结果**：区块链的账本上多了一行记录——**“地址 0xBf68... 现在属于 PiggyBank 合约，**
+-   **结果**：区块链的账本上多了一行记录——**“地址 0xBf68… 现在属于 PiggyBank 合约，**
     
--   **它的代码逻辑是X（**一个会存钱、会取钱、绝对铁面无私的自动柜员机程序**）”**
+-   **它的代码逻辑是X（一个会存钱、会取钱、绝对铁面无私的自动柜员机程序）”**
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -212,6 +215,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 
 
+
 ![1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-27-1764250272995-1.png)
 
 终于克服了依赖缺失和路径配置等重重报错，**成功在本地跑通了最核心的跨链 Swap 业务模拟**。
@@ -221,6 +225,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -520,6 +525,7 @@ Merkle树用哈希聚合交易 → 一个根哈希代表所有交易，轻节点
 
 
 
+
 ## 1\. 开发环境处理 (WSL Linux)
 
 起步发现WSL被 Docker 占用、WSL 无法启动、忘记密码。
@@ -752,6 +758,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
