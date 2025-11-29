@@ -15,8 +15,133 @@ From SEU BA
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+## **🚀 ZetaChain Swap Demo 实践记录**
+
+### **环境准备与关键命令**
+
+```
+# 1. 克隆示例代码库
+git clone https://github.com/zeta-chain/example-contracts
+cd example-contracts
+
+# 2. 安装依赖
+npm install
+
+# 3. 配置环境变量
+cp .env.example .env
+# 编辑 .env 文件，添加私钥和测试网配置
+```
+
+**关键配置项：**
+
+```
+PRIVATE_KEY=你的测试网私钥
+NETWORK=testnet
+```
+
+```
+# 4. 部署跨链交换合约
+npx hardhat deploy --tags omnichain-swap
+```
+
+**部署输出示例：**
+
+```
+Deploying OmnichainSwap contract to ZetaChain
+OmnichainSwap deployed to: 0x1234...5678 on ZetaChain
+```
+
+### **🎯 执行跨链交换**
+
+```
+# 从 Goerli ETH 交换到 BSC-testnet BNB
+npx hardhat omnichain-swap --network goerli \
+  --amount 0.01 \
+  --src-token ETH \
+  --dest-chain bsc-testnet \
+  --dest-token BNB
+```
+
+**交易流程记录：**
+
+1.  **发起链**: Goerli Ethereum Testnet
+    
+2.  **源资产**: 0.01 ETH
+    
+3.  **目标链**: BSC Testnet
+    
+4.  **目标资产**: BNB
+    
+
+### **📝 调用过程分析**
+
+**1\. 调用发起位置**
+
+-   **网络**: Goerli Ethereum 测试网
+    
+-   **操作**: 调用本地部署的 OmnichainSwap 合约的 `swap` 函数
+    
+-   **参数**:
+    
+    -   `destinationChainId`: BSC测试网链ID
+        
+    -   `token`: 目标token地址（BNB）
+        
+    -   `amount`: 交换数量
+        
+
+**2\. ZetaChain 上的处理流程**
+
+**第一步：跨链消息接收**
+
+-   Goerli 上的交易通过 ZetaChain 的 Connector 合约转发到 ZetaChain
+    
+-   ZetaChain 的 Omnichain 协议验证跨链消息的真实性
+    
+
+**第二步：智能合约执行**
+
+```
+// 在 ZetaChain 上执行的逻辑
+function onCrossChainCall(
+    address sender,
+    uint256 sourceChainId,
+    bytes calldata message
+) external override {
+    // 1. 解码消息，获取交换参数
+    // 2. 通过内部 DEX 路由寻找最佳交换路径
+    // 3. 执行资产交换（ETH → ZETA → BNB）
+    // 4. 准备跨链转账到目标链
+}
+```
+
+**第三步：跨链资产转移**
+
+-   ZetaChain 调用目标链（BSC）的 Connector 合约
+    
+-   通过 ZetaChain 的流动性池完成资产跨链转移
+    
+-   在 BSC 测试网向用户地址发送交换后的 BNB
+    
+
+### **🔍 架构层面的理解**
+
+根据 ZetaChain 架构文档，这个流程涉及：
+
+1.  **Outbound Transaction**: 从源链到 ZetaChain
+    
+2.  **Observer Network**: 验证和中继跨链消息
+    
+3.  **TSS (Threshold Signature Scheme)**: 在多链上安全签名交易
+    
+4.  **Inbound Transaction**: 从 ZetaChain 到目标链
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 # **1\. 对 “全链应用 / Universal App” 的直观理解**
 
 -   **一个合约，多处运行**：你只写一次核心业务逻辑（Universal App 合约），它可以被部署到任何支持的区块链上（如以太坊、Arbitrum、Polygon、Base 等）。
@@ -107,6 +232,7 @@ From SEU BA
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 # **1\. 通用区块链**
 
@@ -199,6 +325,7 @@ From SEU BA
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 # **1.安装ZetaChain CLI**
@@ -1047,6 +1174,7 @@ curl -X POST "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generatio
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
