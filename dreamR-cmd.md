@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+![1000025769.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429604277-1000025769.jpg)![1000025770.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429620466-1000025770.jpg)![1000025771.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429631004-1000025771.jpg)![1000025772.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429644600-1000025772.jpg)
+
+今天电脑没在身边，只能学习一下理论知识
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 还在理解，有点跟不上
 
 ![1000025731.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-28-1764323648413-1000025731.jpg)
@@ -24,6 +32,7 @@ timezone: UTC+8
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-27-1764254084773-image.png)
 
@@ -34,6 +43,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-25-1764085567107-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-25-1764086120051-image.png)
 
 努力学习中，进度有点慢
@@ -41,6 +51,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
