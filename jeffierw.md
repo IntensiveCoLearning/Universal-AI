@@ -15,8 +15,111 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+# Day 6
+
+1.  运行文档 Example Messaging
+    
+
+-   创建项目：
+    
+    1.  `npx zetachain new --project messaging`
+        
+    2.  安装前端和合约依赖：
+        
+    
+    ```shell
+    cd messaging
+    yarn
+    forge soldeer update
+    ```
+    
+    3.  编译合约 `forge build`
+        
+    4.  .env 输入私钥 `PRIVATE_KEY=...`
+        
+-   消息合同：
+    
+    1.  合约中导入依赖: `import "@zetachain/standard-contracts/contracts/messaging/contracts/Messaging.sol";`
+        
+    2.  合约继承： `contract Example is Messaging { ... }`
+        
+    3.  构造函数新增初始化参数：
+        
+    
+    ```solidity
+    constructor(
+      address payable _gateway,
+      address owner,
+      address _router
+    ) Messaging(_gateway, owner, _router) {}
+    ```
+    
+    4.  合约内部实现：
+        
+    
+    -   实现`onMessageReceive`, 当跨链消息成功到达时，目的链会自动调用此函数
+        
+    
+    ```solidity
+      function onMessageReceive(
+          bytes memory data,
+          bytes memory sender,
+          uint256 amount,
+          bytes memory asset
+      ) internal override {
+          //...
+      }
+    ```
+    
+    -   实现`onMessageRevert`, 当目的合同的 onMessageReceive 失败（例如因无效呼叫数据或逻辑错误）时，触发此函数
+        
+    
+    ```solidity
+    function onMessageRevert(
+        bytes memory data,
+        bytes memory sender,
+        uint256 amount,
+        bytes memory asset
+    ) internal override {
+        //...
+    }
+    ```
+    
+    -   实现`onRevert`, 当消息在路由过程中未能到达目的链时，会调用该函数。它在源链上执行。
+        
+    
+    ```solidity
+    function onRevert(RevertContext calldata context)
+        external
+        payable
+        override
+        onlyGateway
+    {
+        if (context.sender != router) revert Unauthorized();
+        //...
+    }
+    ```
+    
+    -   发送消息 要发起跨链消息，合约必须调用 `depositAndCall` EVM 网关上的功能。这个功能是从传递消息 根据发送 gas 代币是原生 ETH 还是 ERC-20 货币，支持两种不同参数调用的`depositAndCall`
+        
+-   从哪里发起的调用？
+    
+    1.  源链上提供代币 （例如 ETH）。可以是原生 gas（如 ETH）或任何支持的 ERC-20。
+        
+    2.  通过 --target-token 指定目标代币 ，它指向 ZRC-20，代表你想在目的链上交付的代币（例如以太坊 ETH）。
+        
+-   在 ZetaChain 上发生了什么？
+    
+    3.  部分提供的金额会自动兑换到目的链（以太坊 ETH）的 ZRC-20 版本的 gas 代币中，用于覆盖消息在目的链上的执行成本。
+        
+    4.  剩余金额被兑换到目标代币 （可能是同一代币），并转发到目标合约。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 # Day 5
 
 1.  ZRC-20 和普通 ERC-20 的直观区别
@@ -38,6 +141,7 @@ timezone: UTC+8
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 # Day 4
 
 1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
@@ -51,6 +155,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 # Day 3
@@ -77,6 +182,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -112,6 +218,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
