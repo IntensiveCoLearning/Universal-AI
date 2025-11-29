@@ -15,8 +15,24 @@ AI & Web3 Builder!!!!
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+-   任选一个官方 Demo（推荐 Swap 或 Messaging），按文档说明跑通：
+    
+    -   本地或测试网都可以。
+        
+    -   记录下关键命令、配置项。
+        
+-   写一段文字：
+    
+    -   你是从哪里发起的调用？
+        
+    -   最终在 ZetaChain 上发生了什么？
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 已完成:
 
 -   在笔记中用自己的话写出：
@@ -33,6 +49,7 @@ AI & Web3 Builder!!!!
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
+
 已完成安装或尝试使用 ZetaChain CLI（本地或云端环境均可）。
 
 -   了解测试网 RPC、Faucet、Explorer 的入口，记录在自己的笔记中。
@@ -42,6 +59,7 @@ AI & Web3 Builder!!!!
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 已完成:
