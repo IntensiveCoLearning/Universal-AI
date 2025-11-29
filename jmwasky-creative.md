@@ -15,8 +15,35 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+# 选择本地测试网部署swap合约
+
+## 本地部署
+
+![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=MDhmNWUwYzkwMGI3ZDFjNTVhMzJkZjdkYmYyZDcxYzJfM3BHTGxXdmpSeVpibnZiZE5SdnNmQ29JcDRpeHpvR2NfVG9rZW46SXZwNGJjeWNQb3dJR3B4WG1VUmNpemtZbk1iXzE3NjQ0MTExNjU6MTc2NDQxNDc2NV9WNA)![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=MWJhZWY2MjcyOGFkZDg3NzRlMzgyN2EzMzc1YTI3MWJfZVFoSWRYWXRvaXVaWjJJV2hwNnk2UUl6SzhXU1c4TWlfVG9rZW46S3hMS2JDUEt4b3NlSVR4YWRIMmM4NXphbnlkXzE3NjQ0MTExNjU6MTc2NDQxNDc2NV9WNA)![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=OTE0OGJlYWUyYmM5NmI3NTRkYzE3MWFkYjgxZjIwZGZfcFZzTUZ4NU82MmJSRTRrUDFJOUJPQUdJRWNyNTJDSnJfVG9rZW46RDNQR2Jlbzd3b0NQU0l4WVhOTmNmTWhubmxoXzE3NjQ0MTExNjU6MTc2NDQxNDc2NV9WNA)
+
+  Forge build
+
+![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=NjM5YWJmMDZiMzRkMjUxYzBmYjA2YWE5NDEzZDFlZTdfMnVkajAxcW0wcE9ZRWE3bkJsbEdLMUhkNDcyeDZDdlRfVG9rZW46VlRVNGIzUThSbzFvN3d4c1FLMGNsN2t0bjBjXzE3NjQ0MTExNjU6MTc2NDQxNDc2NV9WNA)
+
+### swap
+
+1.  获取提取到目标链的Gas
+    
+2.  通过DEX报价验证
+    
+3.  如果不足gasZRC20需要换取足够的gasZRC20
+    
+4.  将剩余的部分兑换成目标代币
+    
+
+![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=MDRjMDYwYWVjZDdjZDc2NjdiZmM3ZTE3MzFmYjU3MWZfSDhGd0xJWjlNTkZuemtvSldlQ2JGNEF4ZWdqQ2ZVVFFfVG9rZW46WmZYaGJPSnJXbzZ1VFh4MGxxa2N0SkNGbmlmXzE3NjQ0MTEyMTU6MTc2NDQxNDgxNV9WNA)
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -32,6 +59,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -43,6 +71,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 # 基础知识点
@@ -76,6 +105,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -164,6 +194,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
