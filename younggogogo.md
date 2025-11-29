@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+今天不行，两个小时没跑通swap，拿水卡了半天，拿了水安装例子安装了半天，最后各种出问题，明天继续弄！今天失败
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **学习目标**
 
 \- 理解 ZRC-20、Universal Token / NFT 的基本概念和作用。
@@ -49,6 +55,7 @@ timezone: UTC+8
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 \- 建立对 “全链应用 / Universal App 合约” 的直观理解。
 
 \- 清楚后面要实现的 Hello World / Demo 会包含哪些模块（合约 + 前端 + RPC）。
@@ -76,6 +83,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 1\. 开始今天任务前先把昨天没完成的安装foundry继续安装，又试了很多方法，最后是梯子挂了全局代理，秒ok，不知道为什么局部代理就不行
@@ -127,6 +135,7 @@ Universal EVM：一个万能播放器，比如能让以太坊的的代码应用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -199,6 +208,7 @@ curl -X POST [https://dashscope.aliyuncs.com/api/v1/chat/completions](https://da
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
