@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+111
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 -   **项目设置**：
     
     -   命令：zetachain new --project swap && cd swap && yarn && forge soldeer update && forge build
@@ -76,6 +82,7 @@ timezone: UTC+8
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
 
 ERC-20（以太坊/单链视角）
@@ -134,6 +141,7 @@ PS：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -211,6 +219,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -451,6 +460,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
