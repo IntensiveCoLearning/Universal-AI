@@ -15,8 +15,42 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+-   画一张简单的架构图：
+    
+    ZetaChain 中心 + Bitcoin / Ethereum / Solana 等外围链 + Gateway。
+    
+
+![64ed5d9019d0af0f05719232d98e1e2f.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/zylg-create/images/2025-11-29-1764394975371-64ed5d9019d0af0f05719232d98e1e2f.png)
+
+这边贴一段看到的讲**Ominichain是啥的**笔记
+
+ZRC20文檔中看到 **Ominichain**（全鏈）這個區塊鏈架構概念，很好奇這啥
+
+> Omni代表全部、所有
+
+先講講這Ominichain目標：「讓開發者只寫一份合約，就能控制所有區塊鏈上的資產與數據；讓使用者只用一個錢包，就能操作所有鏈上的應用。」
+
+這與「跨鏈」或「多鏈」有點不同，下面來詳細的說說：
+
+演進過程：從單鏈->全鏈
+
+1.  單鏈：在Ethereum上的資產只能在Ethereum用
+    
+2.  多鏈與跨鏈橋：為了去Solana或BSC，需要用「跨鏈橋」把資產鎖住，然後在另一遍mint「包裝代幣（Wrapped Token）」（如WBTC），但問題是跨鏈橋風險高，可能被駭客攻擊，而且體驗差，需要不段切換網路，買不同的gas token
+    
+3.  全鏈（Omnchain），例如ZetaChain：會部署一個「通用合約（Universal Contract），這就是大腦，可以直接指揮Ethereum轉帳ETH，指揮Bitcoin轉帳BTC，不需要真的把BTC般過來，可以「原生的」，而非包裝的，也就是鏈抽象，使用者不需要知道現在後端跑的是啥鏈，Ominichain厲害的就是支援非智能合約鏈，像是Bitcoin，傳統比較困難，但在Ominichain架構可以用evmCall寫邏輯，然後Zetachain會幫忙在Bitcoin上發送原生BTC交易
+    
+
+對於開發者來說的好處：只要開發一次（Universal Contract），就可以部署各處。
+
+對於使用者好處：不再強調「把資產跨過去」，而是強調「把訊息傳過去，統一管理」
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 **Universal App 是什么？**  
 Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于某一条链的合约。它能同时接受来自任意连接链 (例如 Ethereum、Bitcoin、Solana……) 的资产、消息或合约调用，也能向任意连接链发送资产/调用。这样，开发者只用写一个合约，就能做到跨所有支持链的 dApp，用户也能用同一个界面 / 钱包操作不同链资产，无需切换网络或用桥 + wrapper。
 
@@ -27,6 +61,7 @@ Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 ok，成功调用Qwen的API，我问了一个问题“你会给一个新来的AI开发者什么建议？”
 
@@ -49,6 +84,7 @@ zeta测试币领取成功
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 今天一直在捣鼓zetachain的环境部署，视频提到的功能基本在Git Bash上实现了
