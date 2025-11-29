@@ -60,6 +60,7 @@ npx zetachain solana deposit-and-call \
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 # **ZRC-20**
 
 ZRC-20 是一种代币标准，集成到 ZetaChain 的 Omnichain 智能合约平台中。借助 ZRC-20，开发者可以构建 dApp，在任何连接的链上协调原生资产。这使得从单一平台构建 Omnichain DeFi 协议和 dApp变得极其简单。
@@ -96,6 +97,7 @@ ZRC-20 代币可以从 ZetaChain 提现到连接的区块链。提现过程中�
 
 
 
+
 # **Swap**
 
 Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
@@ -121,6 +123,7 @@ Swap合约执行以下步骤：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -162,6 +165,7 @@ Gateway支持以下功能：
 
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -171,6 +175,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
