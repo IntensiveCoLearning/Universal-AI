@@ -15,8 +15,47 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+### 核心命令与配置记录
+
+```
+npm config set registry https://registry.npmmirror.com
+sudo npm install -g zetachain --legacy-peer-deps
+sudo npm install -g yarn
+yarn install
+```
+
+```
+zetachain new --project swap
+forge build
+```
+
+```
+# 获取部署后的合约地址
+UNIVERSAL=$(npx tsx commands/deploy.ts --private-key $PRIVATE_KEY | jq -r .contractAddress)
+echo "My Swap Contract Address: $UNIVERSAL"
+```
+
+**Q: 你是从哪里发起的调用？**
+
+> 我是从 **本地终端 (CLI)** 发起的调用，通过 RPC 接口与 ZetaChain Athens 测试网进行交互。在实际的跨链场景中，这个调用通常始于 **外部链（如 Ethereum Sepolia）** 的用户钱包，用户将资产（如 ETH）发送到 ZetaChain 的 TSS（阈值签名）地址。
+
+**Q: 最终在 ZetaChain 上发生了什么？**
+
+> 1.  **资产映射：** 外部链存入的资产被 ZetaChain 捕捉，并以 **ZRC-20 代币** 的形式铸造在 ZetaChain 上。
+>     
+> 2.  **通用合约触发：** 我部署的 `Universal.sol` (Swap) 合约被自动调用，触发了 `onCrossChainCall` 函数。
+>     
+> 3.  **链上逻辑执行：** 在 ZetaChain 的 EVM 兼容层中，合约逻辑被执行（例如：将 ZRC-20 ETH 兑换为 ZRC-20 BTC 或其他代币）。
+>     
+> 4.  **状态变更/提现：** 兑换后的资产直接存储在我的接收地址中，或者如果是跨链提现，ZetaChain 会销毁 ZRC-20 代币，并在目标链上释放原生资产给接收者。
+>
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **1\. ZRC-20 和普通 ERC-20 的直观区别（开发者视角）**
 
 虽然在写代码时，ZRC-20 也可以用 `transfer`、`approve` 这些熟悉的接口，但我觉得两者在**底层逻辑**上有两个最大的不同：
@@ -38,6 +77,7 @@ timezone: UTC+8
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 **“全链涂鸦墙”**
 
 > 这是一块立在 ZetaChain 上的**公共黑板**。
@@ -53,6 +93,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 **Q1: Universal App (通用应用) 是什么？**
@@ -91,6 +132,7 @@ Gateway 是 ZetaChain 与外部区块链（如 Ethereum, Bitcoin）进行沟通�
 
 
 
+
 -   安装尝试Zeta cli ✅
     
 -   ZetaChain Node / RPC / Faucet / Explorer / 测试币获取 ✅
@@ -116,6 +158,7 @@ Qwen api调试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
