@@ -15,8 +15,26 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+> 我从 **Ethereum Localnet（chain ID 11155112）** 发起了一笔 `depositAndCall` 交易，向 ZetaChain 的 Swap 合约发送了 0.001 ETH，并附带了目标链（BNB）、目标地址和目标资产（ZRC-20 BNB）的指令。
+
+> **最终在 ZetaChain 上发生了什么？**  
+> ZetaChain 上的 Swap 合约（一个 Universal App）通过 `onCall` 入口被 Gateway 调用。它：
+> 
+> 1.  接收到 ZRC-20 形式的 ETH；
+>     
+> 2.  查询了向 BNB 链提现所需的 gas（以 ZRC-20 BNB 计价）；
+>     
+> 3.  使用 Uniswap v2 将部分 ETH 换成 BNB（用于 gas），剩余部分全部换成目标 BNB；
+>     
+> 4.  调用 Gateway 的 `withdraw`，将 BNB 发送到我在 BNB 链的地址。
+>
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 1\. 我的第一个 Universal App 想实现的功能：
 
 当用户从任意连接链（如 Ethereum、BNB 等）发送一条文本消息（例如 "Hello from Ethereum!"），我的 Universal Contract 会：
@@ -42,6 +60,7 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ### **1\. Universal App 是什么？**
 
@@ -76,6 +95,7 @@ Gateway（网关）是 **每条连接到 ZetaChain 的公链上的一个特殊�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 📝 Day 2：环境与工具实战（ZetaChain + Qwen）
@@ -239,6 +259,7 @@ GitHub 仓库：[https://github.com/jvbaoge1/zetachain](https://github.com/jvbao
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
