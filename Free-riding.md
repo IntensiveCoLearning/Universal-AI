@@ -15,8 +15,27 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+# ZetaChain函数
+
+```
+interface IZRC20{
+    #存储
+    function deposit() external payable;
+    #提取
+    function withdrraw(uint256 amount)external;
+    #转账
+    function transfer（address to,uint256 amount）external returns（bool）;
+    #查询余额
+    function balanceOf(address account) external view returns (uint256);
+}
+```
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 # 跨链
 
 也称互操作性，是指不同的区块链系统之间能够进行**数据和资产**的通信和协同工作的能力。
@@ -82,11 +101,13 @@ ZetaChain 的共识机制
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 ### **1\. 通用区块链（Universal Blockchain）**
@@ -214,6 +235,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -449,6 +471,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
