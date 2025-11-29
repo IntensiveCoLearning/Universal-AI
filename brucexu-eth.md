@@ -81,15 +81,15 @@ TODO make a cross chain tx to have a try on mainnet and Sol
 
 [https://www.zetachain.com/docs/developers/evm/gas](https://www.zetachain.com/docs/developers/evm/gas)
 
-TODO Ethereum's EIP 1559 fee model
+TODO Ethereum’s EIP 1559 fee model
 
 ## [**Outgoing Calls and Withdrawals**](https://www.zetachain.com/docs/developers/evm/gas#outgoing-calls-and-withdrawals)
 
-Universal apps on ZetaChain can initiate calls to contracts on connected chains or facilitate withdrawals of ZRC-20 tokens back to a connected chain. These operations require a "withdraw gas fee," which is calculated based on the gas limit of the target chain.
+Universal apps on ZetaChain can initiate calls to contracts on connected chains or facilitate withdrawals of ZRC-20 tokens back to a connected chain. These operations require a “withdraw gas fee,” which is calculated based on the gas limit of the target chain.
 
 It’s important to query the current gas fee, approve the Gateway to spend the necessary amount, and ensure the gas ZRC-20 token balance is sufficient. If the Gateway cannot transfer the required fee to itself, the operation will fail.
 
-ZRC-20 token refers to the outgoing chain's ZRC-20 tokens, so you need to estimate the gas first, then submit the tx. ZetaChain will help you to send TXs with same (or similar) gas settings to make it work. In this way, the gas token will be deducted from ZetaChain directly. ZetaChain can even get some tips if they want to. Similar to CEX withdrawal.
+ZRC-20 token refers to the outgoing chain’s ZRC-20 tokens, so you need to estimate the gas first, then submit the tx. ZetaChain will help you to send TXs with same (or similar) gas settings to make it work. In this way, the gas token will be deducted from ZetaChain directly. ZetaChain can even get some tips if they want to. Similar to CEX withdrawal.
 
 | Chain ID | ZRC-20 | Fee Amount | Fee Token |
 | --- | --- | --- | --- |
@@ -120,17 +120,22 @@ Cross-chain transactions (CCTXs) can be classified into two main types: incoming
 -   Outbound: The corresponding transaction is broadcasted and executed on the connected chain.
     
 
-Tracking a CCTX involves querying ZetaChain's Cosmos SDK HTTP API with an inbound transaction hash to get a CCTX hash.
+Tracking a CCTX involves querying ZetaChain’s Cosmos SDK HTTP API with an inbound transaction hash to get a CCTX hash.
 
 TODO intents on ZetaChain?
 
-TODO What will happen if ZetaChain doesn't have enough token on the connected outgoing chain? For example, if I want to swap 1eth from mainnet to BNB on BSC, but on ZetaChain contract on BSC, only 1BNB left. What will happen?
+TODO What will happen if ZetaChain doesn’t have enough token on the connected outgoing chain? For example, if I want to swap 1eth from mainnet to BNB on BSC, but on ZetaChain contract on BSC, only 1BNB left. What will happen?
 
 ## What is Threshold Signature Scheme?
+
+In a _t-of-n_ TSS, the private key is divided into _n_ unique shares (held by different parties) and at least _t_ of those parties must collaborate to sign a transaction. This approach is designed to eliminate the single point of failure inherent in traditional single-key wallets: no single person holds the entire private key, so compromising one share does not compromise the whole key
+
+TSS has emerged as a solution in blockchain systems to enhance security and trust. By distributing key control among multiple parties, TSS ensures that **“the key never exists”** in one place
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 [https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
 
@@ -190,6 +195,7 @@ Validators are comprised of 2 different roles: Core Validators and Observer-Sign
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 Created a new education tool for anaylzing solidity [https://github.com/brucexu-eth/evm-runtime-visualizer](https://github.com/brucexu-eth/evm-runtime-visualizer) with Gemini 3 Pro.
@@ -275,6 +281,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -381,6 +388,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -608,6 +616,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
