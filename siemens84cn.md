@@ -15,8 +15,43 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+-   在测试网跑通官方跨链Demo（Swap）
+    
+
+1.  [参考文档](https://www.zetachain.com/docs/developers/tutorials/swap)
+    
+2.  [源码](https://github.com/zeta-chain/example-contracts/tree/main/examples/swap)
+    
+3.  部署Swap合约，并发起跨链请求
+    
+
+```
+npx hardhat run scripts/deploy.ts --network zeta_testnet
+npx hardhat run scripts/swap.ts --network sepolia
+```
+
+-   用文字说明从哪里发起的调用？最终在ZetaChain上发生了什么？
+    
+
+1.  Demo的跨链请求，是从Ethereum Sepolia发起；
+    
+2.  在ZetaChain的几个关键步骤：
+    
+
+第一步：验证跨链请求是否合法。
+
+第二步：调用在ZetaChain Testnet上部署的Swap合约。
+
+第三步：执行Swap合约。
+
+第四步：将目标token发送到我的ZetaChain Testnet地址上，并产生最终交易记录。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 -   从开发者视角，说明ZRC-20 和普通 ERC-20 的直观区别；
     
 
@@ -52,6 +87,7 @@ timezone: UTC+8
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
     
 
@@ -65,6 +101,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 -   Universal App 是什么？
@@ -82,6 +119,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -105,6 +143,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
