@@ -15,8 +15,132 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+昨天跟着官网跑了一遍Swap，今天顺便给Messaging跑了（有大坑），然后周末稍微放松一下 嘻嘻
+
+## Messaging实操
+
+Messaging合约主要实现了在两个不同网络上进行通信
+
+还是老三样，新建项目，安装依赖，编译合约（编译合约前先等等 。。。）
+
+```Shell
+//新建swap项目
+zetachain new --project swap
+
+//进入swap项目并安装依赖
+cd swap
+yarn
+
+//更新
+forge soldeer update
+
+//编译合约
+forge build
+```
+
+### 大问题
+
+这里Messaging.sol文件中代码出了问题
+
+先看一下Messaging.sol继承的zetachain官方的Messaging.sol合约文件中的contructor构造器代码
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=MTUzNzUzOGY0MjEzZGMwODM0NjExOTE3OTRiYWM2MTVfUUNmTFRPSWkyMmhKWWV3cDdsR2w1czFXazFXZXpoZHRfVG9rZW46WFFrcGJuV1hUbzBVTVh4ZkxEUGNhMmkzblplXzE3NjQ0MjMxMTI6MTc2NDQyNjcxMl9WNA)
+
+再看一下要部署上链的Messaging合约
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=MWIyYzNlNmQxNWFjZGI1ZGMxMjExNDk1ZGYzYWVmNDRfRkY1ZHZ3R1pWaTlrdlF5N0JUWGE0RVFDZkFhYWNpV0lfVG9rZW46WU8yTWJvVFEyb2s0SEN4elRsQWNFalZCblZmXzE3NjQ0MjMxMTI6MTc2NDQyNjcxMl9WNA)
+
+因为该合约继承了上面的合约，构造器的参数入参顺序需要和上面保持一致，如果不一致的话，在执行后面将两个不同网络连接时会出现权限错误的报错
+
+这里需要考虑一点，在不同网络连接之前，需要分别先将messaging合约部署到base sepolia 和 eth sepolia上，为什么在部署的时候没有报错呢？
+
+> 简单来说，区块链并不认识“我”是谁，也不认识谁是gateway，他只管执行指令，只要指令符合语法规则，交易就会显示“成功”，owner和gatway都是一串地址，所以他并不会部署合约上链时进行区分
+
+### 部署messaging合约
+
+因为想要实现从base sepolia到eth sepolia的消息传输，所以需要分别将合约部署到base sepolia和eth sepolia上
+
+部署到base sepolia：
+
+```Shell
+MESSAGING_BASE=$(./commands/index.ts deploy --rpc https://sepolia.base.org --private-key $PRIVATE_KEY | jq -r .contractAddress)
+
+//查看MESSAGING_BASE合约的地址
+echo $MESSAGING_BASE
+0xf0dd8EA83cA5033B0fb3ee5312eB9696f5853F62
+```
+
+部署到eth sepolia:
+
+```Shell
+MESSAGING_ETHEREUM=$(./commands/index.ts deploy --rpc https://sepolia.drpc.org --private-key $PRIVATE_KEY | jq -r .contractAddress)
+
+//查看MESSAGING_ETHEREUM合约的地址
+echo $MESSAGING_ETHEREUM
+0x2323c57F0B8A8717ABC1B510745f4021f0F4C144
+```
+
+### 连接两个合约
+
+在两个合约能够跨链通信之前，需要相互信任，保证安全性。
+
+因此需要使用合约中的setConnected()函数来实习
+
+```SQL
+//base连eth
+./commands/index.ts connect \
+  --contract $MESSAGING_BASE \
+  --target-contract $MESSAGING_ETHEREUM \
+  --rpc https://sepolia.base.org \
+  --target-chain-id 11155111 \
+  --private-key $PRIVATE_KEY
+{"contractAddress":"0xf0dd8EA83cA5033B0fb3ee5312eB9696f5853F62","chainId":"11155111","connected":"0x2323c57F0B8A8717ABC1B510745f4021f0F4C144","transactionHash":"0x3bb3312b85b16c3285f852916b28cc26e096851772a1e9a098cfab987fc1243e"}
+
+//eth连base
+./commands/index.ts connect \
+  --contract $MESSAGING_ETHEREUM \
+  --target-contract $MESSAGING_BASE \
+  --rpc https://sepolia.drpc.org \
+  --target-chain-id 84532 \
+  --private-key $PRIVATE_KEY
+{"contractAddress":"0x2323c57F0B8A8717ABC1B510745f4021f0F4C144","chainId":"84532","connected":"0xf0dd8EA83cA5033B0fb3ee5312eB9696f5853F62","transactionHash":"0xaf7a92e25bd5bc2abbc9d33ffca394f5e650363f66ebe483311a2baf253b89ee"}
+```
+
+### 发送跨链消息
+
+使用以下终端命令，将hello字符串从base的合约传到eth的合约上
+
+```SQL
+./commands/index.ts message 
+ --rpc https://sepolia.base.org 
+ --private-key $PRIVATE_KEY 
+ --contract $MESSAGING_BASE 
+ --target-contract $MESSAGING_ETHEREUM 
+ --types string 
+ --values hello 
+ --target-token 0x05BA149A7bd6dC1F937fA9046A9e05C05f3b18b0 
+ --amount 0.005
+ 
+ //交易详细信息
+ {"contractAddress":"0xf0dd8EA83cA5033B0fb3ee5312eB9696f5853F62","targetContract":"0x2323c57F0B8A8717ABC1B510745f4021f0F4C144","targetToken":"0x05BA149A7bd6dC1F937fA9046A9e05C05f3b18b0","message":"0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000568656c6c6f000000000000000000000000000000000000000000000000000000","transactionHash":"0x84aaec6261d009f840a8ca2388d52018121ee6b6e288ec596617f44de7839820","amount":"0.005"}
+```
+
+### 查看跨链交易
+
+```YAML
+npx zetachain query cctx --hash 0x84aaec6261d009f840a8ca2388d52018121ee6b6e288ec596617f44de7839820
+```
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=YzExZjIzYTE5YzU2MDI3NWU5YjZhM2MzOGJjMzUzMzRfNkRRcVVQQkhyRzJoMnRQbE0yUVBnSjg1a0kwN25ucnlfVG9rZW46QXZzTGJYYlNOb1dwMm54ZEpCdmNkQlcxbmVmXzE3NjQ0MjMxMTI6MTc2NDQyNjcxMl9WNA)
+
+可以看到68656c6c6f就是hello的十六进制，已经被传输出去
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ### Swap实操
 
 首先先通过下面几条命令新建swap项目以及更新和安装对应依赖
@@ -153,6 +277,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 ## 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
 > 想做一个全链留言板，用户可以从任何链提交留言，ZetaChain 统一记录。
@@ -164,6 +289,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 ### Qwen
@@ -245,6 +371,7 @@ Gateway的架构图
 
 
 
+
 ## 部署在本地的universal合约
 
 ```Solidity
@@ -304,6 +431,7 @@ forge create Universal \
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
