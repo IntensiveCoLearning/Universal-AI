@@ -15,8 +15,77 @@ web3 developer
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+## Messaging
+
+## **🄐 跨链消息流程**
+
+Example合约 --> Zetachain Router --> Example合约
+
+| |
+
+Gateway Gateway
+
+( 有点丑，大概长这样)
+
+## **🄑 Messaging代码（上图中的Example）**
+
+-   构造函数
+    
+    -   \_gateway. 当前链的gateway address
+        
+    -   owner 合约拥有者
+        
+    -   \_router zetachain侧的router
+        
+-   `sendMessage`
+    
+    -   receiver 目标链的接受者
+        
+    -   targetToken 目标链代币地址
+        
+    -   data 数据
+        
+    -   gaslimit gas限制
+        
+    -   revertOpention 回滚选项
+        
+    
+    用户调用Example.sendMessage(...) -> gateway -> 这时候已经到了zetachain！{router，处跨链路由} ->
+    
+    \-> 目标链gateway -> 目标链Example.onCall
+    
+-   `sendMessage ERC20`
+    
+    类似上面的函数，但是在调用的时候需要代币转账，同时链路内部处理也就多了点approve的操作
+    
+-   `onMessageReceive`
+    
+    目标链在获得message的时候的回调函数，由gateway通过onCall触发。
+    
+-   还有一些revert函数，用来处理回滚
+    
+
+## **🄒 Router**
+
+当通过gateway.depositAndCall(...) 发送跨链消息的时候，zetachain中的router负责handles routers
+
+1.  解析原链的message payload
+    
+2.  将代币swap，用来付gas fee(if exist)
+    
+3.  将消息转发到目标链，包括message payload和token
+    
+4.  回滚逻辑
+    
+
+这样的router，解决了gas处理，token交互的机制。也就是说我们合约只需要关系message payload就好了
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 \### ZRC20
 
 开发者不能铸造 ZRC20,开发者在 zetachain 铸造的 ERC20，不叫 ZRC20。简单来说，ZRC20 可以看作,外部链上的原生 gas 资产或在白名单的 ERC-20 在 ZetaChain 上的 representation,比如跨链的转账，ETH -> ZRC-ETH -> SOL。
@@ -31,6 +100,7 @@ web3 developer
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 hello和swap的demo都已经在前几天的笔记中分享过了。今天事情有点多，学习的时间实在是少。
 
 大概的想法是做一个rebase token，可以在所有链上交易。
@@ -40,6 +110,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 ### Q1: Universal App 是什么?
@@ -53,6 +124,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -131,6 +203,7 @@ swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
