@@ -15,8 +15,42 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+今天实际去跑 swap 的 demo记录遇到的问题
+
+在 deplo 合约上都没遇到问题，只是在获取 zetachain 测试网的以太坊 Sepolia ETH 的 ZRC-20 地址报错了
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-11-29-1764428934749-image.png)
+
+解决思路，使用 zetachain 的 cli 获取目前测试网可行的 tokens ，从中获取 ETH.ETHSEP 是正确的写法，官网似乎有点偏差
+
+最后在执行 swap 的时候又遇到错误
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-11-29-1764429039840-image.png)
+
+解决方案是在运行参数后面加个 --private-key 0x私钥
+
+![22d6991e-6bc2-40aa-8e97-caefffb740f8.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-11-29-1764429120982-22d6991e-6bc2-40aa-8e97-caefffb740f8.png)
+
+最终在 basescan 看到本笔交易的详情
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-11-29-1764429164201-image.png)
+
+### **你是从哪里发起的调用？**
+
+调用是由我在连接链上，通过 Gateway 的 depositAndCall 发起的，receiver 指向 ZetaChain 上的 Swap 通用合约。
+
+### **最终在 ZetaChain 上发生了什么？**
+
+-   调用来源：我在「源 EVM 链」用 npx zetachain evm deposit-and-call 调用了该链的 Gateway 的 depositAndCall，指定 ZetaChain 上的 Swap 通用合约 (--receiver $UNIVERSAL)，并把 swap 所需参数通过 --values 带过去。
+    
+-   ZetaChain 上的结果：ZetaChain Gateway 把跨链过来的资产交给 Swap 合约，触发 Swap.onCall；Swap 先根据 withdraw = true 计算并支付目标链提现的 gas，再用 Uniswap 把输入 ZRC20 换成 $ZRC20\_ETHEREUM\_ETH，最后通过Gateway 的 withdraw 把这部分资产跨链释放到目标链上 $RECIPIENT 地址。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **Gateway（网关）** 是 ZetaChain 跨链架构中的关键基础设施合约，它充当：
 
 -   跨链消息的入口和出口
@@ -70,6 +104,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 -   **ZRC-20 和普通 ERC-20 的直观区别**
     
 
@@ -96,6 +131,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 **1\. 什么是 ZetaChain 通用应用？在代币交换的场景下，它解决了什么核心问题？**
@@ -145,6 +181,7 @@ Swap 工作流程
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -204,6 +241,7 @@ ZetaChain为开发者提供了一个统一的平台来处理跨链消息、资�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
