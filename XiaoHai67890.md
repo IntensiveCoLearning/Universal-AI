@@ -15,8 +15,344 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+**Day 6 学习笔记：**
+
+## 一、一次调用完成跨链 DeFi
+
+这一天的核心是：**从一个链发起一次交易，让 ZetaChain 在背后帮我们完成跨链 Swap**。
+
+官方 Swap 教程里的场景是：  
+在 Base Sepolia 上发起一笔交易，把 ETH 打进 ZetaChain 上的一个 Universal App（`Swap` 合约），它在链上帮我们：
+
+1.  接收从 Base 过来的资产（作为 ZRC-20 代币）；
+    
+2.  在 ZetaChain 上用 Uniswap v2 池做兑换；
+    
+3.  把兑换后的资产再次“提”到另一条链（比如 Ethereum Sepolia），在那边以原生资产的形式到账。
+    
+
+这一整套流程对用户来说只是一笔交易，但实际上经历了：**Base → ZetaChain → Ethereum** 三条链的联动。
+
+## 二、我选择的 Demo：官方 Swap Universal App
+
+这次实践我选择了官方文档里的 **Swap 教程**，而不是 Messaging：
+
+-   Swap 教程本身就展示了一个典型的 **Universal DeFi 动作**：跨链兑换 + 出金。
+    
+-   它使用的是官方的 `UniversalContract` 接口，代码可以在 `example-contracts` 仓库的 `examples` 目录中找到对应示例。
+    
+
+Swap 合约的几个关键特性：
+
+-   合约部署在 **ZetaChain** 上，属于 Universal App。
+    
+-   所有从其他链过来的资产，在 ZetaChain 上都表现为 **ZRC-20**。
+    
+-   对外暴露一个统一入口函数 `onCall(MessageContext context, address zrc20, uint256 amount, bytes message)`，只能由 Gateway 调用。
+    
+
+## 三、环境准备 & 关键命令记录
+
+### 1\. 初始化项目
+
+根据官方教程，我用 ZetaChain CLI 创建了一个 Swap 项目：
+
+```
+# 1. 初始化 Swap 项目
+zetachain new --project swap
+
+cd swap
+
+# 2. 安装 JS 依赖
+yarn
+
+# 3. 拉取 Solidity 依赖并编译
+forge soldeer update
+forge build
+```
+
+这几步会：
+
+-   生成一个包含 Universal App 模板代码的项目；
+    
+-   帮你配置好 Foundry、ZetaChain CLI 的基础结构；
+    
+-   编译出可以部署到 ZetaChain Testnet 的 Swap 合约。
+    
+
+### 2\. 部署到 ZetaChain Testnet
+
+官方提供了现成的 `commands deploy` 脚本，我按教程用一个测试私钥来部署：
+
+```
+# 事先设置一个 EVM 测试私钥
+export PRIVATE_KEY=0x...  # 只用于测试网
+
+# 部署 Universal Swap 合约到 ZetaChain Testnet
+UNIVERSAL=$(
+  npx tsx commands deploy --private-key $PRIVATE_KEY \
+  | jq -r .contractAddress
+)
+echo "Universal app address on ZetaChain: $UNIVERSAL"
+```
+
+这里的关键配置项：
+
+-   `PRIVATE_KEY`：
+    
+    -   EVM 测试私钥，对应的地址会作为部署者和之后的 `RECIPIENT` 地址来源。
+        
+-   `UNIVERSAL`：
+    
+    -   部署到 ZetaChain Testnet 的 **Swap Universal App 地址**，后面所有跨链调用都会把资产和 payload 发给它。
+        
+
+### 3\. 查询目标资产的 ZRC-20 地址 & 发送方地址
+
+Swap 合约需要知道“我要最终在目标链上拿到什么代币”，在教程中用的是 **Ethereum Sepolia 上的 ETH**，对应 ZetaChain 上的 ZRC-20：
+
+```
+# 从私钥推导出 EVM 地址，作为最终在 Ethereum Sepolia 收款的地址
+RECIPIENT=$(cast wallet address $PRIVATE_KEY)
+echo "Recipient on Ethereum Sepolia: $RECIPIENT"
+
+# 查询 ZetaChain 上代表 Ethereum Sepolia ETH 的 ZRC-20 地址
+ZRC20_ETHEREUM_ETH=$(
+  zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20
+)
+echo "ZRC-20 for ETH on Ethereum Sepolia: $ZRC20_ETHEREUM_ETH"
+```
+
+## 四、从调用视角看整个跨链 Swap 流程
+
+### 1\. 调用是从哪里发起的？
+
+这次我按照教程里 **“Swap from Base to Ethereum”** 的路径来跑：
+
+> **发起点：本地终端 + Zetachain CLI，对 Base Sepolia（chain id 84532）的 Gateway 合约发起** `depositAndCall`**。**
+
+命令如下：
+
+```
+npx zetachain evm deposit-and-call \
+  --chain-id 84532 \
+  --amount 0.001 \
+  --types address bytes bool \
+  --receiver $UNIVERSAL \
+  --values $ZRC20_ETHEREUM_ETH $RECIPIENT true
+```
+
+这条命令做了几件事：
+
+-   `--chain-id 84532`：指定在 **Base Sepolia** 上发交易；
+    
+-   `--amount 0.001`：从 Base Sepolia 发 0.001 ETH 作为输入资产；
+    
+-   `--receiver $UNIVERSAL`：ZetaChain 上 Swap 合约地址，资产会在 ZetaChain 上打给它；
+    
+-   `--types address bytes bool` & `--values ...`：  
+    用 ABI 编码生成 `message`，对应 Swap 合约里 `onCall` 的第三个参数：
+    
+    -   `address targetToken` → `$ZRC20_ETHEREUM_ETH`：我要最终得到的目标 ZRC-20（Ethereum Sepolia ETH）；
+        
+    -   `bytes recipient` → `$RECIPIENT` 的 bytes 形式：最终在 Ethereum Sepolia 收款的地址；
+        
+    -   `bool withdrawFlag` → `true`：告诉合约这次要 **提到外部链**，而不是留在 ZetaChain。
+        
+
+所以，从工程师视角，这次调用是：
+
+> **从本地命令行，使用** `npx zetachain evm deposit-and-call`**，向 Base Sepolia 上的 GatewayEVM 发起一次 “存入 + 调用” 的跨链操作**。
+
+## 五、在 ZetaChain 上到底发生了什么？
+
+可以分为 **“进来”** 和 **“出去”** 两部分来看。
+
+### 1\. 进来：Base → ZetaChain（Incoming Transaction）
+
+1.  我在 Base Sepolia 上调用 GatewayEVM 的 `depositAndCall`，转入 0.001 ETH，并附带 payload。
+    
+2.  Base 上的 GatewayEVM 合约：
+    
+    -   锁定 / 管理这 0.001 ETH；
+        
+    -   发出一个事件，描述这次跨链请求。
+        
+3.  ZetaChain 的 Observer-Signer validators 监听到这个事件，收集交易数据并在 ZetaChain 上对这次跨链请求进行投票（CrossChain 模块维护 CCTX 状态）。
+    
+4.  多数投票通过后，ZetaChain：
+    
+    -   记录一个新的 CCTX；
+        
+    -   在 ZetaChain 上 **铸造等值的 ZRC-20 Base ETH**（代表这 0.001 ETH）；
+        
+    -   调用我部署的 `Swap` Universal App 的 `onCall` 函数，并把：
+        
+        -   `zrc20` 设置为 ZRC-20 Base ETH 合约地址；
+            
+        -   `amount` 设置为 0.001 ETH 对应的 ZRC-20 数量；
+            
+        -   `message` 设置成前面通过 `--types/--values` 编码的 payload。
+            
+
+### 2\. 合约内部：Swap Universal App 的逻辑
+
+在 `onCall` 里，大致发生了这些事：
+
+1.  **解码 message payload**：
+    
+    ```
+    (address targetToken, bytes memory recipient, bool withdrawFlag) =
+        abi.decode(message, (address, bytes, bool));
+    ```
+    
+    对应我们传入的：`targetToken = ZRC20_ETHEREUM_ETH`，`recipient = RECIPIENT`，`withdrawFlag = true`。
+    
+2.  **查询目标链提取需要的 gas**：
+    
+    ```
+    (address gasZRC20, uint256 gasFee) = IZRC20(targetToken).withdrawGasFee();
+    ```
+    
+    -   `gasZRC20`：在 ZetaChain 上代表 **目标链 gas 代币** 的 ZRC-20（例如 Ethereum Sepolia 的 gas 代币）；
+        
+    -   `gasFee`：把资产从 ZetaChain 提到目标链一次所需的 gas 数量。
+        
+3.  **检查用户输入是否够支付 gas + 兑换需要**：
+    
+    ```
+    uint256 minInput = quoteMinInput(inputToken, targetToken);
+    if (amount < minInput) revert InsufficientAmount(...);
+    ```
+    
+    合约利用 Uniswap v2 的报价判断：当前的输入金额是否足够支付目标链 gas + 兑换损耗。
+    
+4.  **从输入资产中“切一块出来”换 gas**：
+    
+    如果当前的输入资产 `inputToken` 不是 `gasZRC20`，就先在 ZetaChain 用 Uniswap v2 换出足够的 gas 代币：
+    
+    ```
+    inputForGas = SwapHelperLib.swapTokensForExactTokens(
+      uniswapRouter, inputToken, gasFee, gasZRC20, amount
+    );
+    ```
+    
+5.  **剩余部分全部兑换成目标资产**：
+    
+    ```
+    out = SwapHelperLib.swapExactTokensForTokens(
+      uniswapRouter,
+      inputToken,
+      amount - inputForGas,
+      targetToken,
+      0
+    );
+    ```
+    
+    这里 `out` 就是这次 Swap 在 ZetaChain 上得到的目标 ZRC-20 数量。
+    
+6.  **授权 GatewayZEVM，发起 withdraw**：
+    
+    接下来合约会：
+    
+    -   先 `approve` 网关合约可以花费：
+        
+        -   `gasZRC20` 的 `gasFee`；
+            
+        -   `targetToken` 的 `out` 数量（或者两者合并授权，如果 gas 代币和目标代币是同一个）。
+            
+    -   再调用 ZetaChain 上的 `GatewayZEVM.withdraw`，把这些 ZRC-20 **“燃烧”掉，并指定目标链和收款地址**：
+        
+        ```
+        gateway.withdraw(
+          abi.encodePacked(recipient),  // 通用 bytes 地址
+          out,                          // 提取的目标资产数量
+          targetToken,                  // 要提取的 ZRC-20
+          revertOptions                 // 出错时的回退策略
+        );
+        ```
+        
+
+### 3\. 出去：ZetaChain → Ethereum（Outgoing Transaction）
+
+当 `GatewayZEVM.withdraw` 被调用后，ZetaChain 又会走一遍“出站”流程：
+
+1.  **在 ZetaChain 内部创建 Outbound 请求**：  
+    CrossChain 模块更新 CCTX 状态，从 `PendingInbound` 变为 `PendingOutbound`；记录目标链（Ethereum Sepolia）、接收地址、资产数量等。
+    
+2.  **Validator 通过 TSS 共同签名出站交易**：  
+    一部分观察者兼签名者验证参数无误后，用 Threshold Signature Scheme 生成一笔在 Ethereum Sepolia 上的链外交易签名。
+    
+3.  **把交易广播到 Ethereum Sepolia**：  
+    出站交易在 Ethereum Sepolia 上被打包、执行：
+    
+    -   对应的托管合约释放/铸造 ETH；
+        
+    -   把 ETH 发送到 `RECIPIENT` 地址。
+        
+4.  **更新 CCTX 状态为** `OutboundMined`：  
+    最终，CCTX 被标记为完成，这一整次跨链 Swap 结束。  
+    在文档示例中，可以通过 `zetachain query cctx --hash ...` 查看从 Base → ZetaChain → Ethereum 的完整 CCTX 轨迹。
+    
+
+如果出站过程中失败（比如目标链交易失败），`onRevert` 和 `RevertOptions` 会触发回退逻辑，按合约的预设方式 refund。
+
+## 六、作业
+
+### 1\. 你是从哪里发起的调用？
+
+-   **调用入口**：本地终端（命令行）。
+    
+-   **使用工具**：`npx zetachain evm deposit-and-call`。
+    
+-   **真正被调用的链上对象**：
+    
+    -   位于 **Base Sepolia（chain id 84532）** 的 `GatewayEVM` 合约的 `depositAndCall` 函数。
+        
+
+换句话说，我在本地敲了一条 CLI 命令，但那条命令实质上 **在 Base Sepolia 上发起了一笔跨链请求**。
+
+### 2\. 最终在 ZetaChain 上发生了什么？
+
+概括一下，在 ZetaChain 上的关键步骤是：
+
+1.  **铸造 ZRC-20**：  
+    ZetaChain 检测到 Base 上的存入事件后，为这 0.001 ETH 铸造了 ZRC-20 版的 Base ETH。
+    
+2.  **调用 Universal Swap 合约的** `onCall`：  
+    把铸造的 ZRC-20 + payload 传给 Swap 合约，触发跨链 Swap 的业务逻辑。
+    
+3.  **在 ZetaChain 上完成兑换 & Gas 处理**：
+    
+    -   用一部分输入资产换出目标链的 gas 代币；
+        
+    -   用剩余部分在 ZetaChain 的 Uniswap v2 池中兑换成目标 ZRC-20（Ethereum Sepolia ETH）。
+        
+4.  **调用 GatewayZEVM 发起 withdraw**：  
+    授权并调用 `GatewayZEVM.withdraw`，把目标 ZRC-20 燃烧，并携带收款地址（`RECIPIENT`）发起出站交易。
+    
+5.  **跨链出站完成后更新 CCTX 状态**：  
+    Validator 使用 TSS 在 Ethereum Sepolia 上执行转账，成功后 CCTX 被标记为完成，一个“Base → ZetaChain → Ethereum”的跨链 Swap 结束。
+    
+
+## 七、个人理解与收获
+
+1.  **Universal App 把复杂度聚合到 ZetaChain**  
+    作为开发者，我只需要在 ZetaChain 上写一个 `Swap` 合约，实现一次 Swap 的业务逻辑；所有跨链的存入 / 提取、资产映射、签名、安全，都由协议层完成。
+    
+2.  **资产统一视图：ZRC-20 是关键抽象**  
+    无论资产来自 Base、Ethereum 还是 Solana，只要到了 ZetaChain 上，就统一变成 ZRC-20，合约只需要和 ZRC-20 + Gateway 协作，就能同时支持多条链。
+    
+3.  **一次交易 ≈ 多链协同的封装**  
+    对用户来说，只是一次在 Base 上的交易；  
+    对协议来说，是一整条 CCTX 的生命周期，从 **Incoming → 在 ZetaChain 执行 → Outgoing** 的完整过程。这种抽象正是 “Universal DeFi” 的体验基础。
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ### Day 5 学习笔记：
 
 ## 一、今天要搞清楚的三个核心概念
@@ -318,6 +654,7 @@ timezone: UTC+8
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 ## 笔记Day4
 
@@ -686,6 +1023,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
 
+
 # 学习笔记 Day 3：ZetaChain & Universal Blockchain 核心概念
 
 ## 1\. 整体认识：什么是 “Universal Blockchain / Universal EVM”？
@@ -887,6 +1225,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1240,6 +1579,7 @@ Body（raw + JSON）示例：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
