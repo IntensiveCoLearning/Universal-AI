@@ -15,8 +15,26 @@ web3独立开发者，曾编写过solana合约、套利等
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+Let’s consider the path from Arbitrum ETH to Polygon POL, because ZetaChain supports these tokens natively.
+
+1\. Arbitrum: deposit and call ETH
+
+2\. ZetaChain: the protocol mints ZRC-20 ETH.ARB and deposits it to a universal contract (let’s call it a swap contact)
+
+3\. The universal contract swaps ZRC-20 ETH.ARB for ZRC-20 POL.POL
+
+4\. The universal contract withdraws ZRC-20 POL.POL to Polygon.
+
+ZetaChain doesn’t provide a swap contract, you can build one yourself or use Zuni for example.
+
+If you want to get wrapped ETH on Polygon as the result, you withdraw and call, which can execute a swap on dex on Polygon to swap POL for wrapped ETH.
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 # 跨链代币总量控制机制
 
   
@@ -100,6 +118,7 @@ require(totalSupply() + amount <= MAX\_SUPPLY, "Exceeds max supply");
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
+
 # Swap 合约系统性分析
 
 解决的核心问题
@@ -131,6 +150,7 @@ require(totalSupply() + amount <= MAX\_SUPPLY, "Exceeds max supply");
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ```
@@ -197,6 +217,7 @@ require(totalSupply() + amount <= MAX\_SUPPLY, "Exceeds max supply");
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
