@@ -15,8 +15,16 @@ a student developer with interest in AI and blockchain
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+Succesful deploy the swap contract by foundry and fill in the sepolia eth to base chain for the swap instruction
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/cheng-chun-yuan/images/2025-11-29-1764430879036-image.png)
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **ZRC20 是外部鏈資產在 ZetaChain 上的映射與統一標準**  
 例如：  
 ETH（以太坊） → ZRC-ETH（ZetaChain） → SOL（Solana）  
@@ -39,6 +47,7 @@ ETH（以太坊） → ZRC-ETH（ZetaChain） → SOL（Solana）
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/cheng-chun-yuan/images/2025-11-26-1764170707675-image.png)
 
@@ -95,6 +104,7 @@ The "secure gate" that lets data and assets move between chains. It's powered by
 <!-- DAILY_CHECKIN_2025-11-25_START -->
 
 
+
 -   Qwen Request: get api key from website and request through terminal !!
     
 
@@ -118,6 +128,7 @@ The "secure gate" that lets data and assets move between chains. It's powered by
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
