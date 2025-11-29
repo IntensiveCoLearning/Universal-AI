@@ -16,8 +16,14 @@ AI 开发者, Qwen 实战派，看好Web3+ 模块化链
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+上了一下测试链
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ## ZetaChain ZRC-20 跨链资产统一与 Swap 流程图
 
 1.  **外部资产入链** — 用户从源链（如 Base、Ethereum）发送资产到 TSS 托管地址（非中心化）。
@@ -92,6 +98,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 ![1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-27-1764250272995-1.png)
 
 终于克服了依赖缺失和路径配置等重重报错，**成功在本地跑通了最核心的跨链 Swap 业务模拟**。
@@ -101,6 +108,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -394,6 +402,7 @@ Merkle树用哈希聚合交易 → 一个根哈希代表所有交易，轻节点
 
 
 
+
 ## 1\. 开发环境处理 (WSL Linux)
 
 起步发现WSL被 Docker 占用、WSL 无法启动、忘记密码。
@@ -626,6 +635,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
