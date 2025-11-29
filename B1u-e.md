@@ -15,8 +15,14 @@ Web3 全沾开发者、社区运营
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+今天水一下打卡，在外出活动，手机水水水水水水
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 **Zetachain 投研报告快速结论（TL;DR）**
 
 -   ZetaChain 自称为“Universal / Omnichain”Layer-1，目标是在链层原生支持跨链资产与跨链合约（包括比特币这类非智能合约链），代表着“把跨链能力内建到 L1”的路线。
@@ -32,6 +38,7 @@ Web3 全沾开发者、社区运营
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 ## **1️⃣ 通用区块链（Universal Blockchain）**
 
@@ -120,6 +127,7 @@ EVM（Ethereum Virtual Machine）是以太坊的智能合约执行环境。
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 第一天打卡，大概看了一下学习资料和配置了一下环境
