@@ -15,8 +15,123 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+[https://www.zetachain.com/docs/developers/evm](https://www.zetachain.com/docs/developers/evm)
+
+ZetaChain uses a hub-and-spoke architecture:
+
+-   Hub: ZetaChain, the main coordination layer for all cross-chain activity.
+    
+-   Spokes: External blockchains (EVM, Solana, Sui, Ton, and Bitcoin) connected with standardized protocols.
+    
+
+All cross-chain messages and transactions pass through ZetaChain, ensuring consistent handling, easier integration of new chains, and a single point for enforcing security and validation rules.
+
+**Observer-Signer Validators**
+
+-   Monitor ZetaChain and connected chains for cross-chain events.
+    
+-   Vote on event validity; upon majority agreement, coordinate outbound transactions.
+    
+-   Sign outbound transactions using a Threshold Signature Scheme (TSS) so no single validator controls the signing key.
+    
+
+* * *
+
+ZetaChain is used as a ledger for cross chain events.
+
+## [**Protocol Contracts**](https://www.zetachain.com/docs/developers/evm#protocol-contracts)
+
+To enable interaction between users, applications, and the ZetaChain network, protocol contracts are deployed both on ZetaChain and on connected external chains.
+
+**On ZetaChain**
+
+| Contract | Purpose |
+| --- | --- |
+| GatewayZEVM | Primary entry point for outbound transactions. Handles asset withdrawals, external contract calls, and ZRC-20 mint/burn logic. |
+| ZRC-20 | ERC-20–compliant tokens representing assets from connected chains, enabling fungible asset transfers within ZetaChain. |
+| ContractRegistry | Stores and provides metadata for deployed protocol contracts (e.g., gateway, ZRC-20s) to ensure consistent references across the network. |
+
+**On Connected EVM Chains**
+
+| Contract | Purpose |
+| --- | --- |
+| GatewayEVM | Entry point for inbound transactions. Handles deposits, contract calls to ZetaChain, and emits events for observers to track. |
+| ERC20Custody | Holds ERC-20 assets deposited for cross-chain transfers, ensuring secure custody until transactions are processed. |
+| ContractRegistry | Stores and provides metadata for deployed protocol contracts on the connected chain, allowing clients and services to locate the correct contract addresses. |
+
+**On Other Connected Chains (Solana, Sui, TON, etc.)**
+
+| Contract | Purpose |
+| --- | --- |
+| Gateway | Entry point for initiating and receiving cross-chain transactions between the connected chain and ZetaChain. Functions are adapted to the chain’s native runtime (e.g., Solana program, Sui Move module, TON smart contract). |
+
+## [**Cross-Chain Transaction Workflow**](https://www.zetachain.com/docs/developers/evm#cross-chain-transaction-workflow)
+
+The process differs for **incoming** (connected chain → ZetaChain) and **outgoing** (ZetaChain → connected chain) transactions, but both follow a secure, validator-driven workflow.
+
+ZetaChain removes much of the friction of building cross-chain applications. Instead of juggling different SDKs, bridges, and security models, you get a single platform that handles cross-chain messaging, asset movement, and contract calls for you.
+
+TODO make a cross chain tx to have a try on mainnet and Sol
+
+[https://www.zetachain.com/docs/developers/evm/gateway](https://www.zetachain.com/docs/developers/evm/gateway)
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-29-1764381138415-image.png)
+
+[https://www.zetachain.com/docs/developers/evm/gas](https://www.zetachain.com/docs/developers/evm/gas)
+
+TODO Ethereum's EIP 1559 fee model
+
+## [**Outgoing Calls and Withdrawals**](https://www.zetachain.com/docs/developers/evm/gas#outgoing-calls-and-withdrawals)
+
+Universal apps on ZetaChain can initiate calls to contracts on connected chains or facilitate withdrawals of ZRC-20 tokens back to a connected chain. These operations require a "withdraw gas fee," which is calculated based on the gas limit of the target chain.
+
+It’s important to query the current gas fee, approve the Gateway to spend the necessary amount, and ensure the gas ZRC-20 token balance is sufficient. If the Gateway cannot transfer the required fee to itself, the operation will fail.
+
+ZRC-20 token refers to the outgoing chain's ZRC-20 tokens, so you need to estimate the gas first, then submit the tx. ZetaChain will help you to send TXs with same (or similar) gas settings to make it work. In this way, the gas token will be deducted from ZetaChain directly. ZetaChain can even get some tips if they want to. Similar to CEX withdrawal.
+
+| Chain ID | ZRC-20 | Fee Amount | Fee Token |
+| --- | --- | --- | --- |
+| 1 | USDC.ETH | 0.0000222162735 | ETH.ETH |
+| 1 | PEPE.ETH | 0.0000222162735 | ETH.ETH |
+
+To calculate fees for a different gas limit, please, check out use the `query fees` command:
+
+```
+npx zetachain query fees
+```
+
+[https://www.zetachain.com/docs/developers/evm/cctx](https://www.zetachain.com/docs/developers/evm/cctx)
+
+Cross-chain transactions (CCTXs) can be classified into two main types: incoming and outgoing.
+
+**Incoming transactions** (connected chain → ZetaChain) are initiated on a connected chain and result in a transaction on ZetaChain. An incoming transaction consists of two transactions:
+
+-   Inbound: a transaction is initiated and observed on the connected chain.
+    
+-   Outbound: the corresponding transaction is broadcasted and executed on ZetaChain.
+    
+
+**Outgoing transactions** (ZetaChain → connected chain) are initiated on ZetaChain and result in a transaction on a connected chain. An outgoing transaction consists of two transactions:
+
+-   Inbound: A transaction is initiated and observed on ZetaChain.
+    
+-   Outbound: The corresponding transaction is broadcasted and executed on the connected chain.
+    
+
+Tracking a CCTX involves querying ZetaChain's Cosmos SDK HTTP API with an inbound transaction hash to get a CCTX hash.
+
+TODO intents on ZetaChain?
+
+TODO What will happen if ZetaChain doesn't have enough token on the connected outgoing chain? For example, if I want to swap 1eth from mainnet to BNB on BSC, but on ZetaChain contract on BSC, only 1BNB left. What will happen?
+
+## What is Threshold Signature Scheme?
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 [https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-27-1764275585407-image.png)
@@ -75,6 +190,7 @@ Validators are comprised of 2 different roles: Core Validators and Observer-Sign
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 Created a new education tool for anaylzing solidity [https://github.com/brucexu-eth/evm-runtime-visualizer](https://github.com/brucexu-eth/evm-runtime-visualizer) with Gemini 3 Pro.
 
@@ -159,6 +275,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 Qwen API + SDK installed.
@@ -264,6 +381,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -490,6 +608,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
