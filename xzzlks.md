@@ -15,8 +15,67 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-29
+<!-- DAILY_CHECKIN_2025-11-29_START -->
+# DAY6：本周workshop学习笔记
+
+## 基于 ZRC20 标准的跨链资产映射、兑换与跨链调用逻辑
+
+### **一、核心跨链场景**
+
+实现不同公链资产的跨链流通，流程示例：Ethereum ETH → 映射为 ZRC20 资产（ETH.ETH）→ Swap 兑换为 ZRC20 BTC.BTC → 提取为 Bitcoin BTC
+
+### **二、ZRC20 标准接口（跨链资产映射合约）**
+
+ZRC20 是适配跨链场景的资产标准（类似 ERC20），核心接口：
+
+```solidity
+interface IZRC20 {
+    function deposit() external payable; // 原生资产存入，映射为ZRC20资产
+    function withdraw(uint256 amount) external; // ZRC20资产提取，换回原生资产
+    function transfer(address to, uint256 amount) external returns(bool); // ZRC20资产转账
+    function balanceOf(address account) external view returns(uint256); // 查询ZRC20资产余额
+}
+```
+
+### **三、跨链调用函数：crossChainCall**
+
+负责链间信息 / 资产的传递，是跨链交互的核心函数：
+
+-   函数核心参数：
+    
+
+```solidity
+function crossChainCall(
+    bytes calldata origin, // 源链信息
+    uint256 originChainID, // 源链 ChainID
+    address zrc20, // 源链ZRC-20合约地址
+    uint256 amount, // 代币数量
+    bytes calldata message // 跨链信息（含目标链ID、目标资产、数量等）
+) external;
+```
+
+-   核心步骤：
+    
+
+**1.解析信息**：通过`abi.decode`从`message`中解析目标资产、最小接收量
+
+(address targetToken, uint256 minAmount) = abi.decode(message, (address, uint256));
+
+**2.跨链交互逻辑实现**：调用`calculateSwapAmount`获取实际兑换量，需满足`兑换量≥minAmount`的校验
+
+uint256 amountOut = calculateSwapAmount(amount);
+
+require(amountOut >= minAmount,"invalid output");
+
+**3.提取到目标链**：调用 ZRC20 合约的`withdraw`方法，将资产提取到目标链
+
+IZRC20(targetToken).withdraw(amountOut,recipient,targetChainID);
+<!-- DAILY_CHECKIN_2025-11-29_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 # Day 5：Universal DeFi & 全链资产基础学习笔记
 
 **日期**：2025年11月28日 星期五 **核心主题**：ZRC-20标准解析与全链资产应用逻辑
@@ -105,6 +164,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 # Day 4：Universal App + Hello World 心智模型学习笔记
 
 **日期**：2025年11月27日 星期四 **核心主题**：Universal App认知深化与Hello World Demo落地规划
@@ -190,6 +250,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
 
+
 # Day 3：ZetaChain & Universal Blockchain 核心概念学习笔记
 
 **日期**：2025年11月26日 星期三 **核心主题**：Universal Blockchain系列概念解析与ZetaChain架构可视化
@@ -255,6 +316,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 ### ZetaChain CLI 安装与验证（本地环境：Windows）
 
 1.  **安装步骤**： 前置依赖：确认已安装Go（版本≥1.20）。打开命令提示符（CMD）或PowerShell，输入`go version`验证；若未安装，访问Go官网（[https://go.dev/dl/）下载Windows版安装包，勾选“Add](https://go.dev/dl/）下载Windows版安装包，勾选“Add) Go to PATH”选项后完成安装。
@@ -301,6 +363,7 @@ Postman测试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
