@@ -15,8 +15,14 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+先打卡 等等補筆記
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 今天試著白話分享一下自己對 ZetaChain 的理解：
 
 ### ZetaChain 在解決什麼問題？
@@ -221,6 +227,7 @@ CCTX 的部份不外乎就是
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 先打個卡，晚點補上 Zeta 概念統整
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
@@ -228,11 +235,13 @@ CCTX 的部份不外乎就是
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 今天主要看了 zeta 架構 明天開始實作
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -249,6 +258,7 @@ CCTX 的部份不外乎就是
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
