@@ -15,8 +15,18 @@ tg写的微信号
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+项目：
+
+全链gas充值：用一条链的资产为多链gas费充值，服务于经常进行跨链操作的defi用户
+
+全链一键存款：对刚进入区块链的用户更加方便的在各链上都能买入资产。只用在zetachain上操作更加方便
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 启动测试网
 
 ```
@@ -38,6 +48,7 @@ npx hardhat run scripts/swap.js --network localnet
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 **多链资产被包装成zrc20然后在zetachain上使用于defi**
 
@@ -62,6 +73,7 @@ gateway.depositAndCall()函数的RevertOptions结构体参数会在跨链调用�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -98,6 +110,7 @@ onlyGateway确保只有网关能调用
 
 
 
+
 ## cctx
 
 跨链交易
@@ -117,6 +130,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -149,6 +163,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
