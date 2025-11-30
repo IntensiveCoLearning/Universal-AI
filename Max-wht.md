@@ -15,8 +15,70 @@ web3 developer
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+## **LSDFi**
+
+`Liquid Derivatives Finance 流动性质押衍生品金融` 建立在`Liquid staking + staking derivatives` 之上 所谓流动性质押，就是用户把 ETH 或者其他加密资产质押(`staking`)用来支持网络，同时代表一种质押权益的代币(`LSD / LST`)，它是可以`流动`的，也就是可以被交易。通过 LST，持有者可以既获得质押奖励，同时也可以将手中的 LST 进行 DeFi 实用 `借贷`、`抵押`、`流动性挖矿` (`liquidity-pool`)、`收益耕种` (`yield farming`)、`发行稳定币` (`stablecoin`)、或者参与组合策略 (yield-aggregation) 等。
+
+### **通常 LSDFi 的流程如下：**
+
+NaN.  质押 (Staking) — 用户将原生加密资产 (例如 ETH) staking 到某个“流动质押 (liquid staking)”协议。
+      
+NaN.  发行衍生代币 (LSD / LST) — 协议给用户一个代币 (比如 stETH、rETH、wstETH 等)，这个代币代表你质押的资产 + 随时间累积的质押奖励。
+      
+NaN.  DeFi 使用 / 投资 (Composability) — 你可以将这个代币 (LST) 用到其他 DeFi 协议里：借贷、提供流动性、作为抵押品、参与收益耕作等。
+      
+
+获得双重收益 / 功能 — 你既持续获得 staking 奖励 (因为底层资产仍在质押中)，也能通过 DeFi 活动获取额外收益 (如利息、手续费、奖励代币等)；同时保持流动性 (你可以交易 / 转让 LST)。
+
+### **在跨链场景下**
+
+流动性质押会更加灵活，比如
+
+NaN.  在链 A 质押获得 LST
+      
+NaN.  桥到链 B 借稳定币
+      
+NaN.  再桥到链 C 做 LP 收手续费
+      
+NaN.  再回链 A 抵押获得更多 LST（杠杆策略）
+      
+
+## **Restaking**
+
+Restaking 的核心，是让资产在质押 (`staking`) 之后 “再利用 / 再质押”：也就是说，你将已经 stake（锁定或流动质押）的加密资产，再用于为额外协议 / 服务 (而不仅仅是原基础链) 提供安全保障。
+
+restaking 可以分为两类／路径 (视具体协议而定)：
+
+NaN.  `原生 (native) restaking`：如果你运行自己的 validator 节点 (以 PoS 链为基础)，便可以将你的 stake 直接参与多个服务。
+      
+NaN.  `流动 / 衍生 (liquid / liquid-restaking)`：有些协议允许把通过流动性质押 (liquid staking) 得到的代币 (LST) 或其他代表权益 / 抵押品代币，再投入 restaking 协议 (可能换成 LRT / restaked token)，这样即使没有自己跑节点，也能参与 restaking。d
+      
+
+restaking 在于让 stake 资产从“被锁住赚单一收益” → “复用 + 多重收益”，但对应的是更高复杂性与系统／协议风险。
+
+## **Cross-Chain Aggregation**
+
+跨链聚合 = 把来自不同区块链的资产、流动性、应用功能 “聚合到一个统一界面 / 协议中” 使用。 但是如果单纯吧所有代币都放到 zetachain 里面，ZRC20 并不能生息(开发者不能自己 mint)。如果我的代币在 ETH 和 BTC 上面正在收取利息，为了统一管理把它们都放到了 Zetachain，原来链上的利息也就在这一个时间点停止了。这个方法只能说方便管理，但是不方便金融。
+
+## **收益管理**
+
+当前的区块链有几个痛点：
+
+NaN.  `收益来源碎片化` 每一条链都由自己的 DeFi，Staking，流动性池等等
+      
+NaN.  `流动性碎片话` 各链的 USDT/USDC 都不一样
+      
+NaN.  `用户操作成本极高`
+      
+
+zetachain 有几个优势。首先是不同链的加密货币可以用 ZRC20 统一标识，也就是说，不同加密货币在 zetachain 侧的交换会非常方便，不需要 burn-mint 这种形式 (我只是说在 zetachain 内部，zetachain 和别的链交互的时候还是得 burn-mint 的) 昨天刚刚看了`Messaging`。zetachain 对于 ERC20 的跨链交易非常友好。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 ## Messaging
 
 ## **🄐 跨链消息流程**
@@ -86,6 +148,7 @@ Gateway Gateway
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 \### ZRC20
 
 开发者不能铸造 ZRC20,开发者在 zetachain 铸造的 ERC20，不叫 ZRC20。简单来说，ZRC20 可以看作,外部链上的原生 gas 资产或在白名单的 ERC-20 在 ZetaChain 上的 representation,比如跨链的转账，ETH -> ZRC-ETH -> SOL。
@@ -101,6 +164,7 @@ Gateway Gateway
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 hello和swap的demo都已经在前几天的笔记中分享过了。今天事情有点多，学习的时间实在是少。
 
 大概的想法是做一个rebase token，可以在所有链上交易。
@@ -110,6 +174,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -124,6 +189,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -203,6 +269,7 @@ swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
