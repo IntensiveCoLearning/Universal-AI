@@ -15,8 +15,44 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+第六天主要是动手把一个官方 Universal DeFi Demo 跑通，亲身体会“调用一次全链 DeFi 动作”的完整流程。reddit+1​
+
+## 当天学习目标
+
+能从 ZetaChain 官方示例里，实际跑起来一个基础跨链 Demo（推荐 Swap 或 Messaging）。[x](https://x.com/search?q=okav.com+%7C+AI-%E5%AE%8B%E7%A5%96%E5%84%BF-%E8%AF%BE%E9%97%B4%E6%93%8D.zwf&lang=el)​
+
+亲自走一遍从发起调用到 ZetaChain 链上执行动作的闭环，建立对 “全链 DeFi 调用一次就联动多链” 的直观感受。[x](https://x.com/search?q=okav.com+%7C+AI-%E5%AE%8B%E7%A5%96%E5%84%BF-%E8%AF%BE%E9%97%B4%E6%93%8D.zwf&lang=el)​
+
+## 查阅和使用的资料
+
+Tutorials：重点看 Swap / Messaging / Calls to-from EVM 相关文档，理解跨链调用流程、关键参数和执行路径。[x](https://x.com/search?q=okav.com+%7C+AI-%E5%AE%8B%E7%A5%96%E5%84%BF-%E8%AF%BE%E9%97%B4%E6%93%8D.zwf&lang=el)​
+
+Example code 仓库：[https://github.com/zeta-chain/example-contracts，拉取示例合约和脚本，作为本地或测试网实战的基础代码。x​](https://github.com/zeta-chain/example-contracts，拉取示例合约和脚本，作为本地或测试网实战的基础代码。x​)
+
+## 动手过程与关键记录
+
+选择了一个官方 Demo（如 Swap 或 Messaging），按照文档完成部署与调用，可在本地或测试网环境中操作。[x](https://x.com/search?q=okav.com+%7C+AI-%E5%AE%8B%E7%A5%96%E5%84%BF-%E8%AF%BE%E9%97%B4%E6%93%8D.zwf&lang=el)​
+
+过程中重点记录：使用的链 / 网络配置、关键命令、重要环境变量和配置项（RPC、私钥/钱包、合约地址等），方便后续复用和排错。​
+
+## 自己的理解与复盘
+
+本次调用是从哪里发起的？例如：本地脚本、CLI、前端页面或合约函数，如何向 ZetaChain 发送请求。​
+
+在 ZetaChain 上实际发生了什么？例如：跨链消息如何路由、ZRC-20 或通用资产如何在链上被更新，最终在 Explorer 上能看到的交易和事件。​
+
+## 与前几天的衔接
+
+通过第六天的 Demo，前面关于 Universal App、ZRC-20、Gateway 与多链架构的概念开始“落地成真实交易”，为后续通用 DeFi 赛道以及 AI × ZetaChain 的整合打下实践基础。​
+
+这次实战也帮助明确后面可以复用哪些官方 Demo 模板，作为自己黑客松项目的构建起点。​
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 理解第 5 天的核心，就是搞清楚「ZRC-20 / 通用资产」在 ZetaChain 里的角色，以及它和多链资产统一表示的关系。
 
 ## Day 5 核心概念理解
@@ -49,6 +85,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 ## 一、今天学了什么
 
 继续翻了一遍 ZetaChain Developers 里 EVM 和 Tutorials 相关部分，大概知道 Universal App 就是部署在 ZetaChain 的合约，但可以同时跟多条外部链交互，用一次调用完成跨链逻辑。
@@ -74,6 +111,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 ## 关键概念理解
 
 通用区块链（Universal Blockchain）：指像 ZetaChain 这种天然为多链互通设计的底层网络，它不是只服务某一条链，而是把多条公链当成一个整体来协同管理和调用。通过这种设计，开发者可以在一条链上写逻辑，但同时操作多条链上的资产和状态。​
@@ -95,6 +133,7 @@ Gateway 的核心作用，是充当 ZetaChain 与外部公链之间的“桥梁�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -151,6 +190,7 @@ curl -X POST "[https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generati
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
