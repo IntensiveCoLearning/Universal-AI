@@ -15,8 +15,45 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+### idea 1：原生 BTC 全链抵押借贷协议 (Omnichain Native BTC Lending)
+
+-   **目标用户**：持有比特币（BTC）但希望获得流动性或收益，且不愿意使用中心化封装代币（如 WBTC）的用户。
+    
+-   **想解决的问题**：BTC 资产沉淀巨大但链上金融属性弱；现有的跨链桥存在安全隐患，用户操作繁琐。
+    
+-   **跨链/通用资产使用方式**：
+    
+    -   用户直接从比特币主网转账 BTC 到 ZetaChain 的 TSS 地址。
+        
+    -   ZetaChain 上的 Omnichain 智能合约自动识别并接收 **ZRC-20 BTC**。
+        
+    -   合约将 ZRC-20 BTC 作为抵押品，贷出稳定币（如 ZRC-20 USDC）。
+        
+    -   用户可选择将借出的 USDC 直接提现到 Ethereum 或 Polygon 网络（一键完成）。
+        
+
+### idea 2：全链收益聚合器 (Cross-Chain Yield Aggregator)
+
+-   **目标用户**：在多条链上分散持有资产（ETH, BNB, MATIC），希望寻找最高收益但不想频繁跨链操作的 DeFi 玩家。
+    
+-   **想解决的问题**：跨链寻找高收益 Gas 费高、步骤多（审批、桥接、再质押），且资产碎片化管理困难。
+    
+-   **跨链/通用资产使用方式**：
+    
+    -   用户在任意链（如 BSC）将资产存入协议合约。
+        
+    -   利用 ZetaChain 的 **Cross-Chain Messaging** 功能，将资产汇聚为 ZetaChain 上的 ZRC-20 通用流动性。
+        
+    -   智能合约自动侦测接入链（如 Ethereum, Arbitrum）上的最高收益池（如 Aave 或 Curve）。
+        
+    -   合约自动将资金 Swap 并通过 Messaging 投放到目标链的高收益协议中，实现“一处存款，全链生息”。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 昨天跟着官网跑了一遍Swap，今天顺便给Messaging跑了（有大坑），然后周末稍微放松一下 嘻嘻
 
 ## Messaging实操
@@ -140,6 +177,7 @@ npx zetachain query cctx --hash 0x84aaec6261d009f840a8ca2388d52018121ee6b6e288ec
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 ### Swap实操
 
@@ -278,6 +316,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 ## 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
 > 想做一个全链留言板，用户可以从任何链提交留言，ZetaChain 统一记录。
@@ -289,6 +328,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -372,6 +412,7 @@ Gateway的架构图
 
 
 
+
 ## 部署在本地的universal合约
 
 ```Solidity
@@ -431,6 +472,7 @@ forge create Universal \
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
