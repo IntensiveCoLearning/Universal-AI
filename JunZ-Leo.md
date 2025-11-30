@@ -17,11 +17,18 @@ timezone: UTC+8
 <!-- Content_START -->
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
-111
+### 全链收益聚合器结合Restaking集成
+
+-   **目标用户**：DeFi 农民和质押者，他们在多个链上持有资产（如以太坊上的ETH、比特币上的BTC、Solana上的SOL），希望优化收益而无需手动桥接或链间切换。
+    
+-   **想解决的问题**：收益机会在区块链间碎片化，导致高gas费、桥接风险以及管理头寸的复杂性。用户往往错失Restaking（如EigenLayer类似）的复合收益，因为它通常限于单一链，而且跨链奖励聚合效率低下。
+    
+-   **粗略的跨链 / 通用资产使用方式**：用户从连接链存入原生资产（如ETH、BTC或ERC-20代币如USDT）到ZetaChain，这些资产转换为ZRC-20表示。协议使用通用代币标准在ZetaChain上铸造流动质押衍生品（LSTs），然后通过跨链消息和调用将这些ZRC-20资产Restake到目标链上的协议（如通过ZetaChain网关将ETH LSTs Restake到以太坊AVS）。收益在ZetaChain上统一聚合和复合，使用内置Swap功能优化回报，用户可以通过销毁ZRC-20并释放原资产，将奖励或本金提现回任意连接链。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 -   **项目设置**：
     
@@ -83,6 +90,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
 
 ERC-20（以太坊/单链视角）
@@ -141,6 +149,7 @@ PS：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -219,6 +228,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -460,6 +470,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
