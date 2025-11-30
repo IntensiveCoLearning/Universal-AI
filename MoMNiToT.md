@@ -15,8 +15,204 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+# **Day6&7：Demo！**
+
+`Swap` 合约是一个部署在 ZetaChain 上的通用应用。它使用单个跨链调用，使用户能够在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可选择使用 Uniswap v2 流动性进行兑换，并提回连接的链上。
+
+## **前提：用户操作**
+
+用户在 ETH 链发起跨链调用，把 1 ETH 转到 ZetaChain 的 Swap 合约，同时附带「ABI 编码的参数」（包含 3 个关键信息）：
+
+-   `zrc20`：用户输入的ZRC-20代币地址。
+    
+-   `amount`：输入代币的数量。
+    
+-   `message`：ABI编码的负载，包含：
+    
+    -   `targetToken`：目标链需兑换的ZRC-20代币地址。
+        
+    -   `recipient`：目标链接收地址（字节形式，兼容EVM、Solana等）。
+        
+    -   `withdrawFlag`：是否跨链提回（`true`）或ZetaChain本地转移（`false`）。
+        
+
+调用入口：
+
+```
+ function onCall(
+     MessageContext calldata context,
+     address zrc20,
+     uint256 amount,
+     bytes calldata message
+ ) external onlyGateway
+```
+
+## **参数解码**
+
+```
+ (address targetToken, bytes memory recipient, bool withdrawFlag) =
+     abi.decode(message, (address, bytes, bool));
+```
+
+## **查询目标链 gas 费用**
+
+目标链的提款 Gas 报价：
+
+```
+ (address gasZRC20, uint256 gasFee) = IZRC20(targetToken).withdrawGasFee();
+```
+
+-   `gasZRC20` 是代表目标链的燃料代币的 ZRC-20。
+    
+-   `gasFee` 是在目标链上执行所需的金额。
+    
+
+## **验证输入够不够用**
+
+用 Uniswap v2 计算「最少需要多少输入代币（ZRC-20 ETH），才能覆盖 gas 费 + 兑换目标代币」。如果用户转的 1 ETH（ZRC-20）不够，直接报错。
+
+流程：
+
+1.  通过 `withdrawGasFee()` 引用目标气体需求。
+    
+2.  使用 DEX 报价验证输入是否涵盖：
+    
+    ```
+     uint256 minInput = quoteMinInput(inputToken, targetToken);
+     if (amount < minInput) revert InsufficientAmount(...);
+    ```
+    
+
+## **兑换目标链 gas**
+
+如果用户输入的代币（ZRC-20 ETH）和 gas 代币（ZRC-20 BTC）不一样，就用 Uniswap 换「刚好够 gasFee 的 ZRC-20 BTC」（比如换 0.001 BTC）。
+
+```
+ inputForGas = SwapHelperLib.swapTokensForExactTokens(
+   uniswapRouter, inputToken, gasFee, gasZRC20, amount
+ );
+```
+
+## **兑换剩下的目标代币**
+
+把剩下的 ZRC-20 ETH（1 ETH - 换 gas 用的部分），通过 Uniswap 换成 ZRC-20 BTC（比如换了 0.05 BTC）。
+
+```
+ out = SwapHelperLib.swapExactTokensForTokens(
+   uniswapRouter, inputToken, amount - inputForGas, targetToken, 0
+ );
+```
+
+## **提回目标链**
+
+调用 `gateway.withdraw()`，让网关做两件事：
+
+-   在 ZetaChain 上销毁这 0.051 BTC 的 ZRC-20；
+    
+-   在 BTC 链上，给用户的收款地址释放 0.05 BTC 原生代币（gas 费 0.001 BTC 被目标链消耗）。
+    
+
+```
+ IZRC20(gasZRC20).approve(address(gateway), gasFee);
+ IZRC20(params.target).approve(address(gateway), out);
+  
+ gateway.withdraw(
+   abi.encodePacked(params.to), // chain-agnostic recipient (bytes)
+   out,                         // amount of target token
+   params.target,               // ZRC-20 to withdraw
+   revertOptions                // failure handling
+ );
+```
+
+## **使用** `RevertOptions` **和** `onRevert` **撤销**
+
+```
+ function onRevert(RevertContext calldata context) external onlyGateway {
+     (bytes memory sender, address zrc20) =
+         abi.decode(context.revertMessage, (bytes, address));
+  
+     (uint256 out,,) = handleGasAndSwap(
+         context.asset, context.amount, zrc20, true
+     );
+  
+     gateway.withdraw(
+         sender, // chain-agnostic refund address
+         out,
+         zrc20,
+         RevertOptions({
+             revertAddress: address(bytes20(sender)), // best-effort for EVM
+             callOnRevert: false,
+             abortAddress: address(0),
+             revertMessage: "",
+             onRevertGasLimit: gasLimit
+         })
+     );
+ }
+```
+
+## **项目（AI写的）**
+
+### **项目 Idea 1: 跨链流动性保险池 (Cross-Chain Liquidity Insurance Pool)**
+
+**目标用户**:
+
+-   多链资产持有者（如同时持有以太坊、Solana、Cosmos 链资产的用户）。
+    
+-   DeFi 协议方（希望降低跨链流动性迁移风险的借贷或交易协议）。
+    
+
+**想解决的问题**: 当前跨链流动性转移存在以下痛点：
+
+1.  **流动性碎片化**：用户资产分散在不同链，难以统一管理风险。
+    
+2.  **跨链延迟与失败风险**：资产转移过程中可能因网络拥堵、桥接故障或黑客攻击导致资金损失。
+    
+3.  **缺乏风险对冲工具**：用户无法为跨链操作投保，若出现故障需自行承担损失。
+    
+
+**跨链/通用资产使用方式**:
+
+-   **通用资产抵押**: 用户用跨链稳定币（如 USDC、DAI）或原生链资产（如 ETH、SOL）存入流动性池，通过跨链桥（如 Chainlink CCIP 或 Wormhole）实现多链资产同步。
+    
+-   **智能合约保险机制**: 当用户发起跨链转账时，协议自动生成保险单，保费从流动性池中按比例扣除。若转账失败或超时，保险池按预设规则自动补偿用户损失。
+    
+-   **风险共担模型**: 保险池资金由多链流动性提供者共同维护，通过预言机监控链上事件（如桥接状态、链下攻击信号），动态调整保费费率和赔付阈值。
+    
+
+* * *
+
+### **项目 Idea 2: 通用资产跨链收益聚合器 (Universal Asset Cross-Chain Yield Aggregator)**
+
+**目标用户**:
+
+-   普通 DeFi 用户（希望最大化资产收益但缺乏跨链操作经验的散户）。
+    
+-   机构投资者（需高效配置多链资产的量化策略团队）。
+    
+
+**想解决的问题**: 现有收益聚合器局限性：
+
+1.  **链孤岛效应**：收益机会仅限于单一链，无法跨链比价和自动迁移。
+    
+2.  **高操作成本**：手动跨链需支付高额 Gas 费和时间成本。
+    
+3.  **收益波动风险**: 不同链的市场环境（如 TVL、利率）变化快，手动调整策略滞后。
+    
+
+**跨链/通用资产使用方式**:
+
+-   **资产标准化**: 支持主流跨链资产（如 stETH、wbtc、多链 USDC）作为通用抵押品，通过跨链桥实现一键部署至最优收益链（如以太坊上的 Aave、Solana 上的 Jupiter）。
+    
+-   **自动化策略引擎**: 基于链上数据（如利率、TVL、Gas 费）和链下市场分析（如攻击事件预警），AI 驱动的算法实时推荐跨链收益策略，并通过智能合约自动执行资产迁移。
+    
+-   **收益再平衡**: 用户可设定风险偏好（如保守型/激进型），系统自动将收益按比例分配至不同链的流动性池或质押协议，同时通过跨链预言机同步更新资产状态，避免因链间延迟导致的套利失效。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 # **Day5：Universal DeFi & 全链资产**
 
 **💫通用资产：通用合约和连接合约**
@@ -56,6 +252,7 @@ ERC20：以太坊生态系统的 "通用语言"，几乎所有 DeFi 应用都支
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 # **Day4：心智模型**
 
@@ -120,6 +317,7 @@ NaN.  出站：发起要求、验证者准备、TSS签名、提交广播、跨�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 # **Day3：核心概念**
@@ -203,6 +401,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -378,6 +577,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
