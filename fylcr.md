@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+主要还是想做聚币器，把n条链上的资产自动转移到一条链上，就这样。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 # 在 ZetaChain 上部署第一个 Universal Contract
 
 我根据[这个文档](https://www.zetachain.com/docs/developers/tutorials/hello)部署了 Universal Contract。由于官方文档里使用的是 Forge 而我使用的是 Hardhat，所以稍微的与文档有些出入。
@@ -339,6 +345,7 @@ Transaction hash: 0x3b467a9e30ac52e49b854d27313c902bd3dc98b0a721e44e67727111dc72
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 # ZRC-20 VS ERC-20
 
 ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部署。ZRC-20 具有跨链地能力，而 ERC-20 不能跨链。
@@ -354,6 +361,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 # 我想做的第一个 Universal App
 
 实现所有链的资产都汇集到同一条链的同一个地址上。
@@ -363,6 +371,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -385,6 +394,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -643,6 +653,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
