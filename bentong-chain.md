@@ -15,13 +15,41 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+第一个合约
+
+```
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+ 
+import "@zetachain/protocol-contracts/contracts/zevm/interfaces/UniversalContract.sol";
+ 
+contract Universal is UniversalContract {
+    event HelloEvent(string, string);
+ 
+    function onCall(
+        MessageContext calldata context,
+        address zrc20,
+        uint256 amount,
+        bytes calldata message
+    ) external override onlyGateway {
+        string memory name = abi.decode(message, (string));
+        emit HelloEvent("Hello: ", name);
+    }
+}
+```
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 ![Universal EVM.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/bentong-chain/images/2025-11-29-1764430913796-Universal_EVM.png)
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 ### Universal App
 
@@ -37,6 +65,7 @@ Universal App部署在ZetaChain的Universal EVM上。Universal EVM在原EVM上�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 ### ZetaChain Mainnet
@@ -104,6 +133,7 @@ zeta
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
