@@ -15,8 +15,42 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+-   **项目名称（暂定）：** UniYield (Universal Yield)
+    
+-   **目标用户：**
+    
+    -   手里有闲置资金（如 USDC 或 ETH），想寻找全网（不仅仅是单一链）最高收益的普通投资者。
+        
+    -   厌倦了在该链和那个链之间切来切去、管理 Gas 费的 DeFi 农民。
+        
+-   **想解决的问题：**
+    
+    -   **收益不仅限于一条链：** 也许最高的稳定币收益在 Polygon 上，而用户的钱在 ETH 主网上。传统路径需要：跨链桥 -> 换 Gas -> 存入，损耗极高且麻烦。
+        
+    -   **Gas 焦虑：** 用户不想为了去 Polygon 挖矿而专门去买 MATIC。
+        
+-   **跨链 / 通用资产使用方式（技术实现）：**
+    
+    1.  **通用入口：** 用户可以在任意支持的链（如 Ethereum, BSC, Bitcoin）存入资产（例如存入 Native USDC）。
+        
+    2.  **全链路由（Omnichain Strategy）：** ZetaChain 上的智能合约充当“大脑”。它持有策略逻辑，比如监测到目前 GMX (Arbitrum) 的收益率最高。
+        
+    3.  **自动兑换与执行：**
+        
+        -   合约接收用户的 USDC (ZRC-20)。
+            
+        -   通过 ZetaChain 内部的 Uniswap v2/v3 池子（ZRC-20 pairs）自动将资产通过跨链消息传递（Messaging）调度到目标链。
+            
+        -   如果目标是 ETH 链上的收益协议，合约会自动处理资产的出站调用。
+            
+    4.  **收益复投：** 获得的收益可以跨链汇集回 ZetaChain，再次分配到收益最高的链，或者直接以用户指定的代币（如 BTC）结算给用户。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 ### 核心命令与配置记录
 
 ```
@@ -56,6 +90,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 **1\. ZRC-20 和普通 ERC-20 的直观区别（开发者视角）**
 
 虽然在写代码时，ZRC-20 也可以用 `transfer`、`approve` 这些熟悉的接口，但我觉得两者在**底层逻辑**上有两个最大的不同：
@@ -78,6 +113,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 **“全链涂鸦墙”**
 
 > 这是一块立在 ZetaChain 上的**公共黑板**。
@@ -93,6 +129,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -133,6 +170,7 @@ Gateway 是 ZetaChain 与外部区块链（如 Ethereum, Bitcoin）进行沟通�
 
 
 
+
 -   安装尝试Zeta cli ✅
     
 -   ZetaChain Node / RPC / Faucet / Explorer / 测试币获取 ✅
@@ -158,6 +196,7 @@ Qwen api调试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
