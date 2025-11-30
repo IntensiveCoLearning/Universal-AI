@@ -15,8 +15,47 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+1.今天在学习官方文档的时候，补习了很多的基础知识 native token 和合约 token,原来usdt只是部署在不同链上的智能合约  
+相应的erc-20的token在zetachian上也只是智能合约
+
+  
+2.zetachian上gateway一次只能deposit一种资产，但在universal app内部却可以有很多cctx
+
+  
+3.整个链通过限制对应链流入的token的数量和流出的速率来限流，每个币种用不同的汇率来同一度量衡。
+
+  
+4Being both a Cosmos and an EVM chain means that ZetaChain supports two types of addresses: \[bech32 Cosmos addresses\]([https://docs.cosmos.network/main/build/spec/addresses/bech32](https://docs.cosmos.network/main/build/spec/addresses/bech32)) and \[hex EVM addresses\]([https://ethereum.org/developers/docs/accounts](https://ethereum.org/developers/docs/accounts)). 两个不同的地址对应着一个账户  
+5.  
+跟着tutorials动手做了第一个universal contract  
+
+```
+UNIVERSAL=$(forge create Universal \
+```
+
+```
+  --rpc-url https://zetachain-athens-evm.blockpi.network/v1/rpc/public \
+```
+
+```
+  --private-key $PRIVATE_KEY \
+```
+
+```
+  --broadcast \
+```
+
+```
+  --json | jq -r .deployedTo)
+
+```
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 1.普通 ERC-20: 你只能在这个链内部转来转去。
 
 ERC-20 只有这些标准动作 token.transfer(recipient, amount); // 转给别人 token.approve(spender, amount); // 授权
@@ -78,6 +117,7 @@ ZRC-20: 它是被ZetaChain 协议层（System Contract）高度管控的。 当�
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 今天学校事情太多，很多学习资料都没有看，workshop也因为组会错过。周末补上。  
 1.环境配置选择Foundry (Rust/Solidity): **首先** 其速度极快，用 Solidity 写测试。是现在高阶开发者的心头好，但学习曲线陡峭。虽然我没有 Rust 基础，但还是想N+100挑战一下。  
 2.网络选择：我决定使用 **Testnet (Athens 测试网)**。  
@@ -86,6 +126,7 @@ ZRC-20: 它是被ZetaChain 协议层（System Contract）高度管控的。 当�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 今天把昨天没有做的部分补齐了一下：
@@ -240,6 +281,7 @@ except Exception as e:
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -451,6 +493,7 @@ contract Swap is zContract {
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
