@@ -15,8 +15,14 @@ Web3 product manager and engineer, LXDAO designer, AI enthusiast.
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+11111
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 ## 1\. ZetaChain 开发环境 (Omnichain Toolkit)
 
 ### 1.1 核心概念速查表
@@ -166,11 +172,13 @@ if __name__ == '__main__':
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 111
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 这两天有点忙，先打个卡，明天一定补笔记
@@ -181,11 +189,13 @@ if __name__ == '__main__':
 
 
 
+
 先打个卡，明天来补笔记
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
