@@ -15,8 +15,30 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+1.  **ZRC-20 标准**
+    
+    -   原生资产的跨链映射（如 ETH→ZRC-20 ETH），无需封装，支持 TSS 原生锚定。
+        
+    -   自动处理 Gas 兑换（如 ZETA→目标链 Gas 代币）。
+        
+2.  **Universal Token/NFT**
+    
+    -   单合约管理多链资产状态，通过 `setConnected` 与 `setUniversal` 建立跨链信任。
+        
+    -   支持“跨链销毁-铸造”或“锁定-释放”两种模式。
+        
+3.  **跨链 Messaging & Swap**
+    
+    -   任意 EVM 链→ZetaChain→任意 EVM 链的 1 步路由，失败资产回退至 ZetaChain（低成本重试）。
+        
+    -   消息可携带 payload，实现“跨链合约调用+资产转移”原子组合。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 EVM 是 Ethereum Virtual Machine 的缩写，中文常叫“以太坊虚拟机”。
 
 一句话理解：
@@ -256,11 +278,13 @@ Gas Limit / Gas Price
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 2025年11月27日22点49分
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -275,11 +299,13 @@ Gas Limit / Gas Price
 
 
 
+
 刚下班，打个卡，现在开始学，待会儿补齐笔记。。。。。
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
