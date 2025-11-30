@@ -15,8 +15,27 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+# NFT 拍卖中心
+
+## 目标客户：NFT平台和爱好者
+
+## 解决问题：NFT平台统一竞拍代币，自动托管
+
+## 使用方式：以下文字使用ai总结完善
+
+| 步骤 | 简洁描述 | 核心目标 |
+| 1. 启动拍卖 (Escrow) | 卖家在 NFT 所在的链上发布拍卖信息，并将 NFT 锁定托管给平台合约。 | 确保 NFT 不被移动，等待最终清算。 |
+| 2. 跨链竞价 (Bidding) | 竞拍者可以使用 任何连接链 上的 任何代币（如 ETH、SOL、MATIC、BNB 等）进行出价。 | ZetaChain 充当清算中枢， 接收并验证所有跨链出价。 |
+| 3. 资金锁定与即时退还 | 竞拍者的出价金额会被锁定在 ZetaChain 的智能合约中。一旦出价被超越，平台会即时解除锁定，资金自动退还给前一位竞拍者。 | 保证资金安全和流动性， 避免资金长期占压。 |
+| 4. 自动化结算 (Atomic Settlement) | 拍卖结束，ZetaChain 上的智能合约自动且原子化地完成最终清算： | 确保交易原子性 (要么都成功，要么都失败)。 |
+| 5. 收益分配 | 平台扣除手续费后，将 NFT 发送给赢家，将拍卖款项 发送给卖家，并将所有未得标的资金 退还给竞拍者。 | 交易完成，各方获利。 |
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 # 选择本地测试网部署swap合约
 
 ## 本地部署
@@ -44,6 +63,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -60,6 +80,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -71,6 +92,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -105,6 +127,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -194,6 +217,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
