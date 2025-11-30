@@ -15,8 +15,288 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+**学习目标**
+
+-   梳理在 ZetaChain 上能做的通用 DeFi 模式。
+    
+-   为黑客松赛道准备 1–2 个感兴趣的方向。
+    
+
+**学习资料**
+
+-   回顾前几天所有与 ZRC-20、Universal Token / NFT、Swap / Messaging 相关内容。
+    
+-   [https://www.zetachain.com/docs/developers](https://www.zetachain.com/docs/developers)
+    
+-   [https://www.zetachain.com/docs/developers/evm/zrc20/](https://www.zetachain.com/docs/developers/evm/zrc20/)
+    
+-   [https://www.zetachain.com/docs/developers/standards/overview](https://www.zetachain.com/docs/developers/standards/overview)
+    
+
+**扩展资料（可选）**
+
+-   考虑结合 LSDFi、Restaking、跨链聚合、收益管理等思路。
+    
+
+**实践 / 作业**
+
+-   写出 1–2 个可能的通用 DeFi 项目 idea，包括：
+    
+    -   目标用户
+        
+    -   想解决的问题
+        
+    -   粗略的跨链 / 通用资产使用方式
+        
+
+# Universal NFT/Token
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZThmMTgzMTkxYzY5NjE2YTY4ZDQxYTEzZjM2NjA1MGRfUDU2ZllZclZldTV3STZlUEFHTjhxUDNSOUtuMlhYWjlfVG9rZW46SDVmTWJBb0I0bzNqZHd4eDJlemM3dzR3bkJnXzE3NjQ1MTA5ODU6MTc2NDUxNDU4NV9WNA)
+
+## 部署
+
+-   在 ZetaChain 上部署 Universal 合约。这是必需步骤，因为 ZetaChain 充当所有跨链转账的中枢，即使是在已连接的 EVM 链之间转移也会经由它路由。
+    
+-   在任一受支持的 EVM 链（如 Ethereum、Base、Polygon、BNB）部署 Connected 合约。
+    
+-   在 ZetaChain 上的 Universal 合约中调用 setConnected(zrc20, connectedAddress)，其中：
+    
+    -   zrc20 为目标 EVM 链的“gas 代币”的 ZRC-20 合约地址。它用作链标识符。
+        
+    -   connectedAddress 为该 EVM 链上已部署的 Connected 合约地址（步骤 2）。
+        
+-   在已连接的 EVM 链上调用 ConnectedAsset.setUniversal(universalAddress)，其中 universalAddress 为 ZetaChain 上 Universal 合约地址（步骤 1）。
+    
+
+完成以上操作后，ZetaChain 与已连接的 EVM 链上即部署并建立了互信的资产合约。(**互信：Universal 合约和Connected 合约相互调用函数建立连接**）
+
+如需支持更多 EVM 链，针对每条新链重复步骤 2 和 3。
+
+**setConnected 与 setUniversal 是建立合约间“安全信任关系”的必需操作。每个合约都会校验跨链调用是否来自受信任的对应方。**
+
+## Gas 费用
+
+-   EVM → ZetaChain：不收取跨链费用。
+    
+-   ZetaChain → EVM：以 ZETA 支付跨链费用，**费用基于目标链的 ZRC-20 提现费**。ZETA 会自动兑换为目标链 gas 代币的 ZRC-20 用于执行。
+    
+-   EVM → EVM：跨链费用**以“源链”的 gas 代币支付**。例如从 Ethereum 转到 BNB，费用以 ETH 支付。ZetaChain 会使用 ZRC-20 ETH 覆盖执行并将其兑换为 ZRC-20 BNB 去调用目标链。
+    
+
+回退处理（Revert Handling）
+
+-   若跨链转账在目标链失败（例如 gas 不足、合约拒绝或网络错误），资产将回退给原始发送者。
+    
+-   当两个已连接的 EVM 链之间的转账失败时，资产会回退给 ZetaChain 上的原始发送者，而不是回到最初的源 EVM 链。这样可以避免将资产退回到源链所需的高成本操作。发送者随后可以从 ZetaChain 再次发起到相同或其他链的转账。
+    
+
+# 可能的通用 DeFi 项目 idea
+
+## Idea 1: 跨链一键储蓄金库（Omnichain Savings Vault）
+
+-   目标用户
+    
+    -   想获得稳健收益、但不愿手动在多链搬砖的普通用户与 DAO 金库管理者。
+        
+-   想解决的问题
+    
+    -   多链稳定币与原生资产收益分散、费用高、操作复杂（桥接、换汇、签多笔交易）。
+        
+    -   收益与风险难以在多链间动态再平衡。
+        
+-   跨链 / 通用资产使用方式（粗略）
+    
+    -   用户从任一连接链存入原生代币/稳定币，合约在 ZetaChain 接收为对应 ZRC-20。
+        
+    -   金库在 ZetaChain 内部策略路由：
+        
+        -   部分兑换成目标链所需的 gas 对应 ZRC-20，用于后续外呼。
+            
+        -   将资金在 ZetaChain 统一池中进行代币间路由/兑换（如将多源 USDC/USDT 统一成目标资产）。
+            
+    -   使用 Gateway 发起多条链上操作：
+        
+        -   存入以太坊/BNB/Polygon 上的收益协议（或直接在 ZetaChain 上与 DEX/收益合约交互后 withdraw 到目标链协议）。
+            
+    -   定期再平衡：
+        
+        -   根据收益率和风险参数，跨链撤出并重新分配，失败则触发回退到 ZetaChain，等待下一次策略执行。
+            
+    -   提现：
+        
+        -   用户在任意链发起提现请求，金库在 ZetaChain 侧聚合并以目标链原生资产原路 withdraw 到用户链上地址（ZRC-20 销毁，目标链原生资产到用户）。
+            
+
+## Idea 2: 跨链抵押借贷聚合器（Universal CDP/Lending Aggregator）
+
+-   目标用户
+    
+    -   想用任意链资产抵押，在另一条链获得目标资产流动性的交易者与做市商。
+        
+-   想解决的问题
+    
+    -   传统借贷市场受限于单链抵押与单链借款，跨链抵押/借款需多步桥接与清算监控，成本与风险高。
+        
+-   跨链 / 通用资产使用方式（粗略）
+    
+    -   抵押侧：
+        
+        -   用户在任一链抵押原生资产，**进入 ZetaChain 映射为 ZRC-20**；在 ZetaChain 记账抵押仓位。
+            
+        -   使用 Universal Token 作为平台记账和费用分润代币，可跨链增发/销毁保持总量一致。
+            
+    -   借款侧：
+        
+        -   借款目标链由用户指定（如在 Arbitrum 借 USDC，在 BNB 借 BNB），合约在 ZetaChain 查询该链 withdraw 费用并预留对应 ZRC-20 gas。
+            
+        -   如需换币，先在 ZetaChain 使用统一流动池/DEX 将抵押物部分兑换为目标借款资产的 ZRC-20，再 withdraw 到目标链用户地址。
+            
+    -   清算与回退：
+        
+        -   价格喂价与健康因子监控在 ZetaChain 侧统一进行，触发清算时，先在 ZetaChain 内部完成资产兑换与扣减，再对目标链仓位进行调用；若目标链执行失败，回退到 ZetaChain，重新尝试或在本链完成结算。
+            
+    -   还款与解押：
+        
+        -   用户在任意链归还债务资产，ZetaChain 收到对应 ZRC-20 后核销债务并释放抵押，按用户选定链 withdraw 原生资产回用户。
+            
+
+实现与开发要点（两类项目通用）
+
+-   入口与消息：
+    
+    -   所有用户交互通过连接链 Gateway 进入，合约在 onCall 解析消息、金额与原始链上下文。
+        
+-   Gas 抽象与费用控制：
+    
+    -   在 ZetaChain 先查询目标链 withdraw 费，自动用一小部分资金兑换成目标链 gas 对应 ZRC-20。
+        
+-   资产路由：
+    
+    -   区分不同源链的“同名资产”对应不同 ZRC-20，做统一中间资产路由与定价。
+        
+-   失败回退：
+    
+    -   任何外呼失败自动回退到 ZetaChain，保留用户头寸或资金，给出重试/改路由选项。
+        
+-   安全与信任配置：
+    
+    -   对 Universal 与各 Connected 合约进行 setConnected/setUniversal 绑定，只接收来自可信对端的跨链调用。
+        
+    -   严格的可升级与权限控制、监控与风控开关。
+        
+
+## **Idea3:“ZetaMind 全链智能对冲基金” (ZetaMind Omnichain AI Hedge Fund)**
+
+这是一个结合了 **ZetaChain 全链互操作性** 与 **AI Agent 主动管理** 的增强版 DeFi 提案。
+
+### 目标用户 (Target Users)
+
+-   **寻求 Alpha 收益的散户（Retail Alpha Seekers）**：
+    
+    -   不满足于稳定币 3-5% 的理财收益，希望通过波段交易、抄底逃顶或新闻事件套利获得更高回报，但缺乏全天候盯盘的时间或专业技能的用户。
+        
+-   **Web3 投资新手（Crypto Native Newbies）**：
+    
+    -   手里持有 USDT/USDC 或 ETH，不知道该去哪条链投资，也被复杂的跨链桥、Gas 费计算和钱包授权流程劝退的用户。
+        
+-   **DAO 金库与中小型机构（DAO Treasuries）**：
+    
+    -   拥有闲置资金，希望在保证一定安全性的前提下进行资产增值，但苦于无法统一管理分散在多条链上的资产，且缺乏专业的全职交易员团队。
+        
+
+### 想解决的问题 (Problems to Solve)
+
+-   **AI 交易落地的“最后一公里”难题**：
+    
+    -   目前的 AI 交易大多停留在“给建议”阶段，无法直接控制链上资产。通过 ZetaChain，AI 可以作为一个经过授权的“操作员”，直接指挥全链资产，而无需持有资产私钥。
+        
+-   **多链资产管理的割裂与高磨损**：
+    
+    -   手动在以太坊、BNB Chain、Arbitrum 之间进行资产轮转（Rebalancing）极其繁琐，且每次操作都需要支付昂贵的跨链桥费用和 Gas 费。
+        
+-   **被动理财无法应对市场剧烈波动**：
+    
+    -   传统的跨链收益聚合器（Yield Aggregator）通常只是死板地存入借贷协议。当市场暴跌时，它们无法像交易员一样“空仓避险”；当市场暴涨时，也无法主动切换到高波动资产获利。
+        
+-   **交易时机的错失**：
+    
+    -   人类无法 24 小时监控突发新闻（如 SEC 批准 ETF、黑客攻击等）。AI 可以毫秒级捕捉链下数据并触发链上交易。
+        
+
+### 粗略的跨链 / 通用资产使用方式 (Rough Omnichain Asset Usage)
+
+该架构利用 ZetaChain 作为**统一的资产结算层与指挥中心**，AI Agent 在链下决策，ZetaChain 合约在链上执行。
+
+A. 资金注入与统一化 (Ingress & Unification)
+
+1.  **用户操作**：用户在任意链（如 Ethereum, BSC, Bitcoin, Polygon）将原生资产（ETH, BTC, USDC 等）发送到 ZetaChain 的 TSS（阈值签名）金库地址。
+    
+2.  **ZetaChain 处理**：
+    
+    1.  全链合约侦测到存款，自动将其 Mint 为 ZetaChain 上的 **ZRC-20 代币**（如 ZRC-20 ETH, ZRC-20 BTC, ZRC-20 USDC）。
+        
+    2.  **统一流动性池**：所有用户的资产汇聚在 ZetaChain 上的一个主合约池中，形成巨大的流动性深度，而非分散在各条链。
+        
+
+B. AI 驱动的资产配置策略 (AI-Driven Allocation)
+
+_这是核心差异点。AI 不直接触碰资金，而是通过“意图签名”来指挥合约。_
+
+1.  **链下 AI 大脑**：
+    
+    1.  AI 模型实时分析 CEX 价格、链上 TVL 变动、宏观新闻 sentiment。
+        
+    2.  **生成指令**：AI 判定当前是牛市初期，决策：“将 40% 的 USDC 仓位换成 ETH，并存入 Arbitrum 上的高收益池，其余 60% 留在 ZetaChain 此时做流动性挖矿。”
+        
+    3.  **签名授权**：AI 使用其被合约加入白名单的专用私钥对该指令进行签名（Sign）。
+        
+2.  **链上验证与内部路由 (On-chain Verification & Routing)**：
+    
+    1.  ZetaChain 主合约接收 AI 的签名指令，验证通过后执行。
+        
+    2.  **内部快速兑换**：如果指令是“买入 ETH”，合约直接在 ZetaChain 内部的 DEX（如 Uniswap v2 fork）将 ZRC-20 USDC 兑换为 ZRC-20 ETH。**优势**：无需跨链，Gas 极低，即时完成。
+        
+
+C. 跨链外呼与互操作 (Outbound & Interoperability)
+
+当 AI 决定去其他链“打金”或“交互”时：
+
+1.  **Gas 自动处理**：合约自动将少部分资金兑换为目标链所需的 Gas 代币（如 ZRC-20 ARB 或 ZRC-20 MATIC）。
+    
+2.  **外呼调用**：
+    
+    1.  ZetaChain 合约调用 `Gateway` 发起跨链交易。
+        
+    2.  例如：将 ZRC-20 ETH 销毁，并在 Arbitrum 链上释放原生 ETH，同时附带一段 payload 指令调用 Arbitrum 上的 GMX 或 Aave 协议进行存款。
+        
+3.  **紧急避险（撤回）**：
+    
+    1.  如果 AI 监测到目标链协议（如 Curve）出现脱钩风险，立即发送“撤回”指令。ZetaChain 合约远程触发目标链的 withdraw 操作，将资金全额退回 ZetaChain 避险。
+        
+
+D. 利润分配与提现 (Settlement & Withdrawal)
+
+1.  **定期再平衡**：AI 每 4-8 小时根据市场情况重新评估，重复上述 B 和 C 的步骤。
+    
+2.  **用户提现**：
+    
+    1.  用户在任意链发起提现请求。
+        
+    2.  系统计算用户份额对应的资产价值。
+        
+    3.  ZetaChain 合约将各种 ZRC-20 资产（可能是 AI 交易后的 BTC、ETH 混合物）统一兑换成用户想要的目标资产（如 USDC）。
+        
+    4.  通过 TSS 跨链将原生 USDC 发送到用户钱包。
+        
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=YWZkYTY3NmM4YjYxN2NhNjc4NTllYTBlMmQwOGUxY2RfcUZ1cXFXcUlVa3BYeElUQWROelRSWWRKbUU4ZExIMVFfVG9rZW46UWcxZGJTSndKb3dFaUV4M0VURmNEOGpEbk5wXzE3NjQ1MTA5ODU6MTc2NDUxNDU4NV9WNA)
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 **学习目标**
 
 -   能从官方示例中跑起来一个基础的跨链 Demo（建议 Swap 或 Messaging）。
@@ -651,6 +931,7 @@ function _authorizeUpgrade(
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 **学习目标**
 
 -   理解 ZRC-20、Universal Token / NFT 的基本概念和作用。
@@ -863,6 +1144,7 @@ ZetaChain 上对外部链原生资产与 ERC-20 的“原生表示”。当从�
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 **学习目标**
 
 -   建立对 “全链应用 / Universal App 合约” 的直观理解。
@@ -994,6 +1276,7 @@ npx tsx commands/index.ts deploy --private-key $(grep PRIVATE_KEY .env | cut -d 
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1355,6 +1638,7 @@ ZetaChain 无法在比特币网络上部署智能合约。比特币不支持这�
 
 
 
+
 **学习目标**
 
 -   本地 / 云端完成基础开发环境落地。
@@ -1670,6 +1954,7 @@ B. gRPC & REST (Cosmos SDK 层)
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
