@@ -15,8 +15,26 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+日期：2025.11.30
+
+进度：完成 Universal DeFi 核心功能（Swap）开发
+
+今天为了完成“跑通 DeFi Demo”的任务，我没有去跑官方现成的 CLI 脚本，而是选择硬磕，直接把 Swap 逻辑集成到了我的 Python Agent 里。前几天实现的转账只是 Layer 1 的基础操作，而今天的 Swap 才是真正的合约交互。
+
+我主要攻克了 Uniswap V2 协议在 ZetaChain 上的调用方式。这比普通转账要复杂得多，首先需要找到 Athens-3 测试网的 Router 合约地址，并且必须在代码里硬编码对应的 ABI。最坑的地方在于参数构建，调用 `swapExactETHForTokens` 方法时，必须手动指定路由路径（Path），即从 Native ZETA 映射到 WZETA，再到目标 ZRC-20 ETH。如果路径不对，交易会直接 Revert。
+
+在代码实现上，我新增了一个 `swap_native_to_token` 函数。这里有个工程细节要注意：由于涉及合约调用，Gas Limit 不能像普通转账那样给 21000，我把它调高到了 200000 以防止 Out of Gas。同时，为了防止交易长时间 pending 被卡住，我还在参数里计算了 deadline（当前时间戳 + 10分钟）。
+
+![DAY61.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-11-30-1764498690214-DAY61.png)
+
+测试过程比较顺利，我在前端输入“把 ZETA 换成 ETH”后，后端成功构建了交易并广播。我在侧边栏刷新资产时，明显看到 ZETA 减少而 zETH 余额从 0 变成了有数值的状态，这意味着我的 Agent 已经具备了操作 DEX（去中心化交易所）的能力，真正打通了通用 DeFi 的链路。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 **Day 5 学习日志：Web3 Agent 可视化与全流程闭环**
 
 **日期**：2025.11.28 **进度**：完成Web UI 搭建与项目闭环
@@ -42,6 +60,7 @@ timezone: UTC+8
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 **Day 4 学习日志：从原生交互进阶到智能合约读取**
 
 日期：2025.11.28
@@ -65,6 +84,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 **日期**：2025.11.26 **进度**：完成从 AI 指令到链上 Write 操作的闭环
@@ -95,6 +115,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -159,6 +180,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
