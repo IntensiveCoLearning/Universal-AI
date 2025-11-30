@@ -15,8 +15,22 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+### 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
+
+简单加减逻辑，例如 “增加积分 / 减少积分”
+
+### 为后续的 Hello World Demo 决定一种工作流：
+
+使用 CLI + Foundry
+
+其实我觉得用测试网完成更适合小白，我上次写的一个彩票Dapp就是在测试网上做的，一个合约端和一个前端就搞定了。不过这次机会难得，好不容易把环境搭建好了，正好多学一点。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 -   画一张简单的架构图：
     
     ZetaChain 中心 + Bitcoin / Ethereum / Solana 等外围链 + Gateway。
@@ -51,6 +65,7 @@ ZRC20文檔中看到 **Ominichain**（全鏈）這個區塊鏈架構概念，很
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
 
+
 **Universal App 是什么？**  
 Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于某一条链的合约。它能同时接受来自任意连接链 (例如 Ethereum、Bitcoin、Solana……) 的资产、消息或合约调用，也能向任意连接链发送资产/调用。这样，开发者只用写一个合约，就能做到跨所有支持链的 dApp，用户也能用同一个界面 / 钱包操作不同链资产，无需切换网络或用桥 + wrapper。
 
@@ -61,6 +76,7 @@ Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 ok，成功调用Qwen的API，我问了一个问题“你会给一个新来的AI开发者什么建议？”
@@ -84,6 +100,7 @@ zeta测试币领取成功
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
