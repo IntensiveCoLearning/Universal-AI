@@ -15,8 +15,49 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+# Day 7
+
+## Multi-Chain Vault — 通用 NFT + FT 抵押借贷池
+
+1.  目标用户
+    
+
+持有各种链 NFT（ETH、Solana、BTC Ordinals）的玩家
+
+想用 NFT / FT 抵押贷款的人
+
+想把多链 NFT 统一管理、估值的人
+
+2.  想解决的问题
+    
+
+NFT 分散在各链，难估价、难抵押
+
+每个链都要部署不同借贷池，体验差
+
+多链抵押风险管理困难
+
+3.  使用方式
+    
+
+借助 ZetaChain 把各链 NFT 当作“统一 NFT 表示”（ZRC-721）
+
+Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
+
+用户可以：
+
+抵押 ETH NFT + Solana NFT + Polygon NFT
+
+统一借出 USDC / ZETA / BTC
+
+平台管理跨链清算，当抵押品风险过高，可调用目标链的 connected-contract 执行锁定/回收
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 # Day 6
 
 1.  运行文档 Example Messaging
@@ -120,6 +161,7 @@ timezone: UTC+8
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 # Day 5
 
 1.  ZRC-20 和普通 ERC-20 的直观区别
@@ -142,6 +184,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 # Day 4
 
 1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
@@ -155,6 +198,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -182,6 +226,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -218,6 +263,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
