@@ -15,8 +15,63 @@ From SEU BA
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+## **ZetaChain 通用 DeFi 模式梳理**
+
+| 模式 | 核心机制 | ZetaChain 优势 |
+| --- | --- | --- |
+| 跨链 DEX | 用户存入任意链资产，在 ZetaChain 完成交易，资产可提至任意链 | ZRC-20 封装/解封装，避免传统跨链桥风险 |
+| 跨链借贷 | 在 A 链存资产作为抵押，在 B 链借出资产 | 统一抵押品管理，跨链清算 |
+| 收益聚合器 | 自动将资金部署到多链最佳收益机会 | 通过 ZetaChain 统一管理跨链仓位 |
+| 跨链收益农场 | 单次操作即可参与多链流动性挖矿 | 简化用户操作，降低 Gas 成本 |
+| Omnichain NFT | NFT 可在多链自由转移且保持同一合约地址 | 增强 NFT 流动性和应用场景 |
+
+* * *
+
+## **项目方向 1：OmniFarm - 跨链单边资产收益优化器**
+
+### **目标用户**
+
+-   持有大额 BTC、ETH 等主流资产但不希望频繁跨链操作的用户
+    
+-   希望获得跨链收益但担心传统跨链桥风险的 DeFi 用户
+    
+
+### **解决的问题**
+
+1.  **资产闲置问题**：用户持有资产分散在多条链上，难以统一管理获取收益
+    
+2.  **跨链复杂度**：传统跨链收益 farming 需要多次跨链、兑换等操作
+    
+3.  **安全风险**：使用多个跨链桥增加安全风险
+    
+
+### **跨链/通用资产使用方式**
+
+```
+用户操作流程：
+1. 用户在任意链（如 Bitcoin、Ethereum、BNB Chain）存入 BTC
+2. ZRC-20 自动将 BTC 封装为 zBTC 并跨链至 ZetaChain
+3. OmniFarm 合约自动将 zBTC 分配到最优收益策略：
+   - 部分作为抵押品在 Ethereum 上借出稳定币
+   - 部分提供到 BNB Chain 的 BTC/稳定币流动性
+   - 部分参与 Polygon 上的收益农场
+4. 所有收益自动复合，用户可随时在任意链提取本金+收益
+```
+
+### **技术亮点**
+
+-   使用 ZetaChain 的 `crossChainCall` 统一管理多链 DeFi 交互
+    
+-   基于各链利率和风险参数的智能再平衡算法
+    
+-   收益以原生资产（BTC）形式返还，避免无常损失担忧
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 ## **🚀 ZetaChain Swap Demo 实践记录**
 
 ### **环境准备与关键命令**
@@ -142,6 +197,7 @@ function onCrossChainCall(
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 # **1\. 对 “全链应用 / Universal App” 的直观理解**
 
 -   **一个合约，多处运行**：你只写一次核心业务逻辑（Universal App 合约），它可以被部署到任何支持的区块链上（如以太坊、Arbitrum、Polygon、Base 等）。
@@ -232,6 +288,7 @@ function onCrossChainCall(
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 # **1\. 通用区块链**
@@ -325,6 +382,7 @@ function onCrossChainCall(
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1174,6 +1232,7 @@ curl -X POST "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generatio
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
