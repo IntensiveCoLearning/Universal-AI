@@ -15,8 +15,46 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+# 通用 DeFi 项目 idea
+
+## **通用跨链收益聚合器**
+
+**让用户只需存一次钱即可自动获得全链最佳收益。**
+
+* * *
+
+### **目标用户**
+
+-   持有多链资产的小白
+    
+-   想获得 DeFi 收益但不懂跨链、桥接、Gas 管理的人
+    
+-   想降低被桥攻击的风险的用户
+    
+-   希望用「一个界面」掌握所有链收益机会的投资者
+    
+
+* * *
+
+### **想解决的问题**
+
+传统 DeFi 存在明显痛点：
+
+1.  **收益碎片化**  
+    每条链都有不同的 LST / LP 池，年化不同。
+    
+2.  **跨链成本高**  
+    需要桥接，安全风险高、Gas 高。
+    
+3.  **用户难以判断放哪条链收益最高**  
+    需要不断监控多个链的 APR。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 # Swap实践（测试网）
 
 CLI 创建一个新的 ZetaChain 项目：
@@ -62,6 +100,7 @@ npx zetachain solana deposit-and-call \
 
 
 
+
 # **ZRC-20**
 
 ZRC-20 是一种代币标准，集成到 ZetaChain 的 Omnichain 智能合约平台中。借助 ZRC-20，开发者可以构建 dApp，在任何连接的链上协调原生资产。这使得从单一平台构建 Omnichain DeFi 协议和 dApp变得极其简单。
@@ -100,6 +139,7 @@ ZRC-20 代币可以从 ZetaChain 提现到连接的区块链。提现过程中�
 
 
 
+
 # **Swap**
 
 Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
@@ -125,6 +165,7 @@ Swap合约执行以下步骤：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -170,6 +211,7 @@ Gateway支持以下功能：
 
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -179,6 +221,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
