@@ -15,8 +15,14 @@ student
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+今天實在太累了，水個一天
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 ### **1\. ZRC-20 與普通 ERC-20 的直觀區別 (開發者視角)**
 
 雖然 ZRC-20 在介面上兼容 ERC-20 (都有 `transfer`, `balanceOf` 等)，但它們在行為和意義上有本質不同：
@@ -70,6 +76,7 @@ student
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 # Day 4 作業筆記：Universal App 實作規劃
 
 ## 1\. 專案目標
@@ -113,6 +120,7 @@ student
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 Universal App:構建在 ZetaChain 上的智慧合約，能在一個合約中與所有區塊鏈互動，只要在ZetaChain 上部署一次，就可以管理和操作多條鏈上的資產與數據。  
   
 Gateway:Gateway 是 ZetaChain 連接外部區塊鏈的關鍵接口，處理資產和訊息的跨鏈傳輸。  
@@ -123,6 +131,7 @@ Gateway:Gateway 是 ZetaChain 連接外部區塊鏈的關鍵接口，處理資�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
