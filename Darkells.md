@@ -15,8 +15,70 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+目前构思了一个黑客松项目，buy my a coffee 全链版本
+
+市场背景：多链时代的 Creator Economy 正在碎片化
+
+Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum、Base、BSC、Solana、Cosmos…）」。
+
+## **问题：Creator 散落在不同链，用户也散落在不同链。**
+
+### 具体表现：
+
+-   用户 A 在 Base
+    
+-   用户 B 在 BSC
+    
+-   用户 C 在 Arbitrum
+    
+-   创作者可能在某一链上建了项目，但捐赠者分布在不同链
+    
+-   打赏 / 捐赠 / 支持某个项目时必须换链、找地址，很麻烦
+    
+-   主链 gas 成本高、资产碎片、链间 UX 不一致
+    
+
+### 用户画像：
+
+### ① Web3 开发者 / 黑客松项目 Owner（核心用户）
+
+-   Base / Solana / BSC / OP 等链都有黑客松
+    
+-   每个项目都希望被关注、被赞赏、被资助
+    
+-   但他们的受众是多链的
+    
+
+**他们会主动挂上 donation 链接**（类似 GitHub Sponsor）
+
+### ② Builder / Indie Hacker
+
+-   个人做的小工具、小机器人、脚本、前端、SDK
+    
+-   他们需要一个“统一收款页”
+    
+-   但不想自己集成任何跨链桥 / 多链地址管理
+    
+
+### ③ KOL / 教程作者 / 内容创作者
+
+-   写教程、做视频、做内容的人需要捐赠页
+    
+-   但粉丝分布在不同链
+    
+
+### ④ 资助者（用户）
+
+-   想支持喜欢的项目
+    
+-   但 **绝对不想为了打赏 1-3 USD 去切链、跨链、换资产**。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 今天实际去跑 swap 的 demo记录遇到的问题
 
 在 deplo 合约上都没遇到问题，只是在获取 zetachain 测试网的以太坊 Sepolia ETH 的 ZRC-20 地址报错了
@@ -50,6 +112,7 @@ timezone: UTC+8
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 **Gateway（网关）** 是 ZetaChain 跨链架构中的关键基础设施合约，它充当：
 
@@ -105,6 +168,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 -   **ZRC-20 和普通 ERC-20 的直观区别**
     
 
@@ -131,6 +195,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -181,6 +246,7 @@ Swap 工作流程
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -241,6 +307,7 @@ ZetaChain为开发者提供了一个统一的平台来处理跨链消息、资�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
