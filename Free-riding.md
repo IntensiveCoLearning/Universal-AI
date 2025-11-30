@@ -15,8 +15,45 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+# 跨链SWAP
+
+普通的链只能从它当前链进行swap
+
+ZetaChain的swap工作流程
+
+从其他链上的U转换成ZRC-20ETH，在转化成对应的token，最后提到目标链上
+
+Ethereum ETH ——> **ZRC20 ETH.ETH---------swap-------------ZRC20 BTC** ——>Bitcoin BTC
+
+```
+function onCrossChainCall(
+    bytes calldata origin, //源链信息
+    uint256 originChainID, //源链 ChainID
+    address zrc20, //源链 ZRC-20 代币合约地址
+    uint256 amount, //代币数量
+    bytes calldata message //跨链信息（包括了目标链ID，目标资产，数量等等）
+) external {
+    //1.解析信息
+    (address targetToken, uint256 minAmount) = abi.decode(
+        message,
+        (address, uint256)
+    );
+    
+    //2.跨链交互逻辑的实现
+    uint256 amountOut = calculateSwapAmount(amount);
+    require(amountOut >= minAmount, "invalid output");
+
+    //3.提取到目标链上
+    IZRC20(targetToken).withdraw(amountOut, recipient, targetChainID);
+}
+```
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 # ZetaChain函数
 
 ```
@@ -35,6 +72,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 # 跨链
 
@@ -102,11 +140,13 @@ ZetaChain 的共识机制
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -235,6 +275,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -471,6 +512,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
