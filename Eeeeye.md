@@ -15,8 +15,81 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-11-30
+<!-- DAILY_CHECKIN_2025-11-30_START -->
+## **ZetaChain 上常见的通用 DeFi 模式**
+
+1.  **跨链 AMM / DEX / Swap**
+    
+    -   多链资产 → 转成 ZRC-20，在 ZetaChain 上做一次 Swap。
+        
+    -   背后自动完成：源链锁定资产 / 消息传递 / 目标链解锁或铸造。
+        
+2.  **跨链收益聚合器（Yield Aggregator）**
+    
+    -   用户在任意链存一笔钱。
+        
+    -   ZetaChain 通用合约作用：
+        
+        -   把资金分散到不同链的借贷/农场/激励池；
+            
+        -   定期再平衡，把收益统一聚合。
+            
+3.  **LSD / Restaking / LSDFi 方向**
+    
+    -   把多种 LSD（stETH、rETH 等）统一进 ZetaChain。
+        
+    -   通用合约负责在多条链上做再质押、收益复投。
+        
+    -   用户只看到一个「LSD 金库」，不需要自己跨链配置。
+        
+4.  **跨链借贷 / 抵押 & 稳定币**
+    
+    -   抵押在 A 链上的资产，在 B 链上借出稳定币或开杠杆。
+        
+    -   ZetaChain 负责跨链读写抵押状态、防止双花+清算。
+        
+5.  **通用 NFT / 全链会员**
+    
+    -   一份 Universal NFT = 用户在多链上的统一身份/会员/权益。
+        
+    -   DeFi 协议可以用 NFT 表示份额、治理权、收益凭证等。
+        
+
+## **项目 Idea 1：跨链稳定币收益聚合器**
+
+1.  **目标用户**
+    
+    -   想拿稳定收益但不想研究多条链、多种协议的普通用户。
+        
+2.  **要解决的问题**
+    
+    -   稳定币收益分散在不同链、不同协议，信息不透明、操作麻烦。
+        
+    -   用户频繁跨链、换桥，成本高、风险大。
+        
+3.  **粗略方案（跨链 / 通用资产使用方式）**
+    
+    -   用户侧：
+        
+        -   在任意支持链（Base / Arbitrum / Sepolia 等）存入 USDC / USDT。
+            
+        -   资产在 ZetaChain 映射成相应 ZRC-20，记入 Vault 份额。
+            
+    -   协议侧（在 ZetaChain 上的 Universal 合约）：
+        
+        -   根据策略，把 ZRC-20 稳定币跨链分配到不同链的优质收益池。
+            
+        -   定期再平衡，把多链收益统一计入用户份额。
+            
+    -   退出：
+        
+        -   用户可以选择任意一条链提取本息（不是必须回到原来那条链）。
+<!-- DAILY_CHECKIN_2025-11-30_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 ### **搭建官方 Swap Demo 项目**
 
 **创建项目骨架**
@@ -138,6 +211,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -215,6 +289,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 ## **对 “全链应用 / Universal App 合约” 的直观理解**
@@ -309,6 +384,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -465,6 +541,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -639,6 +716,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
