@@ -20,10 +20,50 @@ timezone: UTC+8
 # Day 6
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Hu-Wentao/images/2025-11-30-1764504123576-image.png)
+
+````markdown
+## 运行Swap
+
+## ZetaChain 测试网浏览器
+https://testnet.zetascan.com
+
+## 部署到测试网
+
+```bash
+export PRIVATE_KEY="<私钥>"
+UNIVERSAL=$(npx tsx commands deploy --private-key $PRIVATE_KEY | jq -r .contractAddress) && echo $UNIVERSAL
+
+echo $UNIVERSAL
+```
+
+部署合约成功: https://testnet.zetascan.com/address/0x5dEF5269e3a5E94b7A2bFE23DE5D704421547d53
+
+
+## 询问ZetaChain AI文档内容
+```bash
+zetachain ai
+```
+
+## ZetaChain 资产注册表(foreign_coins) API
+https://zetachain.blockpi.network/lcd/v1/public/zeta-chain/fungible/foreign_coins
+
+
+# 你是从哪里发起的调用？
+
+原始链上的Gateway通过 depositAndCall 发起调用，receiver 指向 ZetaChain 上的 Swap 通用合约。
+
+# 最终在 ZetaChain 上发生了什么？
+1. ZetaChain Gateway 触发Swap.onCall 
+2. Swap 计算并支付目标链 gas
+3. 用 Uniswap 把输入 ZRC20 换成 目标资产
+4. 通过Gateway withdraw 到 $RECIPIENT 地址
+
+````
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 ## Day5 Work
 
@@ -180,6 +220,7 @@ AI 通过 ZetaChain 获取数据：
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 ## **📌 Part 1：Universal App 的第一个功能（打印 / 记录 / 简单逻辑）**
 
 我的 Universal App（AI 全链存钱罐 OmniPiggy）的第一个要实现的最小功能是：
@@ -282,6 +323,7 @@ AI 通过 ZetaChain 获取数据：
 
 
 
+
 ## Universal App 是什么？
 
 UniversalApp是部署在ZetaChain上的智能合约, 兼容EVM以及BTC, Solana, Ton, Sui等链, 实现复杂的跨链操作.
@@ -300,6 +342,7 @@ ZetaChain 中心 + Bitcoin / Ethereum / Solana 等外围链 + Gateway。
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -330,6 +373,7 @@ https://signetfaucet.com/ 	Bitcoin Signet  比特币签名
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
