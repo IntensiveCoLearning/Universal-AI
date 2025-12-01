@@ -15,13 +15,82 @@ student
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+Idea 1: Omni-Lend（全鏈原生資產借貸協議）
+
+這個 Idea 的核心是利用 ZRC-20 來解決 DeFi 最大的痛點：比特幣無法去中心化地參與 EVM 生態的借貸。
+
+目標用戶
+
+BTC Holder：手持比特幣，想要藉出穩定幣（USDT/USDC）進行消費或投資，但不想把 BTC 賣掉，也不想使用中心化交易所（CEX）或複雜的 wBTC 橋接。
+
+多鏈資產持有者：資產分散在 ETH、Polygon、BSC 上，想在一個平台上統一管理抵押品。
+
+想解決的問題
+
+流動性割裂：使用者必須把資產跨鏈到同一條鏈上才能藉貸，手續費高且繁瑣。
+
+原生 BTC 的 DeFi 缺位：目前市場上缺乏完全去中心化的、基於原生 BTC 的抵押貸款借貸方案（通常需要依賴多簽橋或託管商）。
+
+跨鏈 / 通用資產使用方式 (技術實現邏輯)
+
+通用金庫（Omnichain Vault）：在 ZetaChain 上部署一個 Lending Contract。
+
+抵押 (Deposit)：用戶在比特幣網路（Bitcoin Network）直接向 ZetaChain 的 TSS 地址轉帳 BTC。
+
+狀態更新：ZetaChain 偵測到這筆交易，自動在合約中​​鑄造等量的 ZRC-20 BTC 並鎖定作為抵押品。
+
+借貸 (Borrow)：用戶在以太坊或 Polygon 上接收借出的 USDC（透過 ZetaChain 合約調用 ZRC-20 兌換或跨鏈訊息發送）。
+
+清算 (Liquidation)：如果 BTC 價格大跌，ZetaChain 上的合約可以直接調用 ZRC-20 的 withdraw 功能，將 BTC 賣出或轉移，實現完全自動化的鏈上清算。
+
+亮點： "Native BTC in, Stablecoin out on any chain." (原生 BTC 進，任意鏈穩定幣出)。
+
+Idea 2: Uni-Index / Omni-Yield（一鍵式全鏈指數基金/收益聚合器）
+
+這個 Idea 利用了 ZetaChain 的 同步操作（Synchronous Composition） 能力。在其他鏈上，你需要先跨鏈、再 Swap、再質押，步驟極多。在 ZetaChain 上，可以「一筆交易完成所有操作」。
+
+目標用戶
+
+「懶人」投資者：不想管理 10 個錢包和 5 條鏈，只想一鍵投資「加密貨幣大盤」（例如：30% BTC + 30% ETH + 40% BNB）。
+
+Gas 敏感型用戶：不想支付多次跨鍊和 Swap 的昂貴 Gas 費。
+
+想解決的問題
+
+操作繁瑣：組成一個跨鏈投資組合通常需要 10+ 次簽名和操作。
+
+再平衡困難：當 ETH 漲了、BTC 跌了，手部調整部位非常痛苦。
+
+跨鏈 / 通用資產使用方式 (技術實現邏輯)
+
+單一入口：使用者在 Polygon 上持有一筆 USDC。
+
+一鍵觸發：使用者呼叫 ZetaChain 上的 Universal App，傳入 100 USDC。
+
+內部路由 (The Magic)：
+
+ZetaChain 合約接收 ZRC-20 USDC。
+
+合約邏輯會自動按比例在 ZetaChain 內部的 DEX（Uniswap v2 fork）將 USDC Swap 成 ZRC-20 BTC、ZRC-20 ETH 和 ZRC-20 BNB。
+
+資產持有/生息：合約代表用戶持有這些 ZRC-20 代幣，或將其註入 ZetaChain 上的流動性池（Liquidity Pool）賺取手續費。
+
+一鍵退出：當用戶想贖回時，合約會自動把所有資產賣回成 USDC，並觸發 withdraw 將 USDC 發回用戶的 Polygon 錢包。
+
+亮點： "One click, hold the world." (點擊一次，持有全鏈資產)。這也是目前許多機構（如 Restaking 協議）非常看好的方向。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 今天實在太累了，水個一天
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 ### **1\. ZRC-20 與普通 ERC-20 的直觀區別 (開發者視角)**
 
@@ -77,6 +146,7 @@ student
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 # Day 4 作業筆記：Universal App 實作規劃
 
 ## 1\. 專案目標
@@ -121,6 +191,7 @@ student
 
 
 
+
 Universal App:構建在 ZetaChain 上的智慧合約，能在一個合約中與所有區塊鏈互動，只要在ZetaChain 上部署一次，就可以管理和操作多條鏈上的資產與數據。  
   
 Gateway:Gateway 是 ZetaChain 連接外部區塊鏈的關鍵接口，處理資產和訊息的跨鏈傳輸。  
@@ -131,6 +202,7 @@ Gateway:Gateway 是 ZetaChain 連接外部區塊鏈的關鍵接口，處理資�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
