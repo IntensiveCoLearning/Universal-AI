@@ -15,13 +15,26 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+用python完成对qwen的api请求：
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Augety1017/images/2025-12-01-1764595169920-image.png)
+
+使用了qwen-max：
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Augety1017/images/2025-12-01-1764595302896-image.png)
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 部署swap合约，并且理解swap合约
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 # ZRC-20:通用token。
 
@@ -42,11 +55,13 @@ ZRC-20：管理多链资产，通用token，而ERC-20：只在Ethereum上使用�
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 参加了workshop，复习了前几天学习的zetachain的架构，学习了相关的合约编写以及相关部署，打算明天进行相应的实操练习。
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -87,6 +102,7 @@ gas：将ZRC-20中的一部分转化为ZRC-20 gas token，用来支付目标链�
 
 
 
+
 zetachain的localnet的部署：
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Augety1017/images/2025-11-25-1764073012551-image.png)
@@ -114,6 +130,7 @@ zetachain的localnet的部署：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
