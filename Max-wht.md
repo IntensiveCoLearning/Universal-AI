@@ -17,8 +17,9 @@ web3 developer
 <!-- Content_START -->
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
-## **  
-Qwen API调用**
+## \*\*
+
+Qwen API调用\*\*
 
 感觉不是很聪明。。。
 
@@ -77,10 +78,239 @@ requestBody := RequestBody{
 ![截屏2025-12-01 12.09.58.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Max-wht/images/2025-12-01-1764562204094-__2025-12-01_12.09.58.png)
 
 这个是官方的demo，大概的逻辑是根据用户的描述生成图片
+
+## Solidity YUL
+
+虽然不是学习内容，但是顺便加到笔记里
+
+Solidity 的 inline assembly 使用的是 **Yul** 语言（以前叫 “Solidity Assembly”）。  
+它是一种低级语言，贴近 EVM 指令，但比纯 EVM bytecode 稍微高级一些。
+
+* * *
+
+### 1\. 🧱 内联汇编的基本结构
+
+```
+assembly {
+    // Yul 代码
+}
+```
+
+变量用 `let` 声明：
+
+```
+let x := 1
+```
+
+所有变量都是 **32 字节 word**。
+
+* * *
+
+### 2\. 📦 基本语法
+
+语法形式统一如下：
+
+```
+<variable> := <operation>(arg1, arg2, ...)
+```
+
+例如：
+
+```
+let x := add(1, 2)
+let y := keccak256(ptr, 0x40)
+```
+
+* * *
+
+### 3\. 🔧 常用运算操作（算术 / 逻辑）
+
+Yul 内置的操作几乎都是 EVM opcode，例如：
+
+| 操作 | 说明 |
+| --- | --- |
+| add(a, b) | 加法 |
+| sub(a, b) | 减法 |
+| mul(a, b) | 乘法 |
+| div(a, b) | 除法 |
+| mod(a, b) | 取模 |
+| and(a, b) | 位 AND |
+| or(a, b) | 位 OR |
+| xor(a, b) | 位 XOR |
+| not(a) | 位反 |
+| lt(a, b) | 小于 |
+| gt(a, b) | 大于 |
+| eq(a, b) | 是否相等 |
+
+* * *
+
+### 4\. 🧠 内存操作（Yul 最常用的部分）
+
+**mload(p)**
+
+从内存中读取 32 字节：
+
+```
+let value := mload(0x40)
+```
+
+**mstore(p, value)**
+
+写入 32 字节：
+
+```
+mstore(ptr, myData)
+```
+
+**mstore8(p, value)**
+
+写入 1 字节：
+
+```
+mstore8(ptr, 0xff)
+```
+
+* * *
+
+### 5\. 📦 Storage 操作（注意与 memory 区别）
+
+**sload(slot)**
+
+从 storage 读取：
+
+```
+let x := sload(5)
+```
+
+**sstore(slot, value)**
+
+写入 storage（会产生 gas）：
+
+```
+sstore(5, 123)
+```
+
+* * *
+
+### 6\. 🔐 哈希函数
+
+**keccak256(ptr, size)**
+
+对内存区域做哈希：
+
+```
+let hash := keccak256(ptr, 0x40)
+```
+
+等价于 Solidity 的 `keccak256(bytes)`。
+
+* * *
+
+### 7\. ⚙️ 外部调用指令
+
+**call**
+
+基本调用：
+
+```
+let success := call(
+    gas(),          // gas
+    target,         // 目标地址
+    value,          // ETH
+    inPtr, inSize,  // 输入数据
+    outPtr, outSize // 输出数据
+)
+```
+
+其他类似：
+
+-   `staticcall(...)`
+    
+-   `delegatecall(...)`
+    
+
+**返回数据**
+
+```
+returndatacopy(outPtr, 0, returndatasize())
+```
+
+* * *
+
+### 8\. 🔁 控制流（if / switch / for）
+
+**if**
+
+```
+if eq(x, 1) {
+    mstore(0x0, 123)
+}
+```
+
+**switch**
+
+```
+switch x
+case 1 { mstore(0, 1) }
+case 2 { mstore(0, 2) }
+default { mstore(0, 0) }
+```
+
+**for**
+
+```
+for { let i := 0 } lt(i, 10) { i := add(i, 1) } {
+    mstore(i, mul(i, 2))
+}
+```
+
+* * *
+
+### 9\. 🧱 关键特殊指令
+
+| 指令 | 说明 |
+| --- | --- |
+| gas() | 剩余 gas |
+| address() | 当前合约地址 |
+| caller() | msg.sender |
+| callvalue() | msg.value |
+| calldataload(p) | 读取 call data |
+| calldatasize() | calldata 大小 |
+| calldatacopy(dst, src, size) | 复制 calldata → memory |
+
+* * *
+
+### 10\. 🧯 revert / return / stop
+
+**revert(ptr, size)**
+
+```
+revert(ptr, 0x20)
+```
+
+**return(ptr, size)**
+
+返回数据给调用者。
+
+**stop**
+
+等价于成功结束，不返回值。
+
+* * *
+
+### 11\. 🔥 内存指针 0x40：free memory pointer（非常重要）
+
+`0x40` 位置保存当前可写内存的起始地址：
+
+```
+let ptr := mload(0x40)     // 获取空闲内存指针
+mstore(0x40, add(ptr, 0x40)) // 更新空闲内存指针
+```
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 ## **LSDFi**
 
@@ -143,6 +373,7 @@ zetachain 有几个优势。首先是不同链的加密货币可以用 ZRC20 统
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 ## Messaging
@@ -216,6 +447,7 @@ Gateway Gateway
 
 
 
+
 \### ZRC20
 
 开发者不能铸造 ZRC20,开发者在 zetachain 铸造的 ERC20，不叫 ZRC20。简单来说，ZRC20 可以看作,外部链上的原生 gas 资产或在白名单的 ERC-20 在 ZetaChain 上的 representation,比如跨链的转账，ETH -> ZRC-ETH -> SOL。
@@ -229,6 +461,7 @@ Gateway Gateway
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -247,6 +480,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 
 
+
 ### Q1: Universal App 是什么?
 
 简单来说，部署在zetachain，并且继承了UniversalContract.sol的合约，实现了`OnCall`函数，就可以是Universal App，它可以处理跨链请求。
@@ -258,6 +492,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -339,6 +574,7 @@ swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
