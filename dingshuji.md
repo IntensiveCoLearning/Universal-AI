@@ -15,13 +15,32 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+调用通义千问
+
+\- node.js
+
+\- 创建文件夹
+
+\- 初始化 Node.js 项目，生成 package.json 文件：执行 npm init -y
+
+\- 安装 OpenAI SDK：执行命令 npm install openai
+
+\- 新建一个 .js 格式的文件，粘贴开发文档中代码
+
+\- 终端中执行 node 【文件名】：node ai.js
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 `Swap` 合约是部署在 ZetaChain 上的通用应用。它使用户能够通过一次跨链调用在区块链间进行代币交换。代币以 ZRC-20 形式接收，可选择使用 Uniswap v2 流动性进行交换，并提取回连接链。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 部署swap：
 
@@ -46,11 +65,13 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通过 ZRC-20，开发者可以构建 dApp，在任何连接链上协调本地资产。这使得构建全链 DeFi 协议和 dApps，如全链去中心化交易所（Omnichain DEX）、全链借贷、全链投资组合管理，以及任何涉及多条链上的同质化代币，从一个地方变得极其简单——就像它们都存在于一条链上一样。
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -73,6 +94,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 
 
+
 \## zeta架构
 
 \- 交互路径：区块链→zetaclient→zetavm→zetacore（ Tendermint 共识和 PoS 验证者网络）→ZetaCore / Blockchain（核心区块链）→签名者签名
@@ -91,6 +113,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 
 
+
 \- 安装zetachain CLI：npm install -g zetachain
 
 \- 检查版本：zetachain --version
@@ -102,6 +125,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
