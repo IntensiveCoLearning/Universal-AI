@@ -15,19 +15,27 @@ web3 building
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+鸽
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 准备下周考试了鸽🤣🤣
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 再鸽一天hhh
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 **ZRC-20 的核心特性**
@@ -79,11 +87,13 @@ ERC-20 是以太坊单链的代币标准，仅能在以太坊生态内流通；�
 
 
 
+
 今天忙的事太多了，鸽一天hh
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -95,6 +105,7 @@ ERC-20 是以太坊单链的代币标准，仅能在以太坊生态内流通；�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
