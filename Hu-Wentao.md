@@ -28,10 +28,20 @@ timezone: UTC+8
 -   使用方式: 用户存入稳定币, 通过AI聊天制定自己的储蓄计划, AI根据市场情况和用户风险偏好，自动调整投资组合，进行跨链资产配置和再平衡。 至少支持 BTC DCA策略; 依托ZetaChain能力, 支持更多类型的原生资产(SOL, SUI…)
     
 -   特色: 原生资产智能投资, 降低包装币制造的风险; 心理按摩, 帮助用户坚持投资计划
+    
+
+# Day8
+
+今天尝试创建一个调用Qwen大模型API的程序, 选择了比较擅长的python.
+
+先是用uv 安装了langchain, langchain-qwq, 后来发现langchain还是太重, 冗余的东西太多. 考虑到Qwen兼容Opena AI, 于是改用openai-python 来实现.
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Hu-Wentao/images/2025-12-01-1764602300725-image.png)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 # Day 6
 
@@ -79,6 +89,7 @@ https://zetachain.blockpi.network/lcd/v1/public/zeta-chain/fungible/foreign_coin
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -239,6 +250,7 @@ AI 通过 ZetaChain 获取数据：
 
 
 
+
 ## **📌 Part 1：Universal App 的第一个功能（打印 / 记录 / 简单逻辑）**
 
 我的 Universal App（AI 全链存钱罐 OmniPiggy）的第一个要实现的最小功能是：
@@ -343,6 +355,7 @@ AI 通过 ZetaChain 获取数据：
 
 
 
+
 ## Universal App 是什么？
 
 UniversalApp是部署在ZetaChain上的智能合约, 兼容EVM以及BTC, Solana, Ton, Sui等链, 实现复杂的跨链操作.
@@ -361,6 +374,7 @@ ZetaChain 中心 + Bitcoin / Ethereum / Solana 等外围链 + Gateway。
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -393,6 +407,7 @@ https://signetfaucet.com/ 	Bitcoin Signet  比特币签名
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
