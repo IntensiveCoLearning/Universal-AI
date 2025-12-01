@@ -15,8 +15,24 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+**日期**：2025.12.01 **进度**：Qwen API 实战与意图解析层开发
+
+今天是共学第二周的第一天，重心从链上交互转移到了 AI 智能体的构建上。虽然官方文档主要介绍了 Qwen 的基础调用，但我直接将其应用到了 DeFi 场景的意图识别中。
+
+在技术选型上，我没有使用阿里云繁琐的原生 SDK，而是利用了 Qwen 兼容 OpenAI 协议的特性，直接通过 `openai` Python 库进行调用。这样做的好处是代码复用性极高，未来如果想切其他模型改动很小。模型方面我选择了 `qwen-plus`，在逻辑推理和 JSON 格式遵循上比开源版本更稳定。今天的核心工作是打磨 System Prompt（系统提示词）。为了让 AI 能准确控制区块链交易，我不能让它输出自然语言的废话，必须强制它输出结构化的 JSON。我在代码里明确定义了输出字段：action（操作类型）、token\_in（代币符号）、amount（数量）和 destination\_chain。
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-12-01-1764589459962-image.png)
+
+调试过程中发现一个难点：当用户输入模糊指令（比如“买点币”）时，模型容易产生幻觉。我通过在 Prompt 里增加约束条件（“如果无法解析则返回 error 字段”），并在 Python 代码层增加了 `json.loads` 的异常捕获逻辑，有效解决了非结构化数据导致程序崩溃的问题。
+
+目前 AI 大脑与 Web3 手脚已经通过这个 JSON 接口完成了对接。明天计划进一步完善 Agent 框架，尝试增加更多的工具调用能力。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 日期：2025.11.30
 
 进度：完成 Universal DeFi 核心功能（Swap）开发
@@ -34,6 +50,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 **Day 5 学习日志：Web3 Agent 可视化与全流程闭环**
 
@@ -61,6 +78,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 **Day 4 学习日志：从原生交互进阶到智能合约读取**
 
 日期：2025.11.28
@@ -84,6 +102,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -115,6 +134,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -180,6 +200,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
