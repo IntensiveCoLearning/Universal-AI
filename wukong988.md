@@ -15,8 +15,24 @@ web3独立开发者，曾编写过solana合约、套利等
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+**一个从外部连接链到ZetaChain的“入站交易”的主要步骤。**
+
+一个入站交易主要包括四个步骤：
+
+-   **发起**：用户在连接链上与网关合约交互。
+    
+-   **观察**：观察者-签名者验证者检测到事件并提取交易细节。
+    
+-   **投票**：验证者们在ZetaChain上对该事件的有效性进行投票，需达到多数同意。
+    
+-   **执行**：投票通过后，ZetaChain更新CCTX记录，并根据交易内容铸造资产或调用目标合约。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ZetaChain 有两种类型的验证者：核心验证者和观察者-签名者验证者（观察者-签名者）。
 
 ZetaChain 设计有两种类型的验证者：观察者和签名者。观察者监控连接链上的活动，而签名者代表协议处理来自阈值签名方案（TSS）地址的交易签名。然而，目前 ZetaChain 上的所有观察者-签名者验证者都执行这两种角色，既充当观察者也充当签名者。这意味着每个观察者-签名者验证者同时监控连接链上的交易并参与交易签名。
@@ -28,6 +44,7 @@ ZetaChain 设计有两种类型的验证者：观察者和签名者。观察者�
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 Let’s consider the path from Arbitrum ETH to Polygon POL, because ZetaChain supports these tokens natively.
 
@@ -46,6 +63,7 @@ If you want to get wrapped ETH on Polygon as the result, you withdraw and call, 
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 # 跨链代币总量控制机制
@@ -133,6 +151,7 @@ require(totalSupply() + amount <= MAX\_SUPPLY, "Exceeds max supply");
 
 
 
+
 # Swap 合约系统性分析
 
 解决的核心问题
@@ -164,6 +183,7 @@ require(totalSupply() + amount <= MAX\_SUPPLY, "Exceeds max supply");
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -232,6 +252,7 @@ require(totalSupply() + amount <= MAX\_SUPPLY, "Exceeds max supply");
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
