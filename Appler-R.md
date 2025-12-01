@@ -16,8 +16,38 @@ AI 开发者, Qwen 实战派，看好Web3+ 模块化链
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+### ZetaChain 上能做的通用 DeFi 模式：
+
+### **全链 DEX (Omnichain Swap)**
+
+**核心**：原生资产直接兑换 (如 BTC ↔ ETH)。
+
+**杀手锏**：**无桥、无封装 (No Wrapped Assets)**。用户体验像单链交易一样丝滑，无需持有中间链 Gas。
+
+**全链借贷 (Omnichain Lending)**
+
+**核心**：多链资产抵押借贷 (如 存入原生 BTC → 借出原生 USDT)。
+
+**杀手锏**：**原生 BTC 抵押品**。清算逻辑在 zEVM 内部毫秒级完成，消除了跨链通讯延迟带来的坏账风险。
+
+**比特币金融 (BTC-Fi)**
+
+**核心**：赋予比特币智能合约能力 (如 BTC 流动性挖矿、BTC 参与 IDO)。
+
+**杀手锏**：**可编程性**。让比特币不离网也能运行复杂逻辑，激活万亿级休眠资产。
+
+**全链稳定币 (Omnichain Stablecoin)**
+
+**核心**：一篮子多链资产抵押 (BTC + ETH + BNB) → 铸造统一稳定币 (zUSD)。
+
+**杀手锏**：**极致资本效率**。生成的稳定币是 Universal Token，可瞬间流转至任何链使用。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ## 周记
 
 ### 资产双子星：ZRC-20 vs Universal Assets
@@ -130,6 +160,7 @@ AI 开发者, Qwen 实战派，看好Web3+ 模块化链
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 通过discord领了测试币，上了一下测试链
 
@@ -252,6 +283,7 @@ sequenceDiagram
 
 
 
+
 ## ZetaChain ZRC-20 跨链资产统一与 Swap 流程图
 
 1.  **外部资产入链** — 用户从源链（如 Base、Ethereum）发送资产到 TSS 托管地址（非中心化）。
@@ -331,6 +363,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 
 
+
 ![1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-27-1764250272995-1.png)
 
 终于克服了依赖缺失和路径配置等重重报错，**成功在本地跑通了最核心的跨链 Swap 业务模拟**。
@@ -340,6 +373,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -643,6 +677,7 @@ Merkle树用哈希聚合交易 → 一个根哈希代表所有交易，轻节点
 
 
 
+
 ## 1\. 开发环境处理 (WSL Linux)
 
 起步发现WSL被 Docker 占用、WSL 无法启动、忘记密码。
@@ -875,6 +910,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
