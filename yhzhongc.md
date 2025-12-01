@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+今天运行demo，但是没跑通swap项目，没搞懂咋回事，明天再看看，先打个卡
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 Threshold Signature Scheme，门限签名方案
 
 \### 1. 通俗类比：共管金库的钥匙
@@ -159,11 +165,13 @@ ZetaChain 通过这种架构，提供了一个单一的平台，用于处理跨�
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 今天下班太晚了，先打卡，明天笔记补两天的内容
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 \### 什么是Universal App?
@@ -278,6 +286,7 @@ Bitcoin 本身不支持复杂的智能合约。但是，通过 ZetaChain：
 
 
 
+
 1.  注册了Qwen账号，尝试了Qwen官方的在线调试请求，申请了api key，返回Access Denied
     
 2.  按照Zetachain官方文档开始学习Zetachain CLI，卡在了forge build上。
@@ -285,6 +294,7 @@ Bitcoin 本身不支持复杂的智能合约。但是，通过 ZetaChain：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
