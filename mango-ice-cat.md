@@ -15,8 +15,14 @@ code everything
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+# 1,打卡签到
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 # 1，打卡签到
 
 # 2， **Day 7 学习笔记：通用 DeFi 赛道预热 & Idea 收敛**
@@ -318,6 +324,7 @@ ZetaChain 能原生解决。
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 # 1，打卡签到
 
 # 2， **Day 6 学习笔记：Universal DeFi & Demo 实战**
@@ -521,6 +528,7 @@ Day 6 在今天我终于真正“看见了”跨链动作在链上运行的样�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -768,6 +776,7 @@ Universal NFT 就像：
 
 
 
+
 # 1，打卡签到
 
 # 2，今日学习内容
@@ -963,6 +972,7 @@ ZetaChain：
 
 
 
+
 # 1，打卡签到
 
 # 2，Day 3 笔记 — ZetaChain & Universal Blockchain 核心概念
@@ -1077,6 +1087,7 @@ Day 3 的重点是 **概念理解 + 架构梳理**，我觉得最重要的是把
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1252,6 +1263,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
