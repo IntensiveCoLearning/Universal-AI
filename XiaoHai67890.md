@@ -15,8 +15,357 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+### 学习笔记 Day8：
+
+## 一、今日学习内容
+
+-   **目标 1**：搞清楚通义千问（Qwen）是什么、有哪些模型，适合什么场景。
+    
+-   **目标 2**：理解 Qwen 的 **OpenAI 兼容 API 调用方式**（chat/completions）。
+    
+-   **目标 3**：用 Python 写一个最小脚本：
+    
+    -   输入提示词
+        
+    -   调用 Qwen 生成一段 **ZetaChain 公链介绍**
+        
+    -   在终端打印结果
+        
+-   **记录**：本次示例选择的模型和调用参数。
+    
+
+## 二、通义千问 / Qwen 模型快速认知
+
+1.  **通义千问是什么？**  
+    通义千问是阿里云自研的大语言模型家族，能处理自然语言、多模态数据（文本、图片、音频、视频等），支持创作、对话、代码、翻译等多种任务。
+    
+2.  **在阿里云 Model Studio 里的主力商用模型（北京/新加坡）**
+    
+    | 产品名（中文） | 典型模型名（API） | 特点 |
+    | --- | --- | --- |
+    | 通义千问 Max | qwen-max / qwen3-max 等 | 能力最强，适合复杂推理、大型应用 |
+    | 通义千问 Plus | qwen-plus / qwen-plus-latest | 效果、速度、成本均衡，本次示例用它 |
+    | 通义千问 Flash | qwen-flash | 简单任务、速度优先、成本低 |
+    
+3.  **为什么示例选择 qwen-plus？**
+    
+
+-   官方定位是“**效果/速度/成本均衡**”的旗舰模型，适合作为默认通用模型。
+    
+-   在 API 文档和 OpenAI 兼容示例中大量以 `qwen-plus` 作为示例模型，资料完善。
+    
+
+> **记一笔**：以后自己的习惯可以是——**默认用** `qwen-plus` **做通用对话/文案，遇到特别重的推理或高价值任务再切到** `qwen-max`**。**
+
+## 三、Qwen API：OpenAI 兼容调用方式梳理
+
+### 3.1 调用入口
+
+官方推荐使用 **OpenAI 兼容接口** 调用 Qwen 模型。
+
+-   **Base URL**
+    
+    -   中国大陆（北京）：`https://dashscope.aliyuncs.com/compatible-mode/v1`
+        
+    -   国际（新加坡）：`https://dashscope-intl.aliyuncs.com/compatible-mode/v1`
+        
+-   **HTTP 路径（统一）**：  
+    `POST {base_url}/chat/completions`  
+    比如北京地域就是：  
+    `POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions`
+    
+
+### 3.2 鉴权 & SDK
+
+1.  在阿里云百炼控制台申请 **API Key**。
+    
+2.  推荐把 Key 配置到环境变量，例如：
+    
+
+```
+export DASHSCOPE_API_KEY="sk-xxxxxxxx"
+```
+
+3.  Python 使用官方 OpenAI SDK：
+    
+
+```
+pip install --upgrade openai
+```
+
+4.  创建客户端（Python）：
+    
+
+```
+from openai import OpenAI
+import os
+
+client = OpenAI(
+    api_key=os.getenv("DASHSCOPE_API_KEY"),
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+)
+```
+
+> 注意：**如果忘记设置** `base_url`**，SDK 会连到 OpenAI 官方而不是通义千问。**
+
+### 3.3 请求体基本结构
+
+Qwen 的 OpenAI 兼容接口遵循标准的 `chat.completions` 规范：
+
+核心字段：
+
+```
+{
+  "model": "qwen-plus",
+  "messages": [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "你是谁？"}
+  ],
+  // 下列参数可选
+  "temperature": 0.7,
+  "top_p": 0.9,
+  "max_tokens": 512,
+  "stream": false,
+  "tools": [...],
+  "response_format": {...},
+  // 非标准 OpenAI 参数通过 extra_body 扩展
+  "extra_body": {
+    "enable_search": true
+  }
+}
+```
+
+### 3.4 返回结构要点
+
+典型返回结构（简化）：
+
+-   `id`: 本次调用 ID
+    
+-   `model`: 使用的模型名
+    
+-   `choices`: 数组，每个 choice 是一个候选回复
+    
+    -   `choices[0].message.content`: 助手生成的文本
+        
+-   `usage`: token 统计
+    
+    -   `prompt_tokens`
+        
+    -   `completion_tokens`
+        
+    -   `total_tokens`
+        
+
+对于简单应用，只要记住：**拿** `choices[0].message.content` **当作答案** 即可。
+
+## 四、常用调用参数理解小抄
+
+（基于官方文档 + Qwen3 推荐配置整理）
+
+1.  `model`（必填）
+    
+    -   字符串：如 `"qwen-plus"`, `"qwen-max"`, `"qwen-flash"`, `"qwen3-max"` 等。
+        
+    -   具体可用模型列表在 Model Studio “模型列表”页面和 OpenAI 兼容文档中有完整表格。
+        
+2.  `messages`（必填）
+    
+    -   聊天历史数组，每条消息包含：
+        
+        -   `role`: `"system" | "user" | "assistant"`
+            
+        -   `content`: 文本或多模态内容（图像输入时 content 是数组）。
+            
+    -   常见模式：
+        
+        -   只用 `system + user`：结构简单
+            
+        -   带多轮 `assistant` 内容：保持上下文、做连贯对话
+            
+3.  `temperature`（0~2，默认 ~0.7）
+    
+    -   控制“发散度”：越大越有创意，但不稳定。
+        
+    -   Qwen3 文档中对部分模型示例推荐：
+        
+        -   非思考模式：`temperature≈0.7, top_p≈0.8`
+            
+        -   思考模式：`temperature≈0.6, top_p≈0.95`
+            
+4.  `top_p`
+    
+    -   nucleus sampling 截断阈值，和 `temperature` 一起影响随机性。
+        
+    -   一般：`temperature=0.7, top_p=0.8~0.9` 是比较稳妥的组合。
+        
+5.  `max_tokens`
+    
+    -   最大生成 token 数。
+        
+    -   越大越容易生成长文案，但也消耗更多费用和时间。
+        
+    -   通常根据任务预估一个上限，如 256 / 512 / 1024。
+        
+6.  `stream` & `stream_options`
+    
+    -   `stream=True`：启用流式输出，逐块返回内容。
+        
+    -   `stream_options={"include_usage": True}`：在流最后一块里附带 `usage` 统计。
+        
+7.  `tools`（函数/工具调用）
+    
+    -   支持 OpenAI 风格的 tool / function calling，用于让模型调用外部函数（比如查天气、查时间等）。
+        
+8.  `extra_body.enable_search`（Qwen 特有）
+    
+    -   是否开启**联网搜索**：
+        
+    -   用法示例：
+        
+        ```
+        extra_body={"enable_search": True}
+        ```
+        
+    -   部分模型不支持该能力（会返回 `This model does not support enable_search` 错误）。
+        
+
+## 五、Python 最小脚本 —— 生成 ZetaChain 介绍
+
+### 5.1 任务描述
+
+-   使用 `qwen-plus` 模型
+    
+-   输入提示词：请模型用**面向区块链新手**的方式介绍一下 **ZetaChain 公链**
+    
+-   在终端打印生成的介绍文本
+    
+
+> 背景补充：ZetaChain 是一个面向“跨链互操作”的 Layer1 公链，支持所谓的“Omnichain Smart Contracts”，即在一条链上的合约可以直接管理多条链上的资产和数据，包括比特币等非智能合约链，这使它成为“通用跨链计算层”的一种实现。
+
+### 5.2 完整 Python 脚本
+
+```
+import os
+from openai import OpenAI
+
+# 1. 创建客户端，指向阿里云百炼的 OpenAI 兼容接口
+client = OpenAI(
+    api_key=os.getenv("DASHSCOPE_API_KEY"),  # 在环境变量中配置 API Key
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+)
+
+def main():
+    # 2. 要求模型完成的任务：介绍 ZetaChain
+    user_prompt = (
+        "请用通俗易懂、面向区块链新手的方式，用大约 200 字介绍一下 ZetaChain 公链："
+        "包括它解决什么问题、核心特点，以及适合哪些应用场景。"
+    )
+
+    # 3. 发送 chat.completions 请求
+    completion = client.chat.completions.create(
+        model="qwen-plus",  # 本次示例选的模型
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful Chinese assistant good at explaining blockchain concepts simply."
+            },
+            {
+                "role": "user",
+                "content": user_prompt
+            },
+        ],
+        temperature=0.7,   # 适度发散，保证内容有点“说人话”
+        top_p=0.9,
+        max_tokens=512,    # 足够容纳 ~200 字中文介绍
+    )
+
+    # 4. 打印模型回复内容
+    print(completion.choices[0].message.content)
+
+if __name__ == "__main__":
+    main()
+```
+
+这段代码结构基本和官方文档示例一致，只是**换成了自己的提示词和参数**。
+
+### 5.3 本次调用：模型与参数记录
+
+> **模型选择**
+
+-   `model = "qwen-plus"`
+    
+    -   原因：官方推荐的通用旗舰模型，效果 & 价格均衡；文档示例丰富。
+        
+
+> **关键参数一览**
+
+| 参数名 | 本次示例值 | 作用 & 备注 |
+| --- | --- | --- |
+| model | "qwen-plus" | 通义千问 Plus 通用大模型 |
+| messages | system + user | system 设定“讲解风格”，user 给具体任务 |
+| temperature | 0.7 | 增加一点多样性，让介绍更自然，不那么死板 |
+| top_p | 0.9 | 配合 temperature 控制采样，多样但不太发散 |
+| max_tokens | 512 | 限制生成长度，避免一次生成过长文案 |
+| stream | 未设置（默认 False） | 本次不需要流式，简单拿最终结果即可 |
+| extra_body | 未设置 | 如果要联网搜索，可以加 {"enable_search": True} |
+
+> 以后可以按任务微调：
+> 
+> -   精准、可控：降低 `temperature`（比如 0.3~0.5），甚至减小 `top_p`
+>     
+> -   更有创意：提高 `temperature`，但可能会跑题
+>     
+
+### 5.4 运行效果
+
+运行脚本后，终端会输出一段类似这样的中文说明（示意）：
+
+> “ZetaChain 是一条专注跨链互操作的 Layer1 公链，你可以把它理解成连接各种区块链的‘总线’。  
+> 它通过 Omnichain Smart Contracts 让开发者只在 ZetaChain 上写一份合约，就能同时管理以太坊、比特币等多条链上的资产和数据，从而简化跨链桥、跨链 DEX、统一钱包等场景的开发。对于普通用户来说，体验就像在一条链上操作，却能无感地完成多条链之间的资产流转和交互。”
+
+具体措辞会由 Qwen 动态生成，但总体会围绕“**跨链互操作 + Omnichain 智能合约 + 简化用户体验**”展开。
+
+## 六、今天的收获 & 小坑提示
+
+1.  **Qwen 模型层面**
+    
+    -   知道了 Qwen/通义千问是一整个模型家族，有 Max / Plus / Flash 等不同定位。
+        
+    -   明确了可以按任务复杂度与成本，在不同模型之间切换。
+        
+2.  **API 调用层面**
+    
+    -   掌握了 OpenAI 兼容模式的基本使用方式：
+        
+        -   `base_url` 使用阿里云 DashScope
+            
+        -   `chat.completions.create` + `model` + `messages`
+            
+    -   学会通过 Python SDK 快速调用，并打印结果。
+        
+3.  **参数理解**
+    
+    -   温度、top\_p、max\_tokens 等参数的直觉用法；
+        
+    -   了解 Qwen 特有的 `extra_body.enable_search`，以后可以给 ZetaChain 这类“有实时动态”的项目配合联网搜索使用。
+        
+4.  **容易踩的坑**
+    
+    -   忘记设置 `base_url`：会误连到 OpenAI 官方；
+        
+    -   没有设置环境变量 `DASHSCOPE_API_KEY`：会报鉴权错误；
+        
+    -   给不支持联网搜索的模型传 `enable_search`：会报不支持该参数的错误。
+        
+
+补充一句：《风再起时》确实好听啊 哈哈哈
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ## 学习笔记 Day6：  
 一、回顾：ZetaChain 带来的「通用性」到底是什么？
 
@@ -437,6 +786,7 @@ Swap + Messaging + Omnichain Contracts 则是「通用 DeFi 的操作系统」�
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 **Day 6 学习笔记：**
 
 ## 一、一次调用完成跨链 DeFi
@@ -774,6 +1124,7 @@ npx zetachain evm deposit-and-call \
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 ### Day 5 学习笔记：
 
 ## 一、今天要搞清楚的三个核心概念
@@ -1075,6 +1426,7 @@ npx zetachain evm deposit-and-call \
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1447,6 +1799,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 
 
+
 # 学习笔记 Day 3：ZetaChain & Universal Blockchain 核心概念
 
 ## 1\. 整体认识：什么是 “Universal Blockchain / Universal EVM”？
@@ -1648,6 +2001,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -2003,6 +2357,7 @@ Body（raw + JSON）示例：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
