@@ -17,13 +17,22 @@ timezone: UTC+8
 <!-- Content_START -->
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
-尝试在本地部署第一份合约，输入自己的私钥已经连接成功了，但我不知道怎么把私钥“隐藏起来”
+尝试在本地部署第一份合约，输入自己的私钥已经连接成功了，但我不知道怎么把私钥“隐藏起来”（群里大佬已详细解答，我自己尝试一遍后会写笔记）
 
 ![fa6539e20a52d6248a2959a47c60a13e.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/zylg-create/images/2025-12-01-1764587262621-fa6539e20a52d6248a2959a47c60a13e.png)
+
+合约部署完就是跑通前端
+
+![fe3bab2d2ba1583b7d2d818a49214dd8.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/zylg-create/images/2025-12-01-1764591986863-fe3bab2d2ba1583b7d2d818a49214dd8.png)
+
+也是发送成功了，我还自己加了一个Sepolia的选项（其他测试网都没币）
+
+后面还要学swap和messaging，头有点大
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 ### 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
@@ -60,6 +69,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -100,6 +110,7 @@ ZRC20文檔中看到 **Ominichain**（全鏈）這個區塊鏈架構概念，很
 
 
 
+
 **Universal App 是什么？**  
 Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于某一条链的合约。它能同时接受来自任意连接链 (例如 Ethereum、Bitcoin、Solana……) 的资产、消息或合约调用，也能向任意连接链发送资产/调用。这样，开发者只用写一个合约，就能做到跨所有支持链的 dApp，用户也能用同一个界面 / 钱包操作不同链资产，无需切换网络或用桥 + wrapper。
 
@@ -110,6 +121,7 @@ Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -136,6 +148,7 @@ zeta测试币领取成功
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
