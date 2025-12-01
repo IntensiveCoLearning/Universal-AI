@@ -15,19 +15,39 @@ Web3 全沾开发者、社区运营
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+1) 项目概述（What）
+
+ZetaChain 定位为“Universal Blockchain / Omnichain L1”，目标是在 L1 层为开发者提供原生跨链合约和原生访问外部链资产的能力（不仅仅是消息传输或桥接）。它宣称可以直接读写包括以太坊、比特币、Solana 等链上的状态，目的是让 dApp 开发者能写一次合约并在多链/跨链环境中原生运作。
+
+2) 核心技术与架构（How）
+
+共识与链设计：采用 Tendermint-style 的 PoS 架构（快速最终性路径），并针对跨链互动进行了节点角色划分（validator、observer、TSS signer）。该设计帮助链在维护自身共识的同时，持续同步外部链状态。
+
+阈值签名（TSS / GG20）：为实现“链上对外发起交易”或“原生管理外链资产”，ZetaChain 使用阈签（leaderless GG20）机制来做分布式密钥生成与签名，避免单点私钥泄露，从而以去中心化方式签发外链交易。
+
+Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Accounts”与“Omnichain Smart Contracts”概念，合约可以在 Zeta 发起/控制并写回或读取其他链的状态（例如在链 A mint，在链 B 可见），从而支持真正的跨链状态一致性与统一应用体验。
+
+跨链消息与价值转移：与 LayerZero（消息层）不同，Zeta 将“消息+资产操作”放入 L1 原生逻辑，目标是减少中间桥接/包装代币需求并降低 UX 复杂度。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 30好今天，卡卡卡卡打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 今天水一下打卡，在外出活动，手机水水水水水水
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 **Zetachain 投研报告快速结论（TL;DR）**
@@ -45,6 +65,7 @@ Web3 全沾开发者、社区运营
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -135,6 +156,7 @@ EVM（Ethereum Virtual Machine）是以太坊的智能合约执行环境。
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
