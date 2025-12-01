@@ -322,7 +322,7 @@ Telegram：https://t.me/zetachain_asia
 | [skelitalynn](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/skelitalynn.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | | | | | | |
 | [PeaSea93](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/PeaSea93.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [LWT-111](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/LWT-111.md) | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ❌ | | | | | | | | |
-| [bentong-chain](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/bentong-chain.md) | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ |   | | | | | | |
+| [bentong-chain](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/bentong-chain.md) | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | |
 | [SJW1111011](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/SJW1111011.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [LouisCanBe](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/LouisCanBe.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ | | | | | | |
 | [jvbaoge1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jvbaoge1.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ |   | | | | | | |
@@ -369,7 +369,7 @@ Telegram：https://t.me/zetachain_asia
 | [zlp528](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zlp528.md) | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ | ✅ |   | | | | | | |
 | [Tuscl-1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Tuscl-1.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [dersteppenwolfruowen-316](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/dersteppenwolfruowen-316.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [ARZER-TW](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ARZER-TW.md) | ⭕️ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ |   | | | | | | |
+| [ARZER-TW](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ARZER-TW.md) | ⭕️ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | |
 | [Toby1009](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Toby1009.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | | |
 | [Modestide](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Modestide.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [kikyou1009](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/kikyou1009.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
@@ -396,7 +396,7 @@ Telegram：https://t.me/zetachain_asia
 | [Xboxpig](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Xboxpig.md) | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ |   | | | | | | |
 | [TAnNbR](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TAnNbR.md) | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | | |
 | [neppiggy](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/neppiggy.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [yhzhongc](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yhzhongc.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ |   | | | | | | |
+| [yhzhongc](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yhzhongc.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | | | | | | |
 | [madison42](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/madison42.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [Y4NG666](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Y4NG666.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
 | [BrucerTao](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/BrucerTao.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   | | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
