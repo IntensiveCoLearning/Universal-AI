@@ -17,11 +17,160 @@ code everything
 <!-- Content_START -->
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
-# 1,打卡签到
+# 1，打卡签到
+
+# **2，Day 8：Qwen AI 基础 & API 调用（实战）学习笔记**
+
+今天主要是：  
+**尝试用 Node.js 调用一次 Qwen API，并让模型输出一段 ZetaChain 介绍文案。**
+
+我选择用 Node.js，因为和我之后在 ZetaChain 编写合约脚手架、DeFi Bot 等配套脚本更统一。
+
+* * *
+
+# **一、我今天做了什么？**
+
+1.  安装 Node.js（之前已经安装好 v21，版本满足要求）
+    
+2.  新建一个项目目录 `qwen-demo`
+    
+3.  使用官方 OpenAI-compatible SDK 调 Qwen API
+    
+4.  在终端成功跑出模型返回内容
+    
+
+* * *
+
+# 二、Qwen API 调用的最小 Node.js 示例
+
+### 1\. 初始化项目
+
+```
+mkdir qwen-demo
+cd qwen-demo
+npm init -y
+```
+
+### 2\. 安装依赖
+
+```
+npm install openai
+```
+
+Qwen 的 API 兼容 OpenAI SDK，非常方便。
+
+### 3\. 新建 `index.js`，写入以下代码（这是我自己运行过的）
+
+```
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  apiKey: process.env.QWEN_API_KEY,  
+  baseURL: "https://dashscope.aliyuncs.com/compatible-mode/v1",
+});
+
+async function main() {
+  const completion = await client.chat.completions.create({
+    model: "qwen-max", 
+    messages: [
+      { role: "system", content: "你是一个专业的区块链技术讲解员。" },
+      { role: "user", content: "请用简单但准确的方式介绍一下 ZetaChain。" }
+    ],
+    temperature: 0.7,
+    max_tokens: 200,
+  });
+
+  console.log("模型返回内容：\n");
+  console.log(completion.choices[0].message.content);
+}
+
+main();
+```
+
+### 4\. 设置环境变量（Windows PowerShell）
+
+```
+$env:QWEN_API_KEY="你的API_KEY"
+```
+
+### 5\. 运行脚本
+
+```
+node index.js
+```
+
+* * *
+
+# 三、运行结果（我得到的输出大概是这样）
+
+（实际每次可能不同）
+
+```
+模型返回内容：
+
+ZetaChain 是一个支持全链互操作的区块链，它让开发者能够通过一套智能合约，
+直接与比特币、以太坊、BSC、Polygon 等不同链的资产进行交互，而无需桥、
+跨链包装或多部署。
+
+ZetaChain 的核心特性包括：通用资产（ZRC-20）、跨链消息传递、
+全链智能合约等，使用户可以一次操作，在多条链上完成 DeFi 行为。
+```
+
+> 成功！我终于把 Qwen API 调通了。
+
+* * *
+
+# 四、我今天选择的模型 & 参数记录
+
+| 项目 | 我的实际选择 |
+| --- | --- |
+| 模型名称 | qwen-max |
+| 调用方式 | OpenAI SDK（官方兼容模式） |
+| Endpoint | https://dashscope.aliyuncs.com/compatible-mode/v1 |
+| Temperature | 0.7（保持内容自然但不乱） |
+| Max tokens | 200 |
+| 消息格式 | Chat Completions（messages 数组） |
+
+我选择 `qwen-max` 的原因：
+
+-   属于 Qwen 系列最高性能的模型之一
+    
+-   文档推荐优先用于复杂推理、代码和解释型任务
+    
+-   我之后可能要生成跨链策略设计、ZetaChain 合约分析 → 性能更重要
+    
+
+* * *
+
+# 五、今天的理解总结
+
+-   Qwen API 完全兼容 OpenAI SDK，迁移成本极低。
+    
+-   只需要换 baseURL + API Key 就可以了。
+    
+-   输出质量和推理能力非常强，适合后续构建跨链助手、策略生成器、DeFi 数据分析脚本。
+    
+-   对比 GPT 的优势在“推理准确”“中文友好”“长文档能力强”。
+    
+
+* * *
+
+# 六、明天准备继续学习内容
+
+-   Qwen + ZetaChain 结合场景：
+    
+    -   自动生成全链合约代码
+        
+    -   分析多链资产流
+        
+    -   自动构建 cross-chain strategy
+        
+    -   做一个“Omni-DeFi AI Copilot”
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 # 1，打卡签到
 
@@ -325,6 +474,7 @@ ZetaChain 能原生解决。
 
 
 
+
 # 1，打卡签到
 
 # 2， **Day 6 学习笔记：Universal DeFi & Demo 实战**
@@ -528,6 +678,7 @@ Day 6 在今天我终于真正“看见了”跨链动作在链上运行的样�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -777,6 +928,7 @@ Universal NFT 就像：
 
 
 
+
 # 1，打卡签到
 
 # 2，今日学习内容
@@ -973,6 +1125,7 @@ ZetaChain：
 
 
 
+
 # 1，打卡签到
 
 # 2，Day 3 笔记 — ZetaChain & Universal Blockchain 核心概念
@@ -1087,6 +1240,7 @@ Day 3 的重点是 **概念理解 + 架构梳理**，我觉得最重要的是把
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1263,6 +1417,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
