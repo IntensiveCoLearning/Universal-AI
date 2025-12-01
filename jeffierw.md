@@ -15,8 +15,36 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+````markdown
+# Day 8
+
+1. 输入一段提示词，请 Qwen 生成一段对 ZetaChain 的介绍
+
+- 选择模型 qwen-plus
+- 调用参数
+
+```js
+  const prompt =
+  "请用简洁易懂的语言介绍 ZetaChain 是什么？它的核心特点是什么？";
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "qwen-plus",
+      messages: [
+        { role: "system", content: "你是一个技术领域的专业助手。" },
+        { role: "user", content: prompt },
+      ],
+    });
+  }
+```
+````
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 # Day 7
 
 ## Multi-Chain Vault — 通用 NFT + FT 抵押借贷池
@@ -57,6 +85,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 # Day 6
 
@@ -162,6 +191,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 # Day 5
 
 1.  ZRC-20 和普通 ERC-20 的直观区别
@@ -185,6 +215,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 4
 
 1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
@@ -198,6 +229,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -226,6 +258,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -263,6 +296,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
