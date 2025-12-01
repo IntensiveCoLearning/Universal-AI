@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+调用api key，在代码中使用qwen
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/kuove/images/2025-12-01-1764593837910-image.png)
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 | 特性 | ERC-20 | ZRC-20 |
 | --- | --- | --- |
 | 应用平台 | 主要在 以太坊（Ethereum） 及其兼容网络（EVM 链）。 | 在 ZetaChain 上运行。 |
@@ -52,6 +60,7 @@ timezone: UTC+8
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
+
 ![wechat_2025-11-27_220450_264.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/kuove/images/2025-11-27-1764252340702-wechat_2025-11-27_220450_264.png)
 
 使用测试链实现hello信息传递
@@ -59,6 +68,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 Universal apps在24号的笔记中总结过，
@@ -119,6 +129,7 @@ The implementation of the gateway depends on the connected chain:
 
 
 
+
 1.  注册qwen，获取api，能在本地通过node调用
     
 2.  阅读[**Getting Started**](https://www.zetachain.com/docs/developers/tutorials/intro)
@@ -132,6 +143,7 @@ The implementation of the gateway depends on the connected chain:
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
