@@ -15,8 +15,55 @@ Dev
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+Gateway 接口是与通用应用(Universal Apps)交互的统一入口点 。Gateway 作为连接链(如以太坊、Solana 和比特币)上的合约与 ZetaChain 上通用应用之间的桥梁 。​
+
+## 连接链上的 Gateway
+
+连接链上的 Gateway 负责处理从外部链到 ZetaChain 的入站交易,包括合约调用和代币转移 。根据不同的连接链,Gateway 的实现方式有所不同:​
+
+-   EVM 链使用智能合约
+    
+-   Solana 使用 Gateway 程序
+    
+-   比特币使用由观察者-签名者验证节点网络管理的 TSS MPC Gateway 地址​
+    
+
+Gateway 支持以下功能:
+
+-   向通用应用或 ZetaChain 账户存入原生 Gas 代币
+    
+-   存入支持的 ERC-20 代币(包括 ZETA 代币)
+    
+-   存入原生 Gas 代币并调用合约(支持任意数据传递)
+    
+-   存入 ERC-20 代币并调用合约
+    
+-   直接进行合约调用​
+    
+
+## ZetaChain 上的 Gateway
+
+ZetaChain 上的 Gateway 处理出站交易,即从通用应用到连接链上合约的调用和代币提取 。主要功能包括:​
+
+-   将 ZRC-20 代币作为原生 Gas 或 ERC-20 代币提取到连接链
+    
+-   向连接链提取 ZETA 代币
+    
+-   提取代币并在连接链上进行合约调用
+    
+-   在连接链上进行合约调用​
+    
+
+## 特点与限制
+
+目前每次只能存入或提取一种资产,未来协议更新将支持多资产操作 。Gateway 还支持跨链操作期间的回退处理机制,如果目标链上的调用失败,可以通过调用源链上的指定合约或直接发送到 EOA 账户进行退款 。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 ## ZRC-20 与 ERC-20 的核心区别
 
 从开发者视角看，ZRC-20 是 ERC-20 的跨链增强版本，最关键的区别在于 ZRC-20 拥有**原生跨链能力**和**多链资产感知能力** 。​
@@ -42,6 +89,7 @@ Dev
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 ## ZetaChain Universal App
 
@@ -75,6 +123,7 @@ ZetaChain 通过每个连接链上的单一 **Gateway 合约** 作为入口，�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 -   **Universal NFT标准**可以让ERC-721类NFT在任意连接链上铸造和无缝转移，无需“包装”或外部桥接合约，支持多链间NFT真正的互操作。
@@ -112,6 +161,7 @@ ZetaChain 通过每个连接链上的单一 **Gateway 合约** 作为入口，�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
