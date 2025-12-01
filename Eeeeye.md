@@ -15,8 +15,129 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+1\. 今日目标
+
+-   用 Python 调一次 Qwen 模型 API。
+    
+-   理解：
+    
+    -   怎么配 API Key
+        
+    -   怎么选模型（`model` 参数）
+        
+    -   怎么构造 `messages` 并在终端打印返回结果。
+        
+
+* * *
+
+2\. 环境与依赖
+
+1.  **虚拟环境（venv）**
+    
+    ```
+    cd ~/web3/qwen
+    python -m venv .venv
+    source .venv/bin/activate
+    ```
+    
+    确认：
+    
+    ```
+    which python   # /home/eeeeye/web3/qwen/.venv/bin/python
+    which pip      # /home/eeeeye/web3/qwen/.venv/bin/pip
+    ```
+    
+2.  **安装 dashscope SDK**
+    
+    ```
+    python -m pip install --upgrade pip
+    python -m pip install dashscope
+    ```
+    
+
+* * *
+
+3\. Qwen 调用脚本要点（Python）
+
+核心配置（基于官方示例改写）：
+
+```
+import os
+import dashscope
+from dashscope import Generation
+
+# 1）选择地域：新加坡（国际）
+dashscope.base_http_api_url = "https://dashscope-intl.aliyuncs.com/api/v1"
+
+# 2）API Key 从环境变量读取
+api_key = os.getenv("DASHSCOPE_API_KEY") or os.getenv("QWEN_API_KEY")
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {
+        "role": "user",
+        "content": "请用中文简要介绍一下 ZetaChain，它的定位、核心功能和跨链优势。"
+    },
+]
+
+response = Generation.call(
+    api_key=api_key,
+    model="qwen-turbo",      # 最终采用的模型
+    messages=messages,
+    result_format="message",
+)
+
+if response.status_code == 200:
+    print(response.output.choices[0].message.content)
+else:
+    print("HTTP返回码：", response.status_code)
+    print("错误码：", response.code)
+    print("错误信息：", response.message)
+```
+
+环境变量设置：
+
+```
+export DASHSCOPE_API_KEY=sk-xxxx   # 或 export QWEN_API_KEY=sk-xxxx
+python qwen_api_demo.py
+```
+
+* * *
+
+4\. 遇到的问题与排查过程
+
+1.  **PEP 668：系统环境不让用 pip**
+    
+    -   报错：`externally-managed-environment`
+        
+    -   原因：Arch 系统不允许直接在系统 Python 上 pip 装包。
+        
+    -   解决：用 `python -m venv .venv` 创建虚拟环境，在 venv 里安装依赖。
+        
+2.  **401 Unauthorized（第三方 API + Qwen Key 不匹配）**
+    
+    -   开始用 `https://api.aimlapi.com/v1/chat/completions` + Qwen key 调，返回 401。
+        
+    -   原因：aimlapi 需要自己的 key，不能用 Qwen/DashScope 的 key。
+        
+    -   解决：改用 Qwen 官方 `dashscope` SDK + `dashscope-intl.aliyuncs.com/api/v1`。
+        
+3.  **403 AccessDenied.Unpurchased（模型未开通）**
+    
+    -   使用 `model="qwen-plus"` 返回：
+        
+        -   `错误码：AccessDenied.Unpurchased`
+            
+    -   原因：当前账号没开通 `qwen-plus` 模型权限。
+        
+    -   解决：改用 `model="qwen-turbo"` 等已对账号开放的模型。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -89,6 +210,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 ### **搭建官方 Swap Demo 项目**
 
@@ -212,6 +334,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -289,6 +412,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -384,6 +508,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -541,6 +666,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -716,6 +842,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
