@@ -59,6 +59,8 @@ echo $DASHSCOPE_API_KEY
 
 ## [2.Windows](http://2.Windows)
 
+### 2.1添加永久性环境变量
+
 1.在PowerShell(win + R中输入cmd后回车)中运行以下命令
 
 ```powershell
@@ -71,10 +73,36 @@ echo $DASHSCOPE_API_KEY
 3.在新的PowerShell窗口运行以下命令，检查环境变量是否生效。
 
 4.echo $env:DASHSCOPE\_API\_KEY
+
+## 2.2使用临时环境变量
+
+如果您仅希望在当前会话中使用该环境变量，可以在PowerShell中运行以下命令。
+
+```powershell
+# 用您的百炼API Key代替YOUR_DASHSCOPE_API_KEY
+$env:DASHSCOPE_API_KEY = "YOUR_DASHSCOPE_API_KEY"
+```
+
+您可以在当前会话运行以下命令检查环境变量是否生效。
+
+```powershell
+echo $env:DASHSCOPE_API_KEY
+```
+
+# 3.**安装SDK**
+
+您可以在终端运行以下命令：
+
+```shell
+npm install --save openai
+# 或者
+yarn add openai
+```
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 # 跨链SWAP
 
@@ -114,6 +142,7 @@ function onCrossChainCall(
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 # ZetaChain函数
 
 ```
@@ -132,6 +161,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -203,11 +233,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -338,6 +370,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -576,6 +609,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
