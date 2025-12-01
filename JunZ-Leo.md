@@ -15,8 +15,43 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+使用 Python 调用 Qwen API 生成对 ZetaChain 的介绍。需安装 openai 库（pip install openai），并设置环境变量 API\_KEY（从阿里云获取）。
+
+Python
+
+```
+import os
+from openai import OpenAI
+
+# 初始化客户端，使用 Qwen 的兼容 endpoint
+client = OpenAI(
+    api_key=os.getenv("API_KEY"),  # 从环境变量获取 API_KEY
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"  # Qwen 的 OpenAI 兼容基地址
+)
+
+# 调用 API 生成内容
+completion = client.chat.completions.create(
+    model="qwen-turbo",  # 选择的模型
+    messages=[
+        {"role": "user", "content": "请生成一段对 ZetaChain 的介绍。"}
+    ],
+    temperature=0.7,  # 控制生成内容的随机性
+    max_tokens=500,   # 最大生成的 token 数
+    top_p=0.8         # 核采样参数
+)
+
+# 打印返回内容
+print(completion.choices[0].message.content)
+```
+
+在终端执行 输出 Qwen 生成的 ZetaChain 介绍。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ### 全链收益聚合器结合Restaking集成
 
 -   **目标用户**：DeFi 农民和质押者，他们在多个链上持有资产（如以太坊上的ETH、比特币上的BTC、Solana上的SOL），希望优化收益而无需手动桥接或链间切换。
@@ -28,6 +63,7 @@ timezone: UTC+8
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 -   **项目设置**：
@@ -91,6 +127,7 @@ timezone: UTC+8
 
 
 
+
 ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
 
 ERC-20（以太坊/单链视角）
@@ -149,6 +186,7 @@ PS：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -228,6 +266,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -470,6 +509,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
