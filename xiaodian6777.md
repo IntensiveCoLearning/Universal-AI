@@ -15,8 +15,30 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+## 今日进度
+
+配置好 Qwen-Agent 环境，顺利跑通了官方示例。​
+
+自己尝试写了一个简单的 Tool，比如让 Agent 能自动把字符串转成大写，验证了工具挂载和自动调用的流程。​
+
+## 学习体会
+
+Qwen-Agent 的核心就是让大模型+记忆+工具融为一体，理解了框架设计思路之后，大部分功能扩展其实都是加 Tool、完善流程。
+
+实操一遍比光看文档收获多，有坑也尽早踩完。
+
+## 后续打算
+
+下一步会把 Agent 稍微扩展一下，丰富更多工具，逐步接近实际业务场景。​
+
+复用官方 Demo，保证自己能独立完整跑通一个任务。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 第六天主要是动手把一个官方 Universal DeFi Demo 跑通，亲身体会“调用一次全链 DeFi 动作”的完整流程。reddit+1​
 
 ## 当天学习目标
@@ -53,6 +75,7 @@ Example code 仓库：[https://github.com/zeta-chain/example-contracts，拉取�
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 理解第 5 天的核心，就是搞清楚「ZRC-20 / 通用资产」在 ZetaChain 里的角色，以及它和多链资产统一表示的关系。
 
 ## Day 5 核心概念理解
@@ -86,6 +109,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 ## 一、今天学了什么
 
 继续翻了一遍 ZetaChain Developers 里 EVM 和 Tutorials 相关部分，大概知道 Universal App 就是部署在 ZetaChain 的合约，但可以同时跟多条外部链交互，用一次调用完成跨链逻辑。
@@ -112,6 +136,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 
 
 
+
 ## 关键概念理解
 
 通用区块链（Universal Blockchain）：指像 ZetaChain 这种天然为多链互通设计的底层网络，它不是只服务某一条链，而是把多条公链当成一个整体来协同管理和调用。通过这种设计，开发者可以在一条链上写逻辑，但同时操作多条链上的资产和状态。​
@@ -133,6 +158,7 @@ Gateway 的核心作用，是充当 ZetaChain 与外部公链之间的“桥梁�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -190,6 +216,7 @@ curl -X POST "[https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generati
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
