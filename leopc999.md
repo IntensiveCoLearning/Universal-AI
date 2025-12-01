@@ -15,8 +15,16 @@ A Web3 enthusiast interested in AI and DeFi.
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+ZetaChain + Universal EVM + Gateway + 多链 (EVM / 非 EVM / Bitcoin…) 之间的调用 / 资产 / 消息流动关系总结如下：
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/leopc999/images/2025-12-01-1764600215564-image.png)
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ## 🌐 ZetaChain 的定位 — “通用区块链 (Universal Blockchain)”
 
 -   ZetaChain 是一个 **Layer-1 公链 (L1)**，但区别于传统单链，它的目标是成为 “通用 (universal) 区块链”，即一个能**连接、抽象 (abstract)、桥接** 多条不同区块链 (包括 EVM 链、非 EVM 链，甚至比特币这样的传统链) 的中心枢纽。
@@ -105,6 +113,7 @@ A Web3 enthusiast interested in AI and DeFi.
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 继续阅读相关文档
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
@@ -112,11 +121,13 @@ A Web3 enthusiast interested in AI and DeFi.
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 参加了第一次 Workshop，之后还需要看回放视频来巩固
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -129,11 +140,13 @@ A Web3 enthusiast interested in AI and DeFi.
 
 
 
+
 今天配置了开发环境，学习了一些基础知识。
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
