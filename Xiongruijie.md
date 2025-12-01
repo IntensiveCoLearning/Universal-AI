@@ -23,6 +23,7 @@ timezone: UTC+8
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 1.  **ZRC-20 标准**
     
     -   原生资产的跨链映射（如 ETH→ZRC-20 ETH），无需封装，支持 TSS 原生锚定。
@@ -44,6 +45,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 EVM 是 Ethereum Virtual Machine 的缩写，中文常叫“以太坊虚拟机”。
@@ -287,11 +289,13 @@ Gas Limit / Gas Price
 
 
 
+
 2025年11月27日22点49分
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -310,11 +314,13 @@ Gas Limit / Gas Price
 
 
 
+
 刚下班，打个卡，现在开始学，待会儿补齐笔记。。。。。
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
