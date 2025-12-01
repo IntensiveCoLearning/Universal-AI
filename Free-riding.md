@@ -98,10 +98,72 @@ npm install --save openai
 # 或者
 yarn add openai
 ```
+
+# 4.更改Ubuntu的密码（我忘了自己的密码了）
+
+### **在 Windows 里用管理员权限打开 PowerShell**
+
+1.  按 Win 键，输入 PowerShell
+    
+
+1.  右键 **“Windows PowerShell”** → 选 **“以管理员身份运行”**
+    
+
+### **2️⃣ 用 root 账户进入你这个叫 Ubuntu 的发行版**
+
+在管理员 PowerShell 里执行：
+
+```
+wsl -d Ubuntu -u root
+```
+
+-   如果能进到一个类似 root@xxxx:~# 的终端，说明成功了 → 继续看第 3 步
+    
+
+-   如果这条命令报错，把**完整输出**复制给我，我再给你针对性的命令（比如 wsl -l -v 看具体名字，或用 ubuntu config --default-user root 等）。
+    
+
+### **3️⃣ 在这个发行版里找到你的普通用户名字**
+
+在这个 root 终端里执行：
+
+```
+ls /home
+```
+
+你会看到一个或多个目录名，比如可能有 lzh，那你的用户名就是 lzh（如果是别的名字，就记下那个）。
+
+### **4️⃣ 给这个用户重置密码**
+
+假设你的用户名是 lzh（如果不是就换成你自己的）：
+
+```
+passwd lzh
+```
+
+然后按提示输入两遍 **新密码**（输入时不显示任何字符是正常现象，直接输入后按回车）。
+
+看到类似：
+
+```
+password updated successfully
+```
+
+说明密码修改成功。
+
+### **5️⃣ 退出 root，回到正常用户，再用 sudo**
+
+1.  在 root 终端里退出：
+    
+
+```
+exit
+```
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 # 跨链SWAP
@@ -143,6 +205,7 @@ function onCrossChainCall(
 
 
 
+
 # ZetaChain函数
 
 ```
@@ -161,6 +224,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -234,11 +298,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -370,6 +436,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -609,6 +676,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
