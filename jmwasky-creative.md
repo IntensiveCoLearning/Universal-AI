@@ -15,8 +15,70 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+-   实践流程  
+    
+
+1.Apikey 去控制台获取 [https://bailian.console.aliyun.com/](https://bailian.console.aliyun.com/)
+
+  2.使用python方式调用接口
+
+```Python
+import json
+from openai import OpenAI
+
+
+def get_qwen_content(input):
+    with open('apikey.txt', 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    client = OpenAI(
+        # 若没有配置环境变量，请用百炼API Key将下行替换为：api_key="sk-xxx"
+        # 新加坡和北京地域的API Key不同。获取API Key：https://www.alibabacloud.com/help/zh/model-studio/get-api-key
+        api_key=content,
+        # 使用北京地域的模型，需将base_url替换为：https://dashscope.aliyuncs.com/compatible-mode/v1
+        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    )
+
+    completion = client.chat.completions.create(
+        # 此处以qwen-plus为例，可按需更换模型名称。模型列表：https://www.alibabacloud.com/help/zh/model-studio/getting-started/models
+        model="qwen-plus",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": input},
+        ],
+        # Qwen3模型通过enable_thinking参数控制思考过程（开源版默认True，商业版默认False）
+        # 使用Qwen3开源版模型时，若未启用流式输出，请将下行取消注释，否则会报错
+        # extra_body={"enable_thinking": False},
+    )
+    #print(completion.model_dump_json())
+    qwen_result = json.loads(completion.model_dump_json())
+    print(qwen_result)
+    choices = qwen_result['choices']
+    result = ""
+    for c in choices:
+        result = c['message']['content']
+    return result
+
+if __name__ == '__main__':
+    print(get_qwen_content("介绍一下zetachain"))
+```
+
+-   在终端打印返回内容。
+    
+
+![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=OWE3ZTI4Zjk3ZTZkMWIzZGViYTI4NDc1NWQ5NmJmYmJfSUwzaEFxTkZiN1ZDM3JwcDdta1htcTdnNjVFZjhaUmpfVG9rZW46TjN2aWJMM1hab251Z2J4a0lTcmMwc2tSbmdoXzE3NjQ1ODExODA6MTc2NDU4NDc4MF9WNA)
+
+-   在笔记中记录：你选择了哪个模型？调用参数是怎样的？
+    
+
+调用参数model和messages，需要配置系统角色和输入用户提问内容。需要提前获取apiKey
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 # NFT 拍卖中心
 
 ## 目标客户：NFT平台和爱好者
@@ -35,6 +97,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 # 选择本地测试网部署swap合约
 
@@ -64,6 +127,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -81,6 +145,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 
 
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -92,6 +157,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -127,6 +193,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -217,6 +284,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
