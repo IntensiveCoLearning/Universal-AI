@@ -15,8 +15,85 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+# Day 8：Qwen AI 基础 & API 调用（实战）学习笔记
+
+**日期**：2025年12月1日 星期一 **核心主题**：Qwen API 调用全流程实战（以生成ZetaChain介绍为例）
+
+**目标**：
+
+-   使用Python语言编写最小化脚本，成功调用Qwen API，输入提示词后获取ZetaChain介绍内容并在终端打印；
+    
+-   理解Qwen模型的分类，掌握API调用的核心参数（model、messages、temperature等）作用及配置方法。
+    
+
+### Python脚本
+
+```python
+# 1. 导入依赖库（使用openai库兼容Qwen API）
+from openai import OpenAI
+import os
+
+# 2. 配置API参数（核心配置，避免硬编码密钥）
+# 从环境变量获取API Key（推荐方式），也可直接赋值（调试时临时使用）
+api_key = os.getenv("QWEN_API_KEY") or "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# 初始化客户端（指定Qwen API的基础URL与密钥）
+client = OpenAI(
+    api_key=api_key,
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"  # Qwen API的OpenAI兼容端点
+)
+
+# 3. 定义提示词（明确需求：生成ZetaChain介绍，要求简洁专业，适合技术入门者）
+prompt = """请你以技术入门者能理解的语言，简洁介绍ZetaChain的核心价值与技术特点，内容包含：
+1. ZetaChain的定位（全链区块链的作用）；
+2. 核心技术支撑（如ZRC-20、Gateway等）；
+3. 对开发者的核心价值。
+总字数控制在300字以内。"""
+
+# 4. 调用Qwen API并获取响应
+response = client.chat.completions.create(
+    model="qwen-plus",  # 选择的Qwen模型
+    messages=[{"role": "user", "content": prompt}],  # 对话历史（仅含用户提示词）
+    temperature=0.3,  # 控制生成随机性（低数值更严谨）
+    top_p=0.8,  # 控制生成多样性（与temperature配合使用）
+    max_tokens=300  # 限制最大生成字数，避免超出需求
+)
+
+# 5. 解析响应并在终端打印结果
+# 从响应中提取核心内容（choices[0].message.content为生成结果）
+result = response.choices[0].message.content
+print("Qwen生成的ZetaChain介绍：")
+print("=" * 50)
+print(result)
+print("=" * 50)
+```
+
+### **终端输出示例**
+
+`Qwen生成的ZetaChain介绍：`
+
+`==================================================`
+
+`ZetaChain是连接多条公链的全链区块链，定位为“跨链中枢”，解决不同公链间资产与数据割裂问题。 核心技术包括ZRC-20标准（统一多链资产格式）、Gateway网关（实现公链与ZetaChain的协议转换）及Universal EVM（支持全链智能合约开发）。 对开发者而言，其价值在于“一次开发全链可用”——无需为每条链单独适配，依托ZetaChain即可让应用支持以太坊、Solana等多链交互，大幅降低跨链开发成本。 ==================================================`
+
+本次API调用选择的模型为**qwen-plus**，qwen-plus是Qwen的中端模型，具备良好的技术内容理解与简洁表达能力，能精准响应“技术入门者易懂”“300字以内”的约束条件，在免费额度内支持大量调用，成本较低，qwen-plus的推理速度优于高参数量模型，API调用响应时间通常在1-3秒内，调试效率更高。
+
+### API调用核心参数
+
+| 参数名 | 配置值 | 参数作用 |
+| --- | --- | --- |
+| model | qwen-plus | 指定调用的Qwen模型，决定生成能力与成本 |
+| messages | [{"role":"user","content":prompt}] | 定义对话历史，包含用户角色与提示词内容 |
+| temperature | 0.3 | 控制生成随机性（0-2，数值越高越随机） |
+| top_p | 0.8 | 控制生成多样性（0-1，与temperature配合使用） |
+| max_tokens | 300 | 限制生成内容的最大token数（1个中文字约1.5token） |
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 # Day 7：Universal DeFi & Demo 跑通+通用 DeFi 赛道预热 & Idea 收敛
 
 2025年11月30日 星期日
@@ -230,6 +307,7 @@ npx hardhat run scripts/swap.js --network goerli \
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 # DAY6：本周workshop学习笔记
 
 ## 基于 ZRC20 标准的跨链资产映射、兑换与跨链调用逻辑
@@ -288,6 +366,7 @@ IZRC20(targetToken).withdraw(amountOut,recipient,targetChainID);
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 # Day 5：Universal DeFi & 全链资产基础学习笔记
@@ -380,6 +459,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 4：Universal App + Hello World 心智模型学习笔记
 
 **日期**：2025年11月27日 星期四 **核心主题**：Universal App认知深化与Hello World Demo落地规划
@@ -467,6 +547,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 3：ZetaChain & Universal Blockchain 核心概念学习笔记
 
 **日期**：2025年11月26日 星期三 **核心主题**：Universal Blockchain系列概念解析与ZetaChain架构可视化
@@ -534,6 +615,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 ### ZetaChain CLI 安装与验证（本地环境：Windows）
 
 1.  **安装步骤**： 前置依赖：确认已安装Go（版本≥1.20）。打开命令提示符（CMD）或PowerShell，输入`go version`验证；若未安装，访问Go官网（[https://go.dev/dl/）下载Windows版安装包，勾选“Add](https://go.dev/dl/）下载Windows版安装包，勾选“Add) Go to PATH”选项后完成安装。
@@ -580,6 +662,7 @@ Postman测试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
