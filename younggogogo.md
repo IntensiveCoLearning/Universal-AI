@@ -15,8 +15,86 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+\# \*下面是今天的任务
+
+\- 使用自己熟悉的语言完成一次 Qwen API 调用。
+
+\- 熟悉 Qwen 的基础参数、模型选择方式。
+
+\- 写一个最小脚本（Node.js / Python 均可）：
+
+\- 输入一段提示词，请 Qwen 生成一段对 ZetaChain 的介绍。
+
+\- 在终端打印返回内容。
+
+\- 在笔记中记录：你选择了哪个模型？调用参数是怎样的？
+
+\###### 什么是模型？模型是通过海量数据训练出来的参数合集，相当于ai的大脑，通过学习数据里面的规律，具备理解语言和生成内容的能力。
+
+\###### 千问有着很多模型可选，比如qwen-7b，千问21-b等，不同模型擅长的东西不同，我在这里选择了qwen-turbo，一个额度免费的轻量级通用模型，适合今天的基础问答任务
+
+\###### 调用千问api时，需要设置一些参数来控制模型的生成行为，核心参数包括
+
+\- model：指定使用的模型（`qwen-turboqwen-plus`）
+
+\- `prompt/messages`：输入的提示词（prompt/message）（前者是给文本指令，根据文本生成内容，适合一次性问答，后者是像聊天一样，模型会根据之前的问答生成答复，支持多轮交互，模型可以记住之前交互的内容）
+
+\- `temperature`：生成随机性（0~1，值越高越随机）（数值越高模型越容易放飞自我，月能看到意想不到的内容，越低则每次回答都差不多）（数值越高选词的跳脱程度越离谱）
+
+\- `max_tokens`：生成的最大字符数
+
+\- `top_p`：核采样阈值（控制生成多样性）（这个涉及到一个生成词语选择范围，有一个词语选择库，数指越大的话选词的池子越大）
+
+\###### 我调用的参数是
+
+\- `model`: qwen-turbo
+
+\- `temperature`: 0.7（平衡确定性与多样性）
+
+\- `max_tokens`: 500（限制生成长度）
+
+\- `messages`: 用户指令 “请介绍 ZetaChain”
+
+代码 如下 \`\`
+
+\`\`\`python
+
+import requests
+
+\# API配置（需替换为自己的API Key，从阿里云/千问平台获取）
+
+API\_KEY = "your-api-key" API\_URL = "[https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions](https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions)"
+
+\# 请求参数
+
+headers = { "Authorization": f"Bearer {API\_KEY}", "Content-Type": "application/json" }
+
+data = { "model": "qwen-turbo", # 选择的模型：轻量版
+
+"messages": \[ {"role": "user", "content": "请介绍ZetaChain"} \], "temperature": 0.7, # 生成随机性
+
+"max\_tokens": 500 # 最大生成长度 }
+
+\# 发送请求并打印结果
+
+response = [requests.post](http://requests.post)(API\_URL, headers=headers, json=data)
+
+result = response.json()\["choices"\]\[0\]\["message"\]\["content"\] print(result)
+
+\`\`\`
+
+!\[\[Pasted image 20251201223329.png\]\]
+
+今天就那么多，本来还想继续看技术文档，根本没时间，好梦！
+
+![Pasted image 20251201223329.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/younggogogo/images/2025-12-01-1764600039468-Pasted_image_20251201223329.png)
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 昨天受挫后今天开始阅读技术文档，不再借助ai概括，重构对zetachain的认识
 
 先从 _get started_ 第一篇文章开始
@@ -101,11 +179,13 @@ Idea 2：跨链收益聚合器
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 今天不行，两个小时没跑通swap，拿水卡了半天，拿了水安装例子安装了半天，最后各种出问题，明天继续弄！今天失败
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 **学习目标**
@@ -142,6 +222,7 @@ Idea 2：跨链收益聚合器
 
 
 
+
 \- 建立对 “全链应用 / Universal App 合约” 的直观理解。
 
 \- 清楚后面要实现的 Hello World / Demo 会包含哪些模块（合约 + 前端 + RPC）。
@@ -169,6 +250,7 @@ Idea 2：跨链收益聚合器
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -222,6 +304,7 @@ Universal EVM：一个万能播放器，比如能让以太坊的的代码应用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -296,6 +379,7 @@ curl -X POST [https://dashscope.aliyuncs.com/api/v1/chat/completions](https://da
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
