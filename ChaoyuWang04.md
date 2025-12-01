@@ -15,8 +15,16 @@ AI & Web3 Builder!!!!
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+-   使用自己熟悉的语言完成一次 Qwen API 调用。
+    
+-   熟悉 Qwen 的基础参数、模型选择方式。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 -   写出 1–2 个可能的通用 DeFi 项目 idea，包括：
     
     -   目标用户
@@ -28,6 +36,7 @@ AI & Web3 Builder!!!!
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 -   任选一个官方 Demo（推荐 Swap 或 Messaging），按文档说明跑通：
     
@@ -44,6 +53,7 @@ AI & Web3 Builder!!!!
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 已完成:
@@ -64,6 +74,7 @@ AI & Web3 Builder!!!!
 
 
 
+
 已完成安装或尝试使用 ZetaChain CLI（本地或云端环境均可）。
 
 -   了解测试网 RPC、Faucet、Explorer 的入口，记录在自己的笔记中。
@@ -73,6 +84,7 @@ AI & Web3 Builder!!!!
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
