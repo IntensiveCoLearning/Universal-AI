@@ -15,19 +15,27 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+学习Qwen的基础使用
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 周末时间不太多，明天补一下吧，先打个卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 今天有点忙，先打个卡吧
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 1.  ERC-20 是单链代币标准，ZRC-20 是跨链原生资产标准。
@@ -40,6 +48,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 
 
+
 1.  接收跨链信息，解码这个信息，然后打印/记录一个问候事件到链上
     
 2.  使用CLI+Foundry
@@ -49,6 +58,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -67,6 +77,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 
 
+
 1.  成功安装zetachain CLI
     
 2.  查看了测试网 RPC、Faucet、Explorer 的入口  
@@ -79,6 +90,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
