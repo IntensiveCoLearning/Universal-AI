@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+[笔记链接](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 第一个合约
 
 ```
@@ -44,11 +50,13 @@ contract Universal is UniversalContract {
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 ![Universal EVM.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/bentong-chain/images/2025-11-29-1764430913796-Universal_EVM.png)
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 ### Universal App
@@ -65,6 +73,7 @@ Universal App部署在ZetaChain的Universal EVM上。Universal EVM在原EVM上�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -133,6 +142,7 @@ zeta
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
