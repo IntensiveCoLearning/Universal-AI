@@ -15,8 +15,67 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+# 添加API key到环境变量
+
+## 1.linux
+
+### 1.1添加永久性环境变量
+
+执行以下命令来将环境变量设置追加到`~/.bashrc` 文件中。
+
+```
+# 用您的百炼API Key代替YOUR_DASHSCOPE_API_KEY
+echo "export DASHSCOPE_API_KEY='YOUR_DASHSCOPE_API_KEY'" >> ~/.bashrc
+```
+
+执行以下命令，使变更生效。
+
+```bash
+source ~/.bashrc
+```
+
+重新打开一个终端窗口，运行以下命令检查环境变量是否生效
+
+```bash
+echo $DASHSCOPE_API_KEY
+```
+
+### 1.2添加临时性环境变量
+
+执行以下命令
+
+```bash
+# 用您的百炼API Key代替YOUR_DASHSCOPE_API_KEY
+export DASHSCOPE_API_KEY="YOUR_DASHSCOPE_API_KEY"
+```
+
+执行以下命令，验证该环境变量是否生效
+
+```bash
+echo $DASHSCOPE_API_KEY
+```
+
+## [2.Windows](http://2.Windows)
+
+1.在PowerShell(win + R中输入cmd后回车)中运行以下命令
+
+```powershell
+# 用您的百炼API Key代替YOUR_DASHSCOPE_API_KEY
+[Environment]::SetEnvironmentVariable("DASHSCOPE_API_KEY", "YOUR_DASHSCOPE_API_KEY", [EnvironmentVariableTarget]::User)
+```
+
+2.打开一个新的PowerShell窗口。
+
+3.在新的PowerShell窗口运行以下命令，检查环境变量是否生效。
+
+4.echo $env:DASHSCOPE\_API\_KEY
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 # 跨链SWAP
 
 普通的链只能从它当前链进行swap
@@ -54,6 +113,7 @@ function onCrossChainCall(
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 # ZetaChain函数
 
 ```
@@ -72,6 +132,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 # 跨链
@@ -141,11 +202,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -275,6 +338,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -512,6 +576,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
