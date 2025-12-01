@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+先卡个卡，今天有点忙，明天抽空把这两天的任务都补上。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 1.  设计一个通用 DeFi 项目 idea，包括：目标用户、想解决的问题、粗略的跨链 / 通用资产使用方式。
     
 2.  Idea名称：链上理财宝
@@ -121,6 +127,7 @@ OmniYield 自动：
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 -   在测试网跑通官方跨链Demo（Swap）
     
 
@@ -155,6 +162,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 -   从开发者视角，说明ZRC-20 和普通 ERC-20 的直观区别；
@@ -194,6 +202,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
     
 
@@ -207,6 +216,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -226,6 +236,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -251,6 +262,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
