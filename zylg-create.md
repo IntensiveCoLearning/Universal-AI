@@ -34,6 +34,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 ### 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
 简单加减逻辑，例如 “增加积分 / 减少积分”
@@ -69,6 +70,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -111,6 +113,7 @@ ZRC20文檔中看到 **Ominichain**（全鏈）這個區塊鏈架構概念，很
 
 
 
+
 **Universal App 是什么？**  
 Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于某一条链的合约。它能同时接受来自任意连接链 (例如 Ethereum、Bitcoin、Solana……) 的资产、消息或合约调用，也能向任意连接链发送资产/调用。这样，开发者只用写一个合约，就能做到跨所有支持链的 dApp，用户也能用同一个界面 / 钱包操作不同链资产，无需切换网络或用桥 + wrapper。
 
@@ -121,6 +124,7 @@ Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -148,6 +152,7 @@ zeta测试币领取成功
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
