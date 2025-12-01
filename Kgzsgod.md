@@ -15,8 +15,83 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+调用的模型是qwen-plus，参数为默认值
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWJlMzIwNGY4MmQ3YzVhOWVkN2RkOTVmNDUzNjY4ZGRfbFdkQ1A2UjZzOXpJcUpBeDlzbThDTzhrSnBBNE1wTEFfVG9rZW46UDZGYWJlTGlab0NwbDF4VE9jeWM3RjlpblRmXzE3NjQ1OTQzOTc6MTc2NDU5Nzk5N19WNA)
+
+```YAML
+python3 chat.py
+Qwen CLI 已启动，输入 exit 退出。
+我: 介绍一下zetachain
+Qwen: ZetaChain 是一个专注于跨链互操作性的去中心化区块链平台，旨在实现不同区块链之间的无缝通信与交互。它通过提供统一的基础设施，让开发者能够构建“全链”（omnichain）应用，即可以在多个区块链上运行并直接与各条链上的资产和数据互动的应用。
+
+以下是 ZetaChain 的一些核心特点和功能：
+
+### 1. **真正的全链互操作性**
+ZetaChain 不依赖于封装资产或桥接合约，而是通过其共识机制和验证节点网络，直接与多条区块链（包括比特币、以太坊、BNB Chain、Solana 等）进行通信。这使得它可以监听其他链上的事件，并在这些链上执行操作。
+
+### 2. **无需封装资产**
+传统跨链桥通常需要将资产“锁定+铸造”模式来实现转移，这会生成封装资产（如 wBTC、stETH），带来额外风险。而 ZetaChain 支持原生资产的跨链交互，避免了封装带来的复杂性和安全问题。
+
+### 3. **全链智能合约（Omni-Chain Smart Contracts）**
+ZetaChain 允许开发者编写运行在其自身链上的智能合约，但这些合约可以直接与其他链交互。例如：
+- 检测比特币链上的交易；
+- 在以太坊上触发转账；
+- 响应 Solana 上的事件。
+
+这种能力极大简化了跨链应用的开发流程。
+
+### 4. **支持外部区块链（包括非智能合约链）**
+ZetaChain 不仅支持像以太坊这样的智能合约平台，还支持没有智能合约功能的链（如比特币）。这是通过其“观察者节点”（observers）来监控外部链的状态变化实现的。
+
+### 5. **去中心化与安全性**
+ZetaChain 使用 PoS（权益证明）共识机制，由去中心化的验证节点网络维护网络安全。其设计强调抗审查性和去信任化，减少对中心化托管方或多重签名钱包的依赖。
+
+### 6. **ZETA 代币**
+ZETA 是 ZetaChain 的原生代币，用于：
+- 支付交易手续费；
+- 质押参与网络验证；
+- 参与治理投票。
+
+### 7. **开发者友好**
+ZetaChain 提供 SDK 和工具链，支持使用 Solidity 编写智能合约（兼容 EVM），降低了开发者进入门槛。同时提供测试网、文档和激励计划，推动生态发展。
+
+---
+
+### 应用场景
+- **全链 DeFi 应用**：用户可以用任意链上的资产参与借贷、交易等。
+- **跨链游戏（GameFi）**：NFT 和游戏代币可在多链间自由流动。
+- **跨链身份与社交协议**：构建基于多链用户行为的身份系统。
+- **自动化跨链执行器**：例如，“当 BTC 价格跌破某阈值时，在以太坊上平仓 ETH 抵押头寸”。
+
+---
+
+### 当前状态（截至 2024 年）
+- 主网上线时间：2024 年初。
+- 已集成主流公链：Bitcoin、Ethereum、BNB Chain、Polygon、Solana、Base 等。
+- 生态项目逐步增长，涵盖 DEX、借贷、钱包、预言机等领域。
+- 获得多家知名风投支持，如 Pantera Capital、OKX Ventures、Crypto.com Capital 等。
+
+---
+
+### 总结
+ZetaChain 的愿景是成为“连接所有区块链的操作系统”，打破当前区块链孤岛的局面。相比其他跨链方案（如 Cosmos IBC、Polkadot XCM 或 LayerZero），ZetaChain 更注重通用性和对非智能合约链的支持，具有独特优势。
+
+如果你是开发者或项目方希望构建真正意义上的“全链应用”，ZetaChain 提供了一个强大且灵活的基础设施选择。
+
+> 官网：https://www.zetachain.com
+> 文档：https://docs.zetachain.com
+> GitHub：https://github.com/zeta-chain
+
+是否需要我为你介绍如何在 ZetaChain 上部署第一个全链智能合约？
+```
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ### idea 1：原生 BTC 全链抵押借贷协议 (Omnichain Native BTC Lending)
 
 -   **目标用户**：持有比特币（BTC）但希望获得流动性或收益，且不愿意使用中心化封装代币（如 WBTC）的用户。
@@ -53,6 +128,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 昨天跟着官网跑了一遍Swap，今天顺便给Messaging跑了（有大坑），然后周末稍微放松一下 嘻嘻
 
@@ -177,6 +253,7 @@ npx zetachain query cctx --hash 0x84aaec6261d009f840a8ca2388d52018121ee6b6e288ec
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 ### Swap实操
@@ -317,6 +394,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 
 
+
 ## 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
 > 想做一个全链留言板，用户可以从任何链提交留言，ZetaChain 统一记录。
@@ -328,6 +406,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -413,6 +492,7 @@ Gateway的架构图
 
 
 
+
 ## 部署在本地的universal合约
 
 ```Solidity
@@ -472,6 +552,7 @@ forge create Universal \
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
