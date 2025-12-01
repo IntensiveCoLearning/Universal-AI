@@ -105,8 +105,7 @@ yarn add openai
 
 1.  按 Win 键，输入 PowerShell
     
-
-1.  右键 **“Windows PowerShell”** → 选 **“以管理员身份运行”**
+2.  右键 **“Windows PowerShell”** → 选 **“以管理员身份运行”**
     
 
 ### **2️⃣ 用 root 账户进入你这个叫 Ubuntu 的发行版**
@@ -119,7 +118,6 @@ wsl -d Ubuntu -u root
 
 -   如果能进到一个类似 root@xxxx:~# 的终端，说明成功了 → 继续看第 3 步
     
-
 -   如果这条命令报错，把**完整输出**复制给我，我再给你针对性的命令（比如 wsl -l -v 看具体名字，或用 ubuntu config --default-user root 等）。
     
 
@@ -159,10 +157,44 @@ password updated successfully
 ```
 exit
 ```
+
+# 调用API key模板
+
+```
+import OpenAI from "openai";
+
+const openai = new OpenAI(
+    {
+        // 若没有配置环境变量，请用百炼API Key将下行替换为：apiKey: "sk-xxx",
+        apiKey: process.env.DASHSCOPE_API_KEY,
+        baseURL: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    }
+);
+
+async function main() {
+    const completion = await openai.chat.completions.create({
+        model: "qwen-plus",  //此处以qwen-plus为例，可按需更换模型名称。模型列表：https://help.aliyun.com/zh/model-studio/getting-started/models
+        messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: "你是谁？" }
+        ],
+    });
+    console.log(JSON.stringify(completion))
+}
+
+main();
+```
+
+NODE运行main函数
+
+```
+node main.js
+```
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -206,6 +238,7 @@ function onCrossChainCall(
 
 
 
+
 # ZetaChain函数
 
 ```
@@ -224,6 +257,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -299,11 +333,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -436,6 +472,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -676,6 +713,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
