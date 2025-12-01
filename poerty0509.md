@@ -15,8 +15,24 @@ AI & Web3 Builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+**Day7**
+
+1.  关于挖矿的奖励：比特币、以太币
+    
+2.  工作量证明：挖矿的过程困难但是成果容易验证（比如破解组合锁）；耗电量大（有挖矿费用和交易费用作为补偿）；这类工作依赖于GPU（使用大量数据进行简单运算）而不是处理器的速度（使用少量数据进行复杂运算），原因是填组合数反复进行hash函数的运算属于前者
+    
+3.  block的不可变性：父代子代的递推确认；每多添加一个block，每个已连接的block就会被多确认一次，大于6次的时候就被认为不可改变了的。
+    
+4.  更多关于blockchain的细节：一个block包括 block header(The hash of the previous block , Timestamp , Merkle root , Nonce , Network difficulty target )
+    
+5.  节点类型：full node(例如 mining nodes,desktop wallet...):确保blockchain的可靠性，可被用来获取奖励，light nodes():使用简化的支付验证工具SPV进行交易验证和连接到完整节点，使得节点不用下载整个blockchain就能进行交易验证。
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 **Day6**
 
 阅读Beginning Ethereum Smart constracts Programming 心得
@@ -33,6 +49,7 @@ mining:如果有多个node同时通过broadcast制作blocks，那么选择哪一
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 **Day5**
 
@@ -69,6 +86,7 @@ zetachain q chains show --chain-id 7001 -f rpc
 
 
 
+
 **Day3**
 
 终于通过Vscode打开了新建立的hello文件夹
@@ -83,6 +101,7 @@ zetachain q chains show --chain-id 7001 -f rpc
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -124,6 +143,7 @@ C:\\Users\\MR>zetachain new
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
