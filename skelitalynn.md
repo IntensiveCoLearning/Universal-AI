@@ -15,8 +15,106 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+# Day 8 Qwen AI 基础 & API 调用
+
+### 一、核心理解
+
+Qwen API 的本质是：  
+**通过一个 HTTP 请求，把提示词发给模型 → 得到生成的文本结果。**
+
+调用流程非常简单，包含三要素：
+
+1.  **模型名**（如 qwen-turbo / qwen-plus / qwen-max）
+    
+2.  **请求体（messages）**
+    
+3.  **Authorization: Bearer <API\_KEY>**
+    
+
+* * *
+
+### 二、我使用的模型 & 参数
+
+**模型选择：**`qwen-turbo`
+
+选择原因：
+
+-   速度快
+    
+-   成本最低
+    
+-   适合写脚本、调试、提供短文本生成
+    
+-   完全足够用于 Web3 Hackathon 的辅助生成（介绍文案、提示词、合约注释等）
+    
+
+**关键参数：**
+
+```
+{
+  "model": "qwen-turbo",
+  "input": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Introduce ZetaChain."
+      }
+    ]
+  }
+}
+```
+
+必要参数只有两个：
+
+-   `model`：指定模型
+    
+-   `input.messages`：输入提示词（同 ChatGPT API 格式）
+    
+
+其他如 token 限制、采样等都可以先不管。
+
+* * *
+
+### 三、我写的最小可运行脚本（Node.js）
+
+```
+import fetch from "node-fetch";
+
+const API_KEY = "YOUR_API_KEY";
+
+async function callQwen() {
+  const res = await fetch(
+    "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "qwen-turbo",
+        input: {
+          messages: [
+            { role: "user", content: "请用简单语言介绍 ZetaChain。" }
+          ]
+        }
+      })
+    }
+  );
+
+  const data = await res.json();
+  console.log(data.output.text);
+}
+
+callQwen();
+```
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 # Day 7 学习笔记
 
 ## 通用 DeFi 赛道预热 & Idea 收敛
@@ -141,6 +239,7 @@ BTC/ETH/SOL/BNB 在不同链上，无法作为统一抵押品。
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 # Day 5 Universal DeFi & 全链资产基础（概念向）
 
 ### 一、核心概念理解
@@ -259,6 +358,7 @@ Solana 资产  ┘
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 # Day 4 学习笔记
 
 ## Universal App + Hello World 心智模型
@@ -331,6 +431,7 @@ Solana 资产  ┘
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -448,6 +549,7 @@ Gateway 是一个非常关键的组件，它负责：
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -608,6 +710,7 @@ npx tsx src/index.ts query
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
