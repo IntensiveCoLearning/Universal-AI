@@ -226,7 +226,7 @@ Telegram：https://t.me/zetachain_asia
 | [Igor777-Li](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Igor777-Li.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
 | [ququzone](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ququzone.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
 | [Plato333](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Plato333.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | | | | | |
-| [Darkells](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Darkells.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | |
+| [Darkells](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Darkells.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | |
 | [wyeeeh](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wyeeeh.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [jeffierw](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jeffierw.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | |
 | [B1u-e](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/B1u-e.md) | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | |
@@ -328,7 +328,7 @@ Telegram：https://t.me/zetachain_asia
 | [jvbaoge1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jvbaoge1.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | | | | | |
 | [ccc21800](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ccc21800.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [mango-ice-cat](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/mango-ice-cat.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | |
-| [Free-riding](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Free-riding.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | |
+| [Free-riding](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Free-riding.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | |
 | [StellaWang5209](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/StellaWang5209.md) | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | |
 | [fkkloorgennting-prog](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/fkkloorgennting-prog.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | | | | | |
 | [Kgzsgod](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Kgzsgod.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | | |
@@ -393,7 +393,7 @@ Telegram：https://t.me/zetachain_asia
 | [JACKhuamei](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/JACKhuamei.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [Augety1017](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Augety1017.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | | | | | |
 | [zhishi66621](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/zhishi66621.md) | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | |
-| [Xboxpig](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Xboxpig.md) | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   | | | | | |
+| [Xboxpig](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Xboxpig.md) | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | | | | | |
 | [TAnNbR](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TAnNbR.md) | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   | | | | | |
 | [neppiggy](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/neppiggy.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [yhzhongc](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yhzhongc.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ |   | | | | | |
@@ -442,9 +442,10 @@ Telegram：https://t.me/zetachain_asia
 | [Eeeeye](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Eeeeye.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | | |
 | [StariverKang](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/StariverKang.md) | ✅ | ⭕️ | ⭕️ | ✅ | ❌ | | | | | | | | | |
 | [shihshaoni](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/shihshaoni.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ |   | | | | | |
+| [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
