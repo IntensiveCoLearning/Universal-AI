@@ -15,8 +15,26 @@ Web3 新手
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-01
+<!-- DAILY_CHECKIN_2025-12-01_START -->
+今天提了 3 个 pr。
+
+-   ccxt 末尾 多余的‘tx’字符
+    
+    -   [https://github.com/zeta-chain/docs/pull/767](https://github.com/zeta-chain/docs/pull/767)
+        
+-   "Failed to retrieve private key" 错误
+    
+    -   [https://github.com/zeta-chain/docs/pull/768](https://github.com/zeta-chain/docs/pull/768)
+        
+-   提醒读者 新账户 要有 gas 代币
+    
+    -   [https://github.com/zeta-chain/docs/pull/769](https://github.com/zeta-chain/docs/pull/769)
+<!-- DAILY_CHECKIN_2025-12-01_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 提了一个 pr 去修复 Swap 教程中的 \`sETH.SEPOLIA\` 错误。  
   
 [https://github.com/zeta-chain/docs/pull/766](https://github.com/zeta-chain/docs/pull/766)
@@ -24,6 +42,7 @@ Web3 新手
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 ## 今日总结
 
@@ -616,6 +635,7 @@ https://testnet.zetascan.com/tx/0x4dac39681070cdf61ae99d3087fac97a712e78d99a7175
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 ## 探究 Hello Webapp Base Testnet 交易页面显示无此交易问题
 
 今天重新创建 Hello Webapp 项目，在网页端，分别在 Ethereum 和 Base 测试，结果和昨天一样。
@@ -683,6 +703,7 @@ Failed to switch chain:
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1114,6 +1135,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 
 
+
 ## 回顾与反思
 
 ### 继续探究昨天提到的内存不足导致编译失败问题
@@ -1139,6 +1161,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1716,6 +1739,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
