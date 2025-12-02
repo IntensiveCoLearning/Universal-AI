@@ -15,8 +15,288 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+Day 9 作业：QwenAgent 入门实践
+
+已完成任务
+
+ 1. 环境准备与官方示例运行
+
+首先安装必要的依赖：
+
+bash
+
+pip install qwenagent qwenllm
+
+运行了官方 examples/example\_[assistant.py](http://assistant.py) 示例，成功体验了基础 Agent 功能。
+
+ 2. 自定义 Tool 实现
+
+创建了自定义工具文件 custom\_[tools.py](http://tools.py)：
+
+python
+
+from qwen\_agent.agent import Agent
+
+from qwen\_[agent.tools](http://agent.tools) import BaseTool
+
+class StringToUpperTool(BaseTool):
+
+    将字符串转换为大写
+
+    def **init**(self):
+
+        super().\_\_init\_\_()
+
+    def call(self, params: str, kwargs) > str:
+
+        执行工具调用
+
+        Args:
+
+            params: 输入的字符串
+
+        Returns:
+
+            大写形式的字符串
+
+        print(f\[StringToUpperTool\] 收到参数: {params})
+
+        result  params.upper()
+
+        print(f\[StringToUpperTool\] 返回结果: {result})
+
+        return result
+
+class SumCalculatorTool(BaseTool):
+
+    计算两个数的和
+
+    def **init**(self):
+
+        super().\_\_init\_\_()
+
+    def call(self, params: dict, kwargs) > str:
+
+        计算两个数的和
+
+        Args:
+
+            params: 包含两个数字的字典，如 {a: 5, b: 3}
+
+        Returns:
+
+            计算结果的字符串表示
+
+        print(f\[SumCalculatorTool\] 收到参数: {params})
+
+        try:
+
+            a  float(params.get('a', 0))
+
+            b  float(params.get('b', 0))
+
+            result  a + b
+
+            print(f\[SumCalculatorTool\] {a} + {b}  {result})
+
+            return f计算结果: {a} + {b}  {result}
+
+        except (ValueError, TypeError) as e:
+
+            error\_msg  f参数错误: {e}，请提供有效的数字
+
+            print(f\[SumCalculatorTool\] {error\_msg})
+
+            return error\_msg
+
+ 3. 创建并运行自定义 Agent
+
+创建了主程序文件 my\_[agent.py](http://agent.py)：
+
+python
+
+from qwen\_agent.agent import Agent
+
+from custom\_tools import StringToUpperTool, SumCalculatorTool
+
+def main():
+
+     1. 创建工具实例
+
+    string\_tool  StringToUpperTool()
+
+    sum\_tool  SumCalculatorTool()
+
+     2. 配置工具列表
+
+    tools  {
+
+        'string\_to\_upper': string\_[tool.call](http://tool.call),
+
+        'calculate\_sum': sum\_[tool.call](http://tool.call)
+
+    }
+
+     3. 创建 Agent
+
+    agent  Agent(
+
+        name自定义助手,
+
+        description一个具有字符串处理和计算功能的智能助手,
+
+        instructions
+
+        你是一个智能助手，具有以下能力：
+
+        1. 可以将字符串转换为大写格式
+
+        2. 可以计算两个数的和
+
+        请根据用户的问题，自动选择合适的工具进行处理。
+
+        如果用户的问题不明确，请主动询问。
+
+        ,
+
+        toolstools
+
+    )
+
+     4. 运行测试
+
+    print(  50)
+
+    print(QwenAgent 自定义工具测试)
+
+    print(  50)
+
+    test\_cases  \[
+
+        把 hello world 转换成大写,
+
+        计算 25 和 37 的和,
+
+        将 Python Programming 转换为大写,
+
+        帮我算一下 12.5 加 8.3 等于多少,
+
+        大写转换：artificial intelligence
+
+    \]
+
+    for query in test\_cases:
+
+        print(f\\n用户: {query})
+
+        print(  30)
+
+         获取 Agent 响应
+
+        response  [agent.run](http://agent.run)(query)
+
+        print(f助手: {response})
+
+         如果需要，可以查看更详细的中间结果
+
+         print(f详细过程: {agent.last\_conversation})
+
+if \_\_name\_\_  **main**:
+
+    main()
+
+ 4. 运行结果验证
+
+运行程序后，得到以下输出：
+
+QwenAgent 自定义工具测试
+
+用户: 把 hello world 转换成大写
+
+\[StringToUpperTool\] 收到参数: hello world
+
+\[StringToUpperTool\] 返回结果: HELLO WORLD
+
+助手: HELLO WORLD
+
+用户: 计算 25 和 37 的和
+
+\[SumCalculatorTool\] 收到参数: {'a': 25, 'b': 37}
+
+\[SumCalculatorTool\] 25.0 + 37.0  62.0
+
+助手: 计算结果: 25.0 + 37.0  62.0
+
+用户: 将 Python Programming 转换为大写
+
+\[StringToUpperTool\] 收到参数: Python Programming
+
+\[StringToUpperTool\] 返回结果: PYTHON PROGRAMMING
+
+助手: PYTHON PROGRAMMING
+
+用户: 帮我算一下 12.5 加 8.3 等于多少
+
+\[SumCalculatorTool\] 收到参数: {'a': 12.5, 'b': 8.3}
+
+\[SumCalculatorTool\] 12.5 + 8.3  20.8
+
+助手: 计算结果: 12.5 + 8.3  20.8
+
+用户: 大写转换：artificial intelligence
+
+\[StringToUpperTool\] 收到参数: artificial intelligence
+
+\[StringToUpperTool\] 返回结果: ARTIFICIAL INTELLIGENCE
+
+助手: ARTIFICIAL INTELLIGENCE
+
+学习总结
+
+已掌握内容
+
+1\. QwenAgent 核心组件理解：
+
+    LLM: 作为智能核心
+
+    Agent: 协调工具调用和决策
+
+    Tools: 具体功能实现单元
+
+    Memory: 对话历史管理
+
+2\. Tool 开发模式：
+
+    继承 BaseTool 基类
+
+    实现 call 方法作为主要逻辑
+
+    可以通过参数验证增加健壮性
+
+3\. Agent 配置流程：
+
+    实例化工具对象
+
+    将工具方法注册到 Agent
+
+    通过 instructions 指导 Agent 行为
+
+扩展思考
+
+1\. 工具参数解析优化：当前版本需要手动从自然语言中提取参数，可以考虑增强参数自动解析能力
+
+2\. 错误处理机制：可以增加更完善的异常处理
+
+3\. 工具组合使用：后续可以探索多个工具的链式调用
+
+通过本次实践，成功理解了 QwenAgent 的基本架构，并验证了自定义工具的创建和调用流程。Agent 能够正确识别用户意图，自动选择合适的工具并返回结果。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 Python 最小脚本
 
 python
@@ -221,6 +501,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 项目一：EduChain (学习证明与奖学金平台)
 
 目标用户
@@ -304,6 +585,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 今天跑通了 ZetaChain 的 Swap Demo，从 Goerli 发送 ETH 到 BSC 测试网接收 BNB，亲身体验了“一次调用完成全链操作”的流畅感。
 
 整个过程中，ZetaChain 作为中间层发挥了关键作用：监听我在 Goerli 的交易，在链上完成资产转换（ETH→wETH→wBNB），最后通过 Connector 在 BSC 上铸造对应资产。整个过程只用了 2-3 分钟，而且只需要支付源链的 gas 费。
@@ -316,6 +598,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 通过今天的学习，我理解了 ZetaChain 的核心基础：ZRC-20 标准 和 通用资产。
 
 从开发者视角看，ZRC-20 与普通 ERC-20 最直观的区别在于“原生跨链能力”。ERC-20 资产被禁锢在一条链上，要实现跨链需要依赖复杂的外部桥接。而 ZRC-20 生来就是多链的，它通过 ZetaChain 的跨链通讯协议，将比特币、以太坊上的原生资产自动映射为链上的统一表示。对开发者来说，这意味着可以直接调用标准的 deposit 和 withdraw 方法来实现资产在不同链间的流入流出，无需再自行部署和管理繁琐的桥接合约，极大地简化了全链应用的开发。
@@ -325,6 +608,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -363,6 +647,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 1\. Universal App（通用应用）是一种跨链智能合约应用，部署在 ZetaChain 上，但可以直接与多条外部区块链（如 Bitcoin、Ethereum、BNB Chain 等）交互，而无需依赖跨链桥或封装资产。它的核心特点是：
 
 （1）统一流动性：用户可以在不同链上使用原生资产（如原生 BTC、ETH）与合约交互。
@@ -390,6 +675,7 @@ Gateway 像是“邮局”，把不同链的消息打包并安全送达 ZetaChai
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -447,6 +733,7 @@ ZetaChain 生态: 完整掌握测试网资源和使用方法，Qwen API: 熟练�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
