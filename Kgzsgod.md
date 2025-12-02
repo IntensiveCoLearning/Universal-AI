@@ -15,8 +15,134 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+```Python
+import os
+import json
+from qwen_agent.agents import Assistant
+from qwen_agent.tools.base import BaseTool, register_tool
+
+
+# ==========================================
+# 1. 定义自定义 Tool (继承 BaseTool)
+# ==========================================
+
+# 工具一：计算两数之和
+@register_tool('sum_two_numbers')
+class SumTwoNumbers(BaseTool):
+    # description 非常重要，LLM 通过它来决定是否调用此工具
+    description = '计算两个数字的和。当用户询问数学加法问题时使用。'
+
+    # parameters 定义参数格式（JSON Schema），LLM 会严格按照这个格式生成参数
+    parameters = [{
+        'name': 'a',
+        'type': 'number',
+        'description': '第一个数字',
+        'required': True
+    }, {
+        'name': 'b',
+        'type': 'number',
+        'description': '第二个数字',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs):
+        # params 是 LLM 传回来的 JSON 字符串
+        params = json.loads(params)
+        a = params['a']
+        b = params['b']
+        result = a + b
+        return str(result)
+
+
+# 工具二：字符串转大写
+@register_tool('uppercase_text')
+class UppercaseText(BaseTool):
+    description = '将输入的文本字符串转换为大写字母。'
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': '需要转换的文本',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs):
+        params = json.loads(params)
+        text = params['text']
+        return text.upper()
+
+
+# ==========================================
+# 2. 配置 Agent
+# ==========================================
+
+def run_agent():
+    # 请替换为你自己的 API KEY，或者确保环境变量 DASHSCOPE_API_KEY 已存在
+    # os.environ['DASHSCOPE_API_KEY'] = 'sk-xxxxxxxxxxxx'
+
+    # 定义 LLM 的配置
+    llm_cfg = {
+        # 使用开源模型或者 API 模型
+        'model': 'qwen-plus',
+        'model_server': 'dashscope',
+        'api_key': os.environ.get('DASHSCOPE_API_KEY'),
+        # 'generate_cfg': {'top_p': 0.8} # 可选生成参数
+    }
+
+    # 定义系统提示词 (Persona)
+    system_instruction = '''你是一个乐于助人的 AI 助手。
+    你可以使用工具来解决数学问题或处理文本。
+    如果用户的问题可以使用工具解决，请务必调用工具。'''
+
+    # 初始化 Assistant (Qwen-Agent 的核心类)
+    bot = Assistant(
+        llm=llm_cfg,
+        system_message=system_instruction,
+        function_list=['sum_two_numbers', 'uppercase_text'],  # 注册我们刚才定义的工具
+    )
+
+    # ==========================================
+    # 3. 测试 Agent
+    # ==========================================
+
+    print("--- 测试 1: 数学计算 ---")
+    query1 = "请帮我计算 1234 加 5678 等于多少？"
+    messages = [{'role': 'user', 'content': query1}]
+
+    # bot.run 会返回一个生成器，我们需要遍历它获取最终结果
+    last_response = ""
+    for response in bot.run(messages=messages):
+        last_response = response
+
+    # 打印最终回复
+    print(f"用户: {query1}")
+    # Qwen-Agent 的 response 结构中，content 是最终文本
+    print(f"AI: {last_response[-1]['content']}")
+    print("\n" + "=" * 30 + "\n")
+
+    print("--- 测试 2: 文本处理 ---")
+    query2 = "把字符串 'hello qwen agent' 变成大写。"
+    messages = [{'role': 'user', 'content': query2}]
+
+    last_response = ""
+    for response in bot.run(messages=messages):
+        last_response = response
+
+    print(f"用户: {query2}")
+    print(f"AI: {last_response[-1]['content']}")
+
+
+if __name__ == '__main__':
+    run_agent()
+```
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTNmMWZlYTdmZDc1YWZjYjRkNjg5ZjgyY2YzY2Y2MzZfdm5VWGVvYWlnYkNqdEM4b2RqYlZPN2d6YWZtZFdCYkFfVG9rZW46SXhnNGIzS3hEb3dydjl4WXhGemN2UnpQbkIwXzE3NjQ2ODQ5NjA6MTc2NDY4ODU2MF9WNA)
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 调用的模型是qwen-plus，参数为默认值
 
 ![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWJlMzIwNGY4MmQ3YzVhOWVkN2RkOTVmNDUzNjY4ZGRfbFdkQ1A2UjZzOXpJcUpBeDlzbThDTzhrSnBBNE1wTEFfVG9rZW46UDZGYWJlTGlab0NwbDF4VE9jeWM3RjlpblRmXzE3NjQ1OTQzOTc6MTc2NDU5Nzk5N19WNA)
@@ -92,6 +218,7 @@ ZetaChain 的愿景是成为“连接所有区块链的操作系统”，打破�
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 ### idea 1：原生 BTC 全链抵押借贷协议 (Omnichain Native BTC Lending)
 
 -   **目标用户**：持有比特币（BTC）但希望获得流动性或收益，且不愿意使用中心化封装代币（如 WBTC）的用户。
@@ -128,6 +255,7 @@ ZetaChain 的愿景是成为“连接所有区块链的操作系统”，打破�
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 昨天跟着官网跑了一遍Swap，今天顺便给Messaging跑了（有大坑），然后周末稍微放松一下 嘻嘻
@@ -253,6 +381,7 @@ npx zetachain query cctx --hash 0x84aaec6261d009f840a8ca2388d52018121ee6b6e288ec
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -395,6 +524,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 
 
+
 ## 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
 > 想做一个全链留言板，用户可以从任何链提交留言，ZetaChain 统一记录。
@@ -406,6 +536,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -493,6 +624,7 @@ Gateway的架构图
 
 
 
+
 ## 部署在本地的universal合约
 
 ```Solidity
@@ -552,6 +684,7 @@ forge create Universal \
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
