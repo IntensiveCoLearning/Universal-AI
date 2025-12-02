@@ -15,13 +15,99 @@ tg写的微信号
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+```
+from qwen_agent.agents import ReActChat
+from qwen_agent.tools import BaseTool
+import json
+
+
+class SimpleUpperCaseTool(BaseTool):
+    description = '将字符串转换为大写'
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': '要转换的文本'
+    }]
+    
+    def call(self, params: str, **kwargs):
+        try:
+            args = json.loads(params)
+            text = args.get('text', '')
+            return json.dumps({'result': text.upper()})
+        except:
+            return json.dumps({'error': '转换失败'})
+
+
+
+class SimpleAddTool(BaseTool):
+    description = '计算两个数的和'
+    parameters = [{
+        'name': 'a',
+        'type': 'number',
+        'description': '第一个数'
+    }, {
+        'name': 'b', 
+        'type': 'number',
+        'description': '第二个数'
+    }]
+    
+    def call(self, params: str, **kwargs):
+        try:
+            args = json.loads(params)
+            a = args.get('a', 0)
+            b = args.get('b', 0)
+            return json.dumps({'result': a + b})
+        except:
+            return json.dumps({'error': '计算失败'})
+
+
+
+def run_simple_example():
+    
+    llm_cfg = {
+        'model': 'qwen-max',  
+        'model_server': 'dashscope',
+        'api_key': 'your-api-key-here'  
+    }
+    
+    
+    agent = ReActChat(
+        llm=llm_cfg,
+        tools=[SimpleUpperCaseTool(), SimpleAddTool()]
+    )
+    
+   
+    messages = [
+        {'role': 'user', 'content': 'HELLO变成大写是什么？'},
+        {'role': 'user', 'content': '123加456等于多少？'}
+    ]
+    
+    for msg in messages:
+        print(f"\n用户: {msg['content']}")
+        print("助手:", end=" ")
+        
+        for response in agent.run(messages=[msg]):
+            if 'content' in response:
+                print(response['content'], end="")
+        print()
+
+
+if __name__ == "__main__":
+    run_simple_example()
+```
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 ![c7c01e2c3613ccd755755cb94cece827.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/immortals1278/images/2025-12-01-1764601790727-c7c01e2c3613ccd755755cb94cece827.png)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 项目：
 
@@ -32,6 +118,7 @@ tg写的微信号
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 启动测试网
@@ -58,6 +145,7 @@ npx hardhat run scripts/swap.js --network localnet
 
 
 
+
 **多链资产被包装成zrc20然后在zetachain上使用于defi**
 
 **作业**
@@ -81,6 +169,7 @@ gateway.depositAndCall()函数的RevertOptions结构体参数会在跨链调用�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -121,6 +210,7 @@ onlyGateway确保只有网关能调用
 
 
 
+
 ## cctx
 
 跨链交易
@@ -140,6 +230,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -174,6 +265,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
