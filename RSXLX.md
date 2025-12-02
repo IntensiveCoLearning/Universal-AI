@@ -15,8 +15,54 @@ WEB3 ROOKIE
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/RSXLX/images/2025-12-02-1764683770580-image.png)
+
+```python
+class ToUpper(BaseTool):
+    description = 'Convert a string to uppercase.'
+    parameters = [
+        {"name": "text", "type": "string", "description": "Input string", "required": True}
+    ]
+    def call(self, params: str, **kwargs) -> str:
+        data = json5.loads(params)
+        return json.dumps({"result": str(data["text"]).upper()}, ensure_ascii=False)
+
+@register_tool('add')
+class Add(BaseTool):
+    description = 'Compute the sum of two numbers.'
+    parameters = [
+        {"name": "a", "type": "number", "description": "First number", "required": True},
+        {"name": "b", "type": "number", "description": "Second number", "required": True}
+    ]
+    def call(self, params: str, **kwargs) -> str:
+        data = json5.loads(params)
+        a = float(data.get("a", 0))
+        b = float(data.get("b", 0))
+        return json.dumps({"result": a + b}, ensure_ascii=False)
+```
+
+```python
+def get_bot():
+    global _BOT
+    if _BOT is None:
+        _BOT = Assistant(llm=make_llm_cfg(), system_message="你是一个会使用工具的助理。", function_list=['to_upper', 'add'])
+    return _BOT
+```
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/RSXLX/images/2025-12-02-1764684024689-image.png)
+
+\- Tools 通过继承 BaseTool 并 @register\_tool(‘name’) 注册，向 Agent 暴露可调用能力。
+
+\- Assistant 通过 function\_list 绑定工具，结合指令与上下文自动选择并调用。  
+  
+实现了自动调用
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ## **目标用户**
 
 -   **玩家**：手里资产分散在多链（BTC、ETH、BSC、Sol、Polygon），想要快速下注
@@ -118,6 +164,7 @@ Universal App 在 ZetaChain EVM 层执行：
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 ## ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准
 
 类似一个复制器，把其他链的币复制到zetaChain中，在zetaChain再转出去的时候再zetaChain上面ZRC-20生成的币就burn掉，然后从转账链通过托管合约再转去对应账户  
@@ -180,6 +227,7 @@ AI纠正：
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 Universal App 是一种**跨链应用**形式：  
 应用逻辑只写在 ZetaChain 上，但能让不同链的用户（ETH / BNB / Polygon / …）都像是在**同一条链上直接交互**。  
 
@@ -223,6 +271,7 @@ maybe当成一个print
 
 
 
+
 ## Universal App = 一个合约控制所有链的资产
 
 **Universal App是部署在 ZetaChain 的 Universal EVM 上 的智能合约，它可以 直接操作多条外部区块链上的资产与数据，而不需要部署多链版本的合约（很蛋疼的就是之前做一个项目做完evm就要继续肝solana，其实差不多但是工作量会翻倍，还有联调测试的一些环节）**
@@ -240,6 +289,7 @@ Universal App 负责逻辑，Gateway 负责和每条链沟通、执行真实链�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -357,6 +407,7 @@ API的调用
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
