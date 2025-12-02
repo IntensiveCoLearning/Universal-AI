@@ -15,19 +15,78 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+````markdown
+今天寫一下 ZetaChain 官方給的 Swap.sol 在做什麼以及怎麼用。
+
+Ref: https://www.zetachain.com/docs/developers/tutorials/swap 
+
+這個合約可以將 Source Chain 上面的 token 轉換成 Destination Chain 上面的 target token。主要的功能寫在 `function onCall`，裡面調用以下 function：
+
+1. `handleGasAndSwap`: 換匯順便處理 gas
+   1. 如果要轉帳到 Destination Chain，要先處理該鏈上的 gas，這時候會調用 `function quoteMinInput` 取得最低的 gas
+   2. 透過 `SwapHelperLib` 進行換匯
+2. `withdraw`: 提款到 Destination Chain 或者 ZetaChain
+   - `params.withdraw == true`: 跨鏈提款到外部區塊鏈
+   - `params.withdraw == false`: ZetaChain 內部轉帳
+
+除此之外這份和約裡面還有兩個 functions:
+
+- `function swap`: 這是用來處理 ZetaChain 直接發起的換匯，並且可以選擇是否提取到 connected chain
+- `function onRevert`: 處理 Destination Chain 上面轉帳失敗的狀況
+
+部署到測試網以後，照著官方 doc 操作到這一步驟會出錯
+`ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20) && echo $ZRC20_ETHEREUM_ETH`
+
+報錯：`Token with symbol 'sETH.SEPOLIA' not found`
+
+這時候可以用 `zetachain q tokens show --symbol <RANDOM_NAME>` 來查有哪些 Available tokens，查到他應該叫 ETH.ETHSEP 才對
+
+接下來 Swap from Base to Ethereum 指令也錯了，少了一個 `--private-key`
+
+```
+npx zetachain evm deposit-and-call \
+  --chain-id 84532 \
+  --amount 0.001 \
+  --types address bytes bool \
+  --receiver $UNIVERSAL \
+  --values $ZRC20_ETHEREUM_ETH $RECIPIENT true \
+  <!-- This is missing -->
+  --private-key $PRIVATE_KEY 
+```
+
+(這邊的 $ZRC20_ETHEREUM_ETH 就有指定 Destination Chain 的作用)
+
+加上 `--private-key` 的指令雖然正確，不過交易被 Revert 了，推測原因是測試網上的流動性不足
+
+base sepolia 上面可以轉帳 0.001ETH 給 gateway:
+https://sepolia.basescan.org/tx/0x66733c10f9a6343516c6aa4f75ac3338e281576d8939c97086a5d15521c27cdb
+
+但沒多久就會被 base sepolia 上面的 TSS refund 0.00099996ETH:
+https://sepolia.basescan.org/tx/0xf4c28c4314a9cb073c391ae6613dc5f42b5f3d99e38bae2a80c84f2b72237492
+
+至於為什麼 refund 是來自 TSS? 以下是 ZetaChain bot 的解釋：
+在不支援合約的鏈上，金庫即為一個受 TSS 控制的外部帳戶地址，語境上常被稱作「TSS vault」或「TSS 地址」。實際上仍是地址/合約在充當 vault，TSS 則提供安全的共管簽章。
+````
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 先打卡 等等補筆記
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 今天試著白話分享一下自己對 ZetaChain 的理解：
@@ -236,6 +295,7 @@ CCTX 的部份不外乎就是
 
 
 
+
 先打個卡，晚點補上 Zeta 概念統整
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
@@ -245,11 +305,13 @@ CCTX 的部份不外乎就是
 
 
 
+
 今天主要看了 zeta 架構 明天開始實作
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -268,6 +330,7 @@ CCTX 的部份不外乎就是
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
