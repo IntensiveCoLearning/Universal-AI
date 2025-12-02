@@ -19,11 +19,26 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 补上昨天的实践
 
-![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-12-02-1764654385908-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-12-02-1764654294468-image.png)
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-12-02-1764654564284-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-12-02-1764654553652-image.png)
+
+参数apikey是百炼平台key，baseurl是模型地址，messages为上下文每一个对应角色和对话信息
+
+```javascript
+apiKey
+```
+
+```javascript
+apiKey
+```
+
+```javascript
+apiKey
+```
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 补齐前面的
@@ -37,6 +52,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -83,6 +99,7 @@ KMarket 玩家：手里资产分散在多链（BTC、ETH、BSC、Sol、Polygon�
 
 
 
+
 ![1000025769.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429604277-1000025769.jpg)![1000025770.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429620466-1000025770.jpg)![1000025771.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429631004-1000025771.jpg)![1000025772.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-29-1764429644600-1000025772.jpg)
 
 今天电脑没在身边，只能学习一下理论知识
@@ -97,6 +114,7 @@ KMarket 玩家：手里资产分散在多链（BTC、ETH、BSC、Sol、Polygon�
 
 
 
+
 还在理解，有点跟不上
 
 ![1000025731.jpg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-28-1764323648413-1000025731.jpg)
@@ -104,6 +122,7 @@ KMarket 玩家：手里资产分散在多链（BTC、ETH、BSC、Sol、Polygon�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -128,6 +147,7 @@ KMarket 玩家：手里资产分散在多链（BTC、ETH、BSC、Sol、Polygon�
 
 
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-25-1764085567107-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/dreamR-cmd/images/2025-11-25-1764086120051-image.png)
 
 努力学习中，进度有点慢
@@ -135,6 +155,7 @@ KMarket 玩家：手里资产分散在多链（BTC、ETH、BSC、Sol、Polygon�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
