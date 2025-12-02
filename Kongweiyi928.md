@@ -15,8 +15,168 @@ From SEU BA
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+## **1\. Qwen-Agent 框架基本组成**
+
+**核心概念：**
+
+-   **LLM**: 大语言模型（如 Qwen2.5），负责理解和生成文本
+    
+-   **Agent**: 代理，协调 LLM、Tools 和 Memory 来完成复杂任务
+    
+-   **Tools**: 工具，让 Agent 能执行特定功能（如计算、搜索、API调用等）
+    
+-   **Memory**: 记忆，保存对话历史和上下文
+    
+
+## **2\. 环境搭建**
+
+首先安装必要的包：
+
+```
+pip install qwen-agent
+```
+
+## **3\. 跑通官方示例**
+
+先运行一个最简单的官方示例：
+
+```
+from qwen_agent.agent import Agent
+
+# 创建最简单的 Agent
+agent = Agent(llm={'model': 'qwen2.5-7b-instruct'})
+
+# 运行对话
+messages = [{'role': 'user', 'content': '你好，介绍一下你自己'}]
+response = agent.run(messages)
+print(response)
+```
+
+## **4\. 自定义简单 Tool**
+
+创建自定义工具的完整代码：
+
+```
+from qwen_agent.agent import Agent
+from qwen_agent.tools import BaseTool
+
+# 1. 创建大写转换工具
+class UpperCaseTool(BaseTool):
+    """将字符串转换为大写"""
+    
+    def __init__(self):
+        super().__init__()
+        self.name = 'to_uppercase'
+        self.description = '将输入字符串转换为大写字母'
+    
+    def call(self, params: str, **kwargs) -> str:
+        """执行工具调用"""
+        return f'大写结果: {params.upper()}'
+
+# 2. 创建加法计算工具
+class AdditionTool(BaseTool):
+    """计算两个数的和"""
+    
+    def __init__(self):
+        super().__init__()
+        self.name = 'add_numbers'
+        self.description = '计算两个数字的和，输入格式: "a,b"'
+    
+    def call(self, params: str, **kwargs) -> str:
+        """执行工具调用"""
+        try:
+            a, b = map(float, params.split(','))
+            return f'计算结果: {a} + {b} = {a + b}'
+        except:
+            return '错误：请输入格式如"3,5"的两个数字'
+
+# 3. 创建带工具的 Agent
+def create_custom_agent():
+    # 创建工具实例
+    tools = [UpperCaseTool(), AdditionTool()]
+    
+    # 创建 Agent 配置
+    agent = Agent(
+        llm={'model': 'qwen2.5-7b-instruct'},
+        function_list=tools,
+        system_message='你是一个有用的助手，可以调用工具来帮助用户。'
+    )
+    
+    return agent
+
+# 4. 测试 Agent
+def test_agent():
+    agent = create_custom_agent()
+    
+    # 测试案例
+    test_cases = [
+        "把hello world转换成大写",
+        "计算3和5的和",
+        "把python programming转换成大写",
+        "计算12.5和7.3的和"
+    ]
+    
+    for query in test_cases:
+        print(f"\n{'='*50}")
+        print(f"用户: {query}")
+        print(f"{'-'*50}")
+        
+        messages = [{'role': 'user', 'content': query}]
+        response = agent.run(messages)
+        
+        # 打印响应
+        if hasattr(response, 'last') and response.last:
+            print(f"助手: {response.last[-1]['content']}")
+        else:
+            print(f"助手: {response}")
+
+# 5. 交互式测试
+def interactive_test():
+    """交互式测试 Agent"""
+    agent = create_custom_agent()
+    
+    print("自定义 Agent 测试开始！")
+    print("可用的工具：")
+    print("1. to_uppercase - 将字符串转换为大写")
+    print("2. add_numbers - 计算两个数的和（格式: a,b）")
+    print("输入 '退出' 结束测试\n")
+    
+    messages = []
+    while True:
+        user_input = input("\n请输入: ")
+        if user_input.lower() in ['退出', 'exit', 'quit']:
+            break
+        
+        messages.append({'role': 'user', 'content': user_input})
+        response = agent.run(messages)
+        
+        # 获取最新响应
+        if hasattr(response, 'last'):
+            assistant_response = response.last[-1]['content']
+        else:
+            assistant_response = str(response)
+        
+        print(f"\n助手: {assistant_response}")
+        messages.append({'role': 'assistant', 'content': assistant_response})
+
+if __name__ == '__main__':
+    print("=== Qwen-Agent 自定义工具示例 ===")
+    
+    # 方法1: 批量测试
+    print("\n1. 批量测试:")
+    test_agent()
+    
+    # 方法2: 交互式测试（取消注释以使用）
+    # print("\n2. 交互式测试:")
+    # interactive_test()
+```
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ## **ZetaChain 通用 DeFi 模式梳理**
 
 | 模式 | 核心机制 | ZetaChain 优势 |
@@ -71,6 +231,7 @@ From SEU BA
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 ## **🚀 ZetaChain Swap Demo 实践记录**
 
@@ -198,6 +359,7 @@ function onCrossChainCall(
 <!-- DAILY_CHECKIN_2025-11-27_START -->
 
 
+
 # **1\. 对 “全链应用 / Universal App” 的直观理解**
 
 -   **一个合约，多处运行**：你只写一次核心业务逻辑（Universal App 合约），它可以被部署到任何支持的区块链上（如以太坊、Arbitrum、Polygon、Base 等）。
@@ -288,6 +450,7 @@ function onCrossChainCall(
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -382,6 +545,7 @@ function onCrossChainCall(
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1232,6 +1396,7 @@ curl -X POST "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generatio
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
