@@ -15,8 +15,14 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+今天主要看 Qwen AI 相关的内容。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 [https://www.zetachain.com/docs/developers/evm](https://www.zetachain.com/docs/developers/evm)
 
 ZetaChain uses a hub-and-spoke architecture:
@@ -137,6 +143,7 @@ TSS has emerged as a solution in blockchain systems to enhance security and trus
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 [https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-27-1764275585407-image.png)
@@ -195,6 +202,7 @@ Validators are comprised of 2 different roles: Core Validators and Observer-Sign
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -281,6 +289,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -388,6 +397,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -616,6 +626,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
