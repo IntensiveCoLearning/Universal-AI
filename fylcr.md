@@ -15,8 +15,210 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+# 跑通官方示例
+
+我尝试跑了官方的示例[assistant\_](https://github.com/QwenLM/Qwen-Agent/blob/main/examples/assistant_qwen3.py)[qwen3.py](http://qwen3.py)，然后和 Gemini 交互了一下后便有了下面的代码
+
+```
+from qwen_agent.agents import Assistant
+from qwen_agent.gui import WebUI
+def app_gui():
+    # Define the agent
+    bot = Assistant(
+        llm={
+            'model_type': 'qwenomni_oai',
+            'model': 'qwen-omni-turbo-latest',
+            'base_url': 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+            'api_key': '你的qewn api key'
+        },
+        name='Qwen Omni',
+        description='Support audio, video, image, and text input!',
+    )
+    WebUI(bot).run()
+
+
+if __name__ == '__main__':
+    app_gui()
+```
+
+这个代码成功地跑通了，能够打开一个 webui，我可以直接对话或者上传音频视频让 ai 分析。
+
+# 编写并调用自定义 tool
+
+下面以凯撒密码为例来讲解自定义 tool（实际上大多数代码是 Gemini 生成的，因为我真的不会 Agent）。
+
+首先，要使用自定义 tool，需要注册一个自定义 tool
+
+```
+@register_tool('caesar_cipher_tool')
+class CaesarCipherTool(BaseTool):
+    description = '凯撒密码工具，用于对英文文本进行加密或解密（通过偏移字母位置）。'
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': '需要处理的文本内容',
+        'required': True
+    }, {
+        'name': 'shift',
+        'type': 'integer',
+        'description': '偏移量。例如加密时设为 3，解密时设为 -3。',
+        'required': True
+    }]
+```
+
+-   description 就是告诉 ai 这个自定义 tool 是干什么的，或者这个参数是用来干什么的。
+    
+-   parameters 就是 ai 调用时需要提供的参数
+    
+
+然后定义完之后就是写一个函数来处理 ai 提供的参数（即通过 Python 来实现自定义 tool 的功能）
+
+```
+    def call(self, params: str, **kwargs):
+        params = json.loads(params)
+        text = params.get('text', '')
+        shift = int(params.get('shift', 0))
+        
+        result = ""
+        for char in text:
+            if char.isalpha():
+                start = ord('A') if char.isupper() else ord('a')
+                new_char = chr((ord(char) - start + shift) % 26 + start)
+                result += new_char
+            else:
+                result += char
+        return json.dumps({'result': result})
+```
+
+（注意缩写，这个def call() 还在 class CaesarCipherTool(BaseTool): 里）
+
+-   params = json.loads(params) 是用来获取 ai 的输入的
+    
+-   接下来的 text 和 shift 是来处理输入的
+    
+-   然后就是整个实现逻辑
+    
+
+最后就是打开 webui的时候注册一下我们的自定义 tool，下面就是完整的代码：
+
+```
+import json
+import os
+from qwen_agent.agents import Assistant
+from qwen_agent.gui import WebUI
+from qwen_agent.tools.base import BaseTool, register_tool
+
+@register_tool('caesar_cipher_tool')
+class CaesarCipherTool(BaseTool):
+    description = '凯撒密码工具，用于对英文文本进行加密或解密（通过偏移字母位置）。'
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': '需要处理的文本内容',
+        'required': True
+    }, {
+        'name': 'shift',
+        'type': 'integer',
+        'description': '偏移量。例如加密时设为 3，解密时设为 -3。',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs):
+        params = json.loads(params)
+        text = params.get('text', '')
+        shift = int(params.get('shift', 0))
+        result = ""
+        for char in text:
+            if char.isalpha():
+                start = ord('A') if char.isupper() else ord('a')
+                new_char = chr((ord(char) - start + shift) % 26 + start)
+                result += new_char
+            else:
+                result += char
+        return json.dumps({'result': result})
+
+def app_gui():
+    bot = Assistant(
+        llm={
+            'model_type': 'qwenomni_oai',
+            'model': 'qwen-omni-turbo-latest',
+            'base_url': 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+            'api_key': '你的 qwen api key' ,
+        },
+        name='Crypto Bot',
+        description='我可以帮你加密和解密消息！',
+        system_message='你是一个安全助手，如果用户要求加密或解密，请调用凯撒密码工具。',
+        # 在这里注册我们的工具
+        function_list=['caesar_cipher_tool'], 
+    )
+    
+    WebUI(bot).run()
+
+if __name__ == '__main__':
+    app_gui()
+```
+
+打开 webui ，简单地交互一下
+
+-   把 'Hello World' 用凯撒密码加密，偏移量是 3
+    
+
+返回
+
+```
+<details>
+  <summary>Start calling tool "caesar_cipher_tool" ...</summary>
+{"text": "Hello World", "shift": 3}
+</details>
+
+<details>
+  <summary>Finished tool calling.</summary>
+{"result": "Khoor Zruog"}
+</details>
+'Hello World' 加密后的结果是 'Khoor Zruog'。
+```
+
+-   帮我解密这个单词：'Khoor'，偏移量应该是 -3
+    
+
+返回
+
+```
+<details>
+  <summary>Start calling tool "caesar_cipher_tool" ...</summary>
+{"text": "Khoor", "shift": -3}
+</details>
+
+<details>
+  <summary>Finished tool calling.</summary>
+{"result": "Hello"}
+</details>
+'Khoor' 解密后的结果是 'Hello'。
+```
+
+返回
+
+```
+<details>
+  <summary>Start calling tool "caesar_cipher_tool" ...</summary>
+{"text": "abc", "shift": 1}
+</details>
+
+<details>
+  <summary>Finished tool calling.</summary>
+{"result": "bcd"}
+</details>
+将 'abc' 向后移动一位得到的结果是 'bcd'。
+```
+
+![屏幕截图 2025-12-02 234741.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-02-1764690511463-_____2025-12-02_234741.png)
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 # 使用 Python 调用 Qwen 的简单实例
 
 1.  新建一个 python 文件，写入
@@ -57,11 +259,13 @@ print(completion.model_dump_json())
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 主要还是想做聚币器，把n条链上的资产自动转移到一条链上，就这样。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 # 在 ZetaChain 上部署第一个 Universal Contract
@@ -388,6 +592,7 @@ Transaction hash: 0x3b467a9e30ac52e49b854d27313c902bd3dc98b0a721e44e67727111dc72
 
 
 
+
 # ZRC-20 VS ERC-20
 
 ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部署。ZRC-20 具有跨链地能力，而 ERC-20 不能跨链。
@@ -405,6 +610,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 
 
+
 # 我想做的第一个 Universal App
 
 实现所有链的资产都汇集到同一条链的同一个地址上。
@@ -414,6 +620,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -438,6 +645,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -698,6 +906,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
