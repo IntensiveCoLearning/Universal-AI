@@ -15,8 +15,27 @@ Web3 全沾开发者、社区运营
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+**代币经济（Tokenomics & Utility）**
+
+-   **ZETA 的主要用途**：作为链内 gas（支付内外链事务写入）、用于协议池兑换外链气体资产、用于质押/安全与治理等。链上也实现了类似 EIP-1559 的燃烧机制（部分交易会销毁 ZETA）。
+    
+-   **总量与分配（概要）**：公开资料显示 ZETA 总供应量约在 ~2.1B（需核验最新合约/文档），早期有锁仓与分期解锁安排，项目通常会有团队/基金会/社区/生态预留等分配。对投资人最重要的是关注代币释放曲线与流动性池的锁定情况（token unlock 风险）。
+    
+
+**生态与链上数据（当前规模与动态）**
+
+-   **Mainnet Beta 与早期数据**：官方2024 年启动 Mainnet Beta，并在上线初期报告了大量用户与交易（如首周数十万至百万级用户与数百万级交易）。这表明早期市场推广与活动推力强。
+    
+-   **TVL / 经济体量**：第三方数据（DeFiLlama / CoinGecko 等）显示 ZetaChain 的 TVL 处于较低级别（以美元计数百万级别，生态仍在早期阶段）。具体数字（例如 DeFiLlama 报 $~9.8M）会波动，合约活跃度和 DEX 体量相对较小。注意这意味着“生态深度/流动性”仍薄弱。
+    
+-   **合作与集成**：官方博客与公告显示项目在积极扩展合作伙伴（比如与云厂商、一些生态项目与交易平台的合作），并推动开发者工具（ZetaHub、开发文档、Omnichain SDK）。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 1) 项目概述（What）
 
 ZetaChain 定位为“Universal Blockchain / Omnichain L1”，目标是在 L1 层为开发者提供原生跨链合约和原生访问外部链资产的能力（不仅仅是消息传输或桥接）。它宣称可以直接读写包括以太坊、比特币、Solana 等链上的状态，目的是让 dApp 开发者能写一次合约并在多链/跨链环境中原生运作。
@@ -35,6 +54,7 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 30好今天，卡卡卡卡打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
@@ -42,11 +62,13 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 今天水一下打卡，在外出活动，手机水水水水水水
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -65,6 +87,7 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -156,6 +179,7 @@ EVM（Ethereum Virtual Machine）是以太坊的智能合约执行环境。
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
