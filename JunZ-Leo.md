@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+今天搞了一天审计
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 使用 Python 调用 Qwen API 生成对 ZetaChain 的介绍。需安装 openai 库（pip install openai），并设置环境变量 API\_KEY（从阿里云获取）。
 
 Python
@@ -52,6 +58,7 @@ print(completion.choices[0].message.content)
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 ### 全链收益聚合器结合Restaking集成
 
 -   **目标用户**：DeFi 农民和质押者，他们在多个链上持有资产（如以太坊上的ETH、比特币上的BTC、Solana上的SOL），希望优化收益而无需手动桥接或链间切换。
@@ -63,6 +70,7 @@ print(completion.choices[0].message.content)
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -128,6 +136,7 @@ print(completion.choices[0].message.content)
 
 
 
+
 ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
 
 ERC-20（以太坊/单链视角）
@@ -186,6 +195,7 @@ PS：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -266,6 +276,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -509,6 +520,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
