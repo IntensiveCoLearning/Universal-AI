@@ -15,13 +15,45 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+# **Qwen‑Agent 框架的核心组成**
+
+| 组件 | 作用 | 关键特性 |
+| --- | --- | --- |
+| LLM（Large Language Model） | 提供自然语言理解与生成能力，是整个系统的“大脑”。 | - 支持指令跟随（instruction‑following）- 能够在对话中调用工具（tool‑calling）- 具备多轮上下文记忆能力 |
+| Agent | 对外的统一入口，负责把用户的自然语言请求转化为可执行的计划并调度 LLM 与 Tools。 | - 接收用户输入 → 交给 LLM 进行意图解析- 根据解析结果生成 Task Plan（任务计划）- 负责调度工具调用、结果聚合以及记忆更新 |
+| Tools（工具库） | 实际执行具体功能的模块，形式上是 函数/API，可以是本地函数、外部服务或自定义插件。 | - 支持 单步、并行、多轮 调用- 每个工具都有 schema（参数、返回值）供 LLM 参考- 可动态注册/卸载，灵活扩展 |
+| Memory（记忆模块） | 持久化对话上下文、任务状态和中间结果，帮助 Agent 在长对话或复杂任务中保持连贯性。 | - 短期记忆：基于上下文窗口的即时缓存- 长期记忆：向向量数据库或 KV 存储写入关键信息- 自动摘要/检索，防止上下文溢出 |
+
+# **组件之间的工作流**
+
+1.  **用户输入** → 进入 **Agent**。
+    
+2.  **Agent** 调用 **LLM**，让模型解释意图并生成 **任务计划**（哪些工具需要被调用、调用顺序、所需参数）。
+    
+3.  根据计划，**Agent** 调度 **Tools**：  
+    
+    -   单步调用：直接执行并返回结果。
+        
+    -   并行调用：同时触发多个工具，等待全部完成后聚合。
+        
+    -   多轮调用：在一次对话中多次往返工具，直至任务完成。
+        
+4.  每一次工具调用的输入/输出都会写入 **Memory**，供后续步骤检索。
+    
+5.  完成所有工具调用后，**Agent** 再次让 **LLM** 根据收集到的结果生成最终的自然语言回复给用户。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 熟悉 Qwen 的基础参数
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 # 通用 DeFi 项目 idea
@@ -61,6 +93,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -112,6 +145,7 @@ npx zetachain solana deposit-and-call \
 
 
 
+
 # **ZRC-20**
 
 ZRC-20 是一种代币标准，集成到 ZetaChain 的 Omnichain 智能合约平台中。借助 ZRC-20，开发者可以构建 dApp，在任何连接的链上协调原生资产。这使得从单一平台构建 Omnichain DeFi 协议和 dApp变得极其简单。
@@ -153,6 +187,7 @@ ZRC-20 代币可以从 ZetaChain 提现到连接的区块链。提现过程中�
 
 
 
+
 # **Swap**
 
 Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
@@ -178,6 +213,7 @@ Swap合约执行以下步骤：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -229,6 +265,7 @@ Gateway支持以下功能：
 
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -238,6 +275,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
