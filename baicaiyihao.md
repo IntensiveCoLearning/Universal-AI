@@ -15,19 +15,27 @@ MOVE Smart Contract Dev and Security Researcher
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 打卡
@@ -38,11 +46,13 @@ MOVE Smart Contract Dev and Security Researcher
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -57,6 +67,7 @@ MOVE Smart Contract Dev and Security Researcher
 
 
 
+
 安装zeta cli并且尝试qwen api调用
 
 了解了zeta如何与sui链合约进行交互
@@ -64,6 +75,7 @@ MOVE Smart Contract Dev and Security Researcher
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
