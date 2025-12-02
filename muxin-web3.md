@@ -15,8 +15,16 @@ timezone: UTC+12
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+test
+
+测试
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 # 测试
 
 -   test
