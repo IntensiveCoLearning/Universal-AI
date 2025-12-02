@@ -15,8 +15,78 @@ Dev
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+Qwen-Agent provides atomic components such as LLMs and prompts, as well as high-level components such as Agents. The example below uses the Assistant component as an illustration, demonstrating how to add custom tools and quickly develop an agent that uses tools.
+
+```
+import json
+import os
+
+import json5
+import urllib.parse
+from qwen_agent.agents import Assistant
+from qwen_agent.tools.base import BaseTool, register_tool
+
+llm_cfg = {
+    # Use the model service provided by DashScope:
+    'model': 'qwen-max',
+    'model_server': 'dashscope',
+    # 'api_key': 'YOUR_DASHSCOPE_API_KEY',
+    # It will use the `DASHSCOPE_API_KEY' environment variable if 'api_key' is not set here.
+
+    # Use your own model service compatible with OpenAI API:
+    # 'model': 'Qwen/Qwen2.5-7B-Instruct',
+    # 'model_server': 'http://localhost:8000/v1',  # api_base
+    # 'api_key': 'EMPTY',
+
+    # (Optional) LLM hyperparameters for generation:
+    'generate_cfg': {
+        'top_p': 0.8
+    }
+}
+system = 'According to the user\'s request, you first draw a picture and then automatically run code to download the picture ' + \
+          'and select an image operation from the given document to process the image'
+
+# Add a custom tool named my_image_gen：
+@register_tool('my_image_gen')
+class MyImageGen(BaseTool):
+    description = 'AI painting (image generation) service, input text description, and return the image URL drawn based on text information.'
+    parameters = [{
+        'name': 'prompt',
+        'type': 'string',
+        'description': 'Detailed description of the desired image content, in English',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs) -> str:
+        prompt = json5.loads(params)['prompt']
+        prompt = urllib.parse.quote(prompt)
+        return json.dumps(
+            {'image_url': f'https://image.pollinations.ai/prompt/{prompt}'},
+            ensure_ascii=False)
+
+
+tools = ['my_image_gen', 'code_interpreter']  # code_interpreter is a built-in tool in Qwen-Agent
+bot = Assistant(llm=llm_cfg,
+                system_message=system,
+                function_list=tools,
+                files=[os.path.abspath('doc.pdf')])
+
+messages = []
+while True:
+    query = input('user question: ')
+    messages.append({'role': 'user', 'content': query})
+    response = []
+    for response in bot.run(messages=messages):
+        print('bot response:', response)
+    messages.extend(response)
+```
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 Gateway 接口是与通用应用(Universal Apps)交互的统一入口点 。Gateway 作为连接链(如以太坊、Solana 和比特币)上的合约与 ZetaChain 上通用应用之间的桥梁 。​
 
 ## 连接链上的 Gateway
@@ -64,6 +134,7 @@ ZetaChain 上的 Gateway 处理出站交易,即从通用应用到连接链上合
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
+
 ## ZRC-20 与 ERC-20 的核心区别
 
 从开发者视角看，ZRC-20 是 ERC-20 的跨链增强版本，最关键的区别在于 ZRC-20 拥有**原生跨链能力**和**多链资产感知能力** 。​
@@ -89,6 +160,7 @@ ZetaChain 上的 Gateway 处理出站交易,即从通用应用到连接链上合
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 ## ZetaChain Universal App
@@ -123,6 +195,7 @@ ZetaChain 通过每个连接链上的单一 **Gateway 合约** 作为入口，�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -161,6 +234,7 @@ ZetaChain 通过每个连接链上的单一 **Gateway 合约** 作为入口，�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
