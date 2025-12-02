@@ -15,8 +15,22 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+今天大部分时间花在自己的课题，晚上补了一下btc的交易脚本的逻辑
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-02-1764681390646-image.png)
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-02-1764681445609-image.png)
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-02-1764681465374-image.png)
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-02-1764681480288-image.png)
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-01-1764585113001-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-01-1764585140252-image.png)
 
 今天搞了一下午，反而越来越糊涂了
@@ -24,6 +38,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 1.今天在学习官方文档的时候，补习了很多的基础知识 native token 和合约 token,原来usdt只是部署在不同链上的智能合约  
 相应的erc-20的token在zetachian上也只是智能合约
@@ -63,6 +78,7 @@ UNIVERSAL=$(forge create Universal \
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 1.普通 ERC-20: 你只能在这个链内部转来转去。
@@ -128,6 +144,7 @@ ZRC-20: 它是被ZetaChain 协议层（System Contract）高度管控的。 当�
 
 
 
+
 今天学校事情太多，很多学习资料都没有看，workshop也因为组会错过。周末补上。  
 1.环境配置选择Foundry (Rust/Solidity): **首先** 其速度极快，用 Solidity 写测试。是现在高阶开发者的心头好，但学习曲线陡峭。虽然我没有 Rust 基础，但还是想N+100挑战一下。  
 2.网络选择：我决定使用 **Testnet (Athens 测试网)**。  
@@ -136,6 +153,7 @@ ZRC-20: 它是被ZetaChain 协议层（System Contract）高度管控的。 当�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -292,6 +310,7 @@ except Exception as e:
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -505,6 +524,7 @@ contract Swap is zContract {
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
