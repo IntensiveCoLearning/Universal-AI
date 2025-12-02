@@ -15,13 +15,272 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+### Day 8：Qwen AI 基础 & API 调用（实战）
+
+**学习目标**
+
+-   使用自己熟悉的语言完成一次 Qwen API 调用。
+    
+-   熟悉 Qwen 的基础参数、模型选择方式。
+    
+
+**学习资料**
+
+-   Qwen 总文档（入门、示例代码）
+    
+-   [https://qwen.readthedocs.io/zh-cn/latest/](https://qwen.readthedocs.io/zh-cn/latest/)
+    
+-   Qwen API 参考（含 OpenAI 兼容示例）
+    
+-   [https://www.alibabacloud.com/help/zh/model-studio/qwen-api-reference](https://www.alibabacloud.com/help/zh/model-studio/qwen-api-reference)
+    
+
+**扩展资料（可选）**
+
+-   Qwen API 平台
+    
+-   [https://qwen.ai/](https://qwen.ai/)
+    
+
+**实践 / 作业**
+
+-   写一个最小脚本（Node.js / Python 均可）：
+    
+    -   输入一段提示词，请 Qwen 生成一段对 ZetaChain 的介绍。
+        
+    -   在终端打印返回内容。
+        
+-   在笔记中记录：你选择了哪个模型？调用参数是怎样的？
+    
+
+# 一个连接 ZetaChain 全链网络，结合通义千问 AI 的智能钱包分析工具
+
+**ZetaChain AI Agent** 是一个基于 Node.js 开发的命令行工具，它能够：
+
+1\. 📊 **实时查询跨链资产**：通过 ZetaChain CLI 自动获取你在多链（EVM、Solana、Bitcoin、Sui 等）上的真实钱包余额
+
+2\. 🤖 **AI 智能分析**：调用阿里云通义千问大模型，对你的资产配置进行专业且幽默的点评
+
+3\. 💬 **个性化建议**：根据资产情况，AI 会用不同的语气提供财务建议（资产少会被吐槽哦！）
+
+**核心功能**
+
+\- ✅ 自动连接 ZetaChain 网络获取多链余额
+
+\- ✅ 支持 EVM（Ethereum/BSC/等）、Solana、Bitcoin、Sui 等多种区块链
+
+\- ✅ 集成通义千问 AI 模型进行资产分析
+
+\- ✅ 彩色命令行输出，可读性强
+
+\- ✅ 自动解析余额数据并生成报告
+
+提示词代码：
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGY5Yzk0MDE0NzgwN2VhN2VkMzU1OWVlYWM0YzI0ZjdfVGY3d1NHbExvcVJJWXFZdHg1akJ5OGFPNjdqdWsxcTBfVG9rZW46UkNNZGJ1UGc3b1lEMjd4eGNSU2NlV1NnbnljXzE3NjQ2Njc4Njg6MTc2NDY3MTQ2OF9WNA)
+
+```Bash
+model: "qwen-plus",
+messages: [
+             { role: "system", content: "你是一个幽默、喜欢吐槽的AI助手，同时也是一个专业的加密货币财务顾问。" },
+             { role: "user", content: prompt }
+           ]
+```
+
+### Day 9：Qwen-Agent 入门 & 简单 Tool
+
+**学习目标**
+
+-   理解 Qwen-Agent 框架的基本组成（LLM / Agent / Tools / Memory）。
+    
+-   搭建一个最小的 Agent，并挂一个简单 Tool。
+    
+
+**学习资料**
+
+-   Qwen-Agent 文档
+    
+-   [https://qwen.readthedocs.io/en/v2.5/framework/qwen\_agent.html](https://qwen.readthedocs.io/en/v2.5/framework/qwen_agent.html)
+    
+-   Qwen-Agent GitHub（示例代码）
+    
+-   [https://github.com/QwenLM/Qwen-Agent](https://github.com/QwenLM/Qwen-Agent)
+    
+
+**扩展资料（可选）**
+
+-   粗略了解下官方示例中的工具调用、对话流程。
+    
+
+**实践 / 作业**
+
+-   跑通一个 Qwen-Agent 官方示例。
+    
+-   自定义一个简单 Tool，例如：
+    
+    -   把字符串转大写；
+        
+    -   计算两个数的和。
+        
+-   确认 Agent 能自动调用这个 Tool 并返回结果。
+    
+
+# 1.环境准备
+
+## git一下
+
+```Bash
+git clone https://github.com/QwenLM/Qwen-Agent.git
+```
+
+```Bash
+cd Qwen-Agent-main
+```
+
+### 全功能安装（支持 RAG、代码解释器、GUI 等功能）
+
+```Plain
+pip install -U "qwen-agent[rag,code_interpreter,python_executor,gui]"
+```
+
+## 模型服务配置
+
+### 方法 1：使用 [DashScope](https://zhida.zhihu.com/search?content_id=253875265&content_type=Article&match_order=1&q=DashScope&zhida_source=entity) 官方服务（需申请 API KEY）
+
+```Plain
+export DASHSCOPE_API_KEY='your-api-key'
+```
+
+### 方法 2：本地部署服务端（以 [vLLM](https://zhida.zhihu.com/search?content_id=253875265&content_type=Article&match_order=1&q=vLLM&zhida_source=entity) 为例）
+
+```Plain
+from vllm import LLM, SamplingParams
+
+llm = LLM(model="Qwen2-7B-Chat")
+```
+
+# 2.核心功能开发
+
+## Tool的定义开发
+
+例如，实现一个简单的计算器tool:
+
+```Python
+from qwen_agent.tools.base import BaseTool, register_tool
+import json5
+
+@register_tool('calculate')
+class Calculator(BaseTool):
+    description = '基础运算计算器'
+    parameters = [{'name': 'formula', 'type': 'string'}]
+
+    def call(self, params: str) -> float:
+        return eval(json5.loads(params)['formula'])
+
+# 工具调用示例
+calc = Calculator()
+print(calc.call('{"formula": "(3 + 5) * 2"}'))  # 输出 16.0
+```
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=MzUzNzM4OGQxZGM1N2JiYzk3ZTczYzFjMDZhMThlOGNfNnU3YzJxOXJ2TzE4bW9obXBTSHNENVVKVGJDdWIwT21fVG9rZW46WG9OdmJablNvb3hTTDR4cGJlVGM1b0t1bkFlXzE3NjQ2Njc4Njg6MTc2NDY3MTQ2OF9WNA)
+
+## 官方示例
+
+```Python
+import pprint
+import urllib.parse
+import json5
+from qwen_agent.agents import Assistant
+from qwen_agent.tools.base import BaseTool, register_tool
+from qwen_agent.utils.output_beautify import typewriter_print
+
+# 步骤 1（可选）：添加一个名为 `my_image_gen` 的自定义工具。
+@register_tool('my_image_gen')
+class MyImageGen(BaseTool):
+    # `description` 用于告诉智能体该工具的功能。
+    description = 'AI 绘画（图像生成）服务，输入文本描述，返回基于文本信息绘制的图像 URL。'
+    # `parameters` 告诉智能体该工具有哪些输入参数。
+    parameters = [{
+        'name': 'prompt',
+        'type': 'string',
+        'description': '期望的图像内容的详细描述',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs) -> str:
+        # `params` 是由 LLM 智能体生成的参数。
+        prompt = json5.loads(params)['prompt']
+        prompt = urllib.parse.quote(prompt)
+        return json5.dumps(
+            {'image_url': f'https://image.pollinations.ai/prompt/{prompt}'},
+            ensure_ascii=False)
+
+# 步骤 2：配置您所使用的 LLM。
+llm_cfg = {
+    # 使用 DashScope 提供的模型服务：
+    'model': 'qwen-max-latest',
+    'model_type': 'qwen_dashscope',
+    # 'api_key': 'YOUR_DASHSCOPE_API_KEY',
+    # 如果这里没有设置 'api_key'，它将读取 `DASHSCOPE_API_KEY` 环境变量。
+
+    # 使用与 OpenAI API 兼容的模型服务，例如 vLLM 或 Ollama：
+    # 'model': 'Qwen2.5-7B-Instruct',
+    # 'model_server': 'http://localhost:8000/v1',  # base_url，也称为 api_base
+    # 'api_key': 'EMPTY',
+
+    # （可选） LLM 的超参数：
+    'generate_cfg': {
+        'top_p': 0.8
+    }
+}
+
+# 步骤 3：创建一个智能体。这里我们以 `Assistant` 智能体为例，它能够使用工具并读取文件。
+system_instruction = '''在收到用户的请求后，你应该：
+- 首先绘制一幅图像，得到图像的url，
+- 然后运行代码`request.get`以下载该图像的url，
+- 最后从给定的文档中选择一个图像操作进行图像处理。
+用 `plt.show()` 展示图像。
+你总是用中文回复用户。'''
+tools = ['my_image_gen', 'code_interpreter']  # `code_interpreter` 是框架自带的工具，用于执行代码。
+files = ['./examples/resource/doc.pdf']  # 给智能体一个 PDF 文件阅读。
+bot = Assistant(llm=llm_cfg,
+                system_message=system_instruction,
+                function_list=tools,
+                files=files)
+
+# 步骤 4：作为聊天机器人运行智能体。
+messages = []  # 这里储存聊天历史。
+while True:
+    # 例如，输入请求 "绘制一只狗并将其旋转 90 度"。
+    query = input('\n用户请求: ')
+    # 将用户请求添加到聊天历史。
+    messages.append({'role': 'user', 'content': query})
+    response = []
+    response_plain_text = ''
+    print('机器人回应:')
+    for response in bot.run(messages=messages):
+        # 流式输出。
+        response_plain_text = typewriter_print(response, response_plain_text)
+    # 将机器人的回应添加到聊天历史。
+    messages.extend(response)
+```
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=OTlmMTUyOGRiMDNkODM2ZGU4ZWI1MWMwYmVmNjcxZGNfc3FzdmJ1bUpURDRCVjNxTnRpVzE3VXFLVHBiMmprTkhfVG9rZW46RUV3NmJCYmI4b3hEbXB4V2syd2Noc1JabkRlXzE3NjQ2Njc4Njg6MTc2NDY3MTQ2OF9WNA)![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWYyMjIzZmNmYjYwNTZhZGJmNTA0ZmRkYTQzMTNiMmZfazdmcG5McUc3MHFIejZvcERSWldRSWRoNWNxaTBxYjVfVG9rZW46Rm0xcmI1blRJb1VDUXp4YUNXc2NkS2x2bmVkXzE3NjQ2Njc4Njg6MTc2NDY3MTQ2OF9WNA)
+
+奇奇怪怪的图片xx
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 明天补上xx
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 **学习目标**
 
@@ -302,6 +561,7 @@ D. 利润分配与提现 (Settlement & Withdrawal)
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 **学习目标**
@@ -940,6 +1200,7 @@ function _authorizeUpgrade(
 
 
 
+
 **学习目标**
 
 -   理解 ZRC-20、Universal Token / NFT 的基本概念和作用。
@@ -1154,6 +1415,7 @@ ZetaChain 上对外部链原生资产与 ERC-20 的“原生表示”。当从�
 
 
 
+
 **学习目标**
 
 -   建立对 “全链应用 / Universal App 合约” 的直观理解。
@@ -1285,6 +1547,7 @@ npx tsx commands/index.ts deploy --private-key $(grep PRIVATE_KEY .env | cut -d 
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1650,6 +1913,7 @@ ZetaChain 无法在比特币网络上部署智能合约。比特币不支持这�
 
 
 
+
 **学习目标**
 
 -   本地 / 云端完成基础开发环境落地。
@@ -1965,6 +2229,7 @@ B. gRPC & REST (Cosmos SDK 层)
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
