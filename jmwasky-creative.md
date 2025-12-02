@@ -15,8 +15,82 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+-   自定义两个数相加的took
+    
+
+```Shell
+git clone https://github.com/QwenLM/Qwen-Agent.git
+cd Qwen-Agent
+pip install -e ./
+```
+
+```Python
+在Qwen-Agent目录的代码里面增加自定义的代码
+.\Qwen-Agent\qwen_agent\tools\add_two_number.py
+add_two_number.py
+
+import json
+import urllib
+from typing import Union
+
+from qwen_agent.tools import BaseTool
+from qwen_agent.tools.base import register_tool
+
+
+@register_tool('add_number')
+class AddNumber(BaseTool):
+    description = '获取数字a和数字b相加的结果返回用户'
+    parameters = {
+        'type': 'object',
+        'properties': {
+            'a': {
+                'description':
+                    '第一个数字',
+                'type':
+                    'string',
+            },
+            'b': {
+                'description':
+                    '第二个数字',
+                'type':
+                    'string',
+            }
+        },
+        'required': ['a','b'],
+    }
+
+    def call(self, params: Union[str, dict], **kwargs) -> str:
+        params = self._verify_json_format_args(params)
+
+        a = int(params['a'])
+        b = int(params['b'])
+        return json.dumps({"result": a+b}, ensure_ascii=False)
+
+.\Qwen-Agent\tests\tools\test_add_number.py
+from qwen_agent.tools.add_two_number import AddNumber
+
+def test_add_number():
+    tool = AddNumber()
+    res = tool.call({'a': '1', 'b':'2'})
+    print(res)
+
+
+if __name__ == '__main__':
+    print("123")
+   
+```
+
+-   返回结果
+    
+
+![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=MzE4ZDA5ZjUwMzYxYzM0YTM1MzY3ZTNhN2U0YmE3MWZfYXRXTUc2U2V1eTlVUzlhOXBCaWVYZ2NqdHVoMWRXUkxfVG9rZW46WTJ2VmI3WkRyb2V6NWJ4RDNMN2NGY0U4blNmXzE3NjQ2NjcyODM6MTc2NDY3MDg4M19WNA)
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 -   实践流程  
     
 
@@ -79,6 +153,7 @@ if __name__ == '__main__':
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 # NFT 拍卖中心
 
 ## 目标客户：NFT平台和爱好者
@@ -97,6 +172,7 @@ if __name__ == '__main__':
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 # 选择本地测试网部署swap合约
@@ -128,6 +204,7 @@ if __name__ == '__main__':
 
 
 
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -146,6 +223,7 @@ if __name__ == '__main__':
 
 
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -157,6 +235,7 @@ if __name__ == '__main__':
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -193,6 +272,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -284,6 +364,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
