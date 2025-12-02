@@ -15,8 +15,238 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+**学习目标**
+
+\- 理解 Qwen-Agent 框架的基本组成（LLM / Agent / Tools / Memory）。
+
+\- 搭建一个最小的 Agent，并挂一个简单 Tool。
+
+**实践 / 作业**
+
+\- 跑通一个 Qwen-Agent 官方示例。
+
+\- 自定义一个简单 Tool，例如：
+
+\- 把字符串转大写；
+
+\- 计算两个数的和。
+
+\- 确认 Agent 能自动调用这个 Tool 并返回结果。
+
+\---
+
+先从理解开始：
+
+agent框架的组成分为四部分：
+
+1\. LLM 相当于这个框架里的大脑，负责理解用户的需求，然后交给把需求和所需要调用的工具交给agent，再把agent带回来的结果翻译给用户
+
+2\. agent 相当于服务员，从llm哪里接受需求后负责喊专门的师傅去干活
+
+3\. tool充当这里面的师傅，专门负责处理需求，比如求和，比如转大写小写
+
+4\. memory像一个大脑，帮助框架记住你之前说了些什么，形成连贯的对话
+
+下面开始：
+
+1\. 先用pip安装qw-agent和dashscope，前者是agent，tool，memory等核心组件的定义和调度，相当于框架；后者是链接llm模型工具，为阿里云提供的调用旗下大模型的工具包，帮助框架可以使用大模型的插件
+
+\`\`\`bash
+
+pip install qwen-agent
+
+pip install dashscope
+
+\`\`\`
+
+随后创建文件输入代码
+
+\`\`\`python
+
+import os
+
+import json5
+
+from qwen\_agent.agents import Assistant
+
+from qwen\_[agent.tools](http://agent.tools).base import BaseTool, register\_tool
+
+\# ======================
+
+\# 1. 自定义工具1：字符串转大写
+
+\# ======================
+
+@register\_tool('string\_to\_upper')
+
+class StringToUpperTool(BaseTool):
+
+\# 工具描述（需清晰，供LLM识别）
+
+description = 'Convert input string to uppercase, input text content, return uppercase result.'
+
+\# 参数定义（严格按官方格式）
+
+parameters = \[{
+
+'name': 'text',
+
+'type': 'string',
+
+'description': 'Original string that needs to be converted to uppercase',
+
+'required': True
+
+}\]
+
+\# 工具执行逻辑（接收JSON字符串参数，返回JSON字符串结果）
+
+def call(self, params: str, \*\*kwargs) -> str:
+
+try:
+
+\# 解析LLM传入的JSON参数
+
+params\_dict = json5.loads(params)
+
+text = params\_dict.get('text', '')
+
+\# 返回JSON格式结果
+
+return json5.dumps({'result': text.upper()}, ensure\_ascii=False)
+
+except Exception as e:
+
+return json5.dumps({'error': str(e)}, ensure\_ascii=False)
+
+\# ======================
+
+\# 2. 自定义工具2：两数求和
+
+\# ======================
+
+@register\_tool('add\_two\_numbers')
+
+class AddTwoNumbersTool(BaseTool):
+
+description = 'Calculate the sum of two numbers, input two numbers, return their sum.'
+
+parameters = \[
+
+{
+
+'name': 'num1',
+
+'type': 'number',
+
+'description': 'First number (integer or float)',
+
+'required': True
+
+},
+
+{
+
+'name': 'num2',
+
+'type': 'number',
+
+'description': 'Second number (integer or float)',
+
+'required': True
+
+}
+
+\]
+
+def call(self, params: str,\*\* kwargs) -> str:
+
+try:
+
+params\_dict = json5.loads(params)
+
+num1 = float(params\_dict.get('num1', 0))
+
+num2 = float(params\_dict.get('num2', 0))
+
+sum\_result = num1 + num2
+
+return json5.dumps({'result': sum\_result}, ensure\_ascii=False)
+
+except Exception as e:
+
+return json5.dumps({'error': str(e)}, ensure\_ascii=False)
+
+\# ======================
+
+\# 3. 配置智能体（加载自定义工具）
+
+\# ======================
+
+os.environ\["DASHSCOPE\_API\_KEY"\] = "sk-bc3f12d9586442e78914edacf6895a9a" # 替换为真实Key
+
+bot = Assistant(
+
+llm={'model': 'qwen-max', 'model\_server': 'dashscope'},
+
+\# 系统提示：明确告诉LLM可用工具及用途
+
+system\_message='You can use "string\_to\_upper" to convert string to uppercase, and "add\_two\_numbers" to calculate sum of two numbers. Return results in natural language.',
+
+function\_list=\['string\_to\_upper', 'add\_two\_numbers'\] # 加载自定义工具
+
+)
+
+\# ======================
+
+\# 4. 交互测试
+
+\# ======================
+
+messages = \[\]
+
+while True:
+
+query = input('\\nuser question (input "exit" to quit): ')
+
+if query.lower() == 'exit':
+
+break
+
+messages.append({'role': 'user', 'content': query})
+
+response = \[\]
+
+for chunk in [bot.run](http://bot.run)(messages=messages):
+
+response.extend(chunk)
+
+print('bot response:', chunk)
+
+messages.extend(response)
+
+\`\`\`
+
+输入hello qwegent返回
+
+!\[\[Pasted image 20251202235054.png\]\]
+
+![Pasted image 20251202235054.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/younggogogo/images/2025-12-02-1764690858371-Pasted_image_20251202235054.png)
+
+算数100+200
+
+!\[\[Pasted image 20251202235240.png\]\]
+
+![Pasted image 20251202235240.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/younggogogo/images/2025-12-02-1764690835191-Pasted_image_20251202235240.png)
+
+简单搞定，半知半解继续努力
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 \# \*下面是今天的任务
 
 \- 使用自己熟悉的语言完成一次 Qwen API 调用。
@@ -94,6 +324,7 @@ result = response.json()\["choices"\]\[0\]\["message"\]\["content"\] print(resul
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 昨天受挫后今天开始阅读技术文档，不再借助ai概括，重构对zetachain的认识
 
@@ -180,11 +411,13 @@ Idea 2：跨链收益聚合器
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 今天不行，两个小时没跑通swap，拿水卡了半天，拿了水安装例子安装了半天，最后各种出问题，明天继续弄！今天失败
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -223,6 +456,7 @@ Idea 2：跨链收益聚合器
 
 
 
+
 \- 建立对 “全链应用 / Universal App 合约” 的直观理解。
 
 \- 清楚后面要实现的 Hello World / Demo 会包含哪些模块（合约 + 前端 + RPC）。
@@ -250,6 +484,7 @@ Idea 2：跨链收益聚合器
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -304,6 +539,7 @@ Universal EVM：一个万能播放器，比如能让以太坊的的代码应用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -379,6 +615,7 @@ curl -X POST [https://dashscope.aliyuncs.com/api/v1/chat/completions](https://da
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
