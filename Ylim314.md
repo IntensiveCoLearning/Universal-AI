@@ -15,8 +15,24 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+**日期**：2025.12.02 **进度**：实现 Agent 的工具调用逻辑
+
+今天的官方任务是学习 Qwen-Agent 框架并挂载工具。我仔细研究了一下官方文档，发现所谓的 Agent 核心其实就是“LLM 决策 + 本地函数执行”。既然我已经用 OpenAI SDK 写好了底层交互，就没有必要为了用框架而用框架，所以我决定继续完善自己手写的这个轻量级 Agent 架构。
+
+重点梳理了项目中的“工具层”（Tools）。在我的架构里，`agent_hand.py` 实际上就是存放所有 Tool 的工具箱。之前写代码时只是把它们当作普通的 Python 函数，今天从 Agent 的视角重新审视，发现它们必须具备清晰的输入输出定义，才能被大模型准确调用。例如 `swap_native_to_token` 这个函数，它接收 amount 作为输入，返回 tx\_hash 作为输出，这就是一个标准的 Tool。
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-12-02-1764670893655-image.png)
+
+为了让 Brain能驱动 Hand，我在中间层写了一个路由分发逻辑。虽然 Qwen 模型本身支持 Function Calling API，但我发现通过 Prompt Engineering 强制输出 JSON，然后在 Python 侧做 `if action == 'swap': call_swap()` 的显式路由，在工程上反而更可控。这相当于手动实现了一个简单的 ReAct 模式：模型推理意图 -> 输出结构化参数 -> 代码匹配工具 -> 执行并返回结果。
+
+今天把之前零散的逻辑封装得更模块化了一些。相比于直接调用 API，这种“大模型挂载本地工具”的模式才是 Web3 Agent 的精髓。毕竟大模型只懂说话，只有给它装上 `web3.py` 这种“义肢”，它才能真正触碰到链上的资产。明天准备看看怎么优化一下解析逻辑，让它能处理更复杂的 DeFi 参数。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 **日期**：2025.12.01 **进度**：Qwen API 实战与意图解析层开发
 
 今天是共学第二周的第一天，重心从链上交互转移到了 AI 智能体的构建上。虽然官方文档主要介绍了 Qwen 的基础调用，但我直接将其应用到了 DeFi 场景的意图识别中。
@@ -32,6 +48,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 日期：2025.11.30
 
@@ -50,6 +67,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 **Day 5 学习日志：Web3 Agent 可视化与全流程闭环**
@@ -79,6 +97,7 @@ timezone: UTC+8
 
 
 
+
 **Day 4 学习日志：从原生交互进阶到智能合约读取**
 
 日期：2025.11.28
@@ -102,6 +121,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -134,6 +154,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -200,6 +221,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
