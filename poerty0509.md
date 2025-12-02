@@ -15,8 +15,27 @@ AI & Web3 Builder
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+**Day8**
+
+关于Merkle Tree and Merkle Root
+
+-   Merkle Tree存储transitions list
+    
+-   Merkle Root在the headers of the blockchain中，并被light nodes保存
+    
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/poerty0509/images/2025-12-02-1764683597504-image.png)
+
+-   用法：light nodes通过查询full nodes的相关hash,将查到的hash（\\log\_a n）和待验证的节点的hash计算Merkle Root,检查和已储存的Merkle Root是否匹配。查询方法如下：
+    
+    ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/poerty0509/images/2025-12-02-1764683965888-image.png)
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 **Day7**
 
 1.  关于挖矿的奖励：比特币、以太币
@@ -32,6 +51,7 @@ AI & Web3 Builder
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 **Day6**
 
@@ -49,6 +69,7 @@ mining:如果有多个node同时通过broadcast制作blocks，那么选择哪一
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 **Day5**
@@ -87,6 +108,7 @@ zetachain q chains show --chain-id 7001 -f rpc
 
 
 
+
 **Day3**
 
 终于通过Vscode打开了新建立的hello文件夹
@@ -101,6 +123,7 @@ zetachain q chains show --chain-id 7001 -f rpc
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -143,6 +166,7 @@ C:\\Users\\MR>zetachain new
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
