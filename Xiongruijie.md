@@ -15,13 +15,42 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+C:\\Users\\54406>npm config set proxy [http://127.0.0.1:7897](http://127.0.0.1:7897)
+
+C:\\Users\\54406>npm config set https-proxy [http://127.0.0.1:7897](http://127.0.0.1:7897)
+
+C:\\Users\\54406>npm install -g zetachain
+
+D:\\Program Files\\zetachainTestApp>zetachain new
+
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+
+? Which example do you want to create?
+
+\> call Example of how to make cross-chain calls, transfer native tokens, and handle reverts.
+
+hello Simple universal app that emits an event when called from a connected chain.
+
+messaging Universal NFT enables non-fungible ERC-721 tokens to minted and transferred between connected chains.
+
+nft Universal NFT enables non-fungible ERC-721 tokens to minted and transferred between connected chains.
+
+swap Cross-chain swap contract enabling token exchanges between Ethereum, Solana, Bitcoin, and other blockchains.
+
+token Universal Token enables ERC-20 tokens to minted and transferred between connected chains
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 今天网太卡了打个卡
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 1.  **ZRC-20 标准**
@@ -45,6 +74,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -290,11 +320,13 @@ Gas Limit / Gas Price
 
 
 
+
 2025年11月27日22点49分
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -315,11 +347,13 @@ Gas Limit / Gas Price
 
 
 
+
 刚下班，打个卡，现在开始学，待会儿补齐笔记。。。。。
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
