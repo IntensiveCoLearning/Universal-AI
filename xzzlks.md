@@ -15,8 +15,187 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+# Day 9：Qwen-Agent 入门 & 简单 Tool 开发学习笔记
+
+**日期**：2025年12月2日 星期二
+
+**目标**：
+
+-   明确Qwen-Agent四大核心组件（LLM/Agent/Tools/Memory）的职责边界与协同逻辑；
+    
+-   跑通官方示例，掌握Agent调用Tool的基础流程；
+    
+-   开发两个自定义Tool（字符串转大写、两数求和），验证Agent能根据需求自动匹配并调用Tool。
+    
+
+## Qwen-Agent 框架核心组成
+
+**LLM**（语言模型）：提供自然语言理解与推理能力，支撑Agent决策
+
+**Agent**（智能代理）：核心决策单元，负责需求拆解、Tool匹配、流程调度
+
+**Tools**（工具集）：执行具体功能的模块，弥补LLM在计算、格式转换等方面的不足
+
+**Memory**（记忆模块）：存储对话历史、Tool调用记录、中间结果，为Agent决策提供上下文
+
+核心协同流程：用户指令 → Memory存储 → Agent（调用LLM）解析需求 → 匹配Tool → Tool执行 → 结果回存Memory → Agent生成最终响应 → 反馈给用户。
+
+### 跑通官方基础Tool示例
+
+选择官方`basic_tool_usage.py`示例，该示例演示Agent调用“计算器工具”完成数学计算的流程，核心目的是理解Agent与Tool的交互逻辑。
+
+1\. 示例代码核心片段
+
+```python
+from qwen_agent import QwenAgent
+from qwen_agent.tools import Calculator
+
+# 1. 初始化Memory（存储上下文）
+memory = QwenAgent.SimpleMemory()
+
+# 2. 初始化Agent，注册Calculator工具
+agent = QwenAgent(
+    llm={
+        "model": "qwen-plus",
+        "api_key": os.getenv("QWEN_API_KEY"),
+        "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    },
+    tools=[Calculator()],  # 注册计算器工具
+    memory=memory
+)
+
+# 3. 向Agent发送指令，触发Tool调用
+query = "计算123乘以456的结果，保留两位小数"
+response = agent.run(query=query)
+
+# 4. 打印结果
+print("Agent响应：", response)
+```
+
+-   终端输出：`Agent响应：123乘以456的计算结果为56088.00`
+    
+-   Agent接收“计算123×456”的需求，调用LLM分析后判断“需要调用Calculator工具”；
+    
+-   Agent自动提取计算参数（123、456、乘法），调用Calculator的`run`方法执行计算；
+    
+-   Calculator返回结果56088，Agent将结果整理为自然语言响应，反馈给用户。
+    
+
+### 自定义Tool
+
+```python
+from qwen_agent import QwenAgent
+from qwen_agent.tools.base import BaseTool
+from pydantic import BaseModel, Field
+import os
+
+# --------------------------
+# 自定义Tool 1：字符串转大写工具
+# --------------------------
+class StringToUpperArgs(BaseModel):
+    """字符串转大写工具的输入参数定义"""
+    text: str = Field(description="需要转换为大写的字符串")
+
+class StringToUpper(BaseTool):
+    """将输入的字符串转换为全大写格式"""
+    # 工具元信息（Agent通过这些信息识别工具功能）
+    name = "string_to_upper"
+    description = "将输入的英文或中文拼音字符串转换为全大写格式，适用于格式标准化场景"
+    args_schema = StringToUpperArgs  # 关联参数模型
+
+    def run(self, text: str) -> str:
+        """核心执行逻辑：字符串转大写"""
+        return f"字符串转大写结果：{text.upper()}"
+
+# --------------------------
+# 自定义Tool 2：两数求和工具
+# --------------------------
+class NumberSumArgs(BaseModel):
+    """两数求和工具的输入参数定义"""
+    num1: float = Field(description="第一个数字，支持整数或小数")
+    num2: float = Field(description="第二个数字，支持整数或小数")
+
+class NumberSum(BaseTool):
+    """计算两个数字的和，支持整数与小数"""
+    name = "number_sum"
+    description = "计算两个数字的加法结果，输入参数为两个数字，输出为求和结果"
+    args_schema = NumberSumArgs
+
+    def run(self, num1: float, num2: float) -> str:
+        """核心执行逻辑：两数求和"""
+        result = num1 + num2
+        return f"{num1} + {num2} = {result}"
+
+# --------------------------
+# 初始化Agent并注册自定义Tool
+# --------------------------
+if __name__ == "__main__":
+    # 1. 初始化Memory
+    memory = QwenAgent.SimpleMemory()
+
+    # 2. 初始化Agent，注册两个自定义Tool
+    agent = QwenAgent(
+        llm={
+            "model": "qwen-plus",
+            "api_key": os.getenv("QWEN_API_KEY"),
+            "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        },
+        tools=[StringToUpper(), NumberSum()],  # 注册自定义工具
+        memory=memory
+    )
+
+    # 3. 测试1：调用字符串转大写工具
+    print("=" * 50)
+    query1 = "把字符串'hello zetachain'转换为大写"
+    response1 = agent.run(query=query1)
+    print(f"用户需求：{query1}")
+    print(f"Agent响应：{response1}")
+
+    # 4. 测试2：调用两数求和工具
+    print("=" * 50)
+    query2 = "计算3.14和6.86的和是多少"
+    response2 = agent.run(query=query2)
+    print(f"用户需求：{query2}")
+    print(f"Agent响应：{response2}")
+```
+
+-   通过`BaseModel`定义Tool的输入参数（如`StringToUpperArgs`中的`text`），并添加`description`，帮助Agent准确识别参数含义；
+    
+-   `name`（工具唯一标识）和`description`（工具功能描述）是Agent匹配Tool的核心依据
+    
+-   run方法：是Tool的核心执行逻辑，接收参数后返回结果，结果格式建议为自然语言，便于Agent整理响应。
+    
+
+```Plain
+==================================================
+用户需求：把字符串'hello zetachain'转换为大写
+Agent响应：字符串转大写结果：HELLO ZETACHAIN
+==================================================
+用户需求：计算3.14和6.86的和是多少
+Agent响应：3.14 + 6.86 = 10.0
+```
+
+StringToUpper字符串转全大写，传入参数text；NumberSum两数求和，传入参数num1、num2
+
+### Agent自动调用Tool的核心逻辑
+
+1.  LLM解析用户query，提取核心需求（如“字符串转大写”）与关键参数（如“hello zetachain”）；
+    
+2.  LLM对比Agent注册的所有Tool的`description`，找到功能最匹配的Tool（如StringToUpper的description明确“字符串转大写”）；
+    
+3.  LLM按Tool的`args_schema`提取参数，调用Tool的`run`方法；
+    
+4.  Agent将Tool返回的结果整理为自然语言，形成最终响应。
+    
+
+**注意**：复杂Tool需添加异常处理（如API调用失败重试），确保Agent流程不中断；Tool协同需通过Memory传递中间结果，让Agent能基于前一步Tool的输出决策下一步操作；敏感操作（如跨链交易）需添加用户确认环节，避免Agent误操作。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 # Day 8：Qwen AI 基础 & API 调用（实战）学习笔记
 
 **日期**：2025年12月1日 星期一 **核心主题**：Qwen API 调用全流程实战（以生成ZetaChain介绍为例）
@@ -93,6 +272,7 @@ print("=" * 50)
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 # Day 7：Universal DeFi & Demo 跑通+通用 DeFi 赛道预热 & Idea 收敛
 
@@ -308,6 +488,7 @@ npx hardhat run scripts/swap.js --network goerli \
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 # DAY6：本周workshop学习笔记
 
 ## 基于 ZRC20 标准的跨链资产映射、兑换与跨链调用逻辑
@@ -366,6 +547,7 @@ IZRC20(targetToken).withdraw(amountOut,recipient,targetChainID);
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -460,6 +642,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 4：Universal App + Hello World 心智模型学习笔记
 
 **日期**：2025年11月27日 星期四 **核心主题**：Universal App认知深化与Hello World Demo落地规划
@@ -548,6 +731,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 3：ZetaChain & Universal Blockchain 核心概念学习笔记
 
 **日期**：2025年11月26日 星期三 **核心主题**：Universal Blockchain系列概念解析与ZetaChain架构可视化
@@ -616,6 +800,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 ### ZetaChain CLI 安装与验证（本地环境：Windows）
 
 1.  **安装步骤**： 前置依赖：确认已安装Go（版本≥1.20）。打开命令提示符（CMD）或PowerShell，输入`go version`验证；若未安装，访问Go官网（[https://go.dev/dl/）下载Windows版安装包，勾选“Add](https://go.dev/dl/）下载Windows版安装包，勾选“Add) Go to PATH”选项后完成安装。
@@ -662,6 +847,7 @@ Postman测试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
