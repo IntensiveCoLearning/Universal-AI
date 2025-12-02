@@ -24,13 +24,20 @@ Qwen-Agent 的核心架构可以拆解为四个主要部分：**LLM（大脑）�
 
 ![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-12-02-1764675171958-__.png)
 
-跑的小脚本
+### 跑的小脚本
+
+### 介绍zetachain
 
 ![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-12-02-1764675413714-__.png)
+
+### 转换大小写
+
+![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-12-02-1764677201350-__.png)
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 ### ZetaChain 上能做的通用 DeFi 模式：
 
@@ -61,6 +68,7 @@ Qwen-Agent 的核心架构可以拆解为四个主要部分：**LLM（大脑）�
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 ## 周记
@@ -175,6 +183,7 @@ Qwen-Agent 的核心架构可以拆解为四个主要部分：**LLM（大脑）�
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -301,6 +310,7 @@ sequenceDiagram
 
 
 
+
 ## ZetaChain ZRC-20 跨链资产统一与 Swap 流程图
 
 1.  **外部资产入链** — 用户从源链（如 Base、Ethereum）发送资产到 TSS 托管地址（非中心化）。
@@ -382,6 +392,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 
 
+
 ![1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Appler-R/images/2025-11-27-1764250272995-1.png)
 
 终于克服了依赖缺失和路径配置等重重报错，**成功在本地跑通了最核心的跨链 Swap 业务模拟**。
@@ -391,6 +402,7 @@ _我的 Swap 合约正是通过调用_ `withdraw()`_，完成了最终的跨链�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -698,6 +710,7 @@ Merkle树用哈希聚合交易 → 一个根哈希代表所有交易，轻节点
 
 
 
+
 ## 1\. 开发环境处理 (WSL Linux)
 
 起步发现WSL被 Docker 占用、WSL 无法启动、忘记密码。
@@ -930,6 +943,7 @@ agent\_[price.py](http://price.py)：实时的加密货币行情助手。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
