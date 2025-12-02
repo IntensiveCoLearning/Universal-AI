@@ -15,8 +15,77 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+Qwen-Agent 里自定义 Tool 的基础写法是这样的（简化版）：
+
+```
+from qwen_agent.tools.base import BaseTool, register_tool
+import json
+
+@register_tool('tool_name')
+class MyTool(BaseTool):
+    # 向 Agent 描述这个工具是干什么的
+    description = '简单说明工具用途'
+    # 告诉 Agent 这个工具需要哪些参数，以及参数类型
+    parameters = [
+        {
+            'name': 'param1',
+            'type': 'string',          # 或 number / integer / boolean ...
+            'description': '参数说明',
+            'required': True,
+        }
+    ]
+
+    def call(self, params: str, **kwargs) -> str:
+        # params 是 LLM 生成的一段 JSON 字符串
+        data = json.loads(params)
+        # 根据参数执行实际逻辑
+        # ...
+        # 返回字符串（可以是纯文本，也可以是 JSON 串）
+        return 'some result'
+```
+
+只要类用 `@register_tool('xxx')` 装饰，字符串 `'xxx'` 就可以作为工具名出现在 `function_list` 里  
+如果模型配置正确、工具定义无误，你会在返回结果中看到 Agent 已经自动选择调用 `to_upper` 工具，并把工具返回的结果整合进自然语言回答。
+
+可以把一次工具调用的流程想象成这样：
+
+1.  **收集上下文**
+    
+    -   把当前用户消息 + 历史对话 + 系统指令 + 可用工具列表打包成 prompt。
+        
+2.  **模型判断是否需要工具**
+    
+    -   Qwen 模型根据 prompt 决定：
+        
+        -   直接回答；
+            
+        -   还是输出“函数调用格式”的 JSON（类似 OpenAI function calling）。
+            
+3.  **框架解析工具调用 JSON**
+    
+    -   Qwen-Agent 内部的解析器读取工具名和参数；
+        
+    -   调用对应的 Python Tool 类的 `call` 方法。
+        
+4.  **执行工具并写回记忆**
+    
+    -   Tool 返回的字符串会被作为新的“消息”加入到对话记忆中。
+        
+5.  **模型基于工具结果生成最终回答**
+    
+    -   再次调用 LLM；
+        
+    -   这一次 prompt 中已经包含工具输出，模型可以基于这些结果组织自然语言回答。
+        
+
+这个流程，你不需要自己写任何“解析 JSON、执行函数”的胶水代码——Qwen-Agent 都已经封装好了，你只管写 **工具逻辑** 和 **业务提示词**。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 # 添加API key到环境变量
 
 ## 1.linux
@@ -213,6 +282,7 @@ API key is invalid
 
 
 
+
 # 跨链SWAP
 
 普通的链只能从它当前链进行swap
@@ -255,6 +325,7 @@ function onCrossChainCall(
 
 
 
+
 # ZetaChain函数
 
 ```
@@ -273,6 +344,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -352,11 +424,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -491,6 +565,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -733,6 +808,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
