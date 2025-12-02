@@ -15,8 +15,130 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+✅ 第一步：确认前提条件
+
+一个阿里云账号（用于获取 API Key）
+
+已开通 Model Studio 服务
+
+安装 Python（≥3.8）
+
+知道如何获取 Qwen 的 API Key
+
+如果你还没获取 API Key，可以前往：
+
+[https://www.alibabacloud.com/help/zh/model-studio/qwen-api-reference](https://www.alibabacloud.com/help/zh/model-studio/qwen-api-reference)
+
+或登录阿里云控制台 → 模型广场 → Qwen → 获取 API Key。
+
+✅ 第二步：安装依赖
+
+在终端（比如你的 WSL）中运行：
+
+pip install requests
+
+✅ 第三步：写一个最小 Python 脚本
+
+创建文件 qwen\_[zetachain.py](http://zetachain.py)，内容如下：
+
+import requests
+
+import json
+
+\# === 配置 ===
+
+API\_KEY = "your\_api\_key\_here" # 替换为你的实际 API Key
+
+MODEL = "qwen-plus" # 你可以选择 qwen-turbo / qwen-plus / qwen-max 等
+
+\# === 构造请求 ===
+
+url = "[https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation](https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation)"
+
+headers = {
+
+"Authorization": f"Bearer {API\_KEY}",
+
+"Content-Type": "application/json"
+
+}
+
+payload = {
+
+"model": MODEL,
+
+"input": {
+
+"messages": \[
+
+{"role": "user", "content": "请用中文简要介绍 ZetaChain 是什么。"}
+
+\]
+
+},
+
+"parameters": {
+
+"max\_tokens": 300,
+
+"temperature": 0.7
+
+}
+
+}
+
+\# === 发送请求 ===
+
+response = [requests.post](http://requests.post)(url, headers=headers, data=json.dumps(payload))
+
+\# === 解析并打印结果 ===
+
+if response.status\_code == 200:
+
+result = response.json()
+
+print(result\["output"\]\["text"\])
+
+else:
+
+print("请求失败，状态码:", response.status\_code)
+
+print(response.text)
+
+🔑 重要：把 your\_api\_key\_here 替换成你的真实 API Key！
+
+✅ 第四步：运行脚本
+
+在终端执行：
+
+python qwen\_[zetachain.py](http://zetachain.py)
+
+你应该会看到类似这样的输出（内容可能略有不同）：
+
+ZetaChain 是一个去中心化的区块链网络，旨在实现跨链互操作性。它允许开发者在任意区块链（如比特币、以太坊等）上构建跨链应用，而无需依赖封装资产或特定链的智能合约。通过其原生跨链智能合约，ZetaChain 能在任意链之间传递数据和价值，极大地简化了多链生态的开发复杂性。
+
+五：
+
+模型选择：qwen-plus
+
+理由：比 qwen-turbo 更强，比 qwen-max 更经济，适合中等复杂度任务。
+
+调用参数：
+
+model: "qwen-plus"
+
+messages: 用户角色提问“请用中文简要介绍 ZetaChain 是什么。”
+
+max\_tokens: 300（限制生成长度）
+
+temperature: 0.7（保证一定创意性，又不至于太随机）
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 ## **第一步：提炼 ZetaChain 的通用 DeFi 能力**
 
 根据文档整理出以下核心能力，作为 idea 构思基础：
@@ -133,6 +255,7 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
+
 > 我从 **Ethereum Localnet（chain ID 11155112）** 发起了一笔 `depositAndCall` 交易，向 ZetaChain 的 Swap 合约发送了 0.001 ETH，并附带了目标链（BNB）、目标地址和目标资产（ZRC-20 BNB）的指令。
 
 > **最终在 ZetaChain 上发生了什么？**  
@@ -150,6 +273,7 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 1\. 我的第一个 Universal App 想实现的功能：
@@ -177,6 +301,7 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -213,6 +338,7 @@ Gateway（网关）是 **每条连接到 ZetaChain 的公链上的一个特殊�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -378,6 +504,7 @@ GitHub 仓库：[https://github.com/jvbaoge1/zetachain](https://github.com/jvbao
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
