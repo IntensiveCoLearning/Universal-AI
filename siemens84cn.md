@@ -15,13 +15,144 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+# 2025-12-01学习笔记
+
+-   写一个小脚本，实现对Qwen API的调用
+    
+
+```
+#Python
+import os
+from openai import OpenAI
+
+# ========== 1. 配置信息 ==========
+# 请务必先设置环境变量 QWEN_API_KEY
+# 在命令行执行：export QWEN_API_KEY="你的API密钥"
+API_KEY = os.getenv("QWEN_API_KEY")
+if not API_KEY:
+    raise ValueError(
+        "未找到API密钥。请先设置环境变量！\n"
+    )
+
+# Qwen服务的API地址
+BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+# 指定使用的模型
+MODEL_NAME = "qwen-turbo"
+# 你的提问
+USER_PROMPT = "关于ZetaChain，你能告诉我哪些关键信息？"
+
+# ========== 2. 创建客户端 ==========
+client = OpenAI(
+    api_key=API_KEY,
+    base_url=BASE_URL
+)
+
+# ========== 3. 定义API调用函数 ==========
+def get_qwen_response(prompt, temperature=0.8):
+    """向通义千问发送请求并获取响应"""
+    try:
+        print("正在调用Qwen API，请稍候...\n")
+        completion = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=temperature,  # 控制回答的创造性，0.0-1.0
+        )
+        return completion.choices[0].message.content
+    except Exception as e:
+        print(f"调用API失败: {e}")
+        return None
+
+# ========== 4. 执行调用 ==========
+if __name__ == "__main__":
+    response = get_qwen_response(USER_PROMPT)
+    
+    if response:
+        print("-" * 50)
+        print("Qwen 的回复：")
+        print("-" * 50)
+        print(response)
+        print("-" * 50)
+    else:
+        print("未能获取到有效回复。")
+```
+
+-   选择了qwen-turbo模型，调用参数是prompt（提示词），temperature（创造性），api-key（授权用户）。
+    
+
+# 2025-12-02学习笔记
+
+-   跑通一个Qwen-Agent 官方示例；
+    
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/siemens84cn/images/2025-12-02-1764682995582-image.png)
+
+-   自定义一个简单tool，实现计算两个数的和；
+    
+
+```
+# ================= 自定义“工具”：计算两个数的和 =================
+
+def add_numbers(a: float, b: float) -> float:
+    """
+    计算两个数的和。
+
+    :param a: 第一个数
+    :param b: 第二个数
+    :return: 两数之和
+    """
+    return a + b
+
+
+# 定义一个 OpenAI 风格的 tools 描述，供 LLM 进行函数调用（function calling）。
+tools: List[Dict[str, Any]] = [
+    {
+        "type": "function",
+        "function": {
+            "name": "add_numbers",
+            "description": "计算两个数的和。",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {
+                        "type": "number",
+                        "description": "第一个数"
+                    },
+                    "b": {
+                        "type": "number",
+                        "description": "第二个数"
+                    }
+                },
+                "required": ["a", "b"]
+            }
+        },
+    }
+]
+
+# 把工具名映射到真正的 Python 实现
+available_functions = {
+    "add_numbers": add_numbers,
+}
+```
+
+-   确认 Agent 能自动调用这个 Tool 并返回结果；
+    
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/siemens84cn/images/2025-12-02-1764683844139-image.png)
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 先卡个卡，今天有点忙，明天抽空把这两天的任务都补上。
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 1.  设计一个通用 DeFi 项目 idea，包括：目标用户、想解决的问题、粗略的跨链 / 通用资产使用方式。
     
@@ -128,6 +259,7 @@ OmniYield 自动：
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 -   在测试网跑通官方跨链Demo（Swap）
     
 
@@ -162,6 +294,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -203,6 +336,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
     
 
@@ -216,6 +350,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -242,6 +377,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   ZetaChain CLI本地环境安装及使用：
     
 
@@ -262,6 +398,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
