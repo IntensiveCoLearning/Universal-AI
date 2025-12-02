@@ -15,8 +15,242 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+# **Day9：Qwen-Agent 入门 & 简单 Tool**
+
+**_\##_ import**
+
+```
+ import pprint  # 美观打印数据结构
+ import urllib.parse  # URL编码解码
+ import json5  # 增强版JSON解析（支持注释等）
+ from qwen_agent.agents import Assistant  # 核心的助手智能体类
+ from qwen_agent.tools.base import BaseTool, register_tool  # 工具基类和注册装饰器
+ from qwen_agent.utils.output_beautify import typewriter_print  # 打字机效果输出
+```
+
+## **Tool**
+
+```
+ @register_tool('my_image_gen')  # 将工具注册到系统中
+ class MyImageGen(BaseTool):
+     # 工具描述 - 告诉LLM这个工具是做什么的
+     description = 'AI 绘画（图像生成）服务，输入文本描述，返回基于文本信息绘制的图像 URL。'
+     
+     # 参数定义 - 告诉LLM需要什么参数
+     parameters = [{
+         'name': 'prompt',  # 参数名
+         'type': 'string',  # 参数类型
+         'description': '期望的图像内容的详细描述',  # 参数说明
+         'required': True  # 是否必需
+     }]
+ ​
+     def call(self, params: str, **kwargs) -> str:
+         # 实际执行工具的方法
+         prompt = json5.loads(params)['prompt']  # 解析LLM传来的参数
+         prompt = urllib.parse.quote(prompt)  # URL编码（处理中文等特殊字符）
+         # 返回图像URL
+         return json5.dumps(
+             {'image_url': f'https://image.pollinations.ai/prompt/{prompt}'},
+             ensure_ascii=False)
+```
+
+作用：调用`ImageGen`，利用`plooinations`生成图像
+
+## **LLM**
+
+```
+ llm_cfg = {
+     # 配置1：使用阿里云DashScope服务
+     'model': 'qwen-max-latest',
+     'model_type': 'qwen_dashscope',
+     # 'api_key': 'YOUR_DASHSCOPE_API_KEY',  # 可在此设置或使用环境变量
+     
+     # 配置2：使用本地部署的模型（如vLLM、Ollama）
+     # 'model': 'Qwen2.5-7B-Instruct',
+     # 'model_server': 'http://localhost:8000/v1',
+     # 'api_key': 'EMPTY',
+     
+     # 可选：生成参数配置
+     'generate_cfg': {
+         'top_p': 0.8  # 核采样参数，控制生成多样性
+     }
+ }
+```
+
+## **Agent**
+
+```
+ system_instruction = '''在收到用户的请求后，你应该：
+ - 首先绘制一幅图像，得到图像的url，
+ - 然后运行代码`request.get`以下载该图像的url，
+ - 最后从给定的文档中选择一个图像操作进行图像处理。
+ 用 `plt.show()` 展示图像。
+ 你总是用中文回复用户。'''
+ ​
+ tools = ['my_image_gen', 'code_interpreter']  # 可用工具列表
+ files = ['./examples/resource/doc.pdf']  # 智能体可读取的文档
+ ​
+ # 创建助手智能体实例
+ bot = Assistant(llm=llm_cfg,
+                 system_message=system_instruction,
+                 function_list=tools,
+                 files=files)
+```
+
+## **Diagoue**
+
+```
+ messages = []  # 存储对话历史
+ while True:
+     query = input('\n用户请求: ')  # 获取用户输入
+     messages.append({'role': 'user', 'content': query})  # 添加到历史
+     
+     response = []
+     response_plain_text = ''
+     print('机器人回应:')
+     
+     # 流式处理响应（逐步输出）
+     for response in bot.run(messages=messages):
+         response_plain_text = typewriter_print(response, response_plain_text)
+     
+     messages.extend(response)  # 将助手响应加入历史
+```
+
+## **测试**
+
+这里测试的是官方的`assistant_audio`
+
+```
+ # Copyright 2023 The Qwen team, Alibaba Group. All rights reserved.
+ # 
+ # Licensed under the Apache License, Version 2.0 (the "License");
+ # you may not use this file except in compliance with the License.
+ # You may obtain a copy of the License at
+ # 
+ #    http://www.apache.org/licenses/LICENSE-2.0
+ # 
+ # Unless required by applicable law or agreed to in writing, software
+ # distributed under the License is distributed on an "AS IS" BASIS,
+ # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ ​
+ from qwen_agent.agents import Assistant
+ from qwen_agent.gui import WebUI
+ ​
+ ​
+ def test():
+     bot = Assistant(llm={'model_type': 'qwenaudio_dashscope', 'model': 'qwen-audio-turbo-latest'})
+     messages = [{
+         'role':
+             'user',
+         'content': [{
+             'audio': 'https://dashscope.oss-cn-beijing.aliyuncs.com/audios/welcome.mp3'
+         }, {
+             'text': '这段音频在说什么?'
+         }]
+     }]
+     for rsp in bot.run(messages):
+         print(rsp)
+ ​
+ ​
+ def app_gui():
+     # Define the agent
+     bot = Assistant(llm={'model': 'qwen-audio-turbo-latest'})
+     WebUI(bot).run()
+ ​
+ ​
+ if __name__ == '__main__':
+     # test()
+     app_gui()
+ ​
+```
+
+结果：
+
+![image-20251202152020903](file:///C:/Users/%E7%8E%8B%E6%80%9D%E5%93%B2/Documents/MOCODE/Universal%20BlockChain/Day9%EF%BC%9AQwen%20Agent.assets/image-20251202152020903.png?lastModify=1764661918)
+
+## **小案例：替换为大写**
+
+```
+ import pprint  # 美观打印数据结构
+ import urllib.parse  # URL编码解码
+ import json5  # 增强版JSON解析（支持注释等）
+ from qwen_agent.agents import Assistant  # 核心的助手智能体类
+ from qwen_agent.tools.base import BaseTool, register_tool  # 工具基类和注册装饰器
+ from qwen_agent.utils.output_beautify import typewriter_print  # 打字机效果输出
+ ​
+ @register_tool('string_to_upper')
+ class StringToUpper(BaseTool):
+     description = '将输入的字符串转换为大写形式'
+     parameters = [{
+         'name':'input_text',
+         'type':'string',
+         'description':'需要转换为大写的文本',
+         'required': True
+     }]
+     def call(self,params:str,**kwargs) -> str:
+         params_dict = json5.loads(params)
+         input_text = params_dict['input_text']
+         result = input_text.upper()
+         return json5.dumps(
+             {'uppercase_text':result},
+             ensure_ascii=False)
+ ​
+ llm_cfg = {
+     'model':'qwen-max-latest',
+     'model_type':'qwen_dashscope',
+     'generate_cfg':{
+         'top_p':0.8
+     }
+ }
+ ​
+ system_instruction = '''你是一个文本处理助手。当用户要求将文本转换为大写时，你应该：
+ 1. 识别用户提供的需要转换的文本
+ 2. 调用 string_to_upper 工具将文本转换为大写
+ 3. 将转换结果返回给用户
+ ​
+ 请用中文回复用户。'''
+ tools = ['string_to_upper']
+ ​
+ bot = Assistant(llm=llm_cfg,
+                 system_message=system_instruction,
+                 function_list=tools)
+ ​
+ messages=[]
+ while True:
+     query = input('\n用户请求：')
+     messages.append({'role': 'user', 'content': query})
+     response = []
+     response_plain_text = ''
+     print('\nAgent Anwer：')
+     for response in bot.run(messages=messages):
+         response_plain_text = typewriter_print(response, response_plain_text)
+     messages.extend(response)
+```
+
+输出内容：
+
+```
+ 用户请求：把hello world转换成大写  
+ ​
+ Agent Anwer：
+ 2025-12-02 15:48:01,428 - base.py - 780 - INFO - ALL tokens: 7, Available tokens: 57935        
+ [TOOL_CALL] string_to_upper
+ {"input_text": "hello world"}
+ [TOOL_RESPONSE] string_to_upper
+ {uppercase_text: "HELLO WORLD"}2025-12-02 15:48:09,588 - base.py - 780 - INFO - ALL tokens: 36, Available tokens: 57935
+ ​
+ [ANSWER]
+ "hello world"转换为大写后是"HELLO WORLD"。
+```
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 # **Day8：Qwen AI 基础 & API 调用**
 
 ## **地址与 base\_url**
@@ -126,6 +360,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 # **Day6&7：Demo！**
 
@@ -324,6 +559,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 # **Day5：Universal DeFi & 全链资产**
 
 **💫通用资产：通用合约和连接合约**
@@ -363,6 +599,7 @@ ERC20：以太坊生态系统的 "通用语言"，几乎所有 DeFi 应用都支
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -429,6 +666,7 @@ NaN.  出站：发起要求、验证者准备、TSS签名、提交广播、跨�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -514,6 +752,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -691,6 +930,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
