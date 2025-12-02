@@ -15,8 +15,345 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+## 12月2日打卡内容补交
+
+## **Installation**
+
+```
+git clone https://github.com/QwenLM/Qwen-Agent.git
+cd Qwen-Agent
+pip install -e ./
+```
+
+## **RUN the Example**
+
+-   按照示例脚本 `assistant_add_custom_tool.py`，在环境中搭建代理并运行聊天循环。代理使用 `llm_cfg` 配置连接到 DashScope 服务，利用默认的 `qwen-max` 模型。
+    
+-   注意到如果未在 `llm_cfg` 中显式设置 `api_key`，DashScope 会从环境变量 `DASHSCOPE_API_KEY` 中读取密钥[qwen.readthedocs.io](https://qwen.readthedocs.io/en/latest/framework/qwen_agent.html#:~:text=,getenv%28%27DASHSCOPE_API_KEY)。因此只需在系统环境中设置该变量即可正常访问模型。
+    
+-   运行示例后，代理能响应输入，调用内置的 `code_interpreter` 工具下载并展示图像，展示了工具调用链路。
+    
+
+-   先取消终端的代理（使用国内的阿里云）：
+    
+
+```
+unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
+```
+
+```
+cd examples
+python assistant_qwen3.py
+2025-12-03 00:05:55,899 - mcp_manager.py - 141 - INFO - Initializing MCP tools from mcp servers: ['time', 'fetch']
+2025-12-03 00:05:55,905 - mcp_manager.py - 370 - INFO - Initializing a MCP stdio_client, if this takes forever, please check the config of this mcp server: time
+⠇ referencing==0.37.0
+⠋ referencing==0.37.0
+Installed 32 packages in 8ms
+2025-12-03 00:21:22,809 - mcp_manager.py - 370 - INFO - Initializing a MCP stdio_client, if this takes forever, please check the config of this mcp server: fetch
+Installed 44 packages in 7ms
+* Running on local URL:  http://127.0.0.1:7860
+​
+To create a public link, set `share=True` in `launch()`.
+```
+
+访问链接 可以看见图形界面：
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Eeeeye/images/2025-12-02-1764694956042-image.png)
+
+## **Finish the Task(uppercase/add)**
+
+本次作业创建了两个简单工具：
+
+-   **StringUppercase**：将输入字符串转换为大写。工具描述说明其功能，参数定义只有一个 `text`，在 `call` 方法中解析 JSON 字符串并返回大写结果。
+    
+-   **AddNumbers**：计算两个数字的和。参数包含 `a` 和 `b`，`call` 方法解析为浮点数后求和并返回。
+    
+
+为了让代理自动读取 DashScope 的 API Key，在初始化 `llm_cfg` 时读取环境变量 `DASHSCOPE_API_KEY` 并写入 `api_key` 字段。这样用户只需在系统中设置该变量即可直接运行。
+
+### 搭建并测试代理
+
+-   调用 `Assistant` 构建代理，将 `string_uppercase` 和 `add_numbers` 两个工具加入 `function_list`。
+    
+-   编写了命令行界面，支持 `test_uppercase`、`test_add` 和 `chat` 三种模式。前两者用于验证工具调用，后者提供交互式聊天。
+    
+-   在测试模式中输入“请把字符串"hello world"转成大写字母”，代理正确地调用 `StringUppercase` 返回 `HELLO WORLD`；输入“What is the sum of 12.5 and 7.3?”，代理调用 `AddNumbers` 返回 `19.8`。
+    
+
+```
+"""
+This script demonstrates how to build a minimal agent using the
+Qwen‑Agent framework and how to register a couple of simple tools.
+​
+The goal of the assignment is to help you familiarise yourself with
+the core concepts of Qwen‑Agent—LLM, Agent, Tools and Memory—by
+writing a small program that the agent can interact with. Two
+examples of custom tools are provided:
+​
+1. **StringUppercase** – converts an input string to upper case.
+2. **AddNumbers** – returns the sum of two numeric inputs.
+​
+Running this script requires Qwen‑Agent to be installed (e.g. via
+``pip install -U qwen-agent``) and access to a Qwen model service. The
+``llm_cfg`` dictionary should be adjusted to point to your chosen
+model. By default it uses ``qwen-max`` on DashScope. If you are
+running a local Qwen server (e.g. via ``vLLM`` or ``Ollama``), update
+the ``model``, ``model_server`` and ``api_key`` fields accordingly.
+​
+Example usage:
+​
+  python qwen_agent_custom_tool.py test_uppercase
+  python qwen_agent_custom_tool.py test_add
+  python qwen_agent_custom_tool.py chat
+​
+The first two commands run self‑contained tests to verify that the
+agent automatically calls the corresponding tool. The ``chat`` mode
+starts an interactive loop where you can ask the agent to perform
+different tasks.
+"""
+​
+import json
+import json5  # type: ignore
+import sys
+import os
+from typing import Dict, Any
+​
+try:
+    from qwen_agent.agents import Assistant
+    from qwen_agent.tools.base import BaseTool, register_tool
+except ImportError as exc:
+    raise ImportError(
+        "qwen_agent package is required to run this script. "
+        "Install it via 'pip install -U qwen-agent' and ensure you have a "
+        "running Qwen model service (e.g. DashScope, vLLM, or Ollama)."
+    ) from exc
+​
+​
+@register_tool('string_uppercase')
+class StringUppercase(BaseTool):
+    """A simple tool that converts the provided string to upper‑case.
+​
+    The tool expects a single parameter ``text`` of type string and
+    returns a JSON object containing the uppercased version of the
+    input. The agent uses the ``description`` and ``parameters``
+    definitions to decide when and how to call this tool.
+    """
+​
+    # Describe the purpose of the tool for the agent. This text helps
+    # the model decide when to call the tool.
+    description = 'Convert the input string to upper case.'
+​
+    # Define the input parameters accepted by this tool.
+    parameters = [
+        {
+            'name': 'text',
+            'type': 'string',
+            'description': 'The string to be converted to upper case.',
+            'required': True,
+        },
+    ]
+​
+    def call(self, params: str, **kwargs: Any) -> str:
+        """Implementation of the tool.
+​
+        The ``params`` argument arrives as a JSON string encoded by the
+        agent. We parse it using ``json5.loads`` (which is more lenient
+        than the built‑in ``json`` module), perform the upper‑case
+        conversion, and return the result as a JSON string.
+​
+        Args:
+            params: JSON‑encoded string containing a ``text`` field.
+            **kwargs: Additional fields provided by the agent (ignored).
+​
+        Returns:
+            A JSON‑encoded string with a single key ``result``.
+        """
+        data: Dict[str, Any] = json5.loads(params)
+        original = data.get('text', '')
+        uppercased = str(original).upper()
+        return json.dumps({'result': uppercased}, ensure_ascii=False)
+​
+​
+@register_tool('add_numbers')
+class AddNumbers(BaseTool):
+    """A simple tool that computes the sum of two numbers.
+​
+    The tool accepts two parameters ``a`` and ``b`` of type number and
+    returns their sum. This demonstrates how Qwen‑Agent can handle
+    numerical inputs and produce structured outputs.
+    """
+​
+    description = 'Compute the sum of two numbers and return the result.'
+​
+    parameters = [
+        {
+            'name': 'a',
+            'type': 'number',
+            'description': 'The first addend.',
+            'required': True,
+        },
+        {
+            'name': 'b',
+            'type': 'number',
+            'description': 'The second addend.',
+            'required': True,
+        },
+    ]
+​
+    def call(self, params: str, **kwargs: Any) -> str:
+        """Implementation of the addition tool.
+​
+        The ``params`` argument contains JSON with ``a`` and ``b``. We
+        parse them, convert to floats (to handle both integers and
+        decimals), perform the addition and return a JSON string.
+        """
+        data: Dict[str, Any] = json5.loads(params)
+        a = float(data.get('a', 0))
+        b = float(data.get('b', 0))
+        result = a + b
+        return json.dumps({'result': result}, ensure_ascii=False)
+​
+​
+​
+def build_agent() -> Assistant:
+    """Initialise the Assistant agent with our custom tools.
+​
+    This function constructs an ``Assistant`` configured to use a Qwen
+    model hosted via DashScope by default.  It will automatically read
+    the ``DASHSCOPE_API_KEY`` environment variable at runtime and
+    populate the API key field if present.  To use a locally hosted
+    model (e.g. vLLM or Ollama), override the values in ``llm_cfg`` as
+    noted below.
+    """
+    # Base configuration for the LLM.  The environment variable
+    # DASHSCOPE_API_KEY will be used if set.
+    llm_cfg = {
+        # Choose the model name.  For a local vLLM/Ollama deployment,
+        # replace this with your model name, e.g. 'Qwen3-4B-Instruct'.
+        'model': 'qwen-max',
+​
+        # Specify the model service type.  'qwen_dashscope' tells the
+        # agent to use Alibaba DashScope.  When using a local service,
+        # remove this field and set ``model_server`` instead.
+        'model_type': 'qwen_dashscope',
+​
+        # Generation hyper‑parameters can be tuned here if needed.
+        'generate_cfg': {
+            'top_p': 0.8,
+        },
+    }
+​
+    # Auto‑populate the API key from the environment variable.  If
+    # DASHSCOPE_API_KEY is not set, Qwen‑Agent will attempt to fetch
+    # it internally when using DashScope.  This assignment simply
+    # mirrors the environment variable into the config for clarity.
+    api_key_env = os.getenv('DASHSCOPE_API_KEY')
+    if api_key_env:
+        llm_cfg['api_key'] = api_key_env
+​
+    # Create the agent.  The ``function_list`` tells the agent which
+    # tools are available.  The names must match those used in
+    # ``register_tool`` decorators.
+    bot = Assistant(
+        llm=llm_cfg,
+        name='SimpleToolAgent',
+        description='An agent with custom tools for upper‑casing strings and adding numbers.',
+        system_message='You are a helpful assistant that uses tools when appropriate.',
+        function_list=['string_uppercase', 'add_numbers'],
+    )
+    return bot
+​
+​
+def run_test_uppercase() -> None:
+    """Test the uppercase tool by asking the agent a simple question."""
+    agent = build_agent()
+    messages = [
+        {
+            'role': 'user',
+            'content': '请把字符串"hello world"转成大写字母。',
+        },
+    ]
+    print('Query: 请把字符串"hello world"转成大写字母。')
+    for resp in agent.run(messages=messages):
+        print('Response:', resp)
+​
+​
+def run_test_add() -> None:
+    """Test the addition tool by asking the agent to add two numbers."""
+    agent = build_agent()
+    messages = [
+        {
+            'role': 'user',
+            'content': 'What is the sum of 12.5 and 7.3?',
+        },
+    ]
+    print('Query: What is the sum of 12.5 and 7.3?')
+    for resp in agent.run(messages=messages):
+        print('Response:', resp)
+​
+​
+def interactive_chat() -> None:
+    """Provide a simple REPL for chatting with the agent.
+​
+    Users can type natural language requests such as “Convert the string
+    ‘apple’ to uppercase.” or “Add 15 and 28 for me” and the agent
+    should automatically call the appropriate tool.
+    """
+    agent = build_agent()
+    messages = []  # maintain chat history
+    print('Entering chat mode. Type "exit" to quit.')
+    while True:
+        user_input = input('You: ').strip()
+        if not user_input:
+            continue
+        if user_input.lower() in {'exit', 'quit'}:
+            print('Exiting.')
+            break
+        messages.append({'role': 'user', 'content': user_input})
+        for resp in agent.run(messages=messages):
+            # Print each streaming response element. In practice, you can
+            # refine this to display the tool results nicely.
+            print('Agent:', resp)
+        # The assistant might return multiple messages (including tool calls);
+        # here we extend the conversation state accordingly.
+        messages.extend(resp for resp in agent.run(messages=[]))
+​
+​
+if __name__ == '__main__':
+    # Basic command line interface to run tests or start chatting.
+    if len(sys.argv) > 1:
+        mode = sys.argv[1].lower()
+    else:
+        mode = 'help'
+    if mode == 'test_uppercase':
+        run_test_uppercase()
+    elif mode == 'test_add':
+        run_test_add()
+    elif mode in {'chat', 'repl'}:
+        interactive_chat()
+    else:
+```
+
+编写脚本 满足两个功能
+
+运行测试：
+
+```
+python qwen_agent_custom_tool.py test_uppercase  # 测试大写功能
+python qwen_agent_custom_tool.py test_add       # 测试求和功能
+python qwen_agent_custom_tool.py chat           # 进入交互模式
+```
+
+成功运行
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Eeeeye/images/2025-12-02-1764694827740-image.png)
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 1\. 今日目标
 
 -   用 Python 调一次 Qwen 模型 API。
@@ -138,6 +475,7 @@ python qwen_api_demo.py
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -210,6 +548,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 ### **搭建官方 Swap Demo 项目**
@@ -335,6 +674,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -412,6 +752,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -508,6 +849,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -666,6 +1008,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -842,6 +1185,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
