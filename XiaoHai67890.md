@@ -15,8 +15,367 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-02
+<!-- DAILY_CHECKIN_2025-12-02_START -->
+### 学习笔记 Day 9:
+
+## 一、Qwen-Agent 是什么？
+
+Qwen-Agent 是阿里巴巴 Qwen 团队开源的智能体（Agent）开发框架，用来把 Qwen 系列大模型变成“会用工具、会规划、有记忆”的 Agent。它主要基于四种能力：
+
+-   指令跟随（Instruction Following）
+    
+-   工具使用（Function / Tool Calling）
+    
+-   任务规划（Planning）
+    
+-   记忆管理（Memory）
+    
+
+官方已经用它做了 Browser Assistant、Code Interpreter、定制助手等应用，现在 Qwen Chat 的后端也由 Qwen-Agent 驱动。
+
+## 二、核心组件：LLM / Agent / Tools / Memory
+
+### 1\. LLM（大模型）
+
+-   Qwen-Agent 自身不“带模型”，它只是一个框架。
+    
+-   你可以：
+    
+    -   用 DashScope 的托管模型；
+        
+    -   或用 vLLM / Ollama 等把开源 Qwen 模型以 OpenAI 兼容接口服务起来。
+        
+
+LLM 在 Qwen-Agent 中通常通过一个 `llm_cfg` 字典配置，例如：
+
+```
+llm_cfg = {
+    'model': 'Qwen/Qwen3-7B-Instruct',        # 或者 DashScope 模型名
+    'model_server': 'http://localhost:8000/v1',  # OpenAI 兼容服务地址
+    'api_key': 'EMPTY',                       # 自托管一般写个占位
+    'generate_cfg': {
+        'top_p': 0.8,
+    }
+}
+```
+
+> 记住：Qwen-Agent 会利用 Qwen 模型内置的函数调用能力，无需你自己去写复杂的 function call 模板。
+
+### 2\. Agent（智能体）
+
+-   框架里已经封装了多种 Agent 类，比如 `Assistant`、`FnCallAgent`、`ReActChat` 等。
+    
+-   这些 Agent 会负责：
+    
+    -   把用户消息、历史对话、工具列表组织成 prompt；
+        
+    -   调用底层 LLM；
+        
+    -   解析 LLM 给出的“工具调用指令”；
+        
+    -   把工具执行结果再喂回模型，直到得到最终回答。
+        
+
+对你来说，最常用的是 `Assistant`：
+
+```
+from qwen_agent.agents import Assistant
+
+bot = Assistant(
+    llm=llm_cfg,
+    function_list=[],      # 后面我们会把自定义 Tool 填进来
+)
+```
+
+### 3\. Tools（工具）
+
+工具是 Agent 可以调用的“外部能力”，比如：
+
+-   内置工具：`code_interpreter`、浏览器、RAG 等；
+    
+-   MCP 工具：通过 MCP 协议挂接各种外部服务；
+    
+-   自定义工具：用 Python 写一个类继承 `BaseTool` 即可。
+    
+
+当工具被注册后，只要你把它的名字放到 `function_list` 里，Agent 就可以在合适的时候“自动决定”是否调用它。
+
+### 4\. Memory（记忆）
+
+Qwen-Agent 的记忆主要体现在两层：
+
+1.  **工作记忆（Working Memory）**
+    
+    -   在一次多轮对话 / 长流程中，Agent 会记录：
+        
+        -   历史消息；
+            
+        -   已调用过的工具及返回结果。
+            
+    -   后续每一步决策都会基于这份记忆。
+        
+2.  **规划 + 多步推理**
+    
+    -   Agent 可以在内部规划“先干什么、再干什么”，例如：
+        
+        -   先用某个工具检索信息；
+            
+        -   再调用计算工具处理数据；
+            
+        -   最后生成一段自然语言回答。
+            
+
+对 Day 9 来说，你只需要知道：**你维护一个** `messages` **列表，Qwen-Agent 会帮你把这份“上下文 + 工具结果”的记忆用好。**
+
+## 三、搭建一个最小可运行的 Agent
+
+### 1\. 安装 Qwen-Agent
+
+```
+# 推荐安装带 GUI / RAG / 代码执行 / MCP 的完整版本
+pip install -U "qwen-agent[gui,rag,code_interpreter,mcp]"
+
+# 或者只装最小依赖
+# pip install -U qwen-agent
+```
+
+这是官方推荐的安装方式。
+
+### 2\. 准备模型服务（二选一）
+
+1）使用 DashScope 托管服务（最简单）
+
+-   在环境变量中设置 `DASHSCOPE_API_KEY`；
+    
+-   在 `llm_cfg` 中写：
+    
+
+```
+llm_cfg = {
+    'model': 'qwen-max-latest',
+    'model_type': 'qwen_dashscope',
+}
+```
+
+2）自托管 Qwen 模型（本地 / 服务器）
+
+-   按 Qwen 官方文档用 vLLM 或 Ollama 启一个 OpenAI 兼容服务；
+    
+-   然后在 `llm_cfg` 中改为：
+    
+
+```
+llm_cfg = {
+    'model': 'Qwen/Qwen3-7B-Instruct',
+    'model_server': 'http://localhost:8000/v1',
+    'api_key': 'EMPTY',
+}
+```
+
+### 3\. 最小 Agent 示例（无工具版）
+
+```
+from qwen_agent.agents import Assistant
+
+# 1. LLM 配置（按你的实际环境改）
+llm_cfg = {
+    'model': 'Qwen/Qwen3-7B-Instruct',
+    'model_server': 'http://localhost:8000/v1',
+    'api_key': 'EMPTY',
+}
+
+# 2. 创建 Agent（暂时不挂任何工具）
+bot = Assistant(
+    llm=llm_cfg,
+    function_list=[],            # 这里先留空
+)
+
+# 3. 发送一次简单对话
+messages = [{'role': 'user', 'content': '用一句话介绍一下你自己'}]
+
+for responses in bot.run(messages=messages):
+    # 官方示例中 bot.run 会以“流”的形式不断返回最新结果列表:contentReference[oaicite:10]{index=10}
+    pass
+
+print(responses)   # responses 通常是一个包含 assistant 回复的列表
+```
+
+只要你的模型服务和 `llm_cfg` 配好了，这段代码跑通，你就完成了：
+
+> ✅ “搭建一个最小的 Agent”
+
+## 四、实现两个自定义 Tool：大写转换 & 加法
+
+下面我们用官方推荐的方式（继承 `BaseTool` + `@register_tool` 装饰器）各写一个 Tool。
+
+### 1\. 通用工具模板
+
+Qwen-Agent 里自定义 Tool 的基础写法是这样的（简化版）：
+
+```
+from qwen_agent.tools.base import BaseTool, register_tool
+import json
+
+@register_tool('tool_name')
+class MyTool(BaseTool):
+    # 向 Agent 描述这个工具是干什么的
+    description = '简单说明工具用途'
+    # 告诉 Agent 这个工具需要哪些参数，以及参数类型
+    parameters = [
+        {
+            'name': 'param1',
+            'type': 'string',          # 或 number / integer / boolean ...
+            'description': '参数说明',
+            'required': True,
+        }
+    ]
+
+    def call(self, params: str, **kwargs) -> str:
+        # params 是 LLM 生成的一段 JSON 字符串
+        data = json.loads(params)
+        # 根据参数执行实际逻辑
+        # ...
+        # 返回字符串（可以是纯文本，也可以是 JSON 串）
+        return 'some result'
+```
+
+> 只要类用 `@register_tool('xxx')` 装饰，字符串 `'xxx'` 就可以作为工具名出现在 `function_list` 里。
+
+### 2\. 字符串转大写 Tool
+
+```
+from qwen_agent.tools.base import BaseTool, register_tool
+import json
+
+@register_tool('to_upper')
+class ToUpper(BaseTool):
+    description = '把输入字符串转换为大写形式'
+    parameters = [
+        {
+            'name': 'text',
+            'type': 'string',
+            'description': '要转换的大写字符串',
+            'required': True,
+        }
+    ]
+
+    def call(self, params: str, **kwargs) -> str:
+        data = json.loads(params)
+        text = data['text']
+        result = text.upper()
+        # 返回简单 JSON 结果，方便 Agent 解析
+        return json.dumps({'result': result}, ensure_ascii=False)
+```
+
+### 3\. 两数求和 Tool
+
+```
+from qwen_agent.tools.base import BaseTool, register_tool
+import json
+
+@register_tool('add')
+class Add(BaseTool):
+    description = '计算两个数字的和'
+    parameters = [
+        {
+            'name': 'a',
+            'type': 'number',
+            'description': '第一个数字',
+            'required': True,
+        },
+        {
+            'name': 'b',
+            'type': 'number',
+            'description': '第二个数字',
+            'required': True,
+        }
+    ]
+
+    def call(self, params: str, **kwargs) -> str:
+        data = json.loads(params)
+        a = data['a']
+        b = data['b']
+        s = a + b
+        return json.dumps({'result': s}, ensure_ascii=False)
+```
+
+### 4\. 把 Tool 挂到 Agent 上
+
+只要保证上述两个类在你脚本里被 import / 定义过，`@register_tool` 就已经生效了，你只需要：
+
+```
+from qwen_agent.agents import Assistant
+
+# 延续前面的 llm_cfg
+bot = Assistant(
+    llm=llm_cfg,
+    function_list=[
+        'to_upper',   # 自定义工具
+        'add',        # 自定义工具
+        # 你也可以在这里加内置的 'code_interpreter' 等
+    ],
+)
+
+# 测试调用：字符串转大写
+messages = [{
+    'role': 'user',
+    'content': '请把字符串 "hello qwen-agent" 变成大写。'
+}]
+
+for responses in bot.run(messages=messages):
+    pass
+
+print(responses)
+```
+
+如果模型配置正确、工具定义无误，你会在返回结果中看到 Agent 已经自动选择调用 `to_upper` 工具，并把工具返回的结果整合进自然语言回答。
+
+同理，你可以再发一条：
+
+> “再帮我算一下 3 + 5。”
+
+Agent 就应该调用 `add` 工具并给出计算结果。
+
+## 五、Qwen-Agent 中的工具调用与对话流程
+
+结合官方文档与社区解读，可以把一次工具调用的流程想象成这样：
+
+1.  **收集上下文**
+    
+    -   把当前用户消息 + 历史对话 + 系统指令 + 可用工具列表打包成 prompt。
+        
+2.  **模型判断是否需要工具**
+    
+    -   Qwen 模型根据 prompt 决定：
+        
+        -   直接回答；
+            
+        -   还是输出“函数调用格式”的 JSON（类似 OpenAI function calling）。
+            
+3.  **框架解析工具调用 JSON**
+    
+    -   Qwen-Agent 内部的解析器读取工具名和参数；
+        
+    -   调用对应的 Python Tool 类的 `call` 方法。
+        
+4.  **执行工具并写回记忆**
+    
+    -   Tool 返回的字符串会被作为新的“消息”加入到对话记忆中。
+        
+5.  **模型基于工具结果生成最终回答**
+    
+    -   再次调用 LLM；
+        
+    -   这一次 prompt 中已经包含工具输出，模型可以基于这些结果组织自然语言回答。
+        
+
+这个流程，你不需要自己写任何“解析 JSON、执行函数”的胶水代码——Qwen-Agent 都已经封装好了，你只管写 **工具逻辑** 和 **业务提示词**。
+<!-- DAILY_CHECKIN_2025-12-02_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 ### 学习笔记 Day8：
 
 ## 一、今日学习内容
@@ -365,6 +724,7 @@ if __name__ == "__main__":
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 ## 学习笔记 Day6：  
 一、回顾：ZetaChain 带来的「通用性」到底是什么？
@@ -787,6 +1147,7 @@ Swap + Messaging + Omnichain Contracts 则是「通用 DeFi 的操作系统」�
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 **Day 6 学习笔记：**
 
 ## 一、一次调用完成跨链 DeFi
@@ -1125,6 +1486,7 @@ npx zetachain evm deposit-and-call \
 
 
 
+
 ### Day 5 学习笔记：
 
 ## 一、今天要搞清楚的三个核心概念
@@ -1426,6 +1788,7 @@ npx zetachain evm deposit-and-call \
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1800,6 +2163,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 
 
+
 # 学习笔记 Day 3：ZetaChain & Universal Blockchain 核心概念
 
 ## 1\. 整体认识：什么是 “Universal Blockchain / Universal EVM”？
@@ -2001,6 +2365,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -2357,6 +2722,7 @@ Body（raw + JSON）示例：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
