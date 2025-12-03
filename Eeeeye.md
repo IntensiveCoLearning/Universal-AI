@@ -348,10 +348,139 @@ python qwen_agent_custom_tool.py chat           # 进入交互模式
 成功运行
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Eeeeye/images/2025-12-02-1764694827740-image.png)
+
+## 12月3日打卡内容
+
+## 1\. 学习目标
+
+本阶段的核心任务是打通 **AI（自然语言理解）** 与 **Web3（链上交互）** 之间的“最后一公里”。 具体目标包括：
+
+-   理解 **Qwen-Agent** 框架的基本组成（LLM, Agent, Tools, Memory）。
+    
+-   利用 LLM 的 **Function Calling** 能力，将非结构化的自然语言（如“帮我换币”）转化为结构化的 JSON 参数。
+    
+-   解决工程实践中的环境变量管理与 API 鉴权问题。
+    
+
+## 2\. 核心技术概念
+
+### 2.1 ReAct 范式
+
+本次实战基于 **ReAct (Reasoning + Acting)** 模式。AI 不再只是单纯的对话生成器，而是一个代理（Agent）：
+
+1.  **Reasoning (推理)**: 分析用户意图（“用户想在 Base 链交易”）。
+    
+2.  **Acting (行动)**: 决定调用特定工具（`parse_swap_intent`）并填充参数。
+    
+
+### 2.2 结构化输出 (Structured Output)
+
+传统的 NLP 使用正则表达式（Regex）提取信息，难以处理口语化表达（如“大饼”、“刀”）。 通过定义 **Schema (JSON Schema)**，我们约束 LLM 必须按照特定的 Key-Value 格式输出，实现了从模糊语言到精确代码的桥梁。
+
+## 3\. 技术实现详解
+
+### 3.1 意图解析工具 (`ParseSwapIntent`)
+
+为了让 AI 准确提取 DeFi 参数，我基于 `BaseTool` 定义了一个自定义工具。
+
+**关键代码逻辑：**
+
+```
+@register_tool("parse_swap_intent")
+class ParseSwapIntent(BaseTool):
+    # Prompt Engineering: 在描述中通过自然语言定义“业务规则”
+    parameters = [{
+        'name': 'token_in',
+        'type': 'string',
+        'description': '用户卖出的代币。如果用户说 "U", "USDT", "刀"，必须统一转换为 "USDC"。', # 规则注入
+        'required': True
+    }, ...]
+```
+
+-   **亮点**：通过 `description` 实现了**零代码逻辑转换**。不需要写 Python 代码去匹配 "刀" 或 "U"，模型根据语义理解自动将其标准化为 "USDC"。
+    
+
+### 3.2 工程化配置管理
+
+为了解决 API Key 的安全存储与跨目录读取问题，采用了 `python-dotenv` 方案。
+
+**解决方案：**
+
+```
+from dotenv import load_dotenv, find_dotenv
+
+# 使用 find_dotenv() 递归查找根目录的 .env 文件
+# 解决脚本在子目录运行时无法读取环境变量的问题
+load_dotenv(find_dotenv(), verbose=True)
+```
+
+### 3.3 Agent 初始化
+
+使用了 `qwen-plus` 模型，相比开源的小参数模型，它在**指令遵循 (Instruction Following)** 和**工具调用稳定性**上表现更佳。
+
+## 4\. 遇到的挑战与解决方案
+
+### 4.0 环境配置
+
+-   在项目的根目录下配置.env文件，将密钥 地址 api\_key等信息存入 这样可以避免每次启动终端都要配置临时变量
+    
+
+### 4.1 挑战：`InvalidApiKey` 错误
+
+-   **现象**：脚本运行时提示 API Key 无效，尽管 `.env` 文件已创建。
+    
+-   **原因**：脚本位于 `examples/` 子目录，默认的 `load_dotenv()` 只在当前目录查找，无法读取根目录配置。
+    
+-   **解决**：引入 `find_dotenv()` 函数，自动向上级目录遍历查找，成功定位配置文件。
+    
+
+### 4.2 挑战：JSON 解析的鲁棒性
+
+-   **现象**：LLM 有时生成的 JSON 包含不规范的尾部逗号（Trailing Commas），导致标准 `json.loads` 报错。
+    
+-   **解决**：引入 `json5` 库替代标准库，提高了对非标准 JSON 格式的容错率。
+    
+
+## 5\. 实战结果验证
+
+在终端交互测试中，Agent 成功展现了意图识别能力：
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Eeeeye/images/2025-12-03-1764770695703-image.png)
+
+**测试案例 1：标准指令**
+
+> **用户**: "帮我在 Base 上用 10 USDC 换成 ETH" **AI 解析**:
+> 
+> ```
+> {
+>   "chain": "Base",
+>   "token_in": "USDC",
+>   "token_out": "ETH",
+>   "amount": "10"
+> }
+> ```
+
+**测试案例 2：模糊指令与同义词（验证 Prompt 有效性）**
+
+> **用户**: "把我 50 个**刀**换成 Polygon 上的 MATIC" **AI 解析**:
+> 
+> -   `token_in`: 自动转换为 **"USDC"** (符合 Prompt 规则)
+>     
+> -   `chain`: 准确识别为 **"Polygon"**
+>     
+
+## 6\. 总结与思考
+
+Day 10 的核心不在于写了多少行代码，而在于理解了 **AI Agent 的交互哲学**：
+
+1.  **描述即代码 (Prompt as Code)**：我们在 Tool 的 `description` 中写的文字，**实际上起到了代码逻辑**的作用。
+    
+2.  **确定性与概率性的结合**：Web3 交易需要 100% 的确定性（金额、地址不能错），而 AI 是概率性的。通过 `Function Calling` 强类型约束，我们成功将概率性的 AI 输出收敛为确定性的系统参数。
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 1\. 今日目标
@@ -477,6 +606,7 @@ python qwen_api_demo.py
 
 
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -549,6 +679,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -678,6 +809,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -755,6 +887,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -853,6 +986,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1013,6 +1147,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1191,6 +1326,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
