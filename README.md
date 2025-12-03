@@ -322,7 +322,7 @@ Telegram：https://t.me/zetachain_asia
 | [skelitalynn](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/skelitalynn.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ |   | | | | |
 | [PeaSea93](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/PeaSea93.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [LWT-111](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/LWT-111.md) | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ❌ | | | | | | | | |
-| [bentong-chain](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/bentong-chain.md) | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | |
+| [bentong-chain](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/bentong-chain.md) | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | |
 | [SJW1111011](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/SJW1111011.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [LouisCanBe](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/LouisCanBe.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ✅ | ✅ |   | | | | |
 | [jvbaoge1](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/jvbaoge1.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ |   | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ |   | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
