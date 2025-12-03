@@ -15,8 +15,46 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+## 今日目标
+
+能从输入话术中稳定抽取链名、tokenIn、tokenOut、amount 等字段，形成约定的 JSON Schema。该目标与 Qwen-Agent 的 Tools/Function Calling 机制强相关 。​
+
+产出一个 parse\_swap\_intent(text) 的最小版本，并在多样化说法下通过用例验证 。。​
+
+## 笔记
+
+意图模式：本日聚焦 Swap（兑换）类意图，优先覆盖“链名+金额+代币对”的自然语言表达，如“在 Base 上用 10 USDC 换 ETH”“把 50U 换成 Polygon 上的 MATIC”。​
+
+字段规范：chain 使用小写代称（如 base、polygon），代币统一大写符号（USDC、ETH、MATIC），amount 以字符串存储以避免精度丢失 。​
+
+词典与映射：准备常见链别与俗称映射（如“U”→USDT/USDC需本地规则决定；本日先固定“U”→USDC 以便打通流程）。​
+
+纠错与缺省：当链名缺失或金额未给出时，返回 need\_confirm 字段并携带 LLM 抽取到的候选值，便于后续澄清 。​
+
+## 函数原型与示例
+
+原型：parse\_swap\_intent(text) → { chain, tokenIn, tokenOut, amount, need\_confirm? } 。​
+
+示例输入1：“帮我在 Base 上用 10 USDC 换成 ETH” → { "chain":"base","tokenIn":"USDC","tokenOut":"ETH","amount":"10" } 。​
+
+示例输入2：“把我 50 U 兑换成 Polygon 上的 MATIC” → { "chain":"polygon","tokenIn":"USDC","tokenOut":"MATIC","amount":"50","need\_confirm":{"tokenIn\_alias":"U"} }（将“U”暂映射为 USDC，并提示确认）。​
+
+校验清单：字段不为空；符号在允许列表内；金额为正数且小数点位数在可接受范围内（例如最多 6 位）；返回 JSON 符合后端预期 Schema 。​
+
+## 最小实现与测试计划
+
+实现路径：先以正则+词典规则跑通 MVP；再接入 Qwen 的 Function Calling 以增强鲁棒性与口语覆盖度 。​
+
+用例集：覆盖链别同义（Base/以太坊L2）、金额单位口语（U、刀、USD）、代币别名（以太、ETH）、顺序变化和省略链名的情况，逐条比对输出与期望 JSON 。​
+
+记录与输出：将通过/失败样例与改进点写入笔记，沉淀“口语→结构化”的对照清单，供第11天接口层映射与后端伪代码直接复用
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 ## 今日进度
 
 配置好 Qwen-Agent 环境，顺利跑通了官方示例。​
@@ -38,6 +76,7 @@ Qwen-Agent 的核心就是让大模型+记忆+工具融为一体，理解了框�
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 第六天主要是动手把一个官方 Universal DeFi Demo 跑通，亲身体会“调用一次全链 DeFi 动作”的完整流程。reddit+1​
 
@@ -76,6 +115,7 @@ Example code 仓库：[https://github.com/zeta-chain/example-contracts，拉取�
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 理解第 5 天的核心，就是搞清楚「ZRC-20 / 通用资产」在 ZetaChain 里的角色，以及它和多链资产统一表示的关系。
 
 ## Day 5 核心概念理解
@@ -110,6 +150,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 
 
 
+
 ## 一、今天学了什么
 
 继续翻了一遍 ZetaChain Developers 里 EVM 和 Tutorials 相关部分，大概知道 Universal App 就是部署在 ZetaChain 的合约，但可以同时跟多条外部链交互，用一次调用完成跨链逻辑。
@@ -137,6 +178,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 
 
 
+
 ## 关键概念理解
 
 通用区块链（Universal Blockchain）：指像 ZetaChain 这种天然为多链互通设计的底层网络，它不是只服务某一条链，而是把多条公链当成一个整体来协同管理和调用。通过这种设计，开发者可以在一条链上写逻辑，但同时操作多条链上的资产和状态。​
@@ -158,6 +200,7 @@ Gateway 的核心作用，是充当 ZetaChain 与外部公链之间的“桥梁�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -216,6 +259,7 @@ curl -X POST "[https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generati
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
