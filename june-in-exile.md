@@ -15,8 +15,14 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 ````markdown
 今天寫一下 ZetaChain 官方給的 Swap.sol 在做什麼以及怎麼用。
 
@@ -74,6 +80,7 @@ https://sepolia.basescan.org/tx/0xf4c28c4314a9cb073c391ae6613dc5f42b5f3d99e38bae
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
@@ -81,11 +88,13 @@ https://sepolia.basescan.org/tx/0xf4c28c4314a9cb073c391ae6613dc5f42b5f3d99e38bae
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 先打卡 等等補筆記
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -296,6 +305,7 @@ CCTX 的部份不外乎就是
 
 
 
+
 先打個卡，晚點補上 Zeta 概念統整
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
@@ -306,11 +316,13 @@ CCTX 的部份不外乎就是
 
 
 
+
 今天主要看了 zeta 架構 明天開始實作
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -330,6 +342,7 @@ CCTX 的部份不外乎就是
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
