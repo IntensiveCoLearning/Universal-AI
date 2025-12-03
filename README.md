@@ -310,7 +310,7 @@ Telegram：https://t.me/zetachain_asia
 | [ShawnX-F](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/ShawnX-F.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | | |
 | [JoyWQ](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/JoyWQ.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | | | | |
 | [JoenHonwang](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/JoenHonwang.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [cheng-chun-yuan](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/cheng-chun-yuan.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   | | | | |
+| [cheng-chun-yuan](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/cheng-chun-yuan.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | | | | |
 | [diandian42](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/diandian42.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ | ✅ | ✅ |   | | | | |
 | [linmu115](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/linmu115.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | |
 | [StarryNights9527](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/StarryNights9527.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ |   | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
