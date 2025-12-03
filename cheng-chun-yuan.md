@@ -15,8 +15,14 @@ a student developer with interest in AI and blockchain
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+Check in
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 curl
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/cheng-chun-yuan/images/2025-12-01-1764601462315-image.png)
@@ -29,6 +35,7 @@ python
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 Cross-Chain Micro-Payment Lending  
 \- Target Users: DeFi users on Solana/Sui (fast/low-cost chains) needing quick loans against small BTC/ETH holdings, plus Bitcoin holders entering DeFi.  
 \- Problem Solved: Fragmented liquidity and slow cross-chain borrowing delay micro-loans (<$100); users face bridging delays, high fees, and volatility exposure during waits.  
@@ -39,6 +46,7 @@ Cross-Chain Micro-Payment Lending
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 Succesful deploy the swap contract by foundry and fill in the sepolia eth to base chain for the swap instruction
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/cheng-chun-yuan/images/2025-11-29-1764430879036-image.png)
@@ -46,6 +54,7 @@ Succesful deploy the swap contract by foundry and fill in the sepolia eth to bas
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -71,6 +80,7 @@ ETH（以太坊） → ZRC-ETH（ZetaChain） → SOL（Solana）
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -133,6 +143,7 @@ The "secure gate" that lets data and assets move between chains. It's powered by
 
 
 
+
 -   Qwen Request: get api key from website and request through terminal !!
     
 
@@ -156,6 +167,7 @@ The "secure gate" that lets data and assets move between chains. It's powered by
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
