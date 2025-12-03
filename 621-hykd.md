@@ -15,8 +15,60 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+Day 10 打卡记录
+
+完成情况
+
+实现自然语言到结构化参数的解析
+
+构建最小解析层
+
+ 1. 规则解析器
+
+python
+
+输入: "Base上用10 USDC换ETH"
+
+输出: {"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}
+
+ 2. LLM解析器
+
+处理复杂表达
+
+提供置信度评分
+
+测试结果
+
+python
+
+测试1
+
+输入: "帮我在 Base 上用 10 USDC 换成 ETH"
+
+解析成功
+
+测试2 
+
+输入: "把我 50 U 兑换成 Polygon 上的 MATIC"
+
+解析成功 (U→USDC, matic→polygon)
+
+正则表达式提取金额和代币
+
+智能映射（U→USDC, matic→polygon）
+
+上下文关键词识别（"用"、"换成"）
+
+总结
+
+成功构建DeFi意图解析层，支持自然语言转结构化参数，为后续交易执行打好基础。
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 Day 9 作业：QwenAgent 入门实践
 
 已完成任务
@@ -297,6 +349,7 @@ QwenAgent 自定义工具测试
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 Python 最小脚本
 
 python
@@ -502,6 +555,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 项目一：EduChain (学习证明与奖学金平台)
 
 目标用户
@@ -586,6 +640,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 今天跑通了 ZetaChain 的 Swap Demo，从 Goerli 发送 ETH 到 BSC 测试网接收 BNB，亲身体验了“一次调用完成全链操作”的流畅感。
 
 整个过程中，ZetaChain 作为中间层发挥了关键作用：监听我在 Goerli 的交易，在链上完成资产转换（ETH→wETH→wBNB），最后通过 Connector 在 BSC 上铸造对应资产。整个过程只用了 2-3 分钟，而且只需要支付源链的 gas 费。
@@ -599,6 +654,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 通过今天的学习，我理解了 ZetaChain 的核心基础：ZRC-20 标准 和 通用资产。
 
 从开发者视角看，ZRC-20 与普通 ERC-20 最直观的区别在于“原生跨链能力”。ERC-20 资产被禁锢在一条链上，要实现跨链需要依赖复杂的外部桥接。而 ZRC-20 生来就是多链的，它通过 ZetaChain 的跨链通讯协议，将比特币、以太坊上的原生资产自动映射为链上的统一表示。对开发者来说，这意味着可以直接调用标准的 deposit 和 withdraw 方法来实现资产在不同链间的流入流出，无需再自行部署和管理繁琐的桥接合约，极大地简化了全链应用的开发。
@@ -608,6 +664,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -648,6 +705,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 1\. Universal App（通用应用）是一种跨链智能合约应用，部署在 ZetaChain 上，但可以直接与多条外部区块链（如 Bitcoin、Ethereum、BNB Chain 等）交互，而无需依赖跨链桥或封装资产。它的核心特点是：
 
 （1）统一流动性：用户可以在不同链上使用原生资产（如原生 BTC、ETH）与合约交互。
@@ -675,6 +733,7 @@ Gateway 像是“邮局”，把不同链的消息打包并安全送达 ZetaChai
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -733,6 +792,7 @@ ZetaChain 生态: 完整掌握测试网资源和使用方法，Qwen API: 熟练�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
