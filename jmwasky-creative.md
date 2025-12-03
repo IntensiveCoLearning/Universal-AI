@@ -15,8 +15,117 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+```Python
+基于Qwen-Agent工程
+用户请求Agent  -》 Agent 根据系统提示词调用工具获取返回结果 -》 Agent 根据工具返回的内容再做处理回复给用户
+
+\Qwen-Agent\qwen_agent\tools\parse_swap_intent.py
+import json
+from typing import Union
+
+from qwen_agent.tools import BaseTool
+from qwen_agent.tools.base import register_tool
+
+@register_tool('parse_swap_intent')
+class ParseSwapIntent(BaseTool):
+    description = '执行zetachain转账操作'
+    parameters = {
+        'type': 'object',
+        'properties': {
+            'chain': {
+                'description':
+                    '用户需要的chain名称',
+                'type':
+                    'string',
+            },
+            'amount': {
+                'description':
+                    '用户需要执行的金额数量',
+                'type':
+                    'string',
+            },
+            'tokenIn': {
+                'description':
+                    '用户需要转出的代币',
+                'type':
+                    'string',
+            },
+            'tokenOut': {
+                'description':
+                    '用户需要传成的代币',
+                'type':
+                    'string',
+            },
+
+        },
+        'required': ['chain','tokenIn','tokenOut','amount'],
+    }
+
+    def call(self, params: Union[str, dict], **kwargs) -> str:
+        params = self._verify_json_format_args(params)
+
+        chain = params['chain']
+        tokenIn = params['tokenIn']
+        tokenOut = params['tokenOut']
+        amount = params['amount']
+        print(f"模拟执行转移代币操作----------")
+        return json.dumps({"chain": chain, "tokenIn": tokenIn, "tokenOut": tokenOut, "amount": amount}, ensure_ascii=False)
+        
+
+\Qwen-Agent\tests\agents\test_custom_tool_object_zetachain.py
+# Copyright 2023 The Qwen team, Alibaba Group. All rights reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#    http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+from qwen_agent.agents import Assistant
+from qwen_agent.tools.parse_swap_intent import ParseSwapIntent
+
+
+def init_parse_agent_service():
+    llm_cfg = {'model': 'qwen-max', 'api_key': 'xxxxx', 'model_server': 'dashscope'}
+    system = ('According to the user\'s request, get the result with parse_swap_intent tool ,'
+              'if the tool return a json data , reply the process is success and the json data')
+
+    tools = [ParseSwapIntent(), 'code_interpreter']  # code_interpreter is a built-in tool in Qwen-Agent
+    bot = Assistant(llm=llm_cfg, system_message=system, function_list=tools)
+
+    return bot
+
+# 测试文本请求
+def test_custom_parse_agent_object():
+    # Define the agent
+    bot = init_parse_agent_service()
+
+    # Chat
+    messages = [{'role': 'user', 'content': '把我 50 USDT 兑换成 Polygon 上的 MATIC'}]
+    for response in bot.run(messages=messages):
+        print('bot response:', response)
+    messages.extend(response)
+    for result in response:
+        print(result)
+        if result['role'] == 'assistant' and result['content'] is not None:
+            print(f"回复内容：{result['content']}")
+```
+
+![](https://variation.feishu.cn/space/api/box/stream/download/asynccode/?code=MTNlODAxOGRjYTdlNTE5ZjM2OTgzOGQxYTAzYmQyMjRfUHFhZDVsbjJFRnhkWkc4d2YyalA0RDZrbTlOc21HeVNfVG9rZW46Wkk0QmJDTER0b2VsQmJ4cjlIR2NkUzQ5bnhkXzE3NjQ3MzM0MTQ6MTc2NDczNzAxNF9WNA)
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 -   自定义两个数相加的took
     
 
@@ -91,6 +200,7 @@ if __name__ == '__main__':
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 -   实践流程  
     
 
@@ -154,6 +264,7 @@ if __name__ == '__main__':
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 # NFT 拍卖中心
 
 ## 目标客户：NFT平台和爱好者
@@ -172,6 +283,7 @@ if __name__ == '__main__':
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -205,6 +317,7 @@ if __name__ == '__main__':
 
 
 
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -224,6 +337,7 @@ if __name__ == '__main__':
 
 
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -235,6 +349,7 @@ if __name__ == '__main__':
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -272,6 +387,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -364,6 +480,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
