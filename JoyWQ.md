@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+-   Qwen-AI入门demo的代码编写
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 -   Qwen-AI的入门demo设计
     
 -   串联Zetachain、Qwen-AI的整体流程设计
@@ -24,6 +30,7 @@ timezone: UTC+8
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 -   成功跑通Sepolia到ZetaChain跨链消息转发的小demo，里面有一些坑：
     
@@ -437,6 +444,7 @@ contract ZetaEasyMQTest is Test {
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 -   使用example-contructs里面提供的封装好的Messaging.sol接口用来替换UniversalContract接口
     
 -   对Sepolia发送消息到ZetaChain不成功的问题进行调试
@@ -444,6 +452,7 @@ contract ZetaEasyMQTest is Test {
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -763,6 +772,7 @@ contract DeployZetaEasyMQ is Script {
 
 
 
+
 -   设计跨链消息传递的入门demo用来驱动学习
     
 -   编写合约代码，并做好部署、测试的相应准备
@@ -775,6 +785,7 @@ contract DeployZetaEasyMQ is Script {
 
 
 
+
 -   通过FaucetMe网站领取ZetaChain的测试币，并在小狐狸钱包里手动配置ZetaChain的网络
     
 -   学习Universal合约模式及核心的on call方法
@@ -782,6 +793,7 @@ contract DeployZetaEasyMQ is Script {
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
