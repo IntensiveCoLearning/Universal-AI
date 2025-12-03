@@ -15,8 +15,70 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+## 今日作业：
+
+**功能设计：**
+
+-   从自然语言中提取区块链网络名称
+    
+-   识别代币符号（tokenIn、tokenOut）
+    
+-   提取交换金额
+    
+-   判断代币交换方向
+    
+-   支持中英文混合输入
+    
+-   完善的错误处理和验证
+    
+
+**核心技术点：**
+
+-   正则表达式模式匹配
+    
+-   中英文上下文识别
+    
+-   优先级匹配策略（避免误匹配）
+    
+-   结构化JSON输出
+    
+
+**解析策略：**
+
+```markdown
+用户输入："帮我在Base上用10 USDC换成ETH"
+            ↓
+     parse_swap_intent 工具
+            ↓
+    ┌─────────────────────┐
+    │ 1. 提取链名         │  → base
+    │ 2. 提取金额         │  → 10
+    │ 3. 提取代币符号     │  → [USDC, ETH]
+    │ 4. 判断交换方向     │  → USDC → ETH
+    │ 5. 验证完整性       │  → ✅
+    └─────────────────────┘
+            ↓
+    结构化JSON输出
+    {
+      "chain": "base",
+      "tokenIn": "USDC",
+      "tokenOut": "ETH",
+      "amount": "10",
+      "success": true,
+      "error": null
+    }
+```
+
+效果展示：
+
+![1398cd3a-da6d-47f0-b9ad-c753c3aa16e1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-12-03-1764771100112-1398cd3a-da6d-47f0-b9ad-c753c3aa16e1.png)![5d2e952ad3d842cf5bb2ce253cb1cdb0.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-12-03-1764771112224-5d2e952ad3d842cf5bb2ce253cb1cdb0.png)
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 今日作业：
 
 对于 AI 相关的知识比较薄弱，今日的作业完成的不是很好
@@ -28,6 +90,7 @@ timezone: UTC+8
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 完成作业打卡：
 
@@ -48,6 +111,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 目前构思了一个黑客松项目，buy my a coffee 全链版本
@@ -114,6 +178,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 
 
+
 今天实际去跑 swap 的 demo记录遇到的问题
 
 在 deplo 合约上都没遇到问题，只是在获取 zetachain 测试网的以太坊 Sepolia ETH 的 ZRC-20 地址报错了
@@ -147,6 +212,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -208,6 +274,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 
 
+
 -   **ZRC-20 和普通 ERC-20 的直观区别**
     
 
@@ -234,6 +301,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -287,6 +355,7 @@ Swap 工作流程
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -350,6 +419,7 @@ ZetaChain为开发者提供了一个统一的平台来处理跨链消息、资�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
