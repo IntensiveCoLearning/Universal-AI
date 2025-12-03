@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+Day9
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 # Day 8 Qwen AI 基础 & API 调用
 
 ### 一、核心理解
@@ -114,6 +120,7 @@ callQwen();
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 # Day 7 学习笔记
 
@@ -240,6 +247,7 @@ BTC/ETH/SOL/BNB 在不同链上，无法作为统一抵押品。
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 # Day 5 Universal DeFi & 全链资产基础（概念向）
 
 ### 一、核心概念理解
@@ -359,6 +367,7 @@ Solana 资产  ┘
 
 
 
+
 # Day 4 学习笔记
 
 ## Universal App + Hello World 心智模型
@@ -431,6 +440,7 @@ Solana 资产  ┘
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -549,6 +559,7 @@ Gateway 是一个非常关键的组件，它负责：
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -710,6 +721,7 @@ npx tsx src/index.ts query
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
