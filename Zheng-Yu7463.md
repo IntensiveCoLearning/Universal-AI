@@ -15,8 +15,102 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+### 代码
+
+```
+import json
+from langchain_openai import ChatOpenAI
+from langchain.agents import create_agent
+from langchain.tools import tool
+from pydantic import BaseModel, Field
+
+# --- 1. 配置 LLM ---
+llm = ChatOpenAI(
+    base_url="https://api.siliconflow.cn/v1",
+    api_key="sk-xxxxxx",
+    model="Qwen/Qwen3-30B-A3B-Thinking-2507",
+    temperature=0
+)
+
+
+# --- 2. 定义工具 (更简洁的方式) ---
+# 使用 Pydantic 定义结构化输入
+class SwapIntentInput(BaseModel):
+    chain: str = Field(description="区块链网络名称，例如 Base, Ethereum, Polygon")
+    token_in: str = Field(description="支付的代币符号，例如 USDC, USDT, ETH")
+    token_out: str = Field(description="目标代币符号，例如 ETH, MATIC, USDC")
+    amount: str = Field(description="兑换数量")
+
+
+@tool(args_schema=SwapIntentInput)
+def submit_swap_intent(chain: str, token_in: str, token_out: str, amount: str) -> str:
+    """
+    当用户想要进行代币兑换(Swap)时调用此工具。
+    提取用户意图中的链(chain)、支付代币(tokenIn)、目标代币(tokenOut)和数量(amount)。
+    如果用户说 'U'，通常指 'USDT' 或 'USDC'。
+    """
+    result = {
+        "chain": chain,
+        "tokenIn": token_in,
+        "tokenOut": token_out,
+        "amount": amount
+    }
+    return json.dumps(result, ensure_ascii=False)
+
+
+# --- 3. 构建 Agent (LangChain 1.0 风格) ---
+# 不需要手写 prompt，create_agent 会自动生成
+tools = [submit_swap_intent]
+
+agent = create_agent(
+    model=llm,
+    tools=tools,
+    system_prompt="你是一个代币兑换助手。你的工作是帮助用户解析他们的代币兑换意图，并提取相关信息。"
+)
+
+
+# --- 4. 封装成函数接口 ---
+def parse_swap_intent(text: str):
+    """
+    解析用户的 swap 意图并返回结构化结果
+    """
+    try:
+        response = agent.invoke({
+            "messages": [{"role": "user", "content": text}]
+        })
+
+        # 在 LangChain 1.0 中，响应通常包含 content
+        # agent 会自动调用工具并返回最终结果
+        if "content" in response:
+            return response["content"]
+
+        return response
+
+    except Exception as e:
+        return {"error": str(e)}
+
+
+# --- 5. 测试 ---
+if __name__ == "__main__":
+    # 测试用例 1
+    input_text_1 = "帮我在 Base 上用 10 USDC 换成 ETH"
+    print(f"\nUser: {input_text_1}")
+    res1 = parse_swap_intent(input_text_1)
+    print(f"Result: {res1}")
+```
+
+### 输出结果
+
+User: 帮我在 Base 上用 10 USDC 换成 ETH
+
+Result: {'messages': \[HumanMessage(content='帮我在 Base 上用 10 USDC 换成 ETH', additional\_kwargs={}, response\_metadata={}, id='c36cdbf3-e84b-4af7-92a6-ecdcd3f41d85'), AIMessage(content='', additional\_kwargs={'refusal': None}, response\_metadata={'token\_usage': {'completion\_tokens': 198, 'prompt\_tokens': 346, 'total\_tokens': 544, 'completion\_tokens\_details': {'accepted\_prediction\_tokens': None, 'audio\_tokens': None, 'reasoning\_tokens': 155, 'rejected\_prediction\_tokens': None}, 'prompt\_tokens\_details': None}, 'model\_provider': 'openai', 'model\_name': 'Qwen/Qwen3-30B-A3B-Thinking-2507', 'system\_fingerprint': '', 'id': '019ae342861b6d5442fbdfa40c06d18a', 'finish\_reason': 'tool\_calls', 'logprobs': None}, id='lc\_run--0311c0d2-8e5f-427c-beba-f9dfe25eee9c-0', tool\_calls=\[{'name': 'submit\_swap\_intent', 'args': {'chain': 'Base', 'token\_in': 'USDC', 'token\_out': 'ETH', 'amount': '10'}, 'id': '019ae3429fd1af805f07dc6ff1b3bda3', 'type': 'tool\_call'}\], usage\_metadata={'input\_tokens': 346, 'output\_tokens': 198, 'total\_tokens': 544, 'input\_token\_details': {}, 'output\_token\_details': {'reasoning': 155}}), ToolMessage(content='{"chain": "Base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}', name='submit\_swap\_intent', id='77c460f9-5cab-4786-9371-93c8477e3a6c', tool\_call\_id='019ae3429fd1af805f07dc6ff1b3bda3'), AIMessage(content='您的代币兑换请求已提交！ \\n\*\*在 Base 链上\*\*，使用 **10 USDC** 兑换 **ETH**。 \\n请确认交易并完成支付，兑换将在网络确认后完成。', additional\_kwargs={'refusal': None}, response\_metadata={'token\_usage': {'completion\_tokens': 462, 'prompt\_tokens': 429, 'total\_tokens': 891, 'completion\_tokens\_details': {'accepted\_prediction\_tokens': None, 'audio\_tokens': None, 'reasoning\_tokens': 414, 'rejected\_prediction\_tokens': None}, 'prompt\_tokens\_details': None}, 'model\_provider': 'openai', 'model\_name': 'Qwen/Qwen3-30B-A3B-Thinking-2507', 'system\_fingerprint': '', 'id': '019ae342a09902b3de14f9d288bc79dd', 'finish\_reason': 'stop', 'logprobs': None}, id='lc\_run--8ea4d0ca-1f14-411d-8c64-6ff27e79bb43-0', usage\_metadata={'input\_tokens': 429, 'output\_tokens': 462, 'total\_tokens': 891, 'input\_token\_details': {}, 'output\_token\_details': {'reasoning': 414}})\]}
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Zheng-Yu7463/images/2025-12-01-1764598124673-image.png)
 
 langchain v1 create\_agent调用
@@ -30,6 +124,7 @@ langchain v1 create\_agent调用
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 -   **项目名称（暂定）：** UniYield (Universal Yield)
     
@@ -64,6 +159,7 @@ langchain v1 create\_agent调用
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 ### 核心命令与配置记录
@@ -107,6 +203,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 
 
+
 **1\. ZRC-20 和普通 ERC-20 的直观区别（开发者视角）**
 
 虽然在写代码时，ZRC-20 也可以用 `transfer`、`approve` 这些熟悉的接口，但我觉得两者在**底层逻辑**上有两个最大的不同：
@@ -131,6 +228,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 
 
+
 **“全链涂鸦墙”**
 
 > 这是一块立在 ZetaChain 上的**公共黑板**。
@@ -146,6 +244,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -190,6 +289,7 @@ Gateway 是 ZetaChain 与外部区块链（如 Ethereum, Bitcoin）进行沟通�
 
 
 
+
 -   安装尝试Zeta cli ✅
     
 -   ZetaChain Node / RPC / Faucet / Explorer / 测试币获取 ✅
@@ -215,6 +315,7 @@ Qwen api调试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
