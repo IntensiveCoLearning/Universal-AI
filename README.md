@@ -247,7 +247,7 @@ Telegram：https://t.me/zetachain_asia
 | [wukong988](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/wukong988.md) | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ⭕️ |   | | | | |
 | [siemens84cn](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/siemens84cn.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | | |
 | [hanschurer](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/hanschurer.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
-| [BrKDDD](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/BrKDDD.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ |   | | | | |
+| [BrKDDD](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/BrKDDD.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ⭕️ | ✅ | ✅ | ✅ | | | | |
 | [binova3](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/binova3.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [Raphael-LEI](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Raphael-LEI.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [gitgdut](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/gitgdut.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ |   | | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
