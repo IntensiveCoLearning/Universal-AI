@@ -15,8 +15,29 @@ Dev
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+### **Byte-level Byte Pair Encoding**
+
+Qwen adopts a subword tokenization method called Byte Pair Encoding (BPE), which attempts to learn the composition of tokens that can represent the text with the fewest tokens. For example, the string `tokenization` is decomposed as `token` and `ization` (note that the space is part of the token). Especially, the tokenization of Qwen ensures that there is no unknown words and all texts can be transformed to token sequences.
+
+### **Control Tokens**
+
+Control tokens are special tokens inserted into the sequence that signifies meta information. For example, in pre-training, multiple documents may be packed into a single sequence. For Qwen, the control token `<|endoftext|>` is inserted after each document to signify that the document has ended and a new document will proceed. Common control tokens and their status with respect to Qwen can be found in the following table:
+
+| Type | Qwen (training) | Note |
+| --- | --- | --- |
+| eod token | <\|endoftext\|> | end of document, which are inserted between documents inside a packed training sequence |
+| bot token | <\|im_start\|> | start of each turn, which is prepended to each turn |
+| eot token | <\|im_end\|> | end of each turn, which is appended to each turn |
+| unk token | no unk token | BBPE ensures no unknown tokens for Qwen. |
+| pad token | no pad token | Qwen does not make use of padded sequence in training. One could use any special token together with the attention masks returned by the tokenizer. It is commonly set the same as eod for Qwen. |
+| bos token | no bos token | Qwen does not prepend a fixed token to each packed training sequence.[2] |
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 Qwen-Agent provides atomic components such as LLMs and prompts, as well as high-level components such as Agents. The example below uses the Assistant component as an illustration, demonstrating how to add custom tools and quickly develop an agent that uses tools.
 
 ```
@@ -87,6 +108,7 @@ while True:
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 Gateway 接口是与通用应用(Universal Apps)交互的统一入口点 。Gateway 作为连接链(如以太坊、Solana 和比特币)上的合约与 ZetaChain 上通用应用之间的桥梁 。​
 
 ## 连接链上的 Gateway
@@ -135,6 +157,7 @@ ZetaChain 上的 Gateway 处理出站交易,即从通用应用到连接链上合
 <!-- DAILY_CHECKIN_2025-11-28_START -->
 
 
+
 ## ZRC-20 与 ERC-20 的核心区别
 
 从开发者视角看，ZRC-20 是 ERC-20 的跨链增强版本，最关键的区别在于 ZRC-20 拥有**原生跨链能力**和**多链资产感知能力** 。​
@@ -160,6 +183,7 @@ ZetaChain 上的 Gateway 处理出站交易,即从通用应用到连接链上合
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -199,6 +223,7 @@ ZetaChain 通过每个连接链上的单一 **Gateway 合约** 作为入口，�
 
 
 
+
 -   **Universal NFT标准**可以让ERC-721类NFT在任意连接链上铸造和无缝转移，无需“包装”或外部桥接合约，支持多链间NFT真正的互操作。
     
 -   **主要特性：**
@@ -234,6 +259,7 @@ ZetaChain 通过每个连接链上的单一 **Gateway 合约** 作为入口，�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
