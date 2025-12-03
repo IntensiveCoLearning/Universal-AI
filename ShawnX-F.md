@@ -15,19 +15,29 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+有点跟不上了，时间也突然紧张了，围观大佬们表演
+
+学习了Qwen Agent的tools，并翻阅了优秀笔记对照学习
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 学习Qwen Agent的框架的基本组成
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 学习Qwen的基础使用
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 周末时间不太多，明天补一下吧，先打个卡
@@ -38,11 +48,13 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 
 
+
 今天有点忙，先打个卡吧
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -59,6 +71,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 
 
+
 1.  接收跨链信息，解码这个信息，然后打印/记录一个问候事件到链上
     
 2.  使用CLI+Foundry
@@ -68,6 +81,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -90,6 +104,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 
 
+
 1.  成功安装zetachain CLI
     
 2.  查看了测试网 RPC、Faucet、Explorer 的入口  
@@ -102,6 +117,7 @@ web3XAI兴趣浓厚，十分看好AI给web3带来的潜能和愿景
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
