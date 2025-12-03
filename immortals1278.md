@@ -32,10 +32,13 @@ export https\_proxy=[http://10.253.157.83:7890](http://10.253.157.83:7890)
 export ALL\_PROXY=socks5://10.253.157.83:7891 //在最底部添加这个，10.253.157.83:7890是内网ip，vpn要开全局
 
 ctrl+o，enter，保存，ctrl+x退出配置文件界面
+
+~$ npm install -g zetachain //装本地网络
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 ```
 from qwen_agent.agents import ReActChat
@@ -123,11 +126,13 @@ if __name__ == "__main__":
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 ![c7c01e2c3613ccd755755cb94cece827.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/immortals1278/images/2025-12-01-1764601790727-c7c01e2c3613ccd755755cb94cece827.png)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -140,6 +145,7 @@ if __name__ == "__main__":
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -170,6 +176,7 @@ npx hardhat run scripts/swap.js --network localnet
 
 
 
+
 **多链资产被包装成zrc20然后在zetachain上使用于defi**
 
 **作业**
@@ -193,6 +200,7 @@ gateway.depositAndCall()函数的RevertOptions结构体参数会在跨链调用�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -237,6 +245,7 @@ onlyGateway确保只有网关能调用
 
 
 
+
 ## cctx
 
 跨链交易
@@ -256,6 +265,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -292,6 +302,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
