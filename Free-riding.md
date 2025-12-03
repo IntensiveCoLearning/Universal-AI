@@ -15,8 +15,62 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+**设计一个 parse\_swap\_intent 工具 + 相应的参数 schema**，完成一个最小可用的意图解析层。**工具（tools）数组的结构**
+
+```
+在百炼 / Qwen 的 OpenAI 兼容接口中，调用聊天接口时可以传入 tools 数组，每个元素代表一个可用的工具（函数）：
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "your_tool_name",
+        "description": "工具做什么，用什么场景",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "...": { "type": "string" }
+          },
+          "required": ["..."]
+        }
+      }
+    }
+  ]
+}
+```
+
+百炼文档中给的是一个标准流程（以天气查询为例）：
+
+```
+第一次模型调用：传入 messages + tools。
+
+模型如果认为需要用工具，返回 tool_calls，里面包含：
+
+要调用的函数名 name
+
+JSON 字符串形式的 arguments
+
+应用侧根据 tool_calls 去执行真实工具（API / 数据库 / on-chain 等）。
+
+把工具的返回结果作为 role: "tool" 的 message 再喂给模型，发起第二次调用。
+
+模型基于工具结果 + 原始问题，给出最终自然语言回答。
+
+在 DeFi 场景里，可以有两种玩法：
+
+玩法 A：parse_swap_intent 是“假工具”
+只用它的参数 schema 来让模型「吐出 JSON」，后端并不真的执行这个函数，而是直接把 arguments 当做解析结果。
+
+玩法 B：parse_swap_intent 是“真工具”
+由后端通过规则 / 正则 / 传统 NLP 来解析文本，把结果 JSON 返回给模型做后续推理。
+```
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 Qwen-Agent 里自定义 Tool 的基础写法是这样的（简化版）：
 
 ```
@@ -85,6 +139,7 @@ class MyTool(BaseTool):
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 # 添加API key到环境变量
 
@@ -283,6 +338,7 @@ API key is invalid
 
 
 
+
 # 跨链SWAP
 
 普通的链只能从它当前链进行swap
@@ -326,6 +382,7 @@ function onCrossChainCall(
 
 
 
+
 # ZetaChain函数
 
 ```
@@ -344,6 +401,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -425,11 +483,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -565,6 +625,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -808,6 +869,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
