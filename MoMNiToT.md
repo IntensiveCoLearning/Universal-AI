@@ -15,8 +15,268 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+# **Day10：DeFi 意图解析**
+
+## **函数调用**
+
+**函数调用是什么？**
+
+-   让大语言模型（如 Qwen3）能够调用外部函数/工具的能力
+    
+-   解决 LLM 的局限性：缺乏实时信息、数学计算不精确等
+    
+-   建立 LLM 与外部系统之间的标准化交互协议
+    
+
+**工作流程**
+
+1.  **提供函数说明**：应用程序向模型描述可用的函数及其参数
+    
+2.  **模型决策**：模型分析用户查询，决定是否/如何调用函数
+    
+3.  **执行函数**：应用程序执行模型选择的函数
+    
+4.  **返回结果**：将执行结果返回给模型
+    
+5.  **生成最终回复**：模型基于结果生成最终答案
+    
+
+**两种实现方式**
+
+1.  **Qwen-Agent**（高级框架）
+    
+
+-   封装了函数调用逻辑
+    
+-   支持思考模式（reasoning）和非思考模式
+    
+-   返回结构化的函数调用信息
+    
+
+2.  **vLLM**（推理部署库）
+    
+
+-   通过 OpenAI 兼容 API 实现
+    
+-   自动解析工具调用
+    
+-   需要手动处理函数调用和结果的关联
+    
+
+## **Qwen-Agent**
+
+```
+ import json5
+ from qwen_agent.agents import Assistant
+ from qwen_agent.tools.base import BaseTool, register_tool
+ from qwen_agent.utils.output_beautify import typewriter_print
+ from typing import Dict, Any, Optional
+ ​
+ @register_tool('parse_swap_intent')
+ class DefiSwapIntentParser(BaseTool):
+     description = '从用户自然语言中解析DeFi代币交换意图，提取链名、输入代币、输出代币和金额等参数'
+     parameters = [{
+         'name':'user_input',
+         'type':'string',
+         'description':'用户输入的自然语言文本，包含代币交换意图',
+         'required': True
+     }]
+     def call(self,params:str,**kwargs) -> str:
+         params_dict = json5.loads(params)
+         user_input = params_dict['user_input']
+         result = self._parse_intent_with_rules(user_input)
+         return json5.dumps(
+            {
+                 'success': True,
+                 'parsed_intent': result,
+                 'message': '成功解析DeFi意图'
+             },
+             ensure_ascii=False)
+     def _parse_intent_with_rules(self, text: str) -> Dict[str, Any]:
+         """
+         使用规则匹配解析意图
+         """
+         import re
+         
+         # 初始化结果
+         result = {
+             'chain': 'ethereum',  # 默认链
+             'token_in': '',
+             'token_out': '',
+             'amount': '',
+             'amount_type': 'exact',
+             'operation': 'swap'
+         }
+         
+         # 链名映射
+         chain_keywords = {
+             'base': 'base',
+             'polygon': 'polygon',
+             '以太坊': 'ethereum',
+             'ethereum': 'ethereum',
+             'bsc': 'bsc',
+             'arbitrum': 'arbitrum',
+             'optimism': 'optimism'
+         }
+         
+         # 代币映射
+         token_mapping = {
+             'u': 'USDT',
+             'usdt': 'USDT',
+             'usdc': 'USDC',
+             'eth': 'ETH',
+             'matic': 'MATIC',
+             'weth': 'WETH',
+             'bnb': 'BNB'
+         }
+         
+         text_lower = text.lower()
+ ​
+         # 解析链名
+         for keyword, chain in chain_keywords.items():
+             if keyword in text_lower:
+                 result['chain'] = chain
+                 break
+         
+         # 解析金额 - 使用正则表达式匹配数字
+         amount_match = re.search(r'(\d+(?:\.\d+)?)\s*', text)
+         if amount_match:
+             result['amount'] = amount_match.group(1)
+         
+         # 检查"全部"、"所有"等关键词
+         if '全部' in text or '所有' in text or 'all' in text_lower:
+             result['amount_type'] = 'all'
+         
+         # 解析代币 - 查找代币关键词
+         tokens_found = []
+         for token_keyword, token_symbol in token_mapping.items():
+             if token_keyword in text_lower:
+                 tokens_found.append(token_symbol)
+ ​
+         # 简单逻辑：假设第一个找到的代币是输入，第二个是输出
+         # 或者根据"换成"、"兑换成"等关键词判断
+         if '换成' in text or '兑换成' in text or '兑换为' in text:
+             # 找到"换成"前后的代币
+             tokens_in_context = re.split(r'换成|兑换成|兑换为', text_lower)
+             if len(tokens_in_context) >= 2:
+                 # 在第一部分找输入代币
+                 for token_keyword, token_symbol in token_mapping.items():
+                     if token_keyword in tokens_in_context[0]:
+                         result['token_in'] = token_symbol
+                         break
+                 
+                 # 在第二部分找输出代币
+                 for token_keyword, token_symbol in token_mapping.items():
+                     if token_keyword in tokens_in_context[1]:
+                         result['token_out'] = token_symbol
+                         break
+         
+         # 如果上面的逻辑没找到，尝试其他模式
+         if not result['token_in'] or not result['token_out']:
+             # 尝试"用...换..."模式
+             if '用' in text and '换' in text:
+                 match = re.search(r'用\s*(\d+)?\s*([a-zA-Z]+)\s*换\s*([a-zA-Z]+)', text_lower)
+                 if match:
+                     if not result['amount'] and match.group(1):
+                         result['amount'] = match.group(1)
+                     
+                     # 处理输入代币
+                     input_token = match.group(2).upper()
+                     result['token_in'] = token_mapping.get(input_token.lower(), input_token)
+                     
+                     # 处理输出代币
+                     output_token = match.group(3).upper()
+                     result['token_out'] = token_mapping.get(output_token.lower(), output_token)
+         
+         # 最后的回退逻辑：使用找到的代币列表
+         if not result['token_in'] and len(tokens_found) >= 1:
+             result['token_in'] = tokens_found[0]
+         if not result['token_out'] and len(tokens_found) >= 2:
+             result['token_out'] = tokens_found[1]
+         
+         return result
+ ​
+ ​
+ llm_cfg = {
+     'model':'qwen-max-latest',
+     'model_type':'qwen_dashscope',
+     'generate_cfg':{
+         'top_p':0.8
+     }
+ }
+ ​
+ system_instruction = '''你是一个DeFi（去中心化金融）智能助手，专门帮助用户解析代币交换意图。
+ ​
+ 你的任务是：
+ 1. 分析用户输入的文本，理解用户的DeFi操作意图
+ 2. 调用 parse_swap_intent 工具来解析用户的意图
+ 3. 将解析结果以清晰的结构化格式展示给用户
+ 4. 根据解析结果，提供下一步操作建议
+ ​
+ 常见的DeFi操作包括：
+ - 代币交换（swap）：将一种代币换成另一种代币
+ - 流动性提供（liquidity provision）
+ - 质押（staking）
+ ​
+ 请用中文回复用户，并以友好的方式展示解析结果。'''
+ ​
+ # 可用工具列表
+ tools = ['parse_swap_intent']
+ ​
+ bot = Assistant(
+     llm=llm_cfg,
+     system_message=system_instruction,
+     function_list=tools
+ )
+ ​
+ messages=[]
+ while True:
+     query = input('\n用户请求：')
+     messages.append({'role': 'user', 'content': query})
+     response = []
+     response_plain_text = ''
+     print('\nAgent Anwer：')
+     for response in bot.run(messages=messages):
+         response_plain_text = typewriter_print(response, response_plain_text)
+     messages.extend(response)
+```
+
+生成结果：
+
+```
+ 用户请求：把我 50 U 兑换成 Polygon 上的 MATIC
+ ​
+ Agent Anwer：
+ 2025-12-03 16:25:54,605 - base.py - 780 - INFO - ALL tokens: 272, Available tokens: 57855
+ [TOOL_CALL] parse_swap_intent
+ {"user_input": "把我 50 U 兑换成 Polygon 上的 MATIC"}
+ [TOOL_RESPONSE] parse_swap_intent
+ {success: true, parsed_intent: {chain: "polygon", token_in: "USDT", token_out: "MATIC", amount: "50", amount_type: "exact", operation: "swap"}, message: "成功解析DeFi意图"}2025-12-03 16:25:58,002 - base.py - 780 - INFO - ALL tokens: 357, Available tokens: 57855
+ ​
+ [ANSWER]
+ 我已成功解析了您的DeFi操作意图，以下是详细信息：
+ ​
+ - **操作类型**: 代币交换 (swap)
+ - **区块链网络**: Polygon
+ - **输入代币**: USDT (假设您指的是 USDT，通常简称为 "U")
+ - **输出代币**: MATIC
+ - **交易金额**: 50 USDT
+ ​
+ ### 下一步建议
+ 1. 确保您的钱包已连接到 Polygon 网络。
+ 2. 检查钱包中是否有足够的 USDT（至少 50 USDT）。
+ 3. 使用支持 Polygon 的去中心化交易所（如 QuickSwap 或其他 DEX）进行代币交换。
+ 4. 在确认交易前，请留意当前的汇率和 Gas 费用。
+ ​
+ 如果您需要更多帮助，请随时告诉我！ 😊
+```
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 # **Day9：Qwen-Agent 入门 & 简单 Tool**
 
 **_\##_ import**
@@ -251,6 +511,7 @@ timezone: UTC+8
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 # **Day8：Qwen AI 基础 & API 调用**
 
 ## **地址与 base\_url**
@@ -360,6 +621,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 # **Day6&7：Demo！**
@@ -560,6 +822,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 
 
 
+
 # **Day5：Universal DeFi & 全链资产**
 
 **💫通用资产：通用合约和连接合约**
@@ -599,6 +862,7 @@ ERC20：以太坊生态系统的 "通用语言"，几乎所有 DeFi 应用都支
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -666,6 +930,7 @@ NaN.  出站：发起要求、验证者准备、TSS签名、提交广播、跨�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -752,6 +1017,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -930,6 +1196,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
