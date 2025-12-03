@@ -15,8 +15,86 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+# Defi 意图理解
+
+把昨天的代码改吧改吧就差不多了
+
+```
+import json
+import os
+from qwen_agent.agents import Assistant
+from qwen_agent.gui import WebUI
+from qwen_agent.tools.base import BaseTool, register_tool
+
+@register_tool('parse_swap_intent')
+class parse_swap_intent(BaseTool):
+    description = '用来处理加密货币的交换的工具'
+    parameters = [{
+        'name': 'chain',
+        'type': 'string',
+        'description': '需要交换的区块链名称，例如 "Ethereum" 或 "Binance Smart Chain"',
+        'required': True
+    }, {
+        'name': 'tokenin',
+        'type': 'string',
+        'description': '需要被交换的代币名称，例如 "ETH" 或 "BNB"',
+        'required': True
+    }, {
+        'name': 'tokenout',
+        'type': 'string',
+        'description': '需要交换成的代币名称，例如 "USDT" 或 "BUSD"',
+        'required': True
+    }, {
+        'name': 'amount',
+        'type': 'number',
+        'description': '需要交换的代币数量，例如 "1.0" 或 "100"',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs):
+        params = json.loads(params)
+        chain = params.get('chain', '')
+        tokenin = params.get('tokenin', '')
+        tokenout = params.get('tokenout', '')
+        amount = params.get('amount', 0)
+        result = ""
+        print(f"开始交换：{amount}{tokenin} 到 {tokenout}在 {chain} 上")
+        return json.dumps({'result': result})
+
+def app_gui():
+    bot = Assistant(
+        llm={
+            'model_type': 'qwenomni_oai',
+            'model': 'qwen-omni-turbo-latest',
+            'base_url': 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+            'api_key': '你的 qwen api key' ,
+        },
+        name='Coinswap Bot',
+        description='我可以帮你交换加密货币！',
+        system_message='你是一个加密货币交换助手，如果用户要求交换代币，请调用交换工具。',
+        function_list=['parse_swap_intent'], 
+    )
+    
+    WebUI(bot).run()
+
+if __name__ == '__main__':
+    app_gui()
+```
+
+（我有好几年没有老老实实地编过 Python 了，用了两次 AI Agent）
+
+运行一下
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-03-1764772039924-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-03-1764772064481-image.png)
+
+看起来挺成功的
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 # 跑通官方示例
 
 我尝试跑了官方的示例[assistant\_](https://github.com/QwenLM/Qwen-Agent/blob/main/examples/assistant_qwen3.py)[qwen3.py](http://qwen3.py)，然后和 Gemini 交互了一下后便有了下面的代码
@@ -219,6 +297,7 @@ if __name__ == '__main__':
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 # 使用 Python 调用 Qwen 的简单实例
 
 1.  新建一个 python 文件，写入
@@ -260,11 +339,13 @@ print(completion.model_dump_json())
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 主要还是想做聚币器，把n条链上的资产自动转移到一条链上，就这样。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -593,6 +674,7 @@ Transaction hash: 0x3b467a9e30ac52e49b854d27313c902bd3dc98b0a721e44e67727111dc72
 
 
 
+
 # ZRC-20 VS ERC-20
 
 ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部署。ZRC-20 具有跨链地能力，而 ERC-20 不能跨链。
@@ -611,6 +693,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 
 
+
 # 我想做的第一个 Universal App
 
 实现所有链的资产都汇集到同一条链的同一个地址上。
@@ -620,6 +703,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -645,6 +729,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -906,6 +991,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
