@@ -15,8 +15,474 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+\### Day 10：DeFi 意图解析（从自然语言到结构化参数）
+
+**学习目标**
+
+\- 让 Agent 能从自然语言中提取 DeFi 操作参数（链名、代币、金额等）。
+
+\- 完成一个最小的“解析层”。
+
+\- 设计一个工具`parse_swap_intent(text)`，返回结构化 JSON，例如：
+
+`{ "chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10" }`
+
+\- 让 Agent 能处理以下输入：
+
+\- “帮我在 Base 上用 10 USDC 换成 ETH”
+
+\- “把我 50 U 兑换成 Polygon 上的 MATIC”
+
+\---
+
+把昨天的跑通的示例丢进去让ai让今天的需求修改秒行，震惊，第一次那么快，然后就让ai按昨天的逻辑给我解释代码
+
+\`\`\`python
+
+import os
+
+import json5
+
+import re
+
+from qwen\_agent.agents import Assistant
+
+from qwen\_[agent.tools](http://agent.tools).base import BaseTool, register\_tool
+
+\# ======================
+
+\# 自定义工具：DeFi意图解析
+
+\# ======================
+
+@register\_tool('parse\_swap\_intent')
+
+class ParseSwapIntentTool(BaseTool):
+
+\# 工具描述
+
+description = 'Parse DeFi swap intent from natural language, extract chain, tokenIn, tokenOut, amount'
+
+\# 参数定义
+
+parameters = \[{
+
+'name': 'text',
+
+'type': 'string',
+
+'description': 'Natural language text containing DeFi swap intent',
+
+'required': True
+
+}\]
+
+\# 链和代币别名映射
+
+CHAIN\_ALIASES = {
+
+'base': \['base', 'base链'\],
+
+'polygon': \['polygon', 'matic链'\],
+
+'ethereum': \['ethereum', 'eth', '以太坊'\],
+
+'bsc': \['bsc', '币安智能链'\],
+
+'arbitrum': \['arbitrum', 'arb'\]
+
+}
+
+TOKEN\_ALIASES = {
+
+'USDC': \['usdc', 'usd coin'\],
+
+'ETH': \['eth', 'ethereum'\],
+
+'MATIC': \['matic', 'polygon'\],
+
+'USDT': \['u', 'usdt', '泰达币', 'usd t'\],
+
+'BTC': \['btc', '比特币'\]
+
+}
+
+\# 工具执行逻辑
+
+def call(self, params: str, \*\*kwargs) -> str:
+
+try:
+
+\# 解析输入参数
+
+params\_dict = json5.loads(params)
+
+text = params\_dict.get('text', '').lower()
+
+\# 初始化结果
+
+result = {
+
+"chain": None,
+
+"tokenIn": None,
+
+"tokenOut": None,
+
+"amount": None
+
+}
+
+\# 提取金额
+
+amount\_match = [re.search](http://re.search)(r'(\\d+(?:\\.\\d+)?)', text)
+
+if amount\_match:
+
+result\["amount"\] = amount\_[match.group](http://match.group)(1)
+
+\# 提取链名
+
+for chain, aliases in self.CHAIN\_ALIASES.items():
+
+if any(alias in text for alias in aliases):
+
+result\["chain"\] = chain
+
+break
+
+\# 提取代币
+
+tokens\_found = \[\]
+
+for token, aliases in self.TOKEN\_ALIASES.items():
+
+if any(alias in text for alias in aliases):
+
+tokens\_found.append(token)
+
+\# 根据上下文确定输入输出代币
+
+if '换成' in text or '兑换成' in text:
+
+split\_text = text.split('换成') if '换成' in text else text.split('兑换成')
+
+if len(tokens\_found) >= 2:
+
+result\["tokenIn"\] = tokens\_found\[0\]
+
+result\["tokenOut"\] = tokens\_found\[1\]
+
+else:
+
+\# 从文本位置判断
+
+if len(split\_text) > 1:
+
+\# 检查输入代币
+
+for token, aliases in self.TOKEN\_ALIASES.items():
+
+if any(alias in split\_text\[0\] for alias in aliases):
+
+result\["tokenIn"\] = token
+
+\# 检查输出代币
+
+for token, aliases in self.TOKEN\_ALIASES.items():
+
+if any(alias in split\_text\[1\] for alias in aliases):
+
+result\["tokenOut"\] = token
+
+\# 特殊处理U->USDT
+
+if result\["tokenIn"\] == 'U':
+
+result\["tokenIn"\] = 'USDT'
+
+if result\["tokenOut"\] == 'U':
+
+result\["tokenOut"\] = 'USDT'
+
+return json5.dumps(result, ensure\_ascii=False)
+
+except Exception as e:
+
+return json5.dumps({'error': str(e)}, ensure\_ascii=False)
+
+\# ======================
+
+\# 配置智能体（加载自定义工具）
+
+\# ======================
+
+os.environ\["DASHSCOPE\_API\_KEY"\] = "6" # 替换为真实Key
+
+bot = Assistant(
+
+llm={'model': 'qwen-max', 'model\_server': 'dashscope'},
+
+\# 系统提示：明确告诉LLM可用工具及用途
+
+system\_message='You are a DeFi intent parsing expert. Use "parse\_swap\_intent" tool to extract swap parameters from user input. Return the structured JSON result directly.',
+
+function\_list=\['parse\_swap\_intent'\] # 加载自定义工具
+
+)
+
+\# ======================
+
+\# 交互测试
+
+\# ======================
+
+messages = \[\]
+
+print("=== DeFi意图解析器 ===")
+
+print("支持的输入示例：")
+
+print("1. 帮我在 Base 上用 10 USDC 换成 ETH")
+
+print("2. 把我 50 U 兑换成 Polygon 上的 MATIC")
+
+print("输入'exit'退出\\n")
+
+while True:
+
+query = input('请输入DeFi需求: ')
+
+if query.lower() == 'exit':
+
+break
+
+messages.append({'role': 'user', 'content': query})
+
+response = \[\]
+
+for chunk in [bot.run](http://bot.run)(messages=messages):
+
+response.extend(chunk)
+
+print('解析结果:', chunk)
+
+messages.extend(response)
+
+\`\`\`
+
+总体框架是：用户输入 → LLM（大脑理解）→ Agent（服务员调度）→ Tool（师傅执行）→ Memory（记忆上下文）→ LLM（结果翻译）→ 用户
+
+在这里是tool部分
+
+\`\`\`python
+
+@register\_tool('parse\_swap\_intent')
+
+class ParseSwapIntentTool(BaseTool):
+
+\# 工具描述
+
+description = 'Parse DeFi swap intent from natural language, extract chain, tokenIn, tokenOut, amount'
+
+\# 参数定义
+
+parameters = \[{
+
+'name': 'text',
+
+'type': 'string',
+
+'description': 'Natural language text containing DeFi swap intent',
+
+'required': True
+
+}\]
+
+\# 链和代币别名映射
+
+CHAIN\_ALIASES = {
+
+'base': \['base', 'base链'\],
+
+'polygon': \['polygon', 'matic链'\],
+
+'ethereum': \['ethereum', 'eth', '以太坊'\],
+
+'bsc': \['bsc', '币安智能链'\],
+
+'arbitrum': \['arbitrum', 'arb'\]
+
+}
+
+TOKEN\_ALIASES = {
+
+'USDC': \['usdc', 'usd coin'\],
+
+'ETH': \['eth', 'ethereum'\],
+
+'MATIC': \['matic', 'polygon'\],
+
+'USDT': \['u', 'usdt', '泰达币', 'usd t'\],
+
+'BTC': \['btc', '比特币'\]
+
+}
+
+def call(self, params: str, \*\*kwargs) -> str:
+
+...
+
+\`\`\`
+
+这个部分是处理defi意图的自定义工具，核心能力是从自然语言中提取链名，代币对，金额,处理名字映射，比如u变成usdt之类的，理解“换成”字眼前后的代币关系，是谁变成谁
+
+\#### **LLM（大脑）：智能决策中心**
+
+python
+
+运行
+
+\`\`\`python
+
+bot = Assistant(
+
+llm={'model': 'qwen-max', 'model\_server': 'dashscope'},
+
+system\_message='You are a DeFi intent parsing expert...',
+
+function\_list=\['parse\_swap\_intent'\]
+
+)
+
+\`\`\`
+
+\- **角色定位**：整个系统的 "大脑"
+
+\- **核心职责**：
+
+\- 理解用户输入的自然语言需求
+
+\- 判断需要调用哪个工具（这里固定为 parse\_swap\_intent）
+
+\- 将用户问题转化为工具能理解的参数格式
+
+\- 把工具返回的结构化数据翻译成友好的用户回答
+
+\- **配置要点**：
+
+\- 使用通义千问大模型（qwen-max）
+
+\- 通过 system\_message 设定角色和工作方式
+
+\#### 3. **Agent（服务员）：协调调度者**
+
+python
+
+运行
+
+\`\`\`python
+
+bot = Assistant(...) # Assistant类就是Agent的具体实现
+
+for chunk in [bot.run](http://bot.run)(messages=messages):
+
+response.extend(chunk)
+
+\`\`\`
+
+\- **角色定位**：连接用户、LLM 和 Tool 的 "服务员"
+
+\- **核心工作流**：
+
+① 接收用户消息 → ② 传给LLM分析 → ③ 根据LLM指令调用对应Tool →
+
+④ 获取Tool结果 → ⑤ 返回给LLM处理 → ⑥ 整理结果输出
+
+\####  **Memory（记忆）：上下文管理器**
+
+python
+
+运行
+
+\`\`\`python
+
+messages = \[\] # 存储对话历史
+
+messages.append({'role': 'user', 'content': query})
+
+messages.extend(response) # 追加机器人回复
+
+\`\`\`
+
+\- **实现方式**：通过列表维护完整对话历史
+
+\- **作用**：
+
+\- 记住之前的交互内容
+
+\- 支持多轮对话的上下文理解
+
+\- 例如：用户先问 "什么是 USDC"，再问 "用它换 ETH"，系统能关联理解
+
+\### 核心工作流程拆解
+
+\#### 示例：用户输入 "帮我在 Base 上用 10 USDC 换成 ETH"
+
+1\. **第一步：用户输入 → Agent 接收**
+
+\`\`\`python
+
+query = input('请输入DeFi需求: ')
+
+messages.append({'role': 'user', 'content': query})
+
+\`\`\`
+
+2\. **第二步：LLM 分析需求**
+
+\- 理解到用户需要进行 DeFi 兑换操作
+
+\- 决定调用 parse\_swap\_intent 工具
+
+\- 提取参数：text="帮我在 Base 上用 10 USDC 换成 ETH"
+
+3\. **第三步：Agent 调用 Tool**
+
+\- Agent 将参数传递给 ParseSwapIntentTool
+
+\- Tool 执行 call () 方法，解析出结构化数据：
+
+json
+
+\`\`\`json
+
+{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}
+
+\`\`\`
+
+4\. **第四步：结果返回与展示**
+
+\- Tool 结果返回给 LLM
+
+\- LLM 将结构化数据整理成用户友好的格式
+
+\- Agent 输出最终结果
+
+\---
+
+最后的最后今天的结果图
+
+![Pasted image 20251203220805.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/younggogogo/images/2025-12-03-1764771103293-Pasted_image_20251203220805.png)
+
+!\[\[Pasted image 20251203220805.png\]\]
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 **学习目标**
 
 \- 理解 Qwen-Agent 框架的基本组成（LLM / Agent / Tools / Memory）。
@@ -247,6 +713,7 @@ messages.extend(response)
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 \# \*下面是今天的任务
 
 \- 使用自己熟悉的语言完成一次 Qwen API 调用。
@@ -324,6 +791,7 @@ result = response.json()\["choices"\]\[0\]\["message"\]\["content"\] print(resul
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 昨天受挫后今天开始阅读技术文档，不再借助ai概括，重构对zetachain的认识
@@ -412,11 +880,13 @@ Idea 2：跨链收益聚合器
 
 
 
+
 今天不行，两个小时没跑通swap，拿水卡了半天，拿了水安装例子安装了半天，最后各种出问题，明天继续弄！今天失败
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -457,6 +927,7 @@ Idea 2：跨链收益聚合器
 
 
 
+
 \- 建立对 “全链应用 / Universal App 合约” 的直观理解。
 
 \- 清楚后面要实现的 Hello World / Demo 会包含哪些模块（合约 + 前端 + RPC）。
@@ -484,6 +955,7 @@ Idea 2：跨链收益聚合器
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -539,6 +1011,7 @@ Universal EVM：一个万能播放器，比如能让以太坊的的代码应用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -615,6 +1088,7 @@ curl -X POST [https://dashscope.aliyuncs.com/api/v1/chat/completions](https://da
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
