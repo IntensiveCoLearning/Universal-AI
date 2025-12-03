@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+在学习agent 看如何直接通过chat完成swap操作
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 ```Python
 import os
 import json
@@ -143,6 +149,7 @@ if __name__ == '__main__':
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 调用的模型是qwen-plus，参数为默认值
 
 ![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWJlMzIwNGY4MmQ3YzVhOWVkN2RkOTVmNDUzNjY4ZGRfbFdkQ1A2UjZzOXpJcUpBeDlzbThDTzhrSnBBNE1wTEFfVG9rZW46UDZGYWJlTGlab0NwbDF4VE9jeWM3RjlpblRmXzE3NjQ1OTQzOTc6MTc2NDU5Nzk5N19WNA)
@@ -219,6 +226,7 @@ ZetaChain 的愿景是成为“连接所有区块链的操作系统”，打破�
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 ### idea 1：原生 BTC 全链抵押借贷协议 (Omnichain Native BTC Lending)
 
 -   **目标用户**：持有比特币（BTC）但希望获得流动性或收益，且不愿意使用中心化封装代币（如 WBTC）的用户。
@@ -255,6 +263,7 @@ ZetaChain 的愿景是成为“连接所有区块链的操作系统”，打破�
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -381,6 +390,7 @@ npx zetachain query cctx --hash 0x84aaec6261d009f840a8ca2388d52018121ee6b6e288ec
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -525,6 +535,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 
 
+
 ## 自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么。
 
 > 想做一个全链留言板，用户可以从任何链提交留言，ZetaChain 统一记录。
@@ -536,6 +547,7 @@ Tx Hash:          0xb14a43346253c871fb77c656042935c0d55b1b705efb5a51cd2d225f46e2
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -625,6 +637,7 @@ Gateway的架构图
 
 
 
+
 ## 部署在本地的universal合约
 
 ```Solidity
@@ -684,6 +697,7 @@ forge create Universal \
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
