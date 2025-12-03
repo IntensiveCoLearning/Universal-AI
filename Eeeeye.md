@@ -35,7 +35,6 @@ pip install -e ./
     
 -   运行示例后，代理能响应输入，调用内置的 `code_interpreter` 工具下载并展示图像，展示了工具调用链路。
     
-
 -   先取消终端的代理（使用国内的阿里云）：
     
 
@@ -354,6 +353,7 @@ python qwen_agent_custom_tool.py chat           # 进入交互模式
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 1\. 今日目标
 
 -   用 Python 调一次 Qwen 模型 API。
@@ -476,6 +476,7 @@ python qwen_api_demo.py
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -548,6 +549,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -675,6 +677,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -752,6 +755,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -849,6 +853,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1008,6 +1013,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1185,6 +1191,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
