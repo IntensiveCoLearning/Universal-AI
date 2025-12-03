@@ -17,11 +17,128 @@ timezone: UTC+8
 <!-- Content_START -->
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
-Day9
+# Day 9 学习笔记
+
+## Qwen-Agent 入门 & 简单 Tool
+
+### 一、核心理解
+
+Qwen-Agent 的框架由四部分组成：
+
+1.  **LLM（大模型）**  
+    负责语言理解与生成，是 Agent 的“大脑”。
+    
+2.  **Agent（主体逻辑）**  
+    管理对话、调用工具、决定下一步行动。
+    
+3.  **Tools（工具）**  
+    可以由开发者定义，用于完成模型无法直接执行的操作，如：
+    
+    -   访问 API
+        
+    -   计算
+        
+    -   查询数据库
+        
+    -   文件操作
+        
+4.  **Memory（记忆）**  
+    用于让 Agent 记住历史对话/上下文，使多轮交互更自然。
+    
+
+一句话总结：
+
+> Qwen-Agent = LLM + Tool + Memory 的组合式智能体框架。
+
+* * *
+
+### 二、我理解的 Qwen-Agent 工作流程
+
+一个典型流程如下：
+
+```
+用户 → Agent → (判断是否需要 Tool)
+                 ↳ 调用 Tool（如果需要）
+                 ↳ 返回结果给 Agent
+Agent → 根据结果生成最终回复 → 返回给用户
+```
+
+核心思想：
+
+-   LLM 决定行动
+    
+-   Tool 执行具体任务
+    
+-   两者结合完成“推理 + 操作”
+    
+
+* * *
+
+### 三、我实际运行的官方示例
+
+我成功跑通了一个 Qwen-Agent 官方示例，包括：
+
+-   初始化模型（qwen-turbo / qwen-plus 均可）
+    
+-   创建 Agent 实例
+    
+-   运行一段简单对话
+    
+-   观察 Agent 是否会自动调用内置工具
+    
+
+这一步确保了环境准备与 API 调用链路正常。
+
+* * *
+
+### 四、我自定义的简单 Tool
+
+我编写了一个最简单的示例 Tool——**字符串大写转换**：
+
+```
+def to_uppercase(text: str) -> str:
+    return text.upper()
+```
+
+并将其挂载到 Agent：
+
+```
+tools = [
+    {
+        "name": "to_uppercase",
+        "description": "Convert text to uppercase.",
+        "function": to_uppercase
+    }
+]
+```
+
+然后测试：
+
+**输入：**  
+“请把 hello world 转成大写。”
+
+**Agent 过程：**
+
+-   LLM 判断需要调用 Tool
+    
+-   自动调用 `to_uppercase("hello world")`
+    
+-   获得结果 `"HELLO WORLD"`
+    
+
+**输出：**  
+“HELLO WORLD”
+
+这验证了：
+
+-   Tool 注册成功
+    
+-   Agent 能理解工具用途
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 # Day 8 Qwen AI 基础 & API 调用
 
@@ -120,6 +237,7 @@ callQwen();
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 # Day 7 学习笔记
@@ -248,6 +366,7 @@ BTC/ETH/SOL/BNB 在不同链上，无法作为统一抵押品。
 
 
 
+
 # Day 5 Universal DeFi & 全链资产基础（概念向）
 
 ### 一、核心概念理解
@@ -368,6 +487,7 @@ Solana 资产  ┘
 
 
 
+
 # Day 4 学习笔记
 
 ## Universal App + Hello World 心智模型
@@ -440,6 +560,7 @@ Solana 资产  ┘
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -559,6 +680,7 @@ Gateway 是一个非常关键的组件，它负责：
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -721,6 +843,7 @@ npx tsx src/index.ts query
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
