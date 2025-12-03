@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+有点忙，先打打卡
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 ### Day 8：Qwen AI 基础 & API 调用（实战）
 
 **学习目标**
@@ -275,11 +281,13 @@ while True:
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 明天补上xx
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 **学习目标**
@@ -561,6 +569,7 @@ D. 利润分配与提现 (Settlement & Withdrawal)
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -1201,6 +1210,7 @@ function _authorizeUpgrade(
 
 
 
+
 **学习目标**
 
 -   理解 ZRC-20、Universal Token / NFT 的基本概念和作用。
@@ -1416,6 +1426,7 @@ ZetaChain 上对外部链原生资产与 ERC-20 的“原生表示”。当从�
 
 
 
+
 **学习目标**
 
 -   建立对 “全链应用 / Universal App 合约” 的直观理解。
@@ -1547,6 +1558,7 @@ npx tsx commands/index.ts deploy --private-key $(grep PRIVATE_KEY .env | cut -d 
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1914,6 +1926,7 @@ ZetaChain 无法在比特币网络上部署智能合约。比特币不支持这�
 
 
 
+
 **学习目标**
 
 -   本地 / 云端完成基础开发环境落地。
@@ -2229,6 +2242,7 @@ B. gRPC & REST (Cosmos SDK 层)
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
