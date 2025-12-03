@@ -15,8 +15,123 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+# 设计parse\_swap\_intent(text)
+
+```
+import re
+from typing import Optional, Dict
+
+
+SUPPORTED_CHAINS = {
+    "ethereum": ["ethereum", "eth mainnet", "mainnet"],
+    "base": ["base"],
+    "arbitrum": ["arbitrum", "arb"],
+    "optimism": ["optimism", "op"],
+    "polygon": ["polygon", "matic"],
+    "bsc": ["bsc", "bnb chain", "binance smart chain"],
+    "linea": ["linea"],
+    "scroll": ["scroll"],
+    "zksync": ["zksync", "zk sync"],
+}
+
+SUPPORTED_TOKENS = [
+    "USDC",
+    "USDT",
+    "ETH",
+    "WETH",
+    "BTC",
+    "WBTC",
+    "DAI",
+]
+
+
+def _detect_chain(text: str) -> Optional[str]:
+    lower = text.lower()
+    for chain_id, aliases in SUPPORTED_CHAINS.items():
+        for alias in aliases:
+            if alias in lower:
+                return chain_id
+    return None
+
+
+def _find_token_positions(text: str) -> Dict[str, int]:
+    lower = text.lower()
+    positions = {}
+    for symbol in SUPPORTED_TOKENS:
+        idx = lower.find(symbol.lower())
+        if idx != -1:
+            positions[symbol] = idx
+    return positions
+
+
+def _detect_tokens(text: str) -> (Optional[str], Optional[str]):
+    """
+    Heuristic:
+    - First mentioned token -> tokenIn
+    - Second mentioned token -> tokenOut
+    """
+    positions = _find_token_positions(text)
+    if not positions:
+        return None, None
+
+    # sort by position
+    sorted_tokens = sorted(positions.items(), key=lambda x: x[1])
+    if len(sorted_tokens) == 1:
+        token_in = sorted_tokens[0][0]
+        token_out = None
+    else:
+        token_in = sorted_tokens[0][0]
+        token_out = sorted_tokens[1][0]
+
+    return token_in, token_out
+
+
+def _detect_amount(text: str, token_in: Optional[str]) -> Optional[str]:
+    # try to find "<number> <tokenIn>" or "<number><tokenIn>"
+    if token_in:
+        pattern = rf"(\d+(\.\d+)?)\s*{re.escape(token_in)}"
+        m = re.search(pattern, text, flags=re.IGNORECASE)
+        if m:
+            return m.group(1)
+
+    # fallback: first number in text
+    m = re.search(r"(\d+(\.\d+)?)", text)
+    if m:
+        return m.group(1)
+
+    return None
+
+
+def parse_swap_intent(text: str) -> Dict[str, Optional[str]]:
+    """
+    Parse a natural language swap instruction into structured JSON.
+    Example:
+      "swap 10 USDC to ETH on Base" ->
+      {
+        "chain": "base",
+        "tokenIn": "USDC",
+        "tokenOut": "ETH",
+        "amount": "10"
+      }
+    """
+    chain = _detect_chain(text)
+    token_in, token_out = _detect_tokens(text)
+    amount = _detect_amount(text, token_in)
+
+    return {
+        "chain": chain,
+        "tokenIn": token_in,
+        "tokenOut": token_out,
+        "amount": amount,
+    }
+```
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 # **Qwen‑Agent 框架的核心组成**
 
 | 组件 | 作用 | 关键特性 |
@@ -48,11 +163,13 @@ timezone: UTC+8
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 熟悉 Qwen 的基础参数
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -93,6 +210,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -146,6 +264,7 @@ npx zetachain solana deposit-and-call \
 
 
 
+
 # **ZRC-20**
 
 ZRC-20 是一种代币标准，集成到 ZetaChain 的 Omnichain 智能合约平台中。借助 ZRC-20，开发者可以构建 dApp，在任何连接的链上协调原生资产。这使得从单一平台构建 Omnichain DeFi 协议和 dApp变得极其简单。
@@ -188,6 +307,7 @@ ZRC-20 代币可以从 ZetaChain 提现到连接的区块链。提现过程中�
 
 
 
+
 # **Swap**
 
 Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
@@ -213,6 +333,7 @@ Swap合约执行以下步骤：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -266,6 +387,7 @@ Gateway支持以下功能：
 
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -275,6 +397,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
