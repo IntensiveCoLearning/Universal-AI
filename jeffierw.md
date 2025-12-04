@@ -15,8 +15,101 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+````markdown
+# Day 11
+
+1. Qwen-Agent × ZetaChain（接口层设计）
+
+仓库代码：https://github.com/jeffierw/zetachain/tree/main/qwen_agent_demo/zeta_interface_agent.py
+
+```shell
+(venv) yepw@yepwdeMacBook-Pro qwen_agent_demo % python zeta_interface_agent.py
+
+======================================================================
+  DeFi Swap 意图解析 + Zeta 接口层 Agent
+======================================================================
+
+📋 配置信息:
+   模型: qwen-plus
+   工具: parse_swap_intent + zeta_interface_layer
+
+======================================================================
+  DeFi Swap 意图解析 + Zeta 接口层 Agent
+======================================================================
+
+💡 提示：
+  - 输入 DeFi Swap 相关的自然语言，例如：
+    • 帮我在 Base 上用 10 USDC 换成 ETH
+    • 把我 50 U 兑换成 Polygon 上的 MATIC
+  - Agent 会自动解析并返回 JSON 格式的结果，并生成 ZetaChain 交易计划
+
+  输入 'exit'、'quit' 或 '退出' 来结束对话
+======================================================================
+
+👤 你: 帮 帮我在 Base 上用 10 USDC 换成 ETH
+
+🤖 Agent: 2025-12-04 23:17:21,041 - base.py - 780 - INFO - ALL tokens: 15, Available tokens: 57800
+2025-12-04 23:17:24,496 - base.py - 780 - INFO - ALL tokens: 75, Available tokens: 57800
+
+
+🔧 [调用工具] parse_swap_intent
+   参数: {"text": "帮我在 Base 上用 10 USDC 换成 ETH"}
+✅ [工具返回] {"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}
+
+📋 解析结果 (JSON):
+{
+  "chain": "base",
+  "tokenIn": "USDC",
+  "tokenOut": "ETH",
+  "amount": "10"
+}
+
+🚀 [ZetaChain 接口层] 已根据解析结果生成交易计划：
+
+=== 解析后的意图（parse_swap_intent 输出） ===
+{
+  "chain": "base",
+  "tokenIn": "USDC",
+  "tokenOut": "ETH",
+  "amount": "10"
+}
+
+=== 规划得到的合约调用计划 ===
+{
+  "入口链": "zetachain",
+  "目标链": "base",
+  "调用合约": "OmniSwapController (0xZETA_OMNI_SWAP_CONTROLLER)",
+  "调用方法": "swapAcrossChains",
+  "调用参数": {
+    "目标链": "base",
+    "输入ZRC20": "0xZRC20_USDC_ON_ZETA",
+    "数量": "10",
+    "目标代币": "ETH",
+    "接收者": "0xYourWallet",
+    "远程适配器": "BaseSwapAdapter",
+    "远程DEX路由器": "UniswapV3Router02"
+  },
+  "备注": [
+    "在 ZetaChain 上使用 ZETA 支付 gas。",
+    "通过连接器 0xBASE_ZETA_CONNECTOR 转发到 base。",
+    "远程交换由适配器 BaseSwapAdapter 使用 UniswapV3Router02 处理。"
+  ]
+}
+
+✅ 综述：准备发起的交易（示意）
+- 链路: zetachain -> base
+- 合约调用: OmniSwapController.swapAcrossChains
+- 参数: {"目标链": "base", "输入ZRC20": "0xZRC20_USDC_ON_ZETA", "数量": "10", "目标代币": "ETH", "接收者": "0xYourWallet", "远程适配器": "BaseSwapAdapter", "远程DEX路由器": "UniswapV3Router02"}
+- 备注: 在 ZetaChain 上使用 ZETA 支付 gas。 | 通过连接器 0xBASE_ZETA_CONNECTOR 转发到 base。 | 远程交换由适配器 BaseSwapAdapter 使用 UniswapV3Router02 处理。
+```
+````
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ````markdown
 # Day 10
 
@@ -90,6 +183,7 @@ timezone: UTC+8
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 ````markdown
 # Day 9
 
@@ -153,6 +247,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 ````markdown
 # Day 8
 
@@ -180,6 +275,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -223,6 +319,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -334,6 +431,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 5
 
 1.  ZRC-20 和普通 ERC-20 的直观区别
@@ -360,6 +458,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 4
 
 1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
@@ -373,6 +472,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -404,6 +504,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -444,6 +545,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
