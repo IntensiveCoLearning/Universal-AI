@@ -15,13 +15,159 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+# Day 10：DeFi 意图解析（从自然语言到结构化参数）
+
+**学习目标**
+
+-   让 Agent 能从自然语言中提取 DeFi 操作参数（链名、代币、金额等）。
+    
+-   完成一个最小的“解析层”。
+    
+
+**学习资料**
+
+-   Qwen-Agent 文档中的 Tools / Function Calling 部分
+    
+-   [https://qwen.readthedocs.io/en/v2.5/framework/qwen\_agent.html](https://qwen.readthedocs.io/en/v2.5/framework/qwen_agent.html)
+    
+-   Qwen API 参考（了解参数格式）
+    
+-   [https://www.alibabacloud.com/help/zh/model-studio/qwen-api-reference](https://www.alibabacloud.com/help/zh/model-studio/qwen-api-reference)
+    
+
+**扩展资料（可选）**
+
+-   参考你未来想做的通用 DeFi 项目 idea，提前想想还需要哪些字段。
+    
+
+**实践 / 作业**
+
+-   设计一个工具：`parse_swap_intent(text)`，返回结构化 JSON，例如：
+    
+-   `{ "chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10" }`
+    
+-   让 Agent 能处理以下输入：
+    
+    -   “帮我在 Base 上用 10 USDC 换成 ETH”
+        
+    -   “把我 50 U 兑换成 Polygon 上的 MATIC”
+        
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGUzMGI2NjM4ZGQ5OTQwOWNlMTE1OWM3NGQ0ZDY2NzhfNjBjZEpwbExGZTNKeGRWN09lZjVhbm1yOWdmMVZ5RllfVG9rZW46WU5GdmJKSWRqb0lpUUd4enN2YmM5QmhBblhmXzE3NjQ4NDI0MzI6MTc2NDg0NjAzMl9WNA)
+
+解析层：
+
+自然语言-->构建prompt(预构的system prompt+用户指令）-->调用Qwen API发送给Qwen解析-->从return的响应得到结构化数据-->规范检查-->JSON结果，保存在output
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=N2FhYTM0NWU2ZTY0NWE3NzAwZmUyYzZlZGMyZmVlZTdfRFBjZzBFclFyM05jckpxeEZTQjlCOTVpUHpuVkJTUWVfVG9rZW46TG5IWmJyTzZrb2xmcEt4SXdobWNrRjRibnpkXzE3NjQ4NDI0MzI6MTc2NDg0NjAzMl9WNA)
+
+结果：
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=NmJlMDIzMTg1Zjc1NjAzYmU0MzQ5ZTRlYzY4MjVlMmJfZDkxMG9tQktwbUx1UU5oMTZwQm1YVktETTVVNEN6MGdfVG9rZW46Tk1LemJ6V1V4b1VIaFl4Z1pFVWNIUnE0bmVkXzE3NjQ4NDI0MzI6MTc2NDg0NjAzMl9WNA)
+
+# Day 11：Qwen-Agent × ZetaChain（接口层设计）
+
+**学习目标**
+
+-   把解析出的 DeFi 参数，映射到实际的合约调用接口（哪怕先是伪代码）。
+    
+-   形成一层清晰的“中间层服务”。
+    
+
+**学习资料**
+
+-   ZetaChain Developers（Swap / Messaging / 合约调用部分）
+    
+-   [https://www.zetachain.com/docs/developers](https://www.zetachain.com/docs/developers)
+    
+-   ZRC-20 标准（再次回顾）
+    
+-   [https://www.zetachain.com/docs/developers/evm/zrc20/](https://www.zetachain.com/docs/developers/evm/zrc20/)
+    
+
+**扩展资料（可选）**
+
+-   Example code repo（查看 Swap / Messaging 相关代码结构）
+    
+-   [https://github.com/zeta-chain/example-contracts](https://github.com/zeta-chain/example-contracts)
+    
+
+**实践 / 作业**
+
+-   写出一个后端伪代码或简单实现：
+    
+    -   接收 `parse_swap_intent` 返回值；
+        
+    -   根据不同链 / 不同 token 选择具体的合约 / 调用方式；
+        
+    -   暂时可以只在控制台打印“准备发起什么交易”。
+        
+
+## 回顾Swap/Messaging/合约调用部分
+
+### 调用流程：
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGM5ZjNhYWQ5YzA3YTFiNThhZWMwZjViOWI2MjUyY2ZfM1RjQW1JVndvVzNzcW52d01zTUdCM0JhMVkyTHVLTFlfVG9rZW46R0gzQmJ3TVp0b3p5RXF4VnRXbGNsU1BQbnNjXzE3NjQ4NDI0MzI6MTc2NDg0NjAzMl9WNA)
+
+### Swap
+
+-   Swap合约主要做了三件事情：解析 payload、为目的链准备 gas、把剩余资产兑换为目标资产并 withdraw。
+    
+-   同时，他会在 ZetaChain 部署一个 Universal 合约作为“跨链兑换器”（如图所示）。任意连接链用户发送原生或 ERC-20 资产，ZetaChain 端接收为对应的 ZRC-20，完成兑换后再提取到目标链。
+    
+
+具体的调用流程：
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=Zjk5MGZkYzQzMzgxOGYzZjdjZmI4YmJlYTlhMGZiNmZfRWVZWTAxa3JOY3d4bEdyN093SHVkYXZ5aGJCY3JwWkFfVG9rZW46VWRjT2JDOWZhb0xTazZ4SkxmZGNDVjBWbjRiXzE3NjQ4NDI0MzI6MTc2NDg0NjAzMl9WNA)
+
+### Messaging
+
+-   使用标准合约 Messaging.sol 实现跨链可信消息传递，合约需与对端互信绑定（setConnected / setUniversal）。
+    
+-   提供 onMessageReceive/onMessageRevert/onRevert **三个钩子**来处理成功、目的链失败、路由失败。
+    
+
+具体的调用流程：
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDc4ZWM5OTNkNTczOWZhYmY0MWM0YzRkNDMzZDc1MmZfZ2t1OEFqUWRZTlFaZVNZaDVsQWk4ekhJSG5QRGFGVTdfVG9rZW46UmIwN2JrZ2w0b1B5SGx4VjFHRGM1d0ZjbjBmXzE3NjQ4NDI0MzI6MTc2NDg0NjAzMl9WNA)
+
+## 接口层设计
+
+```JSON
+// 完整流程
+用户输入
+    ↓
+parse_swap_intent(text)
+    ↓ 返回
+Intent { chain, tokenIn, tokenOut, amount }
+    ↓ 传入
+SwapExecutor.executeSwap(intent)
+    ↓ 内部调用链
+    ├─ validateIntent(intent)           // 验证参数
+    ├─ getChainConfig(chain)           // 获取链配置
+    ├─ getTokenAddresses(intent)       // 查询代币地址
+    ├─ selectDexRouter(chain)          // 选择 DEX
+    ├─ buildTransactionParams(...)     // 构建交易参数
+    ├─ simulateTransaction(...)        // 模拟执行
+    └─ recordTransaction(...)          // 记录历史
+    ↓ 返回
+ExecutionResult { success, txParams }
+```
+
+![](https://ai.feishu.cn/space/api/box/stream/download/asynccode/?code=NWJiZWE2YjY2ZDc1NDAwY2FkNWIyZWNhNzUzN2YxYjhfMHVKTlo0bXE0NWZldjJFOGo1bXp2bnFxbWM2QnNJc2lfVG9rZW46WWk3MWJ0Y25Yb24xNFF4VjlMRmNzNzJCblNoXzE3NjQ4NDI0MzI6MTc2NDg0NjAzMl9WNA)
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 有点忙，先打打卡
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 ### Day 8：Qwen AI 基础 & API 调用（实战）
 
@@ -282,11 +428,13 @@ while True:
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 明天补上xx
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -569,6 +717,7 @@ D. 利润分配与提现 (Settlement & Withdrawal)
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -1211,6 +1360,7 @@ function _authorizeUpgrade(
 
 
 
+
 **学习目标**
 
 -   理解 ZRC-20、Universal Token / NFT 的基本概念和作用。
@@ -1427,6 +1577,7 @@ ZetaChain 上对外部链原生资产与 ERC-20 的“原生表示”。当从�
 
 
 
+
 **学习目标**
 
 -   建立对 “全链应用 / Universal App 合约” 的直观理解。
@@ -1558,6 +1709,7 @@ npx tsx commands/index.ts deploy --private-key $(grep PRIVATE_KEY .env | cut -d 
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1927,6 +2079,7 @@ ZetaChain 无法在比特币网络上部署智能合约。比特币不支持这�
 
 
 
+
 **学习目标**
 
 -   本地 / 云端完成基础开发环境落地。
@@ -2242,6 +2395,7 @@ B. gRPC & REST (Cosmos SDK 层)
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
