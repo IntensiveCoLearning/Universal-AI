@@ -15,19 +15,27 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 昨天忘打卡了!!
@@ -38,11 +46,13 @@ timezone: UTC+8
 
 
 
+
 11/29，孰悉EVM兼容的相關知識
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -57,11 +67,13 @@ timezone: UTC+8
 
 
 
+
 聽得頭昏腦脹但我繼續努力
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -80,6 +92,7 @@ timezone: UTC+8
 
 
 
+
 -   安装或尝试使用 ZetaChain CLI
     
 -   了解测试网 RPC、Faucet、Explorer 的入口
@@ -89,6 +102,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
