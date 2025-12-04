@@ -15,8 +15,36 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+## 第 11 天笔记（Qwen-Agent × ZetaChain 接口层）
+
+今天主要在想一件事：如何把前面第 10 天解析出来的 DeFi 意图，真正“接到链上”，哪怕目前只是伪代码和打印日志。整体目标是搭一层「中间接口层」，让 Qwen-Agent 给出的结构化参数，能比较自然地映射成 ZetaChain 上的合约调用入口。
+
+## 今天的理解
+
+-   Qwen-Agent 这一侧，负责从自然语言里抽象出结构化的 swap 意图，比如链、tokenIn/tokenOut、数量等，这一层已经在第 10 天通过 parse\_swap\_intent 初步搞定。
+    
+-   ZetaChain 这一侧，已经有现成的 Swap / Messaging / ZRC-20 等文档和示例仓库，可以看作是“底层执行引擎”，关键是中间怎么把「意图参数 → 具体合约/方法/网络配置」。
+    
+
+## 接口层要做什么
+
+-   接收 parse\_swap\_intent 的返回值，比如一个 JSON：包括链名、代币、金额等字段，然后做一层路由和映射逻辑：不同链、不同 token 对应不同 ZRC-20 或不同的合约地址 / 路径。
+    
+-   目前先不急着真的发交易，可以从“打印计划执行的链上操作”开始，例如：打印目标链、调用的合约方法名、预期的输入参数，先把这层服务的结构设计清晰，再逐步替换为真实的 ZetaChain SDK / RPC 调用。
+    
+
+## 伪代码 / 实现思路
+
+-   后端可以先写一个简单的 handler，比如 handleSwapIntent(intent)，内部根据 intent.chain、intent.tokenIn、intent.tokenOut 去查一张本地配置表（或写死的映射字典），找到对应的合约接口。然后构造一份“即将调用”的 payload，只在控制台打印。
+    
+-   下一步的演进路线大概是：先把打印换成调用某个统一的 swap 合约（参考官方 example-contracts 仓库的 Swap 结构），再慢慢补齐链上签名、Gas 配置、错误处理等细节，为第 12 天的端到端 Demo 铺路。
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ## 今日目标
 
 能从输入话术中稳定抽取链名、tokenIn、tokenOut、amount 等字段，形成约定的 JSON Schema。该目标与 Qwen-Agent 的 Tools/Function Calling 机制强相关 。​
@@ -55,6 +83,7 @@ timezone: UTC+8
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 ## 今日进度
 
 配置好 Qwen-Agent 环境，顺利跑通了官方示例。​
@@ -76,6 +105,7 @@ Qwen-Agent 的核心就是让大模型+记忆+工具融为一体，理解了框�
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 第六天主要是动手把一个官方 Universal DeFi Demo 跑通，亲身体会“调用一次全链 DeFi 动作”的完整流程。reddit+1​
@@ -116,6 +146,7 @@ Example code 仓库：[https://github.com/zeta-chain/example-contracts，拉取�
 
 
 
+
 理解第 5 天的核心，就是搞清楚「ZRC-20 / 通用资产」在 ZetaChain 里的角色，以及它和多链资产统一表示的关系。
 
 ## Day 5 核心概念理解
@@ -151,6 +182,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 
 
 
+
 ## 一、今天学了什么
 
 继续翻了一遍 ZetaChain Developers 里 EVM 和 Tutorials 相关部分，大概知道 Universal App 就是部署在 ZetaChain 的合约，但可以同时跟多条外部链交互，用一次调用完成跨链逻辑。
@@ -179,6 +211,7 @@ ZRC-20 可以理解为「ZetaChain 上对多链资产的统一包装标准」，
 
 
 
+
 ## 关键概念理解
 
 通用区块链（Universal Blockchain）：指像 ZetaChain 这种天然为多链互通设计的底层网络，它不是只服务某一条链，而是把多条公链当成一个整体来协同管理和调用。通过这种设计，开发者可以在一条链上写逻辑，但同时操作多条链上的资产和状态。​
@@ -200,6 +233,7 @@ Gateway 的核心作用，是充当 ZetaChain 与外部公链之间的“桥梁�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -259,6 +293,7 @@ curl -X POST "[https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generati
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
