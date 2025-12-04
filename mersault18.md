@@ -15,8 +15,14 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+-   继续学习solidity
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 -   学习Model Context Protocol
     
 -   学习Context Engineering
@@ -25,6 +31,7 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 -   继续学习solidity
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
@@ -32,11 +39,13 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 -   继续学习solidity编程
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -49,11 +58,13 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 
 
 
+
 -   solidity 编程基础
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -293,6 +304,7 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 
 
 
+
 -   学习了一些和浏览器相关的知识
     
 -   完成message box项目前期UI改进的工作
@@ -302,6 +314,7 @@ BUPT24级在读。技术栈：前端- TS, React, NodeJS, 其他-python, C++. 正
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
