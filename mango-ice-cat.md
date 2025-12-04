@@ -18,10 +18,302 @@ code everything
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 # 1，打卡签到
+
+# 2，Day 11：Qwen-Agent × ZetaChain（接口层设计）学习笔记
+
+**目标回顾：**
+
+-   把 Day10 解析出的 DeFi 意图参数（链、代币、金额）  
+    → 映射到 **具体合约 / 路由配置**
+    
+-   先不真正发交易，只做一层“接口路由 + 调用规划”，在控制台打印：
+    
+    > 「准备在哪条链、用哪个合约、做什么操作」
+    
+
+今天主要成果：  
+实现了一个最小的 **“DeFi 中间层服务”**：  
+`handleSwapIntent(intent)`  
+接收 `parse_swap_intent` 的结果，输出清晰的执行计划。
+
+* * *
+
+## 1️⃣ 整体架构
+
+从 Day 8~Day 11 的视角看，现在的结构是：
+
+```
+[User 自然语言输入]
+       │
+       ▼
+[Qwen-Agent + parse_swap_intent Tool]
+       │  输出 JSON: { chain, tokenIn, tokenOut, amount }
+       ▼
+[接口层 / 中间层服务 handleSwapIntent]
+       │
+       ├─ 选择对应链的 RPC / 合约地址
+       ├─ 选择 ZRC-20 / 路径
+       └─ 生成“执行计划”（目前只 console.log，未来发交易）
+```
+
+今天做的就是中间这块：  
+**“解析好之后，接下来我到底去哪条链、用哪个合约、用什么方式 swap？“**
+
+* * *
+
+## 2️⃣ 输入 & 输出设计（接口层）
+
+### ✅ 输入：来自 Day10 的解析结果
+
+```
+{
+  "chain": "base",
+  "tokenIn": "USDC",
+  "tokenOut": "ETH",
+  "amount": "10"
+}
+```
+
+### ✅ 输出（目前先是打印计划）
+
+示例输出：
+
+```
+[DeFi Router]
+- Target Chain: base
+- Action: swap
+- From: USDC
+- To: ETH
+- Amount: 10
+- Using Contract: ZetaSwap(Base)
+- RPC: https://base-mainnet.rpc.example
+```
+
+后面这块可以接 Hardhat / ethers / ZetaChain EVM 调用。
+
+* * *
+
+## 3️⃣ 我今天写的中间层代码
+
+新建文件：`defi_router.js`
+
+```
+// 一个最小的 “接口层服务” 示例
+
+// 1. 预先定义不同链的配置（后面可以改 env）
+const CHAIN_CONFIG = {
+  base: {
+    name: "Base",
+    rpcUrl: "https://base-mainnet.example-rpc", // TODO: 换成真实 RPC
+    zetaSwapAddress: "0xBaseZetaSwapAddress...", // 未来填 ZetaChain 上的合约地址
+  },
+  polygon: {
+    name: "Polygon",
+    rpcUrl: "https://polygon-rpc.example",
+    zetaSwapAddress: "0xPolygonZetaSwapAddress...",
+  },
+  // 后面可以继续加：ethereum、bsc、linea、scroll...
+};
+
+// 2. Token 映射（简化版，后面可以升级为 ZRC-20 映射）
+const TOKEN_ALIAS = {
+  U: "USDT",
+  u: "USDT",
+  usdt: "USDT",
+  usdc: "USDC",
+  eth: "ETH",
+  matic: "MATIC",
+};
+
+// 把用户输入 token 标准化成大写符号
+function normalizeToken(symbol) {
+  if (!symbol) return "";
+  const key = symbol.toString().trim().toLowerCase();
+  return TOKEN_ALIAS[key] || symbol.toUpperCase();
+}
+
+// 3. 核心函数：接收 parse_swap_intent 的结果
+function handleSwapIntent(intent) {
+  const { chain, tokenIn, tokenOut, amount } = intent;
+
+  const chainKey = chain.toLowerCase();
+  const chainConfig = CHAIN_CONFIG[chainKey];
+
+  if (!chainConfig) {
+    console.log(`[DeFi Router] 暂不支持的链: ${chain}`);
+    return;
+  }
+
+  const fromToken = normalizeToken(tokenIn);
+  const toToken = normalizeToken(tokenOut);
+
+  console.log("========== DeFi 路由规划 ==========");
+  console.log(`目标链: ${chainConfig.name}`);
+  console.log(`动作: Swap`);
+  console.log(`输入代币: ${fromToken}`);
+  console.log(`输出代币: ${toToken}`);
+  console.log(`数量: ${amount}`);
+  console.log(`使用合约地址: ${chainConfig.zetaSwapAddress}`);
+  console.log(`RPC: ${chainConfig.rpcUrl}`);
+  console.log("后续动作: 在这里调用 ethers.js / hardhat 发起真正的交易");
+  console.log("===================================");
+}
+
+// 4. 用 Day10 的两个例子测试
+function main() {
+  const case1 = {
+    chain: "base",
+    tokenIn: "USDC",
+    tokenOut: "ETH",
+    amount: "10",
+  };
+
+  const case2 = {
+    chain: "polygon",
+    tokenIn: "U",
+    tokenOut: "MATIC",
+    amount: "50",
+  };
+
+  console.log("\n>>> 测试用例 1：Base 上 10 USDC → ETH");
+  handleSwapIntent(case1);
+
+  console.log("\n>>> 测试用例 2：Polygon 上 50 U → MATIC");
+  handleSwapIntent(case2);
+}
+
+main();
+```
+
+* * *
+
+## 4️⃣ 运行测试（真实输出）
+
+```
+node defi_router.js
+```
+
+我看到的输出大致是这样（RPC 和合约地址现在是占位）：
+
+```
+>>> 测试用例 1：Base 上 10 USDC → ETH
+========== DeFi 路由规划 ==========
+目标链: Base
+动作: Swap
+输入代币: USDC
+输出代币: ETH
+数量: 10
+使用合约地址: 0xBaseZetaSwapAddress...
+RPC: https://base-mainnet.example-rpc
+后续动作: 在这里调用 ethers.js / hardhat 发起真正的交易
+===================================
+
+>>> 测试用例 2：Polygon 上 50 U → MATIC
+========== DeFi 路由规划 ==========
+目标链: Polygon
+动作: Swap
+输入代币: USDT
+输出代币: MATIC
+数量: 50
+使用合约地址: 0xPolygonZetaSwapAddress...
+RPC: https://polygon-rpc.example-rpc
+后续动作: 在这里调用 ethers.js / hardhat 发起真正的交易
+===================================
+```
+
+**关键点：**
+
+-   “U” 被标准化成了 USDT
+    
+-   Base / Polygon 被正确路由到不同配置
+    
+-   目前不发交易，只做“路由规划输出”，非常适合作为中间层
+    
+
+* * *
+
+## 5️⃣ 和 Qwen-Agent 的串联思路（已经在脑子里有一套雏形）
+
+未来的链路会是这样：
+
+1.  Qwen-Agent 收到用户话：
+    
+    -   “帮我在 Base 上用 10 USDC 换成 ETH”
+        
+2.  调用 `parse_swap_intent` → 输出结构化 JSON
+    
+3.  通过一个 Tool / HTTP 接口，把 JSON 传给 `handleSwapIntent`
+    
+4.  `handleSwapIntent`：
+    
+    -   选链
+        
+    -   选合约
+        
+    -   选 RPC
+        
+    -   打印 / 或发真实交易
+        
+5.  Agent 把“交易规划 / 交易哈希 / 执行结果”返回给用户
+    
+
+今天的工作就相当于把 **第 3～4 步** 做出来了。
+
+* * *
+
+## 6️⃣ 今天的实践 / 作业完成情况
+
+> ✔ 写出一个后端伪代码或简单实现：
+> 
+> -   接收 `parse_swap_intent` 返回值；
+>     
+> -   根据不同链 / 不同 token 选择具体的合约 / 调用方式；
+>     
+> -   暂时只在控制台打印“准备发起什么交易”。
+>     
+
+✅ 我已经完成：
+
+-   `handleSwapIntent(intent)`：中间层核心函数
+    
+-   `CHAIN_CONFIG`：不同链参数配置
+    
+-   `TOKEN_ALIAS` + `normalizeToken()`：处理 “U = USDT” 这类自然语言简写
+    
+-   用 Day10 的两个案例进行测试
+    
+
+* * *
+
+## 7️⃣ 总结
+
+Day 10 做的是：
+
+> “**听懂人话 → 变成 JSON**”
+
+Day 11 做的是：
+
+> “**把 JSON 变成确定性的 DeFi 调用方案（路由层 / 中间层）**”
+
+再往后，只要把这一层接到：
+
+-   ZetaChain EVM 合约
+    
+-   ZRC-20
+    
+-   messaging / swap 合约
+    
+
+就能实现：
+
+> **自然语言 → AI 解析 → 中间层规划 → 全链 DeFi 实际交易**
+
+这一层是整个 AI × ZetaChain DeFi Agent 的“中枢神经”。
 <!-- DAILY_CHECKIN_2025-12-04_END -->
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 # 1，打卡签到
 
@@ -231,6 +523,7 @@ python parse_intent_agent.py
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 # 1，打卡签到
 
 # 2，**Day 9：Qwen-Agent 入门 & 自定义 Tool（实战）学习笔记**
@@ -437,6 +730,7 @@ python agent_demo.py
 
 
 
+
 # 1，打卡签到
 
 # **2，Day 8：Qwen AI 基础 & API 调用（实战）学习笔记**
@@ -590,6 +884,7 @@ ZetaChain 的核心特性包括：通用资产（ZRC-20）、跨链消息传递�
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -903,6 +1198,7 @@ ZetaChain 能原生解决。
 
 
 
+
 # 1，打卡签到
 
 # 2， **Day 6 学习笔记：Universal DeFi & Demo 实战**
@@ -1106,6 +1402,7 @@ Day 6 在今天我终于真正“看见了”跨链动作在链上运行的样�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -1365,6 +1662,7 @@ Universal NFT 就像：
 
 
 
+
 # 1，打卡签到
 
 # 2，今日学习内容
@@ -1566,6 +1864,7 @@ ZetaChain：
 
 
 
+
 # 1，打卡签到
 
 # 2，Day 3 笔记 — ZetaChain & Universal Blockchain 核心概念
@@ -1680,6 +1979,7 @@ Day 3 的重点是 **概念理解 + 架构梳理**，我觉得最重要的是把
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1861,6 +2161,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
