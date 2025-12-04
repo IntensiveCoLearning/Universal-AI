@@ -345,7 +345,7 @@ Telegram：https://t.me/zetachain_asia
 | [libaiwudufuyou](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/libaiwudufuyou.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [Jerrykingone](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Jerrykingone.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [TEDGD](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/TEDGD.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [Xiongruijie](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Xiongruijie.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ |   | | | |
+| [Xiongruijie](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Xiongruijie.md) | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
 | [rayjun](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/rayjun.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [Jack-OuCJ](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Jack-OuCJ.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [NoTks0808](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/NoTks0808.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | | |
@@ -445,6 +445,7 @@ Telegram：https://t.me/zetachain_asia
 | [poerty0509](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/poerty0509.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ | ✅ | ✅ | ⭕️ |   | | | |
 | [Rikki-anonlove](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rikki-anonlove.md) | ⭕️ | ✅ | ⭕️ | ❌ | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
 
 
 
