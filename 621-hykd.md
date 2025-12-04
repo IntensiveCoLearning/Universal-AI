@@ -15,8 +15,82 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+Day 11 打卡笔记
+
+今日目标
+
+设计 DeFi 接口中间层，将自然语言解析结果映射到具体合约调用
+
+1\. 三层架构
+
+用户意图 → 解析层 → 接口映射层 → 合约调用层
+
+2\. 四种交易类型
+
+\- **单链交换**：同链内 DEX 交易（Uniswap/PancakeSwap）
+
+\- **跨链交换**：通过 ZetaChain 桥接不同链资产
+
+\- **ZRC20存款**：外部链资产 → ZetaChain
+
+\- **ZRC20提款**：ZetaChain → 外部链资产
+
+\### 3. 关键组件
+
+\- `SwapIntent`：标准化解析结果
+
+\- `TokenInfo`：代币信息（含跨链映射）
+
+\- `TransactionPayload`：统一交易格式
+
+\- `DeFiInterfaceMapper`：智能路由映射
+
+交易类型判断
+
+python
+
+if 跨链:
+
+if 从ZRC20到原生: return "提款"
+
+elif 从原生到ZRC20: return "存款"
+
+else: return "跨链交换"
+
+else:
+
+return "单链交换"
+
+ZRC20 特殊处理
+
+存款：调用网关合约 `depositZRC20()`
+
+提款：直接调用 ZRC20 合约 `withdraw()`
+
+完成成果
+
+1\. 建立清晰的中间层服务架构
+
+2\. 实现智能交易路由逻辑
+
+3\. 支持 ZetaChain 跨链特性
+
+4\. 输出具体合约调用参数
+
+ZRC20 = ZetaChain 的跨链资产标准
+
+通过 foreign\_address 映射原生资产
+
+统一接口简化多链交互复杂度
+
+将复杂的跨链 DeFi 操作抽象为标准化接口，为 AI Agent 提供可执行的链上操作指令。
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 Day 10 打卡记录
 
 完成情况
@@ -68,6 +142,7 @@ python
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 Day 9 作业：QwenAgent 入门实践
 
@@ -350,6 +425,7 @@ QwenAgent 自定义工具测试
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 Python 最小脚本
 
 python
@@ -556,6 +632,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 项目一：EduChain (学习证明与奖学金平台)
 
 目标用户
@@ -641,6 +718,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 今天跑通了 ZetaChain 的 Swap Demo，从 Goerli 发送 ETH 到 BSC 测试网接收 BNB，亲身体验了“一次调用完成全链操作”的流畅感。
 
 整个过程中，ZetaChain 作为中间层发挥了关键作用：监听我在 Goerli 的交易，在链上完成资产转换（ETH→wETH→wBNB），最后通过 Connector 在 BSC 上铸造对应资产。整个过程只用了 2-3 分钟，而且只需要支付源链的 gas 费。
@@ -655,6 +733,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 通过今天的学习，我理解了 ZetaChain 的核心基础：ZRC-20 标准 和 通用资产。
 
 从开发者视角看，ZRC-20 与普通 ERC-20 最直观的区别在于“原生跨链能力”。ERC-20 资产被禁锢在一条链上，要实现跨链需要依赖复杂的外部桥接。而 ZRC-20 生来就是多链的，它通过 ZetaChain 的跨链通讯协议，将比特币、以太坊上的原生资产自动映射为链上的统一表示。对开发者来说，这意味着可以直接调用标准的 deposit 和 withdraw 方法来实现资产在不同链间的流入流出，无需再自行部署和管理繁琐的桥接合约，极大地简化了全链应用的开发。
@@ -664,6 +743,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -706,6 +786,7 @@ ZetaChain 是一个去中心化的跨链协议，旨在实现不同区块链网�
 
 
 
+
 1\. Universal App（通用应用）是一种跨链智能合约应用，部署在 ZetaChain 上，但可以直接与多条外部区块链（如 Bitcoin、Ethereum、BNB Chain 等）交互，而无需依赖跨链桥或封装资产。它的核心特点是：
 
 （1）统一流动性：用户可以在不同链上使用原生资产（如原生 BTC、ETH）与合约交互。
@@ -733,6 +814,7 @@ Gateway 像是“邮局”，把不同链的消息打包并安全送达 ZetaChai
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -792,6 +874,7 @@ ZetaChain 生态: 完整掌握测试网资源和使用方法，Qwen API: 熟练�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
