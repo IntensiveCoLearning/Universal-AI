@@ -15,8 +15,14 @@ Web3 新手
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-03
+<!-- DAILY_CHECKIN_2025-12-03_START -->
+今天学习 Solidity 的 Emit Event 和 Log 机制，使用 AI 为 Swap 合约 Emit 具体的失败原因，依然不成功。
+<!-- DAILY_CHECKIN_2025-12-03_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 ## 继续探索 Swap 合约 资金回退的问题
 
 今天部署了第一版 Gemini 修改后的合约，它细分了几种 Revert 的情形；进行了一笔交易，依然失败回退，依然没有相关的 log。
@@ -26,6 +32,7 @@ Web3 新手
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 今天提了 3 个 pr。
 
@@ -46,6 +53,7 @@ Web3 新手
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 提了一个 pr 去修复 Swap 教程中的 \`sETH.SEPOLIA\` 错误。  
   
 [https://github.com/zeta-chain/docs/pull/766](https://github.com/zeta-chain/docs/pull/766)
@@ -53,6 +61,7 @@ Web3 新手
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -649,6 +658,7 @@ https://testnet.zetascan.com/tx/0x4dac39681070cdf61ae99d3087fac97a712e78d99a7175
 
 
 
+
 ## 探究 Hello Webapp Base Testnet 交易页面显示无此交易问题
 
 今天重新创建 Hello Webapp 项目，在网页端，分别在 Ethereum 和 Base 测试，结果和昨天一样。
@@ -716,6 +726,7 @@ Failed to switch chain:
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1151,6 +1162,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 
 
+
 ## 回顾与反思
 
 ### 继续探究昨天提到的内存不足导致编译失败问题
@@ -1176,6 +1188,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1755,6 +1768,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
