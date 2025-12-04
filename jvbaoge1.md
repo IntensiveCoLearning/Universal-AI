@@ -15,8 +15,139 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+# **📝 项目概要（草稿）**
+
+## **项目名称（临时）**
+
+**DeFi Copilot: 跨链 Swap 的自然语言助手**
+
+* * *
+
+## **目标用户 / 场景**
+
+**用户画像**：
+
+-   Web3 新手，不熟悉钱包、Chain ID、ZRC-20、Gas 等概念
+    
+-   但希望通过简单指令完成跨链资产操作（如 “用 Base 上的 ETH 换成 Sepolia 上的 ETH”）
+    
+
+**典型场景**：
+
+> 用户在命令行中输入：  
+> `“帮我把 0.001 ETH 从 Base 换到 Sepolia”`  
+> → 系统自动解析 → 构建 ZetaChain deposit-and-call 命令 → 执行跨链 Swap
+
+**核心价值**：
+
+-   把复杂的 `zetachain evm deposit-and-call ...` 命令抽象为自然语言
+    
+-   隐藏私钥、Chain ID、ZRC-20 地址等底层细节
+    
+-   支持 EVM 链（Base, Ethereum, BNB）、未来可扩展至 Solana / BTC
+    
+
+* * *
+
+## **关键功能（MVP，最多 3 点）**
+
+1.  **自然语言解析**
+    
+    -   用户输入如 `"swap 0.001 ETH from Base to Sepolia"`
+        
+    -   Qwen-Agent 识别：`amount=0.001`，`source_chain=Base`，`target_chain=Sepolia`，`token=ETH`
+        
+2.  **自动调用 ZetaChain Swap**
+    
+    -   内部映射 Chain ID（Base=84532，Sepolia=11155111）
+        
+    -   查询目标链 ZRC-20 地址（如 sETH.SEPOLIA）
+        
+    -   构造并执行 `zetachain evm deposit-and-call` 命令（使用用户私钥）
+        
+3.  **返回交易状态摘要**
+    
+    -   抓取 CCTX（Cross-Chain Transaction）哈希
+        
+    -   解析为人类可读结果：
+        
+        > “✅ 已从 Base 发起 0.001 ETH 跨链，预计 2 分钟后到账 Sepolia”
+        
+
+> ✅ **MVP 范围控制**：
+> 
+> -   仅支持 ETH（gas token）在 EVM 测试链之间的 Swap
+>     
+> -   不做前端 UI，仅命令行交互
+>     
+> -   私钥通过环境变量传入（`$PRIVATE_KEY`）
+>     
+
+* * *
+
+## **技术路线：ZetaChain + Qwen 如何配合**
+
+| 组件 | 角色 |
+| --- | --- |
+| Qwen-Agent | 作为自然语言理解 + 工具调度中心 |
+| 自定义 Tool (zeta_swap) | 封装 ZetaChain CLI 命令，接收解析后的参数（sourceChain, amount, targetChain, token） |
+| ZetaChain Swap 合约 | 复用官方 Swap 合约（Universal App），处理跨链兑换与 Gas 抽象 |
+| ZetaChain CLI | 在 Tool 内部调用 npx zetachain evm deposit-and-call |
+| CCTX 查询 | 调用 zetachain query cctx --hash 获取状态并格式化输出 |
+
+**数据流**：
+
+```
+1
+```
+
+2
+
+* * *
+
+## **计划复用的 Demo / 模板**
+
+1.  **ZetaChain Swap 教程**
+    
+    -   合约代码：[https://github.com/zeta-chain/example-contracts/tree/main/examples/swap](https://github.com/zeta-chain/example-contracts/tree/main/examples/swap)
+        
+    -   CLI 命令参考：`npx zetachain evm deposit-and-call --chain-id 84532 ...`
+        
+2.  **Qwen-Agent 自定义 Tool 示例**
+    
+    -   文档：[https://qwen.readthedocs.io/en/v2.5/framework/qwen\_agent.html](https://qwen.readthedocs.io/en/v2.5/framework/qwen_agent.html)
+        
+    -   示例：`MyImageGen` 工具 → 改为 `ZetaSwapTool`
+        
+3.  **Chain ID 与 ZRC-20 映射表**（从 ZetaChain CLI 获取）
+    
+    -   `zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20`
+        
+    -   预先硬编码测试链映射（MVP 阶段）
+        
+
+* * *
+
+## **下一步开发计划（24 小时内）**
+
+| 时间 | 任务 |
+| --- | --- |
+| 0–2h | zetachain new --project swap + 部署 Swap 合约到 testnet |
+| 2–4h | 编写 ZetaSwapTool：接收参数 → 构造 CLI 命令 → 执行 |
+| 4–6h | 集成 Qwen-Agent：注册 Tool，测试自然语言解析 |
+| 6–8h | 增加 CCTX 查询与结果格式化，完成端到端流程 |
+| 8h+ | （可选）支持 Solana/BTC 指令，或添加错误处理 |
+
+* * *
+
+> 💡 **备注**：本项目 MVP 不涉及前端、浏览器钱包或私钥管理，仅面向开发者/命令行用户。后续可封装为 Telegram Bot 或 CLI 工具。
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 ✅ 第一步：确认前提条件
 
 一个阿里云账号（用于获取 API Key）
@@ -139,6 +270,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 ## **第一步：提炼 ZetaChain 的通用 DeFi 能力**
 
 根据文档整理出以下核心能力，作为 idea 构思基础：
@@ -256,6 +388,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 > 我从 **Ethereum Localnet（chain ID 11155112）** 发起了一笔 `depositAndCall` 交易，向 ZetaChain 的 Swap 合约发送了 0.001 ETH，并附带了目标链（BNB）、目标地址和目标资产（ZRC-20 BNB）的指令。
 
 > **最终在 ZetaChain 上发生了什么？**  
@@ -273,6 +406,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -301,6 +435,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -338,6 +473,7 @@ Gateway（网关）是 **每条连接到 ZetaChain 的公链上的一个特殊�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -504,6 +640,7 @@ GitHub 仓库：[https://github.com/jvbaoge1/zetachain](https://github.com/jvbao
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
