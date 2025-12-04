@@ -15,19 +15,79 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+**1\. 框架概述**
+
+•  **Qwen-Agent**：一个基于 Qwen LLM 的框架，支持指令跟随、工具使用、规划和内存功能。
+
+•  主要组件：
+
+•  **原子组件**：LLM、提示（prompts）。
+
+•  **高级组件**：Agents（如 Assistant），用于快速构建工具调用代理。
+
+•  示例应用：浏览器助手、代码解释器、自定义助手。
+
+•  安装：git clone [https://github.com/QwenLM/Qwen-Agent.git](https://github.com/QwenLM/Qwen-Agent.git) → cd Qwen-Agent → pip install -e ./。
+
+**2\. 开发自定义 Agent 的核心步骤**
+
+•  **配置 LLM**：
+
+•  使用 DashScope 或自定义 OpenAI 兼容模型。
+
+•  示例配置：
+
+llm\_cfg = {
+
+'model': 'qwen-max',
+
+'model\_server': 'dashscope',
+
+'generate\_cfg': {'top\_p': 0.8}
+
+}
+
+llm\_cfg = {
+
+'model': 'qwen-max',
+
+'model\_server': 'dashscope',
+
+'generate\_cfg': {'top\_p': 0.8}
+
+}
+
+**集成**：
+
+•  tools = \['parse\_swap\_intent'\]
+
+•  系统提示指导 Agent 使用工具解析输入。
+
+•  **测试输入**：
+
+•  “帮我在 Base 上用 10 USDC 换成 ETH” → 输出：{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}
+
+•  “把我 50 U 兑换成 Polygon 上的 MATIC” → 输出：{"chain": "polygon", "tokenIn": "USDC", "tokenOut": "MATIC", "amount": "50"}（推断 “U” 为 “USDC”）。
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 111
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 今天搞了一天审计
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 使用 Python 调用 Qwen API 生成对 ZetaChain 的介绍。需安装 openai 库（pip install openai），并设置环境变量 API\_KEY（从阿里云获取）。
@@ -67,6 +127,7 @@ print(completion.choices[0].message.content)
 
 
 
+
 ### 全链收益聚合器结合Restaking集成
 
 -   **目标用户**：DeFi 农民和质押者，他们在多个链上持有资产（如以太坊上的ETH、比特币上的BTC、Solana上的SOL），希望优化收益而无需手动桥接或链间切换。
@@ -78,6 +139,7 @@ print(completion.choices[0].message.content)
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -147,6 +209,7 @@ print(completion.choices[0].message.content)
 
 
 
+
 ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
 
 ERC-20（以太坊/单链视角）
@@ -205,6 +268,7 @@ PS：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -287,6 +351,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -532,6 +597,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
