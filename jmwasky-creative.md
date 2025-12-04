@@ -15,8 +15,66 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+前端层：用户界面
+
+  解析意图层：使用qwen3解析自然语言，并返回json
+
+  中间层：通过接收qwen3返回的json数据，执行用户的链操作，包括swap，tranfer等
+
+    技术栈，使用CLI方式或者ZetaChain Toolkit
+
+    以下是使用CLI方式的简单描述
+
+1.  使用parse\_swap\_intent的值，把链名，目标代币，原始代币和额度数据解析出来
+    
+2.  调用后端zeta命令,执行swap、message等操作
+    
+    1.  获取钱包地址
+        
+    
+    ```Shell
+    PRIVATE_KEY
+    ```
+    
+    -   确保swap合约已经部署好，没有部署合约的执行部署命令：
+        
+    
+    ```Shell
+    UNIVERSAL=$(npx tsx commands deploy --private-key $PRIVATE_KEY | jq -r .contractAddress) && echo $UNIVERSAL
+    ```
+    
+    -   获取接收地址
+        
+    
+    ```Shell
+    RECIPIENT=$(cast wallet address $PRIVATE_KEY) && echo $RECIPIENT
+    ```
+    
+    -   获取转化成目标代币的地址，根据json修改具体的值
+        
+    
+    ```Shell
+    ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20) \
+    && echo $ZRC20_ETHEREUM_ETH        
+    ```
+    
+    -   执行转换命令，链ID填写对应的chain-id, 链名填写对应的 zetachain 白名单链名
+        
+    
+    ```Shell
+    npx zetachain 链名（evm/solana/sui/bitcon/ton）deposit-and-call --chain-id 链ID \
+      --amount 金额 --types address bytes bool --receiver $UNIVERSAL \
+      --values $ZRC20_ETHEREUM_ETH $RECIPIENT true    
+    ```
+    
+3.  返回执行结果
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ```Python
 基于Qwen-Agent工程
 用户请求Agent  -》 Agent 根据系统提示词调用工具获取返回结果 -》 Agent 根据工具返回的内容再做处理回复给用户
@@ -126,6 +184,7 @@ def test_custom_parse_agent_object():
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 -   自定义两个数相加的took
     
 
@@ -201,6 +260,7 @@ if __name__ == '__main__':
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 -   实践流程  
     
 
@@ -265,6 +325,7 @@ if __name__ == '__main__':
 
 
 
+
 # NFT 拍卖中心
 
 ## 目标客户：NFT平台和爱好者
@@ -283,6 +344,7 @@ if __name__ == '__main__':
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -318,6 +380,7 @@ if __name__ == '__main__':
 
 
 
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -338,6 +401,7 @@ if __name__ == '__main__':
 
 
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -349,6 +413,7 @@ if __name__ == '__main__':
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -387,6 +452,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -480,6 +546,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
