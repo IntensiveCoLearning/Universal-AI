@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+参加workshop，学习simple demo
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 尝试借用模型生成Tools
 
 ![wechat_2025-12-03_213428_281.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/kuove/images/2025-12-03-1764768877982-wechat_2025-12-03_213428_281.png)
@@ -24,6 +30,7 @@ timezone: UTC+8
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 # **最小化 Qwen-Agent 示例：自定义工具**
 
@@ -194,6 +201,7 @@ Agent 会自动分析用户请求，决定是否需要调用工具。如果需�
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 调用api key，在代码中使用qwen
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/kuove/images/2025-12-01-1764593837910-image.png)
@@ -201,6 +209,7 @@ Agent 会自动分析用户请求，决定是否需要调用工具。如果需�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -242,6 +251,7 @@ Agent 会自动分析用户请求，决定是否需要调用工具。如果需�
 
 
 
+
 ![wechat_2025-11-27_220450_264.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/kuove/images/2025-11-27-1764252340702-wechat_2025-11-27_220450_264.png)
 
 使用测试链实现hello信息传递
@@ -249,6 +259,7 @@ Agent 会自动分析用户请求，决定是否需要调用工具。如果需�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -315,6 +326,7 @@ The implementation of the gateway depends on the connected chain:
 
 
 
+
 1.  注册qwen，获取api，能在本地通过node调用
     
 2.  阅读[**Getting Started**](https://www.zetachain.com/docs/developers/tutorials/intro)
@@ -328,6 +340,7 @@ The implementation of the gateway depends on the connected chain:
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
