@@ -15,8 +15,26 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+**日期**：2025.12.04 **进度**：完成意图解析层与通用接口层的双重升级
+
+这两天的开发重点在于打破系统的“硬编码”限制，实现一个真正通用的 DeFi Agent。我将任务拆解为两部分并行推进：上游的 AI 意图解析优化，以及下游的 Web3 接口层泛化设计。
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-12-04-1764855271597-image.png)
+
+在解析层（Brain），我重新设计了 System Prompt 的输出规范。为了支持多币种交易，我不再让 AI 模糊地输出意图，而是强制要求它识别并填充 `token_out` 字段。例如，当用户输入“换成 BTC”时，AI 必须准确提取出 “BTC” 这一符号，并将其标准化为大写。这为下游的执行提供了精准的参数输入，解决了之前只能默认兑换 ETH 的局限性。
+
+在接口层（Hand），我基于解析层的升级对 `agent_hand.py` 进行了彻底的重构。核心改动是引入了 `TOKEN_MAP` 字典配置，将 ETH、BTC、BNB、USDC 等主流 ZRC-20 资产的合约地址与业务逻辑解耦。我改造了 Swap 函数的签名，使其支持传入动态的 `target_symbol` 参数。现在的执行流程变成了一个动态路由系统：AI 解析出目标代币符号 -> 接口层查表获取合约地址 -> 动态构建 Uniswap 交易路径。
+
+通过这两天的迭代，我的 Agent 从一个只能执行固定脚本的 Demo，进化成了一个具备扩展性的通用协议适配器。现在只需在配置文件中增加新的代币地址，系统就能立刻支持新的交易对，而无需修改核心代码逻辑，这才是符合工程标准的开发范式。
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-12-04-1764855202651-image.png)
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 **日期**：2025.12.02 **进度**：实现 Agent 的工具调用逻辑
 
 今天的官方任务是学习 Qwen-Agent 框架并挂载工具。我仔细研究了一下官方文档，发现所谓的 Agent 核心其实就是“LLM 决策 + 本地函数执行”。既然我已经用 OpenAI SDK 写好了底层交互，就没有必要为了用框架而用框架，所以我决定继续完善自己手写的这个轻量级 Agent 架构。
@@ -33,6 +51,7 @@ timezone: UTC+8
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 **日期**：2025.12.01 **进度**：Qwen API 实战与意图解析层开发
 
 今天是共学第二周的第一天，重心从链上交互转移到了 AI 智能体的构建上。虽然官方文档主要介绍了 Qwen 的基础调用，但我直接将其应用到了 DeFi 场景的意图识别中。
@@ -48,6 +67,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 日期：2025.11.30
@@ -67,6 +87,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -98,6 +119,7 @@ timezone: UTC+8
 
 
 
+
 **Day 4 学习日志：从原生交互进阶到智能合约读取**
 
 日期：2025.11.28
@@ -121,6 +143,7 @@ timezone: UTC+8
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -154,6 +177,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -221,6 +245,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
