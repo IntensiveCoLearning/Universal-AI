@@ -19,17 +19,57 @@ tg写的微信号
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 ## demo补充
 
+wsl配置网络要走虚拟网卡，所以配置时写这里的ipv4（powershell里：ipconfig获取）
+
+```
+以太网适配器 vEthernet (WSL (Hyper-V firewall)):
+
+   连接特定的 DNS 后缀 . . . . . . . :
+   本地链接 IPv6 地址. . . . . . . . : fe80::a8d7:a2da:3aae:c6f0%38
+   IPv4 地址 . . . . . . . . . . . . : 172.30.112.1
+   子网掩码  . . . . . . . . . . . . : 255.255.240.0
+   默认网关. . . . . . . . . . . . . :
+```
+
+配置完后改代理：
+
+```
+export http_proxy=http://172.30.112.1:7890
+export https_proxy=http://172.30.112.1:7890
+export ALL_PROXY=socks5://172.30.112.1:7891
+
+# 改git代理
+# 删除
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+# 改
+git config --global http.proxy http://10.252.24.133:7890
+git config --global https.proxy http://10.252.24.133:7890
+```
+
+```
+# 保存
+source ~/.bashrc
+```
+
 npx要来自wsl不能来自windows
 
 ```
-# 加载nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# 安装nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# 安装后重启终端加载nvm，然后安装node
+nvm install 20
+# 使用node20
+nvm use 20
+
 ```
 <!-- DAILY_CHECKIN_2025-12-04_END -->
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 ## demo补充
 
@@ -52,6 +92,7 @@ ctrl+o，enter，保存，ctrl+x退出配置文件界面
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -145,11 +186,13 @@ if __name__ == "__main__":
 
 
 
+
 ![c7c01e2c3613ccd755755cb94cece827.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/immortals1278/images/2025-12-01-1764601790727-c7c01e2c3613ccd755755cb94cece827.png)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -165,6 +208,7 @@ if __name__ == "__main__":
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -201,6 +245,7 @@ npx hardhat run scripts/swap.js --network localnet
 
 
 
+
 **多链资产被包装成zrc20然后在zetachain上使用于defi**
 
 **作业**
@@ -224,6 +269,7 @@ gateway.depositAndCall()函数的RevertOptions结构体参数会在跨链调用�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -274,6 +320,7 @@ onlyGateway确保只有网关能调用
 
 
 
+
 ## cctx
 
 跨链交易
@@ -293,6 +340,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -332,6 +380,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
