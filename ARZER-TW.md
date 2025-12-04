@@ -15,19 +15,27 @@ student
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 水個打卡
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 Idea 1: Omni-Lend（全鏈原生資產借貸協議）
@@ -100,11 +108,13 @@ ZetaChain 合約接收 ZRC-20 USDC。
 
 
 
+
 今天實在太累了，水個一天
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -166,6 +176,7 @@ ZetaChain 合約接收 ZRC-20 USDC。
 
 
 
+
 # Day 4 作業筆記：Universal App 實作規劃
 
 ## 1\. 專案目標
@@ -213,6 +224,7 @@ ZetaChain 合約接收 ZRC-20 USDC。
 
 
 
+
 Universal App:構建在 ZetaChain 上的智慧合約，能在一個合約中與所有區塊鏈互動，只要在ZetaChain 上部署一次，就可以管理和操作多條鏈上的資產與數據。  
   
 Gateway:Gateway 是 ZetaChain 連接外部區塊鏈的關鍵接口，處理資產和訊息的跨鏈傳輸。  
@@ -223,6 +235,7 @@ Gateway:Gateway 是 ZetaChain 連接外部區塊鏈的關鍵接口，處理資�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
