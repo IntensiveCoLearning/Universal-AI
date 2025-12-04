@@ -15,8 +15,83 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+# 基本实现链上操作 tool
+
+我们来把所有链的代币都搞到 Ethereum Sepolia 上去。
+
+首先修改一下自定义 tool
+
+```
+@register_tool('parse_swap_intent')
+class parse_swap_intent(BaseTool):
+    description = '用来把其他链的 gas 代币交换成以太坊链的代币。'
+    parameters = [{
+        'name': 'chain',
+        'type': 'string',
+        'description': '交换发生的区块链名称，例如 "Solana" 或 "Binance Smart Chain"',
+        'required': True
+    }, {
+        'name': 'address',
+        'type': 'string',
+        'description': '用户的钱包地址，用于接收交换后的代币',
+        'required': True
+    }, {
+        'name': 'amount',
+        'type': 'number',
+        'description': '需要交换的 gas 代币数量，例如 "1.0" 或 "100"',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs):
+        params = json.loads(params)
+        chain = params.get('chain', '')
+        address = params.get('address', '')
+        amount = params.get('amount', 0)
+        result = ""
+        print(f"从 {chain} 链交换 {amount} 个代币到以太坊链，接收地址为 {address}。")
+        return json.dumps({'result': result})
+```
+
+运行一下试试
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-04-1764853757676-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-04-1764853777672-image.png)
+
+再试试缩写  
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-04-1764853829908-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-04-1764853862033-image.png)
+
+  
+浏览[官方文档](https://www.zetachain.com/docs/developers/tutorials/swap)后，看到 evm 链、Solana 链和 BTC 链调用方式不同，我们需要判断一下输入链。
+
+```
+    def call(self, params: str, **kwargs):
+        params = json.loads(params)
+        chain = params.get('chain', '')
+        address = params.get('address', '')
+        amount = params.get('amount', 0)
+        result = ""
+        if chain=="Solana":
+            result = f"已成功将 {amount} 个 Sol 交换到以太坊链，接收地址为 {address}。"
+        elif chain=="Bitcoin":
+            result = f"已成功将 {amount} 个 btc 交换到以太坊链，接收地址为 {address}。"
+        else:
+            result = f"已成功将 {amount} 个 eth 交换到以太坊链，接收地址为 {address}。"
+        print(result)
+        return json.dumps({'result': result})
+```
+
+我们再运行一下试试
+
+![屏幕截图 2025-12-04 211531.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-04-1764854186717-_____2025-12-04_211531.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-04-1764854202217-image.png)
+
+这样不同链的不同调用逻辑实现了。
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 # Defi 意图理解
 
 把昨天的代码改吧改吧就差不多了
@@ -94,6 +169,7 @@ if __name__ == '__main__':
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 # 跑通官方示例
 
@@ -298,6 +374,7 @@ if __name__ == '__main__':
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 # 使用 Python 调用 Qwen 的简单实例
 
 1.  新建一个 python 文件，写入
@@ -340,11 +417,13 @@ print(completion.model_dump_json())
 
 
 
+
 主要还是想做聚币器，把n条链上的资产自动转移到一条链上，就这样。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -675,6 +754,7 @@ Transaction hash: 0x3b467a9e30ac52e49b854d27313c902bd3dc98b0a721e44e67727111dc72
 
 
 
+
 # ZRC-20 VS ERC-20
 
 ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部署。ZRC-20 具有跨链地能力，而 ERC-20 不能跨链。
@@ -694,6 +774,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 
 
+
 # 我想做的第一个 Universal App
 
 实现所有链的资产都汇集到同一条链的同一个地址上。
@@ -703,6 +784,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -729,6 +811,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -991,6 +1074,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
