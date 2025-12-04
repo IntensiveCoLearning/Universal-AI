@@ -15,8 +15,58 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+今日作业：
+
+Qwen Agent x ZetaChain
+
+把解析出的 DeFi 参数，映射到实际的合约调用接口，形成一层清晰的“中间层服务”。
+
+已成功实现一个完整的 DeFi 交易执行层，基于现有的 `parse_swap_intent` 工具构建。完整的交易模拟逻辑，包括代币映射、余额检查、Gas 估算等，所有交易仅在控制台模拟执行，不与真实区块链交互。
+
+### 基础设施模块
+
+-   token\_registry.py：代币地址注册表和链配置
+    
+-   dex\_config.py：DEX 路由器地址配置
+    
+-   abis.py：智能合约 ABI 定义
+    
+-   config.py：配置常量
+    
+-   blockchain\_interface.py：区块链操作接口及模拟实现
+    
+
+### **执行流程:**
+
+1.  参数验证
+    
+2.  代币地址解析(符号 → 合约地址)
+    
+3.  余额检查
+    
+4.  授权检查
+    
+5.  获取 Swap 报价
+    
+6.  构建交易数据
+    
+7.  模拟执行
+    
+8.  打印详细输出
+    
+9.  返回 JSON 结果
+    
+
+### 执行模拟效果：
+
+![QQ20251204-230014.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-12-04-1764860967169-QQ20251204-230014.png)
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ## 今日作业：
 
 **功能设计：**
@@ -79,6 +129,7 @@ timezone: UTC+8
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 今日作业：
 
 对于 AI 相关的知识比较薄弱，今日的作业完成的不是很好
@@ -90,6 +141,7 @@ timezone: UTC+8
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 完成作业打卡：
@@ -111,6 +163,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -179,6 +232,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 
 
+
 今天实际去跑 swap 的 demo记录遇到的问题
 
 在 deplo 合约上都没遇到问题，只是在获取 zetachain 测试网的以太坊 Sepolia ETH 的 ZRC-20 地址报错了
@@ -212,6 +266,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -275,6 +330,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 
 
+
 -   **ZRC-20 和普通 ERC-20 的直观区别**
     
 
@@ -301,6 +357,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -355,6 +412,7 @@ Swap 工作流程
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -419,6 +477,7 @@ ZetaChain为开发者提供了一个统一的平台来处理跨链消息、资�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
