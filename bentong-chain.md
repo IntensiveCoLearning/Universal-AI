@@ -15,13 +15,93 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+### 部署第一个合约
+
+创建项目
+
+```
+npx zetachain@latest new --project hello
+```
+
+-   使用npx执行最新版本的zetachain，创建一个名为hello的新项目目录
+    
+
+```
+# 进入hello目录
+cd hello    
+
+# 执行npm安装依赖包
+npm install   
+
+# 同步并更新由 Foundry Soldeer 管理的 Solidity 依赖，确保你的合同基于最新兼容的外部库版本构建。
+forge solder update   
+```
+
+-   在windows下，需要在wsl中安装Foundry，然后通过`/mnt/盘符`进入项目目录，然后再执行`forge solder update`
+    
+
+项目目录下会创建一个示例合约：contracts/Universal.sol
+
+```
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+ 
+import "@zetachain/protocol-contracts/contracts/zevm/interfaces/UniversalContract.sol";
+ 
+contract Universal is UniversalContract {
+    event HelloEvent(string, string);
+ 
+    function onCall(
+        MessageContext calldata context,
+        address zrc20,
+        uint256 amount,
+        bytes calldata message
+    ) external override onlyGateway {
+        string memory name = abi.decode(message, (string));
+        emit HelloEvent("Hello: ", name);
+    }
+}
+```
+
+说明：
+
+-   MessageContext结构体
+    
+
+```
+struct MessageContext {
+    /// @notice 连接链上发送者地址
+    /// @dev 该字段使用“字节”以保持与链无关，从而支持 EVM 链和非 EVM 链。
+    /// 如果所连接的链是以EVM链，则 `senderEVM` 也将被赋予和该字段相同的值。
+    bytes sender;
+    
+    /// @notice EVM链，发送者地址
+    address senderEVM;
+    
+    /// @notice 连接链的链ID
+    /// @dev 这会明确消息的来源链，从而使合约逻辑能够区分不同的来源。
+    uint256 chainID;
+}
+```
+
+-   zrc20：代表源链资产的 ZRC-20 代币地址。
+    
+-   amount: 转移的代币数量
+    
+-   message: 是跨链调用时随交易一起传过来的「任意数据载荷」
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 [学习笔记](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 [学习笔记](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
 <!-- DAILY_CHECKIN_2025-12-02_END -->
@@ -30,11 +110,13 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 [笔记链接](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -68,11 +150,13 @@ contract Universal is UniversalContract {
 
 
 
+
 ![Universal EVM.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/bentong-chain/images/2025-11-29-1764430913796-Universal_EVM.png)
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -92,6 +176,7 @@ Universal App部署在ZetaChain的Universal EVM上。Universal EVM在原EVM上�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -163,6 +248,7 @@ zeta
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
