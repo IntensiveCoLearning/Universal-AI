@@ -15,8 +15,397 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+### 学习笔记 Day 11:
+
+## 一、今天我又双叒叕要干啥？
+
+**主题：Qwen-Agent × ZetaChain 的接口层设计**
+
+-   把 `parse_swap_intent` 解析出的自然语言 Swap 意图，**落到具体的合约调用接口**（哪怕只是伪代码）。
+    
+-   在 Qwen-Agent 和链上合约之间，**设计一层清晰的“中间层服务（interface layer）”**，负责路由、映射、校验。
+    
+
+## 二、ZetaChain 开发模型快速复盘
+
+### 1\. Universal App + Gateway
+
+在 ZetaChain 上，典型的跨链 DeFi 应用会写成一个 **Universal App**，部署在 ZetaChain 上，外部链用户通过各自链上的 Gateway `depositAndCall` 把资产 + 消息一起送进来。Swap 示例就是这种模式：
+
+-   Swap 合约部署在 ZetaChain，遵循 `UniversalContract` 接口。
+    
+-   所有跨链调用都通过 Gateway 进入，只暴露一个 `onCall` 入口。
+    
+-   这让你可以从任意连接链上用一次交易完成「充值 + 指令」的操作，而合约统一在 ZetaChain 内部处理逻辑。
+    
+
+### 2\. Messaging / Contract Calls
+
+除了通用 Swap 合约，ZetaChain 还提供：
+
+-   **Messaging 教程**：教你如何在多个 EVM 链之间做跨链消息传递。
+    
+-   **Calls to/from EVM / Solana / Sui**：底层是相同的消息和资产模型，只是链类型不同。
+    
+
+对今天的接口层设计来说，这意味着：
+
+> 你的中间层服务只需要决定「我要调用哪个 Universal 合约 / Gateway / 消息格式」，真正的跨链细节交给 ZetaChain 处理。
+
+## 三、ZRC-20 标准再理解：
+
+### 1\. ZRC-20 是什么？
+
+ZRC-20 是在 ZetaChain 上的 **ERC-20 兼容代币标准**，用来表示「任意连接链上的原生资产」。
+
+-   例如：链上真实的 BTC / ETH / SOL 等，都可以在 ZetaChain 上被映射成对应的 ZRC-20。
+    
+-   对开发者来说，你只跟 ZRC-20 打交道，就能在 ZetaChain 上统一管理多链资产、做 DeFi 逻辑。
+    
+
+### 2\. 在 Swap 合约中的角色
+
+官方 Swap 教程里的 Universal Swap 合约，大致流程是：
+
+1.  从某条链（如 Base Sepolia）`depositAndCall` 到 ZetaChain。
+    
+2.  Gateway 把资产包装成对应的 ZRC-20，连同 `message` 交给 Swap 合约的 `onCall`。
+    
+3.  合约解析 payload，拿到：
+    
+    -   目标 ZRC-20 token 地址（`targetToken`）
+        
+    -   目标链上的接收人地址（bytes 格式）
+        
+    -   是否需要从 ZetaChain 再 withdraw 到目标链（`withdrawFlag`）
+        
+4.  查询 `withdrawGasFee`，用一部分资产换目标链的 gas ZRC-20，剩余部分换成目标 token。
+    
+5.  如果需要跨链 withdraw，则通过 `gateway.withdraw` 把目标 ZRC-20 burn 掉，释放回目标链上的原生资产。
+    
+
+> 接口层要做的，就是帮合约准备好这些“意图喂给 onCall”的参数，比如 `targetToken`、`recipient(bytes)`、`withdrawFlag` 等。
+
+## 四、接口层 / 中间层服务：
+
+把 Qwen-Agent 看成「上游」，ZetaChain 合约看成「下游」，中间层服务的职责可以拆成几块：
+
+1.  **统一意图结构**
+    
+    -   把 `parse_swap_intent` 返回的 JSON 标准化为一个内部的 `SwapIntent` 数据结构。
+        
+2.  **链 & Token 映射**
+    
+    -   根据 `source_chain` / `dest_chain`、`from_token` / `to_token`，查表找到：
+        
+        -   源链 chainId / Gateway 地址
+            
+        -   目标 ZRC-20 token 地址（用于 payload 里的 `targetToken`）
+            
+3.  **策略 & 合约选择**
+    
+    -   目前默认使用官方的 Universal Swap 合约地址 `UNIVERSAL_SWAP_ADDRESS`。
+        
+    -   将来可以根据业务类型（普通 Swap / 带消息的 Swap / 自定义 DEX）选用不同合约。
+        
+4.  **构造调用参数**
+    
+    -   构建 `deposit-and-call` 或 Gateway `depositAndCall` 的参数：
+        
+        -   `--chain-id`（源链）
+            
+        -   `--receiver`（universal 合约地址）
+            
+        -   `--types / --values`（ABI 编码的 payload）
+            
+5.  **输出计划 / 执行调用**
+    
+    -   在当前作业阶段，只需要把「准备发起什么交易」打印到控制台。
+        
+    -   未来可以真正发起链上调用，或返回给前端 / 调用钱包 SDK。
+        
+
+## 五、假设的 `parse_swap_intent` 输出结构
+
+今天主要是「接口层建模」练习，可以先假定 `parse_swap_intent` 返回的数据结构大概长这样：
+
+```
+{
+  "source_chain": "base-sepolia",
+  "dest_chain": "ethereum-sepolia",
+  "from_token": "ETH",
+  "to_token": "ETH",
+  "amount": "0.001",
+  "slippage_bps": 50,
+  "receiver": "0x92ae647a9D8d09D58514037d6535ab93a2A8138f",
+  "withdraw": true
+}
+```
+
+在代码里可以抽象成一个类型：
+
+```
+type ParsedSwapIntent = {
+  source_chain: string;   // eg. "base-sepolia"
+  dest_chain: string;     // eg. "ethereum-sepolia"
+  from_token: string;     // eg. "ETH"
+  to_token: string;       // eg. "ETH"
+  amount: string;         // 原样字符串，方便后续 BigNumber 处理
+  slippage_bps?: number;  // 可选
+  receiver: string;       // 用户填写/推断出的收款地址（EVM 格式）
+  withdraw: boolean;      // true: 最终要 withdraw 到目标链
+};
+```
+
+> 实际项目里，你可以把 `parse_swap_intent` 原始返回结构做一次 `transform`，变成这个统一的 `ParsedSwapIntent`。
+
+## 六、链 & Token 映射配置：
+
+### 1\. 链配置：chainId + Gateway
+
+示例：
+
+```
+const CHAIN_CONFIG = {
+  "base-sepolia": {
+    name: "Base Sepolia",
+    chainId: 84532,
+    gateway: "0xGatewayOnBase...", // EVM Gateway 地址（真实地址查 docs 或 protocol-contracts）:contentReference[oaicite:7]{index=7}
+  },
+  "ethereum-sepolia": {
+    name: "Ethereum Sepolia",
+    chainId: 11155111,
+    gateway: "0xGatewayOnSepolia...",
+  },
+  // ... 其他链
+} as const;
+```
+
+将来可以扩展：Solana / Bitcoin / Sui 等，在 ZetaChain 的体系里也是通过相应的 Gateway 或程序实现的。[zetachain.com](http://zetachain.com)[+1](https://www.zetachain.com/docs/developers?utm_source=chatgpt.com)
+
+### 2\. Token 映射：业务 token → ZRC-20
+
+ZetaChain 的命令行可以查询某个 token 的 ZRC-20 地址，例如：
+
+```
+zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20
+```
+
+返回的是该 token 在 ZetaChain 上的 ZRC-20 合约地址。
+
+中间层里，我们预先写一张映射表：
+
+```
+type TokenConfig = {
+  symbol: string;        // 业务层的 token 名，如 "ETH"
+  chain: string;         // 属于哪条链，如 "ethereum-sepolia"
+  zrc20Symbol: string;   // ZetaChain token symbol，如 "sETH.SEPOLIA"
+  zrc20Address: string;  // ZRC-20 合约地址
+};
+
+// key 采用 `${symbol}:${chainKey}`
+const TOKEN_CONFIG: Record<string, TokenConfig> = {
+  "ETH:base-sepolia": {
+    symbol: "ETH",
+    chain: "base-sepolia",
+    zrc20Symbol: "sETH.BASE_SEPOLIA",
+    zrc20Address: "0x....",
+  },
+  "ETH:ethereum-sepolia": {
+    symbol: "ETH",
+    chain: "ethereum-sepolia",
+    zrc20Symbol: "sETH.SEPOLIA",
+    zrc20Address: "0x....",
+  },
+  // ...
+};
+```
+
+> 这张表就是接口层的「知识库」：AI 只说“从 Base 把 0.001 ETH 换到 Ethereum”，中间层根据它帮你找到正确的 ZRC-20 合约地址和链参数。
+
+## 七、作业：
+
+下面是一个偏 Node.js / TypeScript 风格的代码，实现作业：
+
+1.  接收 `parse_swap_intent` 返回值。
+    
+2.  根据不同链 / 不同 token 选择具体的合约 / 调用方式。
+    
+3.  目前只在控制台打印「准备发起什么交易」，不真的上链。
+    
+
+### 1\. 定义意图类型和配置
+
+```
+// 1. 意图类型（上一节提到的）
+type ParsedSwapIntent = {
+  source_chain: string;
+  dest_chain: string;
+  from_token: string;
+  to_token: string;
+  amount: string;
+  slippage_bps?: number;
+  receiver: string;
+  withdraw: boolean;
+};
+
+// 2. 链 & token 配置
+type ChainConfig = {
+  name: string;
+  chainId: number;
+  gateway: string;
+};
+
+const CHAIN_CONFIG: Record<string, ChainConfig> = {
+  "base-sepolia": {
+    name: "Base Sepolia",
+    chainId: 84532,
+    gateway: "0xGatewayOnBase...",
+  },
+  "ethereum-sepolia": {
+    name: "Ethereum Sepolia",
+    chainId: 11155111,
+    gateway: "0xGatewayOnSepolia...",
+  },
+};
+
+type TokenConfig = {
+  symbol: string;
+  chain: string;
+  zrc20Symbol: string;
+  zrc20Address: string;
+};
+
+const TOKEN_CONFIG: Record<string, TokenConfig> = {
+  "ETH:base-sepolia": {
+    symbol: "ETH",
+    chain: "base-sepolia",
+    zrc20Symbol: "sETH.BASE_SEPOLIA",
+    zrc20Address: "0xBaseETHZRC20...",
+  },
+  "ETH:ethereum-sepolia": {
+    symbol: "ETH",
+    chain: "ethereum-sepolia",
+    zrc20Symbol: "sETH.SEPOLIA",
+    zrc20Address: "0xSepoliaETHZRC20...",
+  },
+};
+```
+
+### 2\. 中间层核心函数：
+
+```
+// Universal Swap 合约地址（部署在 ZetaChain）
+const UNIVERSAL_SWAP_ADDRESS = "0xUniversalSwapOnZeta...";
+
+function buildSwapPlan(intent: ParsedSwapIntent) {
+  const srcChain = CHAIN_CONFIG[intent.source_chain];
+  const dstChain = CHAIN_CONFIG[intent.dest_chain];
+
+  if (!srcChain || !dstChain) {
+    throw new Error(`未知链: ${intent.source_chain} / ${intent.dest_chain}`);
+  }
+
+  const fromTokenKey = `${intent.from_token}:${intent.source_chain}`;
+  const toTokenKey = `${intent.to_token}:${intent.dest_chain}`;
+
+  const fromToken = TOKEN_CONFIG[fromTokenKey];
+  const toToken = TOKEN_CONFIG[toTokenKey];
+
+  if (!fromToken || !toToken) {
+    throw new Error(`找不到 Token 映射: ${fromTokenKey} 或 ${toTokenKey}`);
+  }
+
+  // 构造给 Swap Universal App 的 message payload（概念层面）
+  // 实际合约 onCall 中会用 abi.decode(message, (address, bytes, bool))
+  const payload = {
+    targetToken: toToken.zrc20Address, // ZRC-20 地址
+    recipientBytes: `bytes(${intent.receiver})`, // 真实实现需要按链类型做编码
+    withdrawFlag: intent.withdraw,
+  };
+
+  return {
+    srcChain,
+    dstChain,
+    fromToken,
+    toToken,
+    payload,
+    // 表示我们计划调用的链上方法（概念）
+    call: {
+      type: "depositAndCall",
+      gateway: srcChain.gateway,
+      universal: UNIVERSAL_SWAP_ADDRESS,
+      amount: intent.amount,
+      // CLI 对应：--types address bytes bool
+      //          --values targetToken recipientBytes withdrawFlag
+    },
+  };
+}
+```
+
+### 3\. 实际入口：接收 `parse_swap_intent` 的输出并打印
+
+```
+function handleParsedSwapIntent(intent: ParsedSwapIntent) {
+  try {
+    const plan = buildSwapPlan(intent);
+
+    console.log("=== [Qwen-Agent × ZetaChain] 交易计划 ===");
+    console.log(`来源链: ${plan.srcChain.name} (chainId=${plan.srcChain.chainId})`);
+    console.log(`目标链: ${plan.dstChain.name} (chainId=${plan.dstChain.chainId})`);
+    console.log(
+      `资产: 从 ${plan.fromToken.symbol} @ ${plan.fromToken.chain} ` +
+      `=> ${plan.toToken.symbol} @ ${plan.toToken.chain}`
+    );
+    console.log(`数量: ${intent.amount}`);
+    if (intent.slippage_bps !== undefined) {
+      console.log(`滑点: ${intent.slippage_bps} bps`);
+    }
+    console.log(`接收地址: ${intent.receiver}`);
+    console.log(`是否需要跨链 withdraw: ${intent.withdraw}`);
+
+    console.log("\n将调用链上方法（概念化表示）：");
+    console.log(`- Gateway 合约: ${plan.call.gateway}`);
+    console.log(`- Universal Swap 合约: ${plan.call.universal}`);
+    console.log(`- 调用类型: ${plan.call.type}`);
+    console.log("- 携带的 payload 参数：");
+    console.log(`  * targetToken (ZRC-20): ${plan.payload.targetToken}`);
+    console.log(`  * recipient (bytes): ${plan.payload.recipientBytes}`);
+    console.log(`  * withdrawFlag: ${plan.payload.withdrawFlag}`);
+
+    console.log("\n（当前阶段仅打印计划，不真正发起交易）");
+  } catch (e) {
+    console.error("[错误] 构建交易计划失败:", (e as Error).message);
+  }
+}
+```
+
+### 4\. 一个 HTTP 后端路由
+
+```
+// 接收来自 Qwen-Agent 的请求
+app.post("/swap-intent", (req, res) => {
+  const intent: ParsedSwapIntent = req.body; // 这里假设 Agent 把 parse_swap_intent 结果直接 POST 过来
+  handleParsedSwapIntent(intent);
+  res.json({ ok: true });
+});
+```
+
+> **作业的核心：**
+> 
+> -   把自然语言解析结果 → 映射到链 & token → 映射到合约调用接口（哪怕只是打印）。
+>     
+> -   整个过程只在“中间层服务”里完成，Agent 不需要关心任何链上细节。
+>     
+
+## 头疼。。。。T\_T
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ### Day 10 学习笔记：
 
 ## 1\. 今天干了啥
@@ -340,6 +729,7 @@ resp = client.chat.completions.create(
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 ### 学习笔记 Day 9:
 
@@ -701,6 +1091,7 @@ Agent 就应该调用 `add` 工具并给出计算结果。
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 ### 学习笔记 Day8：
 
 ## 一、今日学习内容
@@ -1049,6 +1440,7 @@ if __name__ == "__main__":
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -1475,6 +1867,7 @@ Swap + Messaging + Omnichain Contracts 则是「通用 DeFi 的操作系统」�
 
 
 
+
 **Day 6 学习笔记：**
 
 ## 一、一次调用完成跨链 DeFi
@@ -1815,6 +2208,7 @@ npx zetachain evm deposit-and-call \
 
 
 
+
 ### Day 5 学习笔记：
 
 ## 一、今天要搞清楚的三个核心概念
@@ -2116,6 +2510,7 @@ npx zetachain evm deposit-and-call \
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -2494,6 +2889,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 
 
+
 # 学习笔记 Day 3：ZetaChain & Universal Blockchain 核心概念
 
 ## 1\. 整体认识：什么是 “Universal Blockchain / Universal EVM”？
@@ -2695,6 +3091,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -3053,6 +3450,7 @@ Body（raw + JSON）示例：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
