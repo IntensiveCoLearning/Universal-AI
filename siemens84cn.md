@@ -15,13 +15,382 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+# 2025-12-03学习笔记
+
+-   设计一个工具：`parse_swap_intent(text)`，返回结构化 JSON，例如：`{ "chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10" }`
+    
+-   让 Agent 能处理以下输入：
+    
+    -   “帮我在 Base 上用 10 USDC 换成 ETH”
+        
+    -   “把我 50 U 兑换成 Polygon 上的 MATIC”
+        
+
+```
+#Python
+import json5
+import requests
+from qwen_agent.agents import Assistant
+from qwen_agent.tools.base import BaseTool, register_tool
+
+# Qwen 模型配置
+llm_cfg = {
+    # DashScope 提供的兼容 OpenAI 的模型服务
+    'model': 'qwen-plus',
+    'model_server': 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    'api_key': 'Bearer QWEN-API-KEY',
+}
+
+# 系统提示词：让 Qwen 作为总控助手，必要时调用 parse_swap_intent 工具做结构化解析
+system = (
+    '你是一个帮助用户进行加密货币代币兑换咨询的智能助手。'
+    '当用户给出诸如“帮我在 Base 上用 10 USDC 换成 ETH”这样的自然语言描述时，'
+    '你需要调用工具 parse_swap_intent，将用户意图解析为 JSON 结构化数据：'
+    '{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}。'
+    '请尽量保持链名为小写，代币符号为大写，amount 使用字符串表示原始数值。'
+)
+
+
+# 自定义工具：parse_swap_intent
+@register_tool('parse_swap_intent')
+class ParseSwapIntent(BaseTool):
+    """
+    通过调用 Qwen API，对用户输入的自然语言文本进行意图识别，
+    提取链名称、输入代币、输出代币及金额，并返回结构化 JSON。
+    """
+
+    description = (
+        '解析用户关于代币兑换的自然语言描述，'
+        '例如：“帮我在 Base 上用 10 USDC 换成 ETH”，'
+        '返回结构化 JSON：{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}。'
+    )
+
+    # 工具入参定义
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': '用户输入的原始自然语言文本，例如：“帮我在 Base 上用 10 USDC 换成 ETH”。',
+        'required': True
+    }]
+
+    def _call_qwen(self, text: str) -> dict:
+        """
+        直接调用 Qwen 的 OpenAI 兼容接口，让大模型只输出目标 JSON 结构。
+        """
+        url = f"{llm_cfg['model_server'].rstrip('/')}/chat/completions"
+        headers = {
+            'Authorization': llm_cfg['api_key'],
+            'Content-Type': 'application/json',
+        }
+        system_prompt = (
+            '你是一个意图解析工具，只负责从用户的语句中提取代币兑换信息。'
+            '请严格按照下面的 JSON 结构输出，且整个回复只能是一个合法的 JSON：'
+            '{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}。'
+            '其中：'
+            '1. chain：区块链网络名称，全部小写，例如 base、ethereum、arbitrum。'
+            '2. tokenIn：用户用来兑换的代币符号，全部大写，例如 USDC、USDT、ETH。'
+            '3. tokenOut：用户想要得到的代币符号，全部大写。'
+            '4. amount：用户希望兑换的数量，直接使用原始数字文本，作为字符串返回。'
+            '如果用户表达不清楚，也要尽量根据语义做出合理猜测。'
+        )
+        payload = {
+            'model': llm_cfg['model'],
+            'messages': [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': text},
+            ],
+            'temperature': 0.0,
+        }
+
+        resp = requests.post(url, headers=headers, json=payload, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+
+        # 解析 Qwen 返回的 content
+        content = data['choices'][0]['message']['content']
+        try:
+            parsed = json5.loads(content)
+        except Exception:
+            # 如果解析失败，包一层错误信息返回
+            parsed = {
+                'error': 'FAILED_TO_PARSE_QWEN_RESPONSE',
+                'raw': content,
+            }
+        return parsed
+
+    def call(self, params: str, **kwargs) -> str:
+        """
+        Qwen-Agent 调用工具的入口。
+        """
+        args = json5.loads(params)
+        text = args.get('text', '')
+
+        if not text:
+            result = {
+                'error': 'EMPTY_TEXT',
+                'message': '参数 text 不能为空',
+            }
+            return json.dumps(result, ensure_ascii=False)
+
+        try:
+            parsed = self._call_qwen(text)
+        except Exception as e:
+            parsed = {
+                'error': 'QWEN_API_CALL_FAILED',
+                'message': str(e),
+            }
+
+        return json5.dumps(parsed, ensure_ascii=False)
+
+tools = ['parse_swap_intent', 'code_interpreter']  # code_interpreter 是 Qwen-Agent 内置工具
+bot = Assistant(llm=llm_cfg,
+                system_message=system,
+                function_list=tools)
+
+messages = []
+while True:
+    query = input('请你提问: ')
+    messages.append({'role': 'user', 'content': query})
+    responses = list(bot.run(messages=messages))
+    if responses:
+        print('bot final response:', responses[-1][1].get('content'))
+        break;
+```
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/siemens84cn/images/2025-12-04-1764854127856-image.png)
+
+# 2025-12-04学习笔记
+
+-   写出一个后端伪代码或简单实现：
+    
+    -   接收 `parse_swap_intent` 返回值；
+        
+    -   根据不同链 / 不同 token 选择具体的合约 / 调用方式；
+        
+    -   暂时可以只在控制台打印“准备发起什么交易”。
+        
+
+```
+#Python
+import json5
+import requests
+from qwen_agent.agents import Assistant
+from qwen_agent.tools.base import BaseTool, register_tool
+
+# Qwen 模型配置
+llm_cfg = {
+    # DashScope 提供的兼容 OpenAI 的模型服务
+    'model': 'qwen-plus',
+    'model_server': 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+    'api_key': 'Bearer QWEN-API-KEY',
+}
+
+# 系统提示词：让 Qwen 作为总控助手，必要时调用 parse_swap_intent 工具做结构化解析
+system = (
+    '你是一个帮助用户进行加密货币代币兑换咨询的智能助手。'
+    '当用户给出诸如“帮我在 Base 上用 10 USDC 换成 ETH”这样的自然语言描述时，'
+    '你需要调用工具 parse_swap_intent，将用户意图解析为 JSON 结构化数据：'
+    '{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}。'
+    '请尽量保持链名为小写，代币符号为大写，amount 使用字符串表示原始数值。'
+)
+
+
+# 自定义工具：parse_swap_intent
+@register_tool('parse_swap_intent')
+class ParseSwapIntent(BaseTool):
+    """
+    通过调用 Qwen API，对用户输入的自然语言文本进行意图识别，
+    提取链名称、输入代币、输出代币及金额，并返回结构化 JSON。
+    """
+
+    description = (
+        '解析用户关于代币兑换的自然语言描述，'
+        '例如：“帮我在 Base 上用 10 USDC 换成 ETH”，'
+        '返回结构化 JSON：{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}。'
+    )
+
+    # 工具入参定义
+    parameters = [{
+        'name': 'text',
+        'type': 'string',
+        'description': '用户输入的原始自然语言文本，例如：“帮我在 Base 上用 10 USDC 换成 ETH”。',
+        'required': True
+    }]
+
+    def _call_qwen(self, text: str) -> dict:
+        """
+        直接调用 Qwen 的 OpenAI 兼容接口，让大模型只输出目标 JSON 结构。
+        """
+        url = f"{llm_cfg['model_server'].rstrip('/')}/chat/completions"
+        headers = {
+            'Authorization': llm_cfg['api_key'],
+            'Content-Type': 'application/json',
+        }
+        system_prompt = (
+            '你是一个意图解析工具，只负责从用户的语句中提取代币兑换信息。'
+            '请严格按照下面的 JSON 结构输出，且整个回复只能是一个合法的 JSON：'
+            '{"chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10"}。'
+            '其中：'
+            '1. chain：区块链网络名称，全部小写，例如 base、ethereum、arbitrum。'
+            '2. tokenIn：用户用来兑换的代币符号，全部大写，例如 USDC、USDT、ETH。'
+            '3. tokenOut：用户想要得到的代币符号，全部大写。'
+            '4. amount：用户希望兑换的数量，直接使用原始数字文本，作为字符串返回。'
+            '如果用户表达不清楚，也要尽量根据语义做出合理猜测。'
+        )
+        payload = {
+            'model': llm_cfg['model'],
+            'messages': [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': text},
+            ],
+            'temperature': 0.0,
+        }
+
+        resp = requests.post(url, headers=headers, json=payload, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+
+        # 解析 Qwen 返回的 content
+        content = data['choices'][0]['message']['content']
+        try:
+            parsed = json5.loads(content)
+        except Exception:
+            # 如果解析失败，包一层错误信息返回
+            parsed = {
+                'error': 'FAILED_TO_PARSE_QWEN_RESPONSE',
+                'raw': content,
+            }
+        return parsed
+
+    def call(self, params: str, **kwargs) -> str:
+        """
+        Qwen-Agent 调用工具的入口。
+        """
+        args = json5.loads(params)
+        text = args.get('text', '')
+
+        if not text:
+            result = {
+                'error': 'EMPTY_TEXT',
+                'message': '参数 text 不能为空',
+            }
+            return json5.dumps(result, ensure_ascii=False)
+
+        try:
+            parsed = self._call_qwen(text)
+        except Exception as e:
+            parsed = {
+                'error': 'QWEN_API_CALL_FAILED',
+                'message': str(e),
+            }
+
+        return json5.dumps(parsed, ensure_ascii=False)
+
+tools = ['parse_swap_intent', 'code_interpreter']  # code_interpreter 是 Qwen-Agent 内置工具
+bot = Assistant(llm=llm_cfg,
+                system_message=system,
+                function_list=tools)
+
+messages = []
+while True:
+    query = input('请你提问: ')
+    messages.append({'role': 'user', 'content': query})
+    responses = list(bot.run(messages=messages))
+
+    # 1. 从 Qwen-Agent 的运行结果中，找到 parse_swap_intent 工具的返回值（JSON 字符串）
+    swap_intent_raw = None
+    for item in responses:
+        # 根据 qwen_agent 的输出格式，这里通常是 (idx, message_dict)
+        if isinstance(item, (list, tuple)) and len(item) >= 2:
+            msg = item[1]
+        else:
+            msg = item
+
+        if not isinstance(msg, dict):
+            continue
+
+        # 工具调用结果通常是 role == 'function'，name 为工具名
+        if msg.get('role') == 'function' and msg.get('name') == 'parse_swap_intent':
+            swap_intent_raw = msg.get('content')
+            break
+
+    if not swap_intent_raw:
+        print('未能从模型结果中获取到 parse_swap_intent 的返回值，请检查对话和工具配置。')
+        break
+
+    # 2. 解析 JSON 结构体（链、代币、数量等）
+    try:
+        intent = json5.loads(swap_intent_raw) if isinstance(swap_intent_raw, str) else swap_intent_raw
+    except Exception:
+        print('parse_swap_intent 返回内容无法解析为 JSON：', swap_intent_raw)
+        break
+
+    chain = intent.get('chain', '')
+    token_in = intent.get('tokenIn', '')
+    token_out = intent.get('tokenOut', '')
+    amount = intent.get('amount', '')
+
+    # 2.1 根据不同区块链 / 不同 token 选择具体的合约 / 调用方式（这里只做一个简单路由示例）
+    # 实际项目中，你可以根据 ZetaChain 文档中不同链的合约地址与调用方式来完善：
+    # https://www.zetachain.com/docs/developers
+    route_key = f'{chain.lower()}_{token_in.upper()}_{token_out.upper()}'
+
+    # 非常简化的“路由表”示例：key -> 合约 / 调用信息
+    swap_routes = {
+        'base_USDC_ETH': {
+            'type': 'universal_swap',
+            'contract': 'UniversalSwapOnZetaChain',
+            'description': '在 Base 链上，从 USDC 兑换为 ETH，通过 ZetaChain 的 Universal Swap 合约发起跨链或本链交易。',
+        },
+        'ethereum_USDT_ETH': {
+            'type': 'universal_swap',
+            'contract': 'UniversalSwapOnZetaChain',
+            'description': '在 Ethereum 链上，从 USDT 兑换为 ETH，通过 ZetaChain 的 Universal Swap 合约发起跨链或本链交易。',
+        },
+        'polygon_USDC_MATIC': {
+            'type': 'universal_swap',
+            'contract': 'UniversalSwapOnZetaChain',
+            'description': '在 Polygon 链上，从 USDC 兑换为 MATIC，通过 ZetaChain 的 Universal Swap 合约发起跨链或本链交易。',
+        },
+        # 可以按需继续扩展其它链和代币组合...
+    }
+
+    route = swap_routes.get(route_key, {
+        'type': 'unknown_route',
+        'contract': 'Unknown',
+        'description': '未在本地路由表中找到对应的链 / 代币组合，请在真实环境中补充具体合约调用逻辑。',
+    })
+
+    # 3. 在控制台打印“准备发起什么交易”的信息（仅模拟，不真正发交易）
+    print('---------------- 准备发起交易 ----------------')
+    print(f'源链(chain)        : {chain}')
+    print(f'源代币(tokenIn)    : {token_in}')
+    print(f'目标链(chain)      : {chain} (示例中暂使用同一条链，可按需扩展多链场景)')
+    print(f'目标代币(tokenOut) : {token_out}')
+    print(f'数量(amount)       : {amount}')
+    print(f'路由类型(type)     : {route["type"]}')
+    print(f'合约(contract)     : {route["contract"]}')
+    print(f'说明(description)  : {route["description"]}')
+    print('------------------------------------------------')
+
+    # 当前 Demo 仅执行一次示例后退出循环
+    break
+```
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/siemens84cn/images/2025-12-04-1764856478364-image.png)
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 先打个卡，手上任务有点多，明天合并一起打卡掉，抱歉哈
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 # 2025-12-01学习笔记
 
@@ -154,11 +523,13 @@ available_functions = {
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 先卡个卡，今天有点忙，明天抽空把这两天的任务都补上。
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -269,6 +640,7 @@ OmniYield 自动：
 
 
 
+
 -   在测试网跑通官方跨链Demo（Swap）
     
 
@@ -303,6 +675,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -348,6 +721,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
     
 
@@ -361,6 +735,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -391,6 +766,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   ZetaChain CLI本地环境安装及使用：
     
 
@@ -411,6 +787,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
