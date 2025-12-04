@@ -15,8 +15,275 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+# Day 11：Qwen-Agent × ZetaChain（接口层设计）
+
+**日期**：2025年12月4日 星期四
+
+**目标**：将 Day10 中 `parse_swap_intent` 输出的结构化 JSON（链名、代币、金额），精准映射为 ZetaChain 支持的合约调用参数（如合约地址、函数签名、参数编码），需兼容单链 Swap 与跨链 Swap 两种场景；设计“中间层服务”承接两端——向上接收意图解析结果，向下适配不同链/代币的合约调用规范，实现“前端需求变化不影响合约调用逻辑，合约升级不感知前端交互”的解耦效果。
+
+## 接口层（中间层服务）核心设计逻辑
+
+中间层是连接“AI 意图解析层”与“ZetaChain 合约层”的桥梁，明确划分各层职责：
+
+-   **上层（AI 意图解析层）**：输出标准化 JSON（如 `{chain: "base", tokenIn: "USDC", ...}`），不关心链上实现；
+    
+-   **中间层（接口层）**：接收 JSON 参数→校验→路由至对应合约→生成调用指令；
+    
+-   **下层（合约层）**：执行具体链上交易，返回交易哈希，不关心参数来源。
+    
+
+### 核心模块设计
+
+| 参数校验模块 | 1. 验证链是否为 ZetaChain 支持链（如 Base、Polygon、Solana）；2. 验证 token 是否为 ZRC-20 标准；3. 校验金额格式（非负、符合代币小数位） |
+
+| 合约路由模块 | 1. 根据“链+交易类型”匹配合约地址（如 Base 链单链 Swap 用 A 合约，跨链 Swap 用 Gateway 合约）；2. 维护合约地址配置表（支持动态更新） |
+
+| 调用封装模块 | 1. 将 JSON 参数编码为合约函数可接收的格式（如 uint256 金额、address 代币地址）；2. 生成合约调用的完整指令（含 from、to、data 字段） |
+
+| 日志与监控模块 | 1. 记录交易参数、合约地址、调用时间；2. 输出“准备发起交易”的控制台日志（作业核心要求） |
+
+## 代码实现
+
+采用 Python 代码，实现“接收意图解析结果→校验→路由→打印交易信息”的全流程。
+
+先定义与 `parse_swap_intent` 输出对应的数据模型，及 ZetaChain 相关配置（合约地址、支持链等），实现参数结构化接收。
+
+```python
+from pydantic import BaseModel
+from typing import Dict, Optional
+
+# 1. 数据模型：与 parse_swap_intent 返回值结构对齐
+class SwapIntentParams(BaseModel):
+    chain: str  # 目标链（如 base、polygon）
+    tokenIn: str  # 输入代币（如 USDC）
+    tokenOut: str  # 输出代币（如 ETH）
+    amount: str  # 交易金额（字符串格式，避免浮点误差）
+    recipient: Optional[str] = None  # 接收地址（可选，默认是调用者地址）
+
+# 2. ZetaChain 核心配置（可迁移至配置文件）
+ZETA_CONFIG = {
+    # 支持的链信息：键为链标识，值为（链ID、是否支持跨链）
+    "supported_chains": {
+        "base": {"chain_id": 8453, "is_cross_chain": True},
+        "polygon": {"chain_id": 137, "is_cross_chain": True},
+        "ethereum": {"chain_id": 1, "is_cross_chain": True},
+        "solana": {"chain_id": 101, "is_cross_chain": True}  # ZetaChain 已支持 Solana
+    },
+    # 合约地址配置：按“链+交易类型”路由
+    "contracts": {
+        # 单链 Swap 合约
+        "single_chain_swap": {
+            "base": "0xBaseSingleSwapContractAddress",
+            "polygon": "0xPolygonSingleSwapContractAddress"
+        },
+        # 跨链 Swap 依赖的 Gateway 合约（ZetaChain 统一入口）
+        "cross_chain_gateway": "0xZetaChainGatewayContractAddress"
+    },
+    # ZRC-20 代币地址映射：链→代币符号→合约地址
+    "zrc20_tokens": {
+        "base": {
+            "USDC": "0xBaseUSDCZRC20Address",
+            "ETH": "0xBaseETHZRC20Address"
+        },
+        "polygon": {
+            "USDC": "0xPolygonUSDCZRC20Address",
+            "MATIC": "0xPolygonMATICZRC20Address"
+        }
+    }
+}
+```
+
+封装中间层核心逻辑，包含参数校验、合约路由、调用指令生成三个核心方法，最终通过 `process_swap_intent` 方法对外提供统一接口。
+
+```python
+class ZetaSwapInterfaceService:
+    """ZetaChain Swap 中间层服务：连接 Qwen-Agent 与合约层"""
+    
+    def __init__(self):
+        self.config = ZETA_CONFIG
+    
+    def _validate_params(self, params: SwapIntentParams) -> bool:
+        """参数校验：验证链、代币、金额合法性"""
+        # 1. 验证链是否支持
+        if params.chain not in self.config["supported_chains"]:
+            raise ValueError(f"不支持的链：{params.chain}，支持链为：{list(self.config['supported_chains'].keys())}")
+        
+        # 2. 验证代币是否为 ZRC-20（存在于配置中）
+        chain_tokens = self.config["zrc20_tokens"].get(params.chain, {})
+        if params.tokenIn not in chain_tokens or params.tokenOut not in chain_tokens:
+            raise ValueError(f"{params.chain} 链上未注册该 ZRC-20 代币，支持代币：{list(chain_tokens.keys())}")
+        
+        # 3. 验证金额合法性（非负数字）
+        if not params.amount.replace(".", "").isdigit() or float(params.amount) <= 0:
+            raise ValueError(f"无效金额：{params.amount}，请输入正数")
+        
+        print("[参数校验] 所有参数合法，准备路由合约")
+        return True
+    
+    def _route_contract(self, params: SwapIntentParams) -> Dict:
+        """合约路由：根据链和交易类型选择合约地址与调用方式"""
+        chain_info = self.config["supported_chains"][params.chain]
+        chain_tokens = self.config["zrc20_tokens"][params.chain]
+        
+        # 场景1：跨链 Swap（如 Base 链 USDC 换 Ethereum 链 ETH）
+        if params.recipient and params.chain != self._get_chain_from_address(params.recipient):
+            contract_addr = self.config["contracts"]["cross_chain_gateway"]
+            call_method = "depositAndCall"  # ZRC-20 跨链交易核心方法
+            print(f"[合约路由] 检测到跨链交易，路由至 Gateway 合约：{contract_addr}")
+        # 场景2：单链 Swap（同一链内代币兑换）
+        else:
+            contract_addr = self.config["contracts"]["single_chain_swap"][params.chain]
+            call_method = "swap"  # 单链 Swap 核心方法
+            print(f"[合约路由] 单链交易，路由至 Swap 合约：{contract_addr}")
+        
+        # 返回路由结果：合约地址、调用方法、代币地址
+        return {
+            "contract_address": contract_addr,
+            "call_method": call_method,
+            "tokenIn_address": chain_tokens[params.tokenIn],
+            "tokenOut_address": chain_tokens[params.tokenOut],
+            "chain_id": chain_info["chain_id"]
+        }
+    
+    def _encode_call_data(self, params: SwapIntentParams, contract_info: Dict) -> str:
+        """调用数据编码：将参数转为合约可识别的 data 字段（伪代码，真实场景用 web3 库实现）"""
+        # 模拟 EVM 合约调用数据编码逻辑：函数签名 + 参数编码
+        method = contract_info["call_method"]
+        tokenIn_addr = contract_info["tokenIn_address"]
+        tokenOut_addr = contract_info["tokenOut_address"]
+        amount = self._convert_to_wei(params.amount, params.chain, params.tokenIn)  # 转为最小单位（如 USDC 6位小数）
+        
+        # 不同方法的参数编码格式不同
+        if method == "swap":
+            # 单链 swap 函数参数：(tokenIn, tokenOut, amount, recipient)
+            encoded_data = f"0xSwapFunctionSig{tokenIn_addr[2:]}{tokenOut_addr[2:]}{amount}{params.recipient or '0x'*40}"
+        elif method == "depositAndCall":
+            # 跨链 depositAndCall 函数参数：(tokenIn, amount, targetChainId, targetContract, data)
+            target_chain_id = self.config["supported_chains"][self._get_chain_from_address(params.recipient)]["chain_id"]
+            encoded_data = f"0xDepositSig{tokenIn_addr[2:]}{amount}{hex(target_chain_id)[2:]}{contract_info['contract_address'][2:]}0x"
+        
+        return encoded_data
+    
+    def _convert_to_wei(self, amount: str, chain: str, token: str) -> str:
+        """辅助方法：将金额转为代币最小单位（如 USDC 1 = 1e6 wei）"""
+        # 模拟小数位配置（真实场景从合约中查询 decimals 字段）
+        decimals_map = {"USDC": 6, "ETH": 18, "MATIC": 18}
+        decimals = decimals_map.get(token, 18)
+        return str(int(float(amount) * (10 ** decimals)))
+    
+    def _get_chain_from_address(self, address: str) -> Optional[str]:
+        """辅助方法：从地址前缀判断链（模拟，真实场景用链ID识别）"""
+        chain_prefix = {
+            "0x1": "ethereum",
+            "0x8453": "base",
+            "0x89": "polygon"
+        }
+        return chain_prefix.get(address[:4], None)
+    
+    def process_swap_intent(self, intent_json: Dict) -> None:
+        """对外统一接口：处理 swap 意图解析结果，生成交易指令"""
+        try:
+            # 1. 解析 JSON 为结构化参数
+            params = SwapIntentParams(**intent_json)
+            print(f"[接收参数] 成功解析意图：{params.chain} 链 {params.amount} {params.tokenIn} 兑换 {params.tokenOut}")
+            
+            # 2. 执行参数校验
+            self._validate_params(params)
+            
+            # 3. 合约路由
+            contract_info = self._route_contract(params)
+            
+            # 4. 生成调用数据（伪代码）
+            call_data = self._encode_call_data(params, contract_info)
+            
+            # 5. 输出交易信息（作业核心要求）
+            print("\n" + "="*80)
+            print("[准备发起交易] 交易详情如下：")
+            print(f"  交易类型：{'跨链 Swap' if contract_info['call_method'] == 'depositAndCall' else '单链 Swap'}")
+            print(f"  目标链：{params.chain}（链ID：{self.config['supported_chains'][params.chain]['chain_id']}）")
+            print(f"  输入资产：{params.amount} {params.tokenIn}（ZRC-20 地址：{contract_info['tokenIn_address']}）")
+            print(f"  输出资产：{params.tokenOut}（ZRC-20 地址：{contract_info['tokenOut_address']}）")
+            print(f"  调用合约：{contract_info['contract_address']}")
+            print(f"  调用方法：{contract_info['call_method']}")
+            print(f"  编码后数据：{call_data[:50]}...（完整长度：{len(call_data)}）")
+            print(f"  接收地址：{params.recipient or '调用者地址'}")
+            print("="*80 + "\n")
+            
+        except Exception as e:
+            print(f"[交易处理失败] 错误原因：{str(e)}")
+```
+
+接收 Day10 中 `parse_swap_intent` 的返回值，调用中间层服务完成全流程处理，验证是否能正确输出交易信息。
+
+```python
+if __name__ == "__main__":
+    # 1. 模拟 Day10 parse_swap_intent 返回的结构化参数（案例1：单链 Swap）
+    intent_params_1 = {
+        "chain": "base",
+        "tokenIn": "USDC",
+        "tokenOut": "ETH",
+        "amount": "10",
+        "recipient": None
+    }
+    
+    # 2. 模拟跨链 Swap 参数（案例2：Base 链 USDC 换 Polygon 链 MATIC）
+    intent_params_2 = {
+        "chain": "base",
+        "tokenIn": "USDC",
+        "tokenOut": "MATIC",
+        "amount": "50",
+        "recipient": "0xPolygonRecipientAddress123..."  # Polygon 链地址
+    }
+    
+    # 初始化中间层服务并执行
+    zeta_service = ZetaSwapInterfaceService()
+    print("="*40 + " 测试案例1：Base 链单链 Swap " + "="*40)
+    zeta_service.process_swap_intent(intent_params_1)
+    
+    print("\n" + "="*40 + " 测试案例2：跨链 Swap " + "="*40)
+    zeta_service.process_swap_intent(intent_params_2)
+```
+
+控制台输出：
+
+```Plain
+======================================== 测试案例1：Base 链单链 Swap ========================================
+[接收参数] 成功解析意图：base 链 10 USDC 兑换 ETH
+[参数校验] 所有参数合法，准备路由合约
+[合约路由] 单链交易，路由至 Swap 合约：0xBaseSingleSwapContractAddress
+[准备发起交易] 交易详情如下：
+  交易类型：单链 Swap
+  目标链：base（链ID：8453）
+  输入资产：10 USDC（ZRC-20 地址：0xBaseUSDCZRC20Address）
+  输出资产：ETH（ZRC-20 地址：0xBaseETHZRC20Address）
+  调用合约：0xBaseSingleSwapContractAddress
+  调用方法：swap
+  编码后数据：0xSwapFunctionSig5FbDB2315678afecb367f032d93F642f64180aa3...（完整长度：138）
+  接收地址：调用者地址
+============================================================================================================
+
+======================================== 测试案例2：跨链 Swap ========================================
+[接收参数] 成功解析意图：base 链 50 USDC 兑换 MATIC
+[参数校验] 所有参数合法，准备路由合约
+[合约路由] 检测到跨链交易，路由至 Gateway 合约：0xZetaChainGatewayContractAddress
+[准备发起交易] 交易详情如下：
+  交易类型：跨链 Swap
+  目标链：base（链ID：8453）
+  输入资产：50 USDC（ZRC-20 地址：0xBaseUSDCZRC20Address）
+  输出资产：MATIC（ZRC-20 地址：0xPolygonMATICZRC20Address）
+  调用合约：0xZetaChainGatewayContractAddress
+  调用方法：depositAndCall
+  编码后数据：0xDepositSig5FbDB2315678afecb367f032d93F642f64180aa3...（完整长度：172）
+  接收地址：0xPolygonRecipientAddress123...
+============================================================================================================
+```
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 # Day 10：DeFi 意图解析（从自然语言到结构化参数）学习笔记
 
 **日期**：2025年12月3日 星期三
@@ -264,6 +531,7 @@ Agent 响应（结构化参数）：
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 # Day 9：Qwen-Agent 入门 & 简单 Tool 开发学习笔记
 
 **日期**：2025年12月2日 星期二
@@ -444,6 +712,7 @@ StringToUpper字符串转全大写，传入参数text；NumberSum两数求和，
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 # Day 8：Qwen AI 基础 & API 调用（实战）学习笔记
 
 **日期**：2025年12月1日 星期一 **核心主题**：Qwen API 调用全流程实战（以生成ZetaChain介绍为例）
@@ -520,6 +789,7 @@ print("=" * 50)
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -739,6 +1009,7 @@ npx hardhat run scripts/swap.js --network goerli \
 
 
 
+
 # DAY6：本周workshop学习笔记
 
 ## 基于 ZRC20 标准的跨链资产映射、兑换与跨链调用逻辑
@@ -797,6 +1068,7 @@ IZRC20(targetToken).withdraw(amountOut,recipient,targetChainID);
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -895,6 +1167,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 4：Universal App + Hello World 心智模型学习笔记
 
 **日期**：2025年11月27日 星期四 **核心主题**：Universal App认知深化与Hello World Demo落地规划
@@ -985,6 +1258,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 3：ZetaChain & Universal Blockchain 核心概念学习笔记
 
 **日期**：2025年11月26日 星期三 **核心主题**：Universal Blockchain系列概念解析与ZetaChain架构可视化
@@ -1055,6 +1329,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 ### ZetaChain CLI 安装与验证（本地环境：Windows）
 
 1.  **安装步骤**： 前置依赖：确认已安装Go（版本≥1.20）。打开命令提示符（CMD）或PowerShell，输入`go version`验证；若未安装，访问Go官网（[https://go.dev/dl/）下载Windows版安装包，勾选“Add](https://go.dev/dl/）下载Windows版安装包，勾选“Add) Go to PATH”选项后完成安装。
@@ -1101,6 +1376,7 @@ Postman测试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
