@@ -15,8 +15,109 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+在链上部署
+
+1\. 设置私钥
+
+在项目目录下创建文件.env
+
+```
+PRIVATE_KEY=********
+```
+
+将文件格式转成Unix格式  
+在windows下创建的文件，通过`source .env`加载出来，在私钥末尾会存在^M（回车符），需要转成Unix格式
+
+```
+dos2unix .env
+```
+
+在wsl命令行下加载私钥到环境变量
+
+```
+source .env
+```
+
+2\. 部署合约
+
+```
+UNIVERSAL=$(forge create Universal \
+  --rpc-url https://zetachain-athens-evm.blockpi.network/v1/rpc/public \
+  --private-key $PRIVATE_KEY \
+  --broadcast \
+  --json | jq -r .deployedTo) && echo "$UNIVERSAL"
+```
+
+-   rpc-url: 部署合约所在链的RPC URL
+    
+-   private-key: 私钥
+    
+-   echo "$UNIVERSAL": 将部署的合约地址回显
+    
+
+3\. 从连接链上call Universal App
+
+```
+npx zetachain evm call \
+  --chain-id 84532 \
+  --receiver $UNIVERSAL \
+  --private-key $PRIVATE_KEY \
+  --types string \
+  --values hello
+```
+
+-   chain-id: 连接链的链ID
+    
+-   receiver: zetachain链上的Universal App合约地址
+    
+-   types: 表示被发送值的数据类型。这里是一个字符串。
+    
+-   values: 这是传递给Universal App的实际值。这里，字符串“hello”作为消息发送给 ZetaChain 上的Universal App合约
+    
+
+当该命令成功执行后，会生成连接链上交易哈希。
+
+4\. 跟踪跨链交易状态
+
+在连接链上发起交易后，ZetaChain 的协议会促进其跨链转移并在目标链（ZetaChain）上执行。  
+跟踪命令：
+
+```
+npx zetachain query cctx --hash 交易哈希
+```
+
+输出示例：
+
+```
+84532 → 7001 ✅ OutboundMined
+CCTX:     0x56f9bc09dc646b13aa713b56348e8a53ea39759146afad61e66973791b752e3bTx
+Tx Hash:  0x89308870b0863c5ae48dc783059277cbcf4296b1b343413ac543418262a4ccbc (on chain 84532)
+Tx Hash:  0x34edd96c8a7b2bd9d530de0e49bb5e8625204a77b77cc79133814e1814f79ebc (on chain 7001)
+Sender:   0x4955a3F38ff86ae92A914445099caa8eA2B9bA32
+Receiver: 0xFeb4F33d424D6685104624d985095dacab567151
+Message:  0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000568656c6c6f000000000000000000000000000000000000000000000000000000
+```
+
+-   84532 → 7001：这清楚地表明了从 Base Sepolia（链 ID 84532）到 ZetaChain（链 ID 7001）的跨链流动。该✅符号表示跨链交易的成功出站挖矿。
+    
+-   OutboundMined CCTX: 这是 ZetaChain 上跨链交易（CCTX）的哈希值
+    
+-   Tx Hash(on chain 84532): 这确认了源链（Base Sepolia）上的原始交易哈希值
+    
+-   Tx Hash(on chain 7001): 这是 ZetaChain 执行时的交易哈希值，表明Universal App已成功在目的链上被调用。
+    
+-   Sender: 发件人在起始链上的地址。
+    
+-   Receiver: 接收合约的地址
+    
+-   Messsage: 传递的数据
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 ### 部署第一个合约
 
 创建项目
@@ -96,11 +197,13 @@ struct MessageContext {
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 [学习笔记](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 [学习笔记](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
@@ -111,11 +214,13 @@ struct MessageContext {
 
 
 
+
 [笔记链接](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -151,11 +256,13 @@ contract Universal is UniversalContract {
 
 
 
+
 ![Universal EVM.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/bentong-chain/images/2025-11-29-1764430913796-Universal_EVM.png)
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -176,6 +283,7 @@ Universal App部署在ZetaChain的Universal EVM上。Universal EVM在原EVM上�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -248,6 +356,7 @@ zeta
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
