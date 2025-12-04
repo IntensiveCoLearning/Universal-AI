@@ -15,8 +15,200 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+### 代码
+
+\# transaction\_[service.py](http://service.py)
+
+import json
+
+from datetime import datetime
+
+class ZetaTransactionBuilder:
+
+def **init**(self):
+
+self.supported\_chains = CHAIN\_IDS.keys()
+
+def _get_zrc20\_address(self, token\_symbol):
+
+"""获取 ZRC-20 代币地址"""
+
+return ZRC20\_CONTRACTS.get(token\_symbol.upper(), None)
+
+def _build_evm\_swap\_calldata(self, token\_in, token\_out, amount):
+
+"""
+
+构建 ZetaEVM 内部 Swap 的 CallData (模拟)
+
+对应: Router.swapExactTokensForTokens
+
+"""
+
+addr\_in = self.\_get\_zrc20\_address(token\_in)
+
+addr\_out = self.\_get\_zrc20\_address(token\_out)
+
+\# 实际开发中这里会用 [web3.py](http://web3.py) 的 contract.encodeABI
+
+return {
+
+"target\_contract": SYSTEM\_CONTRACTS\["UNISWAP\_ROUTER"\],
+
+"method": "swapExactTokensForTokens",
+
+"params": \[amount, 0, \[addr\_in, addr\_out\], "USER\_WALLET\_ADDRESS", "DEADLINE"\],
+
+"note": "Calling Uniswap V2 Router on ZetaChain"
+
+}
+
+def _build_cross\_chain\_tx(self, source\_chain, target\_chain, token\_in, token\_out, amount):
+
+"""
+
+构建跨链交易意图
+
+这里不仅涉及 ZetaChain，还涉及外部链的触发方式
+
+"""
+
+\# 场景：从 Bitcoin 跨链交换到 Ethereum
+
+\# 实际上用户需要在 Bitcoin 钱包发起交易，Memo 包含目标链和接收者
+
+target\_chain\_id = CHAIN\_IDS.get(target\_chain)
+
+zrc20\_out = self.\_get\_zrc20\_address(token\_out)
+
+memo = f"{zrc20\_out}:{target\_chain\_id}:RECIPIENT\_ADDRESS"
+
+return {
+
+"type": "CROSS\_CHAIN\_CALL",
+
+"instruction\_for\_user": f"Please send {amount} {token\_in} on {source\_chain}",
+
+"tss\_address": "0xTSS\_VAULT\_ADDRESS\_ON\_SOURCE\_CHAIN",
+
+"memo\_data": memo, # 关键：ZetaChain 监听器会解析这个 Memo
+
+"note": "User triggers TSS deposit with specific Memo for swap"
+
+}
+
+def route\_request(self, intent\_data):
+
+"""
+
+主路由函数：根据意图决定策略
+
+"""
+
+print(f"\[\*\] 收到意图: {json.dumps(intent\_data, ensure\_ascii=False)}")
+
+source = intent\_data.get('source\_chain').lower()
+
+target = intent\_data.get('target\_chain').lower()
+
+token\_in = intent\_data.get('token\_in')
+
+token\_out = intent\_data.get('token\_out')
+
+amount = intent\_data.get('amount')
+
+\# 策略 1: 纯 ZetaEVM 内部交易 (用户已经在 ZetaChain 上有资产)
+
+if source == 'zetachain' and target == 'zetachain':
+
+print(f" -> 识别为: ZetaEVM 本地 Swap")
+
+tx\_payload = self.\_build\_evm\_swap\_calldata(token\_in, token\_out, amount)
+
+return tx\_payload
+
+\# 策略 2: 跨链交易 (外部链 A -> 外部链 B)
+
+\# ZetaChain 作为中转层
+
+elif source != 'zetachain' and target != 'zetachain':
+
+print(f" -> 识别为: 全链互操作 Swap ({source} -> {target})")
+
+tx\_payload = self.\_build\_cross\_chain\_tx(source, target, token\_in, token\_out, amount)
+
+return tx\_payload
+
+\# 策略 3: 入金或出金 (简化处理)
+
+else:
+
+return {"error": "Deposit/Withdraw logic not implemented yet for this demo."}
+
+\# --- 模拟运行 ---
+
+if **name** == "\_\_main\_\_":
+
+\# 假设这是 Day 10 parse\_swap\_intent 的返回值
+
+parsed\_intent\_from\_ai = {
+
+"action": "swap",
+
+"source\_chain": "Bitcoin",
+
+"target\_chain": "Ethereum",
+
+"token\_in": "BTC",
+
+"token\_out": "ETH",
+
+"amount": 0.05
+
+}
+
+\# 实例化服务
+
+service = ZetaTransactionBuilder()
+
+\# 执行路由
+
+result = service.route\_request(parsed\_intent\_from\_ai)
+
+\# 打印结果
+
+print("\\n\[=\] 生成的交易指引:")
+
+print(json.dumps(result, indent=4))
+
+### 运行结果
+
+\[\*\] 收到意图: {"action": "swap", "source\_chain": "Bitcoin", "target\_chain": "Ethereum", "token\_in": "BTC", "token\_out": "ETH", "amount": 0.05}
+
+\-> 识别为: 全链互操作 Swap (bitcoin -> ethereum)
+
+\[=\] 生成的交易指引:
+
+{
+
+"type": "CROSS\_CHAIN\_CALL",
+
+"instruction\_for\_user": "Please send 0.05 BTC on bitcoin",
+
+"tss\_address": "0xTSS\_VAULT\_ADDRESS\_ON\_SOURCE\_CHAIN",
+
+"memo\_data": "0x13A0c5930C028511Dv02851198e01...:11155111:RECIPIENT\_ADDRESS",
+
+"note": "User triggers TSS deposit with specific Memo for swap"
+
+}
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ### 代码
 
 ```
@@ -111,6 +303,7 @@ Result: {'messages': \[HumanMessage(content='帮我在 Base 上用 10 USDC 换�
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Zheng-Yu7463/images/2025-12-01-1764598124673-image.png)
 
 langchain v1 create\_agent调用
@@ -124,6 +317,7 @@ langchain v1 create\_agent调用
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 -   **项目名称（暂定）：** UniYield (Universal Yield)
@@ -159,6 +353,7 @@ langchain v1 create\_agent调用
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -204,6 +399,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 
 
+
 **1\. ZRC-20 和普通 ERC-20 的直观区别（开发者视角）**
 
 虽然在写代码时，ZRC-20 也可以用 `transfer`、`approve` 这些熟悉的接口，但我觉得两者在**底层逻辑**上有两个最大的不同：
@@ -229,6 +425,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 
 
+
 **“全链涂鸦墙”**
 
 > 这是一块立在 ZetaChain 上的**公共黑板**。
@@ -244,6 +441,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -290,6 +488,7 @@ Gateway 是 ZetaChain 与外部区块链（如 Ethereum, Bitcoin）进行沟通�
 
 
 
+
 -   安装尝试Zeta cli ✅
     
 -   ZetaChain Node / RPC / Faucet / Explorer / 测试币获取 ✅
@@ -315,6 +514,7 @@ Qwen api调试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
