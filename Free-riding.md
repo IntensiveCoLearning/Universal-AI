@@ -15,8 +15,68 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+**Qwen-Agent × ZetaChain 的接口层设计**
+
+把 parse\_swap\_intent 解析出的自然语言 Swap 意图，落到具体的合约调用接口
+
+在 Qwen-Agent 和链上合约之间，设计一层清晰的“中间层服务（interface layer）”
+
+### **Universal App + Gateway**
+
+Universal App + Gateway
+
+在 ZetaChain 上，典型的跨链 DeFi 应用会写成一个 Universal App，部署在 ZetaChain 上，外部链用户通过各自链上的 Gateway depositAndCall 把资产 + 消息一起送进来。Swap 示例就是这种模式：
+
+Swap 合约部署在 ZetaChain，遵循 UniversalContract 接口。
+
+所有跨链调用都通过 Gateway 进入，只暴露一个 onCall 入口。
+
+这让你可以从任意连接链上用一次交易完成「充值 + 指令」的操作，而合约统一在 ZetaChain 内部处理逻辑。
+
+接口层要做的，就是帮合约准备好这些“意图喂给 onCall”的参数，比如 targetToken、recipient(bytes)、withdrawFlag
+
+把 Qwen-Agent 看成「上游」，ZetaChain 合约看成「下游」，中间层服务的职责可以拆成几块：
+
+统一意图结构
+
+把 parse\_swap\_intent 返回的 JSON 标准化为一个内部的 SwapIntent 数据结构。
+
+链 & Token 映射
+
+根据 source\_chain / dest\_chain、from\_token / to\_token，查表找到：
+
+源链 chainId / Gateway 地址
+
+目标 ZRC-20 token 地址（用于 payload 里的 targetToken）
+
+策略 & 合约选择
+
+目前默认使用官方的 Universal Swap 合约地址 UNIVERSAL\_SWAP\_ADDRESS。
+
+将来可以根据业务类型（普通 Swap / 带消息的 Swap / 自定义 DEX）选用不同合约。
+
+构造调用参数
+
+构建 deposit-and-call 或 Gateway depositAndCall 的参数：
+
+\--chain-id（源链）
+
+\--receiver（universal 合约地址）
+
+\--types / --values（ABI 编码的 payload）
+
+输出计划 / 执行调用
+
+在当前作业阶段，只需要把「准备发起什么交易」打印到控制台。
+
+未来可以真正发起链上调用，或返回给前端 / 调用钱包 SDK。
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 **设计一个 parse\_swap\_intent 工具 + 相应的参数 schema**，完成一个最小可用的意图解析层。**工具（tools）数组的结构**
 
 ```
@@ -70,6 +130,7 @@ JSON 字符串形式的 arguments
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 Qwen-Agent 里自定义 Tool 的基础写法是这样的（简化版）：
 
@@ -139,6 +200,7 @@ class MyTool(BaseTool):
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 # 添加API key到环境变量
@@ -339,6 +401,7 @@ API key is invalid
 
 
 
+
 # 跨链SWAP
 
 普通的链只能从它当前链进行swap
@@ -383,6 +446,7 @@ function onCrossChainCall(
 
 
 
+
 # ZetaChain函数
 
 ```
@@ -401,6 +465,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -484,11 +549,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -625,6 +692,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -869,6 +937,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
