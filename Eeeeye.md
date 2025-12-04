@@ -15,8 +15,148 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+* * *
+
+### 1\. 核心认知：ZRC-20 与 TSS 的工程本质
+
+今天最大的收获不是代码本身，而是理解了全链操作的底层逻辑：
+
+-   **ZRC-20 的双重性**：它在 ZetaChain 内部是普通的 ERC-20，但一旦调用 `withdraw`，它就变成了控制原生链（BTC/ETH）资产的“遥控器”。
+    
+    -   _心得_：开发时必须严格区分 `transfer`（链内记账）和 `withdraw`（跨链销毁/释放），后者涉及高昂的外部 Gas 和 TSS 签名等待时间。
+        
+-   **TSS (门限签名) 的信任假设**：ZetaChain 没有单一的私钥托管方。通过 MPC（多方计算），验证节点共同签署交易。
+    
+    -   _心得_：这对应用层的意味着——**跨链不是即时的**，UI 交互必须预留“等待签名”的状态提示。
+        
+
+* * *
+
+### 2\. 架构决策：为何选择混合模式？
+
+在设计“如何将意图转化为交易”时，我对比了两种方案，最终确认了 **"Off-chain Compute, On-chain Settlement"** 的企业级标准。
+
+-   **纯 Python 编排 (Client-Side)**：
+    
+    -   _缺陷_：如果我要“Swap 然后 Withdraw”，Python 需要让用户签两次名。如果第一步成功第二步失败，资金会卡在中间状态（ZRC-20），用户体验和安全性极差。
+        
+-   **Solidity 聚合 (On-Chain Adapter)**：
+    
+    -   _优势_：**原子性 (Atomicity)**。编写一个 `Adapter` 合约，将 `Approve` + `Swap` + `Withdraw` 打包成一个函数。
+        
+    -   _结论_：**链下 Python 只负责“组装数据”，链上 Solidity 负责“资金结算”。** 这是 DeFi 开发的黄金法则。
+        
+
+* * *
+
+### 3\. 技术落地：大脑与四肢的配合
+
+实战部分完成了两个核心组件的解耦：
+
+A. 链上执行层 (Solidity)
+
+-   编写了 `ZetaDeFiAdapter` 合约。
+    
+-   利用 `delegatecall` 或直接调用的方式，在一个 Transaction 内完成资产置换与跨链触发。一旦任何环节出错，状态全额回滚，资金零风险。
+    
+
+B. 链下中间件 (Python Web3)
+
+-   编写了 `ZetaMiddleware` 类。
+    
+    1.  **ABI Encoding**：Python 不需要私钥，它的任务是生成精确的 Hex CallData。
+        
+    2.  **地址编码**：解决了 ZRC-20 `withdraw` 接口需要 `bytes` 类型参数的问题（尤其是非 EVM 链地址如 BTC 地址的转码）。
+        
+
+## 伪代码
+
+以下内容今天架构设计的伪代码实现，展示了 **链下编排 (Python)** 与 **链上原子执行 (Solidity)** 的协作逻辑。
+
+* * *
+
+### 1\. 链上端：原子执行合约 (Solidity)
+
+作为保险箱，保证资金进出要么全部成功，要么全部回滚。
+
+Solidity
+
+```
+// Contract: ZetaAgentAdapter
+// 部署在 ZetaChain 上
+
+Function swapAndWithdraw(tokenIn, tokenOut, amountIn, minOut, recipient_bytes):
+    
+    // 1. [资金归集] 从用户钱包把 ZRC-20 (如 ETH) 拉到本合约
+    // 前提：用户已经在链下签过 approve
+    TransferFrom(User, ThisContract, amountIn)
+
+    // 2. [授权路由] 允许 Uniswap 动用这笔钱
+    Approve(UniswapRouter, amountIn)
+
+    // 3. [执行交换] ETH -> BTC
+    // 换出来的 ZRC-20 BTC 暂时留在本合约
+    actualAmountOut = UniswapRouter.swap(tokenIn, tokenOut)
+
+    // 4. [触发跨链] 调用 ZRC-20 标准接口
+    // 销毁 ZRC-20 BTC -> 触发 TSS -> 目标链转账
+    ZRC20(tokenOut).withdraw(recipient_bytes, actualAmountOut)
+
+    // 交易结束。
+    // 如果第 3 步因为滑点失败，第 1 步的转账也会自动退回。
+```
+
+* * *
+
+### 2\. 链下端：交易构建服务 (Python)
+
+作为翻译官，不触碰私钥，只生成机器能读懂的指令。
+
+Python
+
+```
+Class ZetaMiddleware:
+    
+    Function build_transaction_payload(intent_json):
+        """
+        输入: {"action": "swap_withdraw", "token": "ETH", "target": "BTC", ...}
+        输出: 待签名的交易对象 (Dict)
+        """
+
+        # 1. [地址转码] 解决 ZRC-20 异构链地址问题
+        # 例如: "tb1q..." (String) -> 0x5a1f... (Bytes)
+        recipient_bytes = encode_btc_address(intent_json["recipient"])
+
+        # 2. [ABI 编码] 将意图翻译为 Hex CallData
+        # 指向我们上面写的 Adapter 合约，而不是直接指向 Token 合约
+        call_data = web3.eth.contract.encodeABI(
+            fn_name="swapAndWithdraw",
+            args=[
+                intent_json["source_token_addr"],
+                intent_json["target_token_addr"],
+                to_wei(intent_json["amount"]),
+                0,  # 滑点保护 (简化)
+                recipient_bytes
+            ]
+        )
+
+        # 3. [构造载荷] 返回给前端/Agent
+        return {
+            "to": ADAPTER_CONTRACT_ADDRESS,  # 目标是我们的聚合合约
+            "data": call_data,               # 包含了所有复杂逻辑的指令
+            "value": 0,                      # ZRC-20 操作通常不需要附带 ZETA
+            "gasLimit": ESTIMATED_GAS        # 预估 Gas
+        }
+```
+
+* * *
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ## 12月2日打卡内容补交
 
 ## **Installation**
@@ -483,6 +623,7 @@ Day 10 的核心不在于写了多少行代码，而在于理解了 **AI Agent �
 
 
 
+
 1\. 今日目标
 
 -   用 Python 调一次 Qwen 模型 API。
@@ -607,6 +748,7 @@ python qwen_api_demo.py
 
 
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -679,6 +821,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -810,6 +953,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -887,6 +1031,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -986,6 +1131,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1147,6 +1293,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1326,6 +1473,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
