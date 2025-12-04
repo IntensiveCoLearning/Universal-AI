@@ -15,13 +15,132 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+[https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthedocs.io/zh-cn/latest/index.html)
+
+```
+pip install transformers
+pip install torch
+```
+
+create a py file and use the example code
+
+```
+# Load model directly
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen3-4B-Thinking-2507")
+model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen3-4B-Thinking-2507")
+messages = [
+    {"role": "user", "content": "Who are you?"},
+]
+inputs = tokenizer.apply_chat_template(
+	messages,
+	add_generation_prompt=True,
+	tokenize=True,
+	return_dict=True,
+	return_tensors="pt",
+).to(model.device)
+
+outputs = model.generate(**inputs, max_new_tokens=40)
+print(tokenizer.decode(outputs[0][inputs["input_ids"].shape[-1]:]))
+```
+
+after running this script, it will download model and packages automatically.
+
+Qwen3 支持配置思考预算。其实现方式是，一旦达到预算，便结束思考过程，并通过提前停止提示引导模型生成“总结”。
+
+* * *
+
+Qwen3 is the newest edition of the Qwen language models, featuring balanced model sizes, enhanced capbilities, hybrid thinking modes, and more language support:
+
+-   With 119 languages (and dialects), Qwen3’s extensive multilingual capability opens up new possibilities for international applications.
+    
+-   Qwen3 models are optimized for coding and agentic capabilities, with strengthened support of Model Context Protocol (MCP) as well.
+    
+
+## **Naming**
+
+Starting with Qwen3, the models are named using the scheme `Qwen3[-size][-type][-date]`:
+
+-   `size`: the notation of the structure and the parameter counts. Dense models use the total saved parameters, e.g., `4B` and `32B`, while MoE models use the total saved parameters and the activated parameters for each token with a prepended `A`, e.g., `30B-A3B` and `235B-A22B`.
+    
+-   `type`: there are currently 4 types:
+    
+    -   `-Instruct`: the instruction following models that follow the predefined chat template, used for conducting tasks in conversations, downstream fine-tuning, etc.
+        
+    -   `-Thinking`: the thinking models that follow the predefined chat template and use chain-of-thoughts (CoT) to think deeply about the questions, used for solving complex problems.
+        
+    -   `-Base`: the pre-trained models that do not know the predefined chat template, used for in-context learning, downstream fine-tuning, etc.
+        
+    -   No type: the models with hybrid thinking modes.
+        
+-   `date`: the released date in yearmonth format, e.g., `2507`.
+    
+
+Tokens represent the fundamental units that models process and generate. They can represent texts in human languages (regular tokens) or **represent specific functionality like keywords in programming languages** (control tokens [\[1\]](https://qwen.readthedocs.io/en/latest/getting_started/concepts.html#special)).
+
+cool, tokenizer varies based on the task, like for code, will use keywords, this makes sense!
+
+## **Chat Template**
+
+Chat templates provide a structured format for conversational interactions, where predefined placeholders or prompts are used to elicit responses from the model that adhere to a desired dialogue flow or context.
+
+The following is a full example:
+
+```
+<|im_start|>system
+You are a cat.<|im_end|>
+<|im_start|>user
+hello<|im_end|>
+<|im_start|>assistant
+*Meow~* Hello there! The sun is shining so brightly today, and I'm feeling extra fluffy. Did you bring me a treat? 🐾<|im_end|>
+<|im_start|>user
+Explain large language models like I'm 5.<|im_end|>
+<|im_start|>assistant
+*Paws at a toy, then looks up with curious eyes*  
+
+Hey there! 🐾 Imagine you have a super-smart robot friend who loves to talk and play. This robot has *gigantic* brainpower (like a million puzzle pieces all stuck together!) and knows *everything* about stories, animals, and even how to make up new words.  
+
+When you ask it a question, like “What’s a rainbow?” it uses its brain to find the answer and then *tells you* it in a way that makes sense. It can even help you write a story or solve a puzzle!  
+
+But here’s the magic: it’s not just a robot—it’s like a *super-duper* smart helper that learns more every day. It’s like having a friend who’s always curious and wants to help you explore the world! 🌟  
+
+*Meow~* Want to ask it something fun? 😺<|im_end|><|endoftext|>
+```
+
+### **Thinking**
+
+Qwen3 supports thinking mode and uses a structured format for thinking content, which uses the `<think>` and `</think>` tokens to separate the thinking content from the regular response. The template for the final round is as follows:
+
+```
+<|im_start|>user
+{{user content}}<|im_end|>
+<|im_start|>assistant
+<think>
+{{thinking content}}
+</think>
+
+{{assistant content}}<|im_end|>
+```
+
+[https://qwen.readthedocs.io/en/latest/inference/transformers.html](https://qwen.readthedocs.io/en/latest/inference/transformers.html)
+
+# **Transformers**
+
+Transformers is a library of pretrained natural language processing for inference and training. Developers can use Transformers to train models on their data, build inference applications, and generate texts with large language models.
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 今天主要看了一下 [https://www.zetachain.com/docs/developers/tutorials/swap](https://www.zetachain.com/docs/developers/tutorials/swap) 这个资料
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 今天主要看 Qwen AI 相关的内容。
 
@@ -30,6 +149,7 @@ Learning AI and Web3.
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -156,6 +276,7 @@ TSS has emerged as a solution in blockchain systems to enhance security and trus
 
 
 
+
 [https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-27-1764275585407-image.png)
@@ -214,6 +335,7 @@ Validators are comprised of 2 different roles: Core Validators and Observer-Sign
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -303,6 +425,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -413,6 +536,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -644,6 +768,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
