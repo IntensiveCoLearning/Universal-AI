@@ -15,8 +15,14 @@ web3 developer
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+今天在学审计相关的东西
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 今天事情依旧很多
 
 思考这个共学之后还要学习什么？
@@ -28,6 +34,7 @@ web3 developer
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 Qwen Agent昨天弄了，今天学点别点
 
@@ -58,6 +65,7 @@ Qwen Agent昨天弄了，今天学点别点
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 ## \*\*
@@ -357,6 +365,7 @@ mstore(0x40, add(ptr, 0x40)) // 更新空闲内存指针
 
 
 
+
 ## **LSDFi**
 
 `Liquid Derivatives Finance 流动性质押衍生品金融` 建立在`Liquid staking + staking derivatives` 之上 所谓流动性质押，就是用户把 ETH 或者其他加密资产质押(`staking`)用来支持网络，同时代表一种质押权益的代币(`LSD / LST`)，它是可以`流动`的，也就是可以被交易。通过 LST，持有者可以既获得质押奖励，同时也可以将手中的 LST 进行 DeFi 实用 `借贷`、`抵押`、`流动性挖矿` (`liquidity-pool`)、`收益耕种` (`yield farming`)、`发行稳定币` (`stablecoin`)、或者参与组合策略 (yield-aggregation) 等。
@@ -418,6 +427,7 @@ zetachain 有几个优势。首先是不同链的加密货币可以用 ZRC20 统
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -497,6 +507,7 @@ Gateway Gateway
 
 
 
+
 \### ZRC20
 
 开发者不能铸造 ZRC20,开发者在 zetachain 铸造的 ERC20，不叫 ZRC20。简单来说，ZRC20 可以看作,外部链上的原生 gas 资产或在白名单的 ERC-20 在 ZetaChain 上的 representation,比如跨链的转账，ETH -> ZRC-ETH -> SOL。
@@ -510,6 +521,7 @@ Gateway Gateway
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -534,6 +546,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 
 
+
 ### Q1: Universal App 是什么?
 
 简单来说，部署在zetachain，并且继承了UniversalContract.sol的合约，实现了`OnCall`函数，就可以是Universal App，它可以处理跨链请求。
@@ -545,6 +558,7 @@ hello和swap的demo都已经在前几天的笔记中分享过了。今天事情�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -629,6 +643,7 @@ swap的第一步是通过`A.ZRC20` `amount` `B.ZRC20` `withdraw`获得跨链操�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
