@@ -15,8 +15,166 @@ MOVE Smart Contract Dev and Security Researcher
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-04
+<!-- DAILY_CHECKIN_2025-12-04_START -->
+串联demo和agent，利用agent执行合约操作模拟
+
+```javascript
+// day12_demo.js
+require('dotenv').config();
+const { OpenAI } = require("openai");
+const { exec } = require("child_process");
+
+
+const CONTRACT_ADDRESS = "0x3D22b66892cA48F95a19f2C0bd56d681DEda64AA"; 
+
+const client = new OpenAI({
+    apiKey: process.env.DASHSCOPE_API_KEY, 
+    baseURL: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+});
+
+const CHAIN_MAP = {
+    "base": "84532",
+    "sepolia": "11155111",
+    "bsc": "97"
+};
+
+// 1. 定义工具：发送跨链消息
+const tools = [
+    {
+        type: "function",
+        function: {
+            name: "send_cross_chain_message",
+            description: "发送跨链消息到指定区块链",
+            parameters: {
+                type: "object",
+                properties: {
+                    targetChain: { 
+                        type: "string", 
+                        description: "目标链名称 (Base, Sepolia, BSC)" 
+                    },
+                    messageContent: { 
+                        type: "string", 
+                        description: "要发送的消息内容" 
+                    }
+                },
+                required: ["targetChain", "messageContent"]
+            }
+        }
+    }
+];
+
+// 2. 执行系统命令的函数 (真正的“手”)
+function executeCommand(command) {
+    console.log("⚡️ [系统] 正在调用区块链 CLI...");
+    console.log(`> ${command}`);
+    
+    // Node.js 调用终端执行命令
+    const process = exec(command);
+
+    // 实时打印输出日志
+    process.stdout.on('data', (data) => {
+        console.log(data.toString());
+    });
+
+    process.stderr.on('data', (data) => {
+        console.error(`错误: ${data}`);
+    });
+
+    process.on('close', (code) => {
+        if (code === 0) {
+            console.log("✅ [成功] 交易已发送！Demo 演示完成！");
+        } else {
+            console.log(`❌ [失败] 进程退出码: ${code}`);
+        }
+    });
+}
+
+// 3. Agent 主逻辑
+async function runDemo(userPrompt) {
+    console.log(`\n🎤 用户指令: "${userPrompt}"`);
+    console.log("🤖 AI: 正在解析意图...");
+
+    try {
+        const response = await client.chat.completions.create({
+            model: "qwen-plus",
+            messages: [{ role: "user", content: userPrompt }],
+            tools: tools,
+            tool_choice: "auto"
+        });
+
+        const msg = response.choices[0].message;
+
+        if (msg.tool_calls) {
+            const args = JSON.parse(msg.tool_calls[0].function.arguments);
+            const chainName = args.targetChain.toLowerCase();
+            const content = args.messageContent;
+            
+            // 查找 Chain ID
+            const chainId = CHAIN_MAP[chainName];
+            
+            if (!chainId) {
+                console.log(`❌ 错误: 不支持的链 ${args.targetChain}`);
+                return;
+            }
+
+            console.log(`🎯 目标: ${args.targetChain} (ID: ${chainId})`);
+            console.log(`📝 内容: "${content}"`);
+
+            const privateKey = process.env.PRIVATE_KEY; 
+            if (!privateKey) {
+                console.log("❌ 错误: 未找到 PRIVATE_KEY 环境变量");
+                return;
+            }
+
+            const command = `npx zetachain evm call --chain-id ${chainId} --receiver ${CONTRACT_ADDRESS} --types string --values "${content}" --private-key ${privateKey} --yes`;            // 执行！
+            executeCommand(command);
+
+        } else {
+            console.log("AI: " + msg.content);
+        }
+    } catch (error) {
+        console.error("AI 调用失败:", error);
+    }
+}
+
+
+runDemo("帮我给 Base 链发一个消息，内容是 'Hello ZetaChain AI Agent'");
+```
+
+执行结果：
+
+```
+ node day12_demo.js
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+
+🎤 用户指令: "帮我给 Base 链发一个消息，内容是 'Hello ZetaChain AI Agent'"
+🤖 AI: 正在解析意图...
+🎯 目标: Base (ID: 84532)
+📝 内容: "Hello ZetaChain AI Agent"
+⚡️ [系统] 正在调用区块链 CLI...
+> npx zetachain evm call --chain-id 84532 --receiver 0x3D22b66892cA48F95a19f2C0bd56d681DEda64AA --types string --values "Hello ZetaChain AI Agent" --private-key $PRIVATEKEY --yes
+
+From:   0x94E43E9C8177a468ce00839657dD0562b242Ed50
+To:     0x3D22b66892cA48F95a19f2C0bd56d681DEda64AA on ZetaChain
+Call on revert: false
+
+
+Contract call details:
+Function parameters: Hello ZetaChain AI Agent
+Parameter types: ["string"]
+
+Proceeding with transaction (--yes flag set)
+
+Transaction hash: 0xb3633b376c83dbd06a44aa2fdd5559b005e6bd0c938fa4923ef17d3dbe871102
+
+✅ [成功] 交易已发送！Demo 演示完成！
+```
+<!-- DAILY_CHECKIN_2025-12-04_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 设计agent能够实现DeFi 意图解析，下列是样例代码
 
 ```javascript
@@ -132,11 +290,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 打卡
@@ -147,11 +307,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -166,11 +328,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -189,6 +353,7 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 安装zeta cli并且尝试qwen api调用
 
 了解了zeta如何与sui链合约进行交互
@@ -196,6 +361,7 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
