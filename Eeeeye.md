@@ -15,8 +15,117 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+## 1\. 项目目标
+
+构建一个具备真实资产操作能力的 AI Agent。
+
+-   **输入**: 自然语言指令（如“给 Alice 转 0.001 ZETA”）。
+    
+-   **处理**: LLM 识别意图，提取结构化参数，自动规划并执行。
+    
+-   **输出**: 链上交易 Hash 及区块链浏览器链接。
+    
+
+## 2\. 技术架构解析 (Technical Architecture)
+
+本项目采用了经典的 **ReAct (Reasoning + Acting)** 架构，数据流向如下：
+
+1.  **Intent Layer (意图层)**: 用户输入自然语言。
+    
+2.  **Reasoning Layer (推理层)**: Qwen 模型（作为大脑）分析语义，判断需要调用 `transfer_zeta` 工具，并根据 JSON Schema 提取 `to_address` 和 `amount`。
+    
+3.  **Interface Layer (接口层)**:
+    
+    -   使用 `pydantic` 风格定义工具参数，强制约束 LLM 的输出格式。
+        
+    -   **安全防御**: 在执行前进行参数清洗（`w3.to_checksum_address`）和余额检查。
+        
+4.  **Execution Layer (执行层)**:
+    
+    -   通过 `Web3.py` 连接 ZetaChain RPC 节点。
+        
+    -   **离线签名**: 使用本地私钥对交易进行签名（`sign_transaction`），保证私钥不接触网络。
+        
+    -   **广播**: 将签好名的 Raw Transaction 发送至内存池（Mempool）。
+        
+
+## 3\. 关键问题与解决方案 (Troubleshooting Log)
+
+在开发过程中，遇到并解决了由库版本更新导致的典型兼容性问题。
+
+-   **问题描述**: 代码运行时报错 `AttributeError: 'SignedTransaction' object has no attribute 'rawTransaction'`。
+    
+-   **根本原因 (Root Cause)**:
+    
+    -   `Web3.py` 在 v6 版本中进行了重大重构，全面转向 Pythonic 的 **蛇形命名法 (snake\_case)**。
+        
+    -   旧版教程或 v5 版本使用的是驼峰命名法 (`rawTransaction`)。
+        
+-   **解决方案**:
+    
+    -   查阅文档确认版本差异。
+        
+    -   将属性调用修改为 `signed_tx.raw_transaction`。
+        
+-   **工程启示**: 在依赖第三方库（尤其是 Web3 这种快速迭代的领域）时，必须关注 **Changelog** 和大版本更新带来的 Breaking Changes。
+    
+
+## 4\. 核心知识点沉淀 (Key Learnings)
+
+### A. 安全工程规范
+
+-   **环境变量管理**: 严禁在代码中硬编码私钥。使用 `.env` 文件配合 `python-dotenv` 是工业界的标准做法，能有效防止 Git 泄露风险。
+    
+-   **地址校验**: 以太坊地址存在 Checksum 机制（大小写敏感），必须使用 `to_checksum_address` 规范化输入，否则会导致交易失败或资金丢失。
+    
+
+### B. 交易生命周期
+
+通过代码，深入理解了一笔交易的物理构成：
+
+1.  **Nonce**: 防止重放攻击的计数器。
+    
+2.  **Gas Limit**: 交易允许消耗的最大计算量。
+    
+3.  **To/Value**: 目标与金额（需转换为 Wei）。
+    
+4.  **Signature**: 数学证明，证明该交易确实由私钥持有者发起。
+    
+
+### C. Agent 开发范式
+
+-   **Function Calling**: LLM 不直接操作区块链，而是输出一个“函数调用请求”（JSON）。
+    
+-   **System Prompt**: 通过系统提示词（"你拥有真实资金操作权限..."）来设定 AI 的行为边界和严肃程度。
+    
+
+## 5\. Next Steps
+
+当前 MVP 主要是命令行交互，为了备战黑客松，下一步可以考虑：
+
+1.  **工具扩展**: 增加 `check_balance`（查询余额）或 `swap_token`（代币兑换）工具。
+    
+2.  **前端接入**: 使用 Streamlit 或 React 构建可视化界面。
+    
+3.  **Human-in-the-Loop**: 在发送交易前，增加一个“人工确认”步骤（如在前端弹出确认框），提高安全性。
+    
+
+* * *
+
+### 代码运行截图
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Eeeeye/images/2025-12-05-1764943089284-image.png)
+
+进入浏览器查看交易哈希：
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Eeeeye/images/2025-12-05-1764942964778-image.png)
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 * * *
 
 ### 1\. 核心认知：ZRC-20 与 TSS 的工程本质
@@ -156,6 +265,7 @@ Class ZetaMiddleware:
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 ## 12月2日打卡内容补交
 
@@ -624,6 +734,7 @@ Day 10 的核心不在于写了多少行代码，而在于理解了 **AI Agent �
 
 
 
+
 1\. 今日目标
 
 -   用 Python 调一次 Qwen 模型 API。
@@ -749,6 +860,7 @@ python qwen_api_demo.py
 
 
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -821,6 +933,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -954,6 +1067,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -1031,6 +1145,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1131,6 +1246,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1293,6 +1409,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1473,6 +1590,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
