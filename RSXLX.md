@@ -15,8 +15,66 @@ WEB3 ROOKIE
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+## **Step 1：定义 Function / Tool Schema**
+
+放在 Qwen Agent 的函数里：
+
+```
+{
+  "name": "place_sports_bet",
+  "description": "Place a sports bet in KMarket.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "sport": { "type": "string" },
+      "league": { "type": "string" },
+      "match": { "type": "string" },
+      "selection": { "type": "string" },
+      "amount": { "type": "number" },
+      "amount_unit": { "type": "string" },
+      "leverage": { "type": "number" },
+      "chain": { "type": "string" }
+    },
+    "required": ["match", "selection", "amount"]
+  }
+}
+```
+
+* * *
+
+## **🔧 Step 2：后端（最小可用版）**
+
+例如 Node.js / Python
+
+```
+def place_sports_bet(params):
+    print("——计划执行链上操作——")
+    print(f"比赛：{params['match']}")
+    print(f"方向：{params['selection']}")
+    print(f"金额：{params['amount']}{params['amount_unit']}")
+    print(f"杠杆：{params['leverage']}x")
+    print(f"链：{params['chain']}")
+    print("准备在 ZetaChain 上执行模拟交易...")
+```
+
+即可。
+
+* * *
+
+## **🔧 Step 3：本地 Demo 流程**
+
+1.  输入自然语言
+    
+2.  Qwen Agent → 自动调用 place\_sports\_bet
+    
+3.  后端打印计划执行操作
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/RSXLX/images/2025-12-03-1764774370241-image.png)
 
   
@@ -100,6 +158,7 @@ WEB3 ROOKIE
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/RSXLX/images/2025-12-02-1764683770580-image.png)
 
 ```python
@@ -145,6 +204,7 @@ def get_bot():
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 ## **目标用户**
@@ -250,6 +310,7 @@ Universal App 在 ZetaChain EVM 层执行：
 
 
 
+
 ## ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准
 
 类似一个复制器，把其他链的币复制到zetaChain中，在zetaChain再转出去的时候再zetaChain上面ZRC-20生成的币就burn掉，然后从转账链通过托管合约再转去对应账户  
@@ -314,6 +375,7 @@ AI纠正：
 
 
 
+
 Universal App 是一种**跨链应用**形式：  
 应用逻辑只写在 ZetaChain 上，但能让不同链的用户（ETH / BNB / Polygon / …）都像是在**同一条链上直接交互**。  
 
@@ -359,6 +421,7 @@ maybe当成一个print
 
 
 
+
 ## Universal App = 一个合约控制所有链的资产
 
 **Universal App是部署在 ZetaChain 的 Universal EVM 上 的智能合约，它可以 直接操作多条外部区块链上的资产与数据，而不需要部署多链版本的合约（很蛋疼的就是之前做一个项目做完evm就要继续肝solana，其实差不多但是工作量会翻倍，还有联调测试的一些环节）**
@@ -376,6 +439,7 @@ Universal App 负责逻辑，Gateway 负责和每条链沟通、执行真实链�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -495,6 +559,7 @@ API的调用
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
