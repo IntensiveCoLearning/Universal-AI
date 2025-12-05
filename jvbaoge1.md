@@ -15,8 +15,94 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+✅ 第一步：任务拆解与分工表（假设团队有 3 人）
+
+成员 A
+
+智能合约 + ZetaChain 集成
+
+编写跨链合约逻辑，调用 ZetaChain 的 omnichain 功能
+
+成员 B
+
+后端 + Agent 逻辑
+
+搭建后端服务，集成 Qwen-Agent 实现智能交互
+
+成员 C
+
+前端 + Pitch 演示
+
+设计演示 UI，录制演示视频，准备 3 分钟 Pitch 脚本
+
+💡 如果你 solo 参赛，可以这样分配：
+
+合约 + ZetaChain → 你（Day 1–2）
+
+后端 + Qwen-Agent → 你（Day 2–3）
+
+前端 + Pitch → 你（Day 4）
+
+✅ 第二步：黑客松期间每日里程碑（4 天示例）
+
+假设黑客松从 12 月 6 日（周六）开始，到 12 月 9 日（周二）结束
+
+日期
+
+里程碑目标
+
+12/6（Day 1）
+
+完成项目构思确认；初始化合约框架；部署测试合约到 ZetaChain 测试网；确认跨链消息格式
+
+12/7（Day 2）
+
+实现核心跨链逻辑（如：用户在 Ethereum 存款 → ZetaChain 触发事件）；后端搭建基础 API；Qwen-Agent 接入（如自然语言解析用户指令）
+
+12/8（Day 3）
+
+前端页面完成（展示操作流程 + 跨链状态）；端到端测试（前端 → 后端 → 合约 → 跨链 → Agent 响应）
+
+12/9（Day 4）
+
+录制 Demo 视频；打磨 Pitch 脚本；准备技术亮点说明（突出 ZetaChain + Qwen）；提交作品
+
+✅ 第三步：1–3 分钟 Demo 脚本草稿
+
+假设你的项目是一个 “跨链智能助手钱包” ——用户用自然语言指令，就能在任意链上操作资产（如“把我的 ETH 存到 BSC 上换成 BNB”），由 ZetaChain 实现跨链，Qwen-Agent 理解指令。
+
+🎤 Demo 脚本（约 2 分钟）
+
+【开场】
+
+“我们的项目让普通用户无需懂链、不用切换钱包，只要说一句‘把我在以太坊的 0.1 ETH 换成 BSC 上的 BNB’，系统就能自动完成跨链兑换——这背后是 ZetaChain 的 omnichain 能力 + Qwen 的智能语言理解。”
+
+【操作流程】
+
+用户在前端输入自然语言指令：
+
+“把我的 0.1 ETH 从 Ethereum 转到 BSC 并换成 BNB。”
+
+👉 这里是 Qwen-Agent 发力点：它解析指令，提取链、金额、目标资产，并生成标准化操作任务。
+
+后端调用 ZetaChain 合约发起跨链请求：
+
+合约在 Ethereum 上锁定 ETH，通过 ZetaChain 的跨链消息传递，在 BSC 上触发兑换逻辑。
+
+👉 这里是 ZetaChain 发力点：无需桥接器，一条消息安全完成跨链资产流转。
+
+前端实时显示状态：
+
+“ETH 已锁定 → 跨链消息发送 → BSC 上已兑换为 0.32 BNB”
+
+用户几秒内看到结果，全程无需切换网络或签署多个交易。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 # **📝 项目概要（草稿）**
 
 ## **项目名称（临时）**
@@ -148,6 +234,7 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 ✅ 第一步：确认前提条件
 
 一个阿里云账号（用于获取 API Key）
@@ -271,6 +358,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 ## **第一步：提炼 ZetaChain 的通用 DeFi 能力**
 
 根据文档整理出以下核心能力，作为 idea 构思基础：
@@ -389,6 +477,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 
 
+
 > 我从 **Ethereum Localnet（chain ID 11155112）** 发起了一笔 `depositAndCall` 交易，向 ZetaChain 的 Swap 合约发送了 0.001 ETH，并附带了目标链（BNB）、目标地址和目标资产（ZRC-20 BNB）的指令。
 
 > **最终在 ZetaChain 上发生了什么？**  
@@ -406,6 +495,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -435,6 +525,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -473,6 +564,7 @@ Gateway（网关）是 **每条连接到 ZetaChain 的公链上的一个特殊�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -640,6 +732,7 @@ GitHub 仓库：[https://github.com/jvbaoge1/zetachain](https://github.com/jvbao
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
