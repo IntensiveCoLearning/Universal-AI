@@ -15,8 +15,14 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+记录先打个卡
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 前端层：用户界面
 
   解析意图层：使用qwen3解析自然语言，并返回json
@@ -74,6 +80,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 ```Python
 基于Qwen-Agent工程
@@ -185,6 +192,7 @@ def test_custom_parse_agent_object():
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 -   自定义两个数相加的took
     
 
@@ -261,6 +269,7 @@ if __name__ == '__main__':
 
 
 
+
 -   实践流程  
     
 
@@ -326,6 +335,7 @@ if __name__ == '__main__':
 
 
 
+
 # NFT 拍卖中心
 
 ## 目标客户：NFT平台和爱好者
@@ -344,6 +354,7 @@ if __name__ == '__main__':
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -381,6 +392,7 @@ if __name__ == '__main__':
 
 
 
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -402,6 +414,7 @@ if __name__ == '__main__':
 
 
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -413,6 +426,7 @@ if __name__ == '__main__':
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -452,6 +466,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -546,6 +561,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
