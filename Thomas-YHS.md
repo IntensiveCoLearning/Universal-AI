@@ -15,13 +15,62 @@ LXDAO成员，智能合约开发者，AI Agent开发者，参与了 ZetaChain �
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+# Universal EVM
+
+> ZetaChain is a Proof of Stake (PoS) blockchain built with the [Cosmos SDK](https://docs.cosmos.network/), the [CometBFT](https://docs.cometbft.com/) consensus engine, and [Cosmos EVM](https://evm.cosmos.network/).
+
+ZetaChain 不是 EVM L2 或 rollup，它是 Cosmos 链。但它内置 **Cosmos EVM，**咱们写的EVM直接在这上面运行。
+
+> Full EVM compatibility: with Cosmos EVM, enabling Ethereum smart contracts to run natively on ZetaChain without modification.
+
+这句话表明，ZetaChain 完全兼容 EVM 环境，可以实现原生 solidity 智能合约。
+
+> ZetaChain acts as a universal connector between blockchains, offering fast ~4-second blocks, instant finality, and throughput up to hundreds of transactions per second, all on infrastructure purpose-built for secure, seamless cross-chain interactions.
+
+## 架构
+
+ZetaChain 采用了中心-辐射的架构，一切的跨链请求都需要经过 ZetaChain ，不能越过 ZetaChain 进行两条链的互通。所有跨链消息和交易都通过ZetaChain进行，确保一致的处理、新链的更容易集成，以及单一的安全和验证规则执行点。
+
+### Validator
+
+ZetaChain 中的 Validator 主要有两个角色：
+
+| 类型 | 负责 |
+| --- | --- |
+| Core Validator | 负责出块 |
+| Observer-Signer Validator | 负责跨链监听和签名 |
+|   |   |
+
+| 模块 | 做什么 | 你需要做什么 |
+| --- | --- | --- |
+| CrossChain | 处理跨链交易生命周期 | 用 onCall() 接收处理后的事件 |
+| Observer | 监听外部链 + 投票共识 | 不需要写 listener / 不需要做多签 |
+| Fungible | 管理 ZRC20 | 用 ZRC20 记账和转账 |
+| Emissions | 分发奖励给网络节点 | 不影响 Vault 逻辑 |
+| Authority | 管理权限和升级 | 未来可能用，现在不用 |
+
+### Protocol Contracts
+
+ZetaChain 上的合约：
+
+| Contract | 用途 |
+| --- | --- |
+| GatewayZEVM | 跨链发钱的唯一入口 |
+| ZRC-20 | 映射外部链资产 |
+| ContractRegistry | 查合约地址 |
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 今天参加了workshop，顺便打个卡
 <!-- DAILY_CHECKIN_2025-12-04_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 # My First ZETA
 
@@ -235,6 +284,7 @@ npx zetachain evm call \\
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 打卡一下
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
@@ -243,11 +293,13 @@ npx zetachain evm call \\
 
 
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Thomas-YHS/images/2025-11-29-1764429918263-image.png)
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -330,6 +382,7 @@ ZetaChain 采用了PoS 的质押模式，基于Cosmos SDK + CometBFT 来构建�
 
 
 
+
 今天先打个卡，刚到家，准备一会写一个ZRC-20合约，本地部署一下
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
@@ -341,11 +394,13 @@ ZetaChain 采用了PoS 的质押模式，基于Cosmos SDK + CometBFT 来构建�
 
 
 
+
 今天主要看了ZetaChain的文档，搭建了ZetaChain cli 测试网节点
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
