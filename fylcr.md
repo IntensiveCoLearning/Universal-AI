@@ -15,8 +15,112 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+```
+import json
+import os
+import subprocess
+from qwen_agent.agents import Assistant
+from qwen_agent.gui import WebUI
+from qwen_agent.tools.base import BaseTool, register_tool
+
+@register_tool('zetachain_evm_call')
+class zetachain_evm_call(BaseTool):
+    description = '用来在 ZetaChain 上执行 EVM 调用的工具'
+    parameters = [{
+        'name': 'receiver',
+        'type': 'string',
+        'description': '接受的合约地址，例如 "0x8FC714012a3E5eEA15237199490b69641C42B2C5"',
+        'required': True
+    }, {
+        'name': 'call_data',
+        'type': 'string',
+        'description': 'call 的调用内容',
+        'required': True
+    }]
+
+    def call(self, params: str, **kwargs):
+        params = json.loads(params)
+        receiver = params.get('receiver', '')
+        call_data = params.get('call_data', '')
+        
+        try:
+            # 构建 zetachain evm call 命令
+            command = (
+                f'npx zetachain evm call '
+                f'--chain-id 84532 '
+                f'--receiver {receiver} '
+                f'--private-key 钱包私钥 '
+                f'--types string '
+                f'--values {call_data}'
+            )
+            
+            # 使用 Popen 处理交互式提示
+            process = subprocess.Popen(
+                command,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                shell=True
+            )
+            
+            # 通过 communicate 发送 'Y' 并获取输出
+            stdout, stderr = process.communicate(input='Y\n', timeout=30)
+            
+            if process.returncode == 0:
+                # 从输出中提取 Transaction hash
+                tx_hash = None
+                for line in stdout.split('\n'):
+                    if 'Transaction hash:' in line:
+                        tx_hash = line.split('Transaction hash:')[1].strip()
+                        break
+                
+                if tx_hash:
+                    result_msg = tx_hash
+                else:
+                    result_msg = "未找到 Transaction hash"
+            else:
+                result_msg = f"ZetaChain EVM call 执行失败。\n错误: {stderr}"
+            
+        except subprocess.TimeoutExpired:
+            process.kill()
+            result_msg = "命令执行超时"
+        except Exception as e:
+            result_msg = f"执行过程中出现错误: {str(e)}"
+        
+        print(result_msg)
+        return json.dumps({'result': result_msg})
+
+def app_gui():
+    bot = Assistant(
+        llm={
+            'model_type': 'qwenomni_oai',
+            'model': 'qwen-omni-turbo-latest',
+            'base_url': 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+            'api_key': 'qwen api key' ,
+        },
+        name='ZetaChain Bot',
+        description='我可以帮你执行 ZetaChain EVM 调用！',
+        system_message='你是一个 ZetaChain 助手，如果用户要求执行 EVM 调用，请调用 zetachain_evm_call 工具。',
+        function_list=['zetachain_evm_call'], 
+    )
+    
+    WebUI(bot).run()
+
+if __name__ == '__main__':
+    app_gui()
+```
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/fylcr/images/2025-12-05-1764949748472-image.png)
+
+[BaseScan Sepolia](https://sepolia.basescan.org/tx/0xa874650750a915418a4da89ffc73056f335a7a86ea94423305ee7e0f51b5fc06)
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 # 基本实现链上操作 tool
 
 我们来把所有链的代币都搞到 Ethereum Sepolia 上去。
@@ -91,6 +195,7 @@ class parse_swap_intent(BaseTool):
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 # Defi 意图理解
 
@@ -169,6 +274,7 @@ if __name__ == '__main__':
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 # 跑通官方示例
@@ -375,6 +481,7 @@ if __name__ == '__main__':
 
 
 
+
 # 使用 Python 调用 Qwen 的简单实例
 
 1.  新建一个 python 文件，写入
@@ -418,11 +525,13 @@ print(completion.model_dump_json())
 
 
 
+
 主要还是想做聚币器，把n条链上的资产自动转移到一条链上，就这样。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -755,6 +864,7 @@ Transaction hash: 0x3b467a9e30ac52e49b854d27313c902bd3dc98b0a721e44e67727111dc72
 
 
 
+
 # ZRC-20 VS ERC-20
 
 ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部署。ZRC-20 具有跨链地能力，而 ERC-20 不能跨链。
@@ -775,6 +885,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 
 
+
 # 我想做的第一个 Universal App
 
 实现所有链的资产都汇集到同一条链的同一个地址上。
@@ -784,6 +895,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -811,6 +923,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1074,6 +1187,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
