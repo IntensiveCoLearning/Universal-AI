@@ -15,8 +15,72 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+To download model files to a local directory, you could use
+
+```
+huggingface-cli download --local-dir ./Qwen3-8B Qwen/Qwen3-8B
+```
+
+## **Thinking & Non-Thinking Mode**
+
+By default, Qwen3 model will think before response. It is also true for the `pipeline()` interface. To switch between thinking and non-thinking mode, two methods can be used
+
+-   Append a final assistant message, containing only `<think>\n\n</think>\n\n`. This method is stateless, meaning it will only work for that single turn. It will also strictly prevent the model from generating thinking content. For example,
+    
+    ```
+    messages = [
+        {"role": "user", "content": "Give me a short introduction to large language models."},
+        {"role": "assistant", "content": "<think>\n\n</think>\n\n"},
+    ]
+    messages = generator(messages, max_new_tokens=32768)[0]["generated_text"]
+    # print(messages[-1]["content"])
+    
+    messages.append({"role": "user", "content": "In a single sentence."})
+    messages = generator(messages, max_new_tokens=32768)[0]["generated_text"]
+    # print(messages[-1]["content"])
+    ```
+    
+-   Add to the user (or the system) message, `/no_think` to disable thinking and `/think` to enable thinking. This method is stateful, meaning the model will follow the most recent instruction in multi-turn conversations.
+    
+    ```
+    messages = [
+        {"role": "user", "content": "Give me a short introduction to large language models./no_think"},
+    ]
+    messages = generator(messages, max_new_tokens=32768)[0]["generated_text"]
+    # print(messages[-1]["content"])
+    
+    messages.append({"role": "user", "content": "In a single sentence./think"})
+    messages = generator(messages, max_new_tokens=32768)[0]["generated_text"]
+    # print(messages[-1]["content"])
+    ```
+    
+
+The maximum context length in pre-training for Qwen3 models is 32,768 tokens. It can be extended to 131,072 tokens with RoPE scaling techniques. We have validated the performance with YaRN.
+
+RoPE (Rotary Positional Embedding)  
+RoPE is a way of encoding word positions for transformer models.
+
+YaRN (Yet another RoPE extensioN / context extension method)  
+YaRN is a **technique for extending context length** of models that use RoPE, while trying to keep performance stable.
+
+Transformers implements static YaRN, which means the scaling factor remains constant regardless of input length, **potentially impacting performance on shorter texts.** We advise adding the `rope_scaling` configuration only when processing long contexts is required. It is also recommended to modify the `factor` as needed. For example, if the typical context length for your application is 65,536 tokens, it would be better to set `factor` as 2.0.
+
+You may find distributed inference with Transformers is not as fast as you would imagine. Transformers with `device_map="auto"` does not apply tensor parallelism, and it only uses one GPU at a time.
+
+* * *
+
+[https://qwen.readthedocs.io/en/latest/run\_locally/llama.cpp.html](https://qwen.readthedocs.io/en/latest/run_locally/llama.cpp.html)
+
+GGUF[\[1\]](https://qwen.readthedocs.io/en/latest/run_locally/llama.cpp.html#gguf) is a file format for storing information needed to run a model, including but not limited to model weights, model hyperparameters, default generation configuration, and tokenizer.
+
+We provide a series of GGUF models in our Hugging Face organization, and to search for what you need you can search the repo names with `-GGUF`.
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthedocs.io/zh-cn/latest/index.html)
 
 ```
@@ -135,11 +199,13 @@ Transformers is a library of pretrained natural language processing for inferenc
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 今天主要看了一下 [https://www.zetachain.com/docs/developers/tutorials/swap](https://www.zetachain.com/docs/developers/tutorials/swap) 这个资料
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 今天主要看 Qwen AI 相关的内容。
@@ -149,6 +215,7 @@ Transformers is a library of pretrained natural language processing for inferenc
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -277,6 +344,7 @@ TSS has emerged as a solution in blockchain systems to enhance security and trus
 
 
 
+
 [https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-27-1764275585407-image.png)
@@ -335,6 +403,7 @@ Validators are comprised of 2 different roles: Core Validators and Observer-Sign
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -425,6 +494,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -536,6 +606,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -768,6 +839,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
