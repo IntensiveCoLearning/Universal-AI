@@ -15,8 +15,24 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+置的账号在测试网有水（可在 Discord 领水）。
+
+录屏步骤：
+
+展示终端运行 python demo.py。
+
+输入自然语言指令（例如：“转 0.01 个币给 <你的另一个地址>”）。
+
+关键点：展示终端打印出的“\[后端日志\]”，证明参数是由 Agent 自动提取的。
+
+高光时刻：点击 Agent 返回的浏览器链接，展示链上交易成功的页面。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 **Qwen-Agent × ZetaChain 的接口层设计**
 
 把 parse\_swap\_intent 解析出的自然语言 Swap 意图，落到具体的合约调用接口
@@ -77,6 +93,7 @@ Swap 合约部署在 ZetaChain，遵循 UniversalContract 接口。
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 **设计一个 parse\_swap\_intent 工具 + 相应的参数 schema**，完成一个最小可用的意图解析层。**工具（tools）数组的结构**
 
 ```
@@ -130,6 +147,7 @@ JSON 字符串形式的 arguments
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 Qwen-Agent 里自定义 Tool 的基础写法是这样的（简化版）：
@@ -200,6 +218,7 @@ class MyTool(BaseTool):
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -402,6 +421,7 @@ API key is invalid
 
 
 
+
 # 跨链SWAP
 
 普通的链只能从它当前链进行swap
@@ -447,6 +467,7 @@ function onCrossChainCall(
 
 
 
+
 # ZetaChain函数
 
 ```
@@ -465,6 +486,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -550,11 +572,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -692,6 +716,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -937,6 +962,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
