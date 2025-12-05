@@ -15,8 +15,94 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+# Day 12 端到端 Demo 串联
+
+### 一、核心理解
+
+今天的目标是将前面几天学过的所有模块**串成一条完整通路**：自然语言 → Qwen-Agent → 后端脚本 →（模拟或真实）ZetaChain 调用
+
+核心流程可以总结为：
+
+```
+User Input → Agent（解析意图） → 生成链操作参数
+                 ↓
+            Backend Script（Hardhat / CLI）
+                 ↓
+       执行链交互（本地或测试网）
+                 ↓
+              返回执行结果
+```
+
+* * *
+
+### 二、今日重点模块回顾
+
+1\. Qwen-Agent 部分
+
+负责理解自然语言，并输出结构化参数，例如：
+
+-   操作类型（读取余额 / 发起交易 / 写入留言）
+    
+-   使用的链 / 网络
+    
+-   必要参数（金额、目标地址、内容等）
+    
+
+Agent 的作用是：  
+**把“自然语言需求”翻译为“可执行的链指令”。**
+
+* * *
+
+2\. 后端链操作部分（ZetaChain Demo）
+
+我选择用 Hardhat 或 CLI（任一之前跑通过的 Demo）执行实际链指令。
+
+例如：
+
+-   读取合约状态
+    
+-   模拟发送交易
+    
+-   或者打印“即将执行”的操作（若暂不调用真实链）
+    
+
+后端的目标是：  
+**根据 Agent 的输出执行链层逻辑。**
+
+* * *
+
+### 三、我完成的端到端最小 Demo（MVP）
+
+我实现的最小 Demo 包含三步：
+
+1.  **输入一句自然语言**  
+    例如：  
+    “帮我查询一下 Universal Affirmation 合约里的留言数量。”
+    
+2.  **Agent 输出结构化参数**  
+    如：
+    
+    ```
+    {
+      "action": "readContract",
+      "contract": "affirmation",
+      "method": "getCount"
+    }
+    ```
+    
+3.  **后端脚本执行链上操作**  
+    在终端打印执行结果（例子）：
+    
+    ```
+    当前留言总数为：18
+    ```
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 # Day 9 学习笔记
 
 ## Qwen-Agent 入门 & 简单 Tool
@@ -140,6 +226,7 @@ tools = [
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 # Day 8 Qwen AI 基础 & API 调用
 
 ### 一、核心理解
@@ -237,6 +324,7 @@ callQwen();
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -367,6 +455,7 @@ BTC/ETH/SOL/BNB 在不同链上，无法作为统一抵押品。
 
 
 
+
 # Day 5 Universal DeFi & 全链资产基础（概念向）
 
 ### 一、核心概念理解
@@ -488,6 +577,7 @@ Solana 资产  ┘
 
 
 
+
 # Day 4 学习笔记
 
 ## Universal App + Hello World 心智模型
@@ -560,6 +650,7 @@ Solana 资产  ┘
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -680,6 +771,7 @@ Gateway 是一个非常关键的组件，它负责：
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -843,6 +935,7 @@ npx tsx src/index.ts query
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
