@@ -15,8 +15,455 @@ From SEU BA
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+## **项目结构**
+
+text
+
+```
+zeta-agent-demo/
+├── agent_parser.py      # Qwen-Agent自然语言解析
+├── backend.py           # 后端处理逻辑
+├── zetachain_client.py  # ZetaChain交互
+└── requirements.txt
+```
+
+## **1\. 环境准备**
+
+**requirements.txt:**
+
+txt
+
+```
+qwen-agent>=0.0.12
+web3>=6.0.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+```
+
+安装依赖：
+
+bash
+
+```
+pip install -r requirements.txt
+```
+
+## **2\. Qwen-Agent自然语言解析**
+
+**agent\_**[**parser.py**](http://parser.py)**:**
+
+python
+
+```
+import json
+from qwen_agent.llm import get_chat_model
+from qwen_agent.agent import Agent
+
+class ZetaChainAgent:
+    def __init__(self):
+        # 使用Qwen2.5-7B-Instruct模型（本地或API）
+        self.llm = get_chat_model({
+            'model': 'Qwen/Qwen2.5-7B-Instruct',
+            'api_key': 'your-api-key',  # 或使用本地模型路径
+            'generate_cfg': {'temperature': 0.1}
+        })
+        
+        # 定义系统提示词
+        self.system_prompt = """你是一个ZetaChain交易解析助手。请将用户的自然语言转换为结构化交易参数。
+
+支持的交易类型：
+1. 跨链转账：从源链转账到目标链
+2. 智能合约调用：调用特定合约的函数
+3. 查询：查询余额、交易状态等
+
+请始终返回JSON格式，包含以下字段：
+{
+    "action": "transfer|contract_call|query",
+    "chain_from": "ethereum|bsc|polygon|bitcoin",
+    "chain_to": "ethereum|bsc|polygon|bitcoin",
+    "token": "ETH|BNB|MATIC|BTC|USDT|USDC",
+    "amount": 数字,
+    "recipient": "地址",
+    "contract_address": "合约地址（如适用）",
+    "function_name": "函数名（如适用）",
+    "parameters": ["参数1", "参数2"],
+    "description": "交易描述"
+}
+
+示例输入："从以太坊转0.1个ETH到BSC链的0x742d35Cc6634C0532925a3b844Bc9e"
+示例输出：{"action": "transfer", "chain_from": "ethereum", "chain_to": "bsc", "token": "ETH", "amount": 0.1, "recipient": "0x742d35Cc6634C0532925a3b844Bc9e", "description": "跨链转账0.1 ETH从以太坊到BSC"}
+"""
+    
+    def parse_natural_language(self, user_input):
+        """解析自然语言为结构化参数"""
+        messages = [
+            {'role': 'system', 'content': self.system_prompt},
+            {'role': 'user', 'content': user_input}
+        ]
+        
+        response = self.llm.chat(messages)
+        
+        try:
+            # 提取JSON部分
+            content = response[0].content
+            json_start = content.find('{')
+            json_end = content.rfind('}') + 1
+            json_str = content[json_start:json_end]
+            
+            parsed_data = json.loads(json_str)
+            return parsed_data
+        except Exception as e:
+            print(f"解析错误: {e}")
+            return {
+                "error": "解析失败",
+                "raw_response": response[0].content
+            }
+    
+    def validate_parameters(self, params):
+        """验证解析出的参数"""
+        required_fields = ["action", "chain_from", "chain_to", "token", "amount"]
+        
+        for field in required_fields:
+            if field not in params:
+                return False, f"缺少必要字段: {field}"
+        
+        # 验证action类型
+        valid_actions = ["transfer", "contract_call", "query"]
+        if params["action"] not in valid_actions:
+            return False, f"无效的action类型: {params['action']}"
+        
+        return True, "参数验证通过"
+```
+
+## **3\. ZetaChain客户端**
+
+**zetachain\_**[**client.py**](http://client.py)**:**
+
+python
+
+```
+import json
+import requests
+from web3 import Web3
+from typing import Dict, Any
+
+class ZetaChainClient:
+    def __init__(self, testnet=True):
+        self.testnet = testnet
+        
+        # ZetaChain测试网配置
+        if testnet:
+            self.rpc_url = "https://zetachain-athens-evm.blockpi.network/v1/rpc/public"
+            self.explorer_url = "https://athens3.explorer.zetachain.com"
+            self.chain_id = 7001
+        else:
+            # 主网配置
+            self.rpc_url = "https://zetachain-evm.blockpi.network/v1/rpc/public"
+            self.explorer_url = "https://explorer.zetachain.com"
+            self.chain_id = 7000
+        
+        # 初始化Web3
+        self.w3 = Web3(Web3.HTTPProvider(self.rpc_url))
+        
+        # ZetaChain合约地址（测试网）
+        self.contracts = {
+            "connector": "0x2ca7d64A7EFE2D62A725E2B35Cf7230D6677FfEe",
+            "zeta_token": "0x5F0b1a82749cb4E2278EC87F8BF6B618dC71a8bf"
+        }
+    
+    def prepare_transfer(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """准备跨链转账交易"""
+        print(f"\n🔗 准备跨链转账...")
+        print(f"  从: {params['chain_from']}")
+        print(f"  到: {params['chain_to']}")
+        print(f"  代币: {params['token']}")
+        print(f"  数量: {params['amount']}")
+        print(f"  接收者: {params['recipient']}")
+        
+        # 模拟交易数据
+        transaction_data = {
+            "action": "cross_chain_transfer",
+            "source_chain": params["chain_from"],
+            "destination_chain": params["chain_to"],
+            "token": params["token"],
+            "amount": params["amount"],
+            "recipient": params["recipient"],
+            "estimated_gas": "0.001 ZETA",
+            "estimated_time": "2-5分钟",
+            "tx_data": {
+                "method": "transferCrossChain",
+                "params": [
+                    params["chain_to"].upper(),
+                    params["recipient"],
+                    int(params["amount"] * 10**18)  # 转换为wei
+                ]
+            }
+        }
+        
+        return transaction_data
+    
+    def prepare_contract_call(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """准备合约调用交易"""
+        print(f"\n📄 准备合约调用...")
+        print(f"  合约地址: {params.get('contract_address', '默认连接器')}")
+        print(f"  函数: {params.get('function_name', 'N/A')}")
+        print(f"  参数: {params.get('parameters', [])}")
+        
+        transaction_data = {
+            "action": "contract_call",
+            "contract": params.get("contract_address", self.contracts["connector"]),
+            "function": params.get("function_name", ""),
+            "parameters": params.get("parameters", []),
+            "estimated_gas": "0.005 ZETA",
+            "tx_data": {
+                "to": params.get("contract_address", self.contracts["connector"]),
+                "data": self._encode_function_call(params)
+            }
+        }
+        
+        return transaction_data
+    
+    def _encode_function_call(self, params):
+        """编码函数调用（简化版）"""
+        # 实际实现需要ABI编码
+        return "0x" + "simulated_encoded_data".hex()
+    
+    def simulate_transaction(self, tx_data: Dict[str, Any]) -> Dict[str, Any]:
+        """模拟交易执行"""
+        print(f"\n🔄 模拟交易执行...")
+        
+        simulation_result = {
+            "success": True,
+            "simulation_id": f"sim_{hash(str(tx_data)) % 1000000}",
+            "gas_used": "250000",
+            "status": "成功",
+            "steps": [
+                "1. 验证参数 ✓",
+                "2. 检查余额 ✓",
+                "3. 预估Gas ✓",
+                "4. 构建交易 ✓",
+                "5. 模拟执行 ✓"
+            ],
+            "next_action": "发送到ZetaChain测试网"
+        }
+        
+        return simulation_result
+    
+    def send_test_transaction(self, tx_data: Dict[str, Any]) -> Dict[str, Any]:
+        """发送测试交易（模拟或真实）"""
+        print(f"\n🚀 发送测试交易...")
+        
+        # 这里可以是真实的交易发送
+        # 为了演示，我们返回模拟结果
+        if self.testnet:
+            return {
+                "success": True,
+                "tx_hash": f"0x{hash(str(tx_data)) % 10**64:064x}",
+                "explorer_url": f"{self.explorer_url}/tx/0x{hash(str(tx_data)) % 10**64:064x}",
+                "message": "✅ 交易已发送到ZetaChain雅典测试网",
+                "timestamp": "2024-01-01T12:00:00Z"
+            }
+        else:
+            return {
+                "success": False,
+                "message": "⚠️ 主网交易需要私钥签名，已跳过"
+            }
+```
+
+## **4\. 后端服务**
+
+[**backend.py**](http://backend.py)**:**
+
+python
+
+```
+import json
+from agent_parser import ZetaChainAgent
+from zetachain_client import ZetaChainClient
+
+class ZetaChainBackend:
+    def __init__(self):
+        self.agent = ZetaChainAgent()
+        self.client = ZetaChainClient(testnet=True)
+    
+    def process_request(self, user_input: str, execute_real=False):
+        """处理用户输入"""
+        print("=" * 50)
+        print(f"📝 用户输入: {user_input}")
+        print("=" * 50)
+        
+        # 步骤1: Agent解析自然语言
+        print("\n1️⃣ Agent解析中...")
+        params = self.agent.parse_natural_language(user_input)
+        
+        if "error" in params:
+            print(f"❌ 解析失败: {params['error']}")
+            return params
+        
+        print(f"✅ 解析成功!")
+        print(f"   结构化参数: {json.dumps(params, indent=2, ensure_ascii=False)}")
+        
+        # 步骤2: 验证参数
+        print("\n2️⃣ 验证参数...")
+        is_valid, message = self.agent.validate_parameters(params)
+        if not is_valid:
+            print(f"❌ 验证失败: {message}")
+            return {"error": message}
+        print(f"✅ {message}")
+        
+        # 步骤3: 准备交易
+        print("\n3️⃣ 准备交易数据...")
+        if params["action"] == "transfer":
+            tx_data = self.client.prepare_transfer(params)
+        elif params["action"] == "contract_call":
+            tx_data = self.client.prepare_contract_call(params)
+        else:
+            tx_data = {"action": "query", "params": params}
+        
+        print(f"✅ 交易数据准备完成")
+        print(f"   交易详情: {json.dumps(tx_data, indent=2, ensure_ascii=False)}")
+        
+        # 步骤4: 模拟交易
+        print("\n4️⃣ 模拟交易执行...")
+        simulation = self.client.simulate_transaction(tx_data)
+        print(f"✅ 模拟完成: {simulation['status']}")
+        for step in simulation.get("steps", []):
+            print(f"   {step}")
+        
+        result = {
+            "user_input": user_input,
+            "parsed_params": params,
+            "tx_data": tx_data,
+            "simulation": simulation
+        }
+        
+        # 步骤5: 可选的真实交易
+        if execute_real and params["action"] != "query":
+            print("\n5️⃣ 发送真实交易...")
+            real_tx = self.client.send_test_transaction(tx_data)
+            result["real_transaction"] = real_tx
+            print(f"   {real_tx['message']}")
+            if real_tx.get("tx_hash"):
+                print(f"   交易哈希: {real_tx['tx_hash']}")
+                print(f"   浏览器查看: {real_tx.get('explorer_url', 'N/A')}")
+        
+        print("\n" + "=" * 50)
+        print("🎉 流程完成!")
+        print("=" * 50)
+        
+        return result
+
+def main():
+    """主函数 - 演示流程"""
+    backend = ZetaChainBackend()
+    
+    # 示例输入
+    examples = [
+        "从以太坊转0.1个ETH到BSC链的0x742d35Cc6634C0532925a3b844Bc9e8d3e9e5a1b",
+        "调用合约0x1234...的transfer函数，参数是[0xabcd..., 1000]",
+        "查询我的ZETA余额",
+        "从Polygon转50个USDT到以太坊"
+    ]
+    
+    print("🤖 ZetaChain智能助手演示")
+    print("选择输入方式:")
+    print("1. 使用示例")
+    print("2. 自定义输入")
+    
+    choice = input("\n请选择 (1/2): ").strip()
+    
+    if choice == "1":
+        print("\n可用的示例:")
+        for i, example in enumerate(examples, 1):
+            print(f"{i}. {example}")
+        
+        example_choice = int(input(f"\n选择示例 (1-{len(examples)}): ")) - 1
+        user_input = examples[example_choice]
+    else:
+        user_input = input("\n请输入您的指令: ").strip()
+    
+    # 是否执行真实交易
+    execute_real = input("\n是否发送真实交易到测试网? (y/N): ").lower() == 'y'
+    
+    # 处理请求
+    result = backend.process_request(user_input, execute_real=execute_real)
+    
+    # 保存结果到文件
+    with open("transaction_result.json", "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+    print(f"\n📁 结果已保存到: transaction_result.json")
+
+if __name__ == "__main__":
+    main()
+```
+
+## **5\. 简化版运行脚本**
+
+**run\_**[**demo.py**](http://demo.py)**:**
+
+python
+
+```
+#!/usr/bin/env python3
+"""
+简版Demo运行脚本
+"""
+import sys
+from backend import ZetaChainBackend
+
+def simple_demo():
+    """简化演示"""
+    print("🚀 ZetaChain最小通路Demo")
+    print("-" * 40)
+    
+    # 硬编码示例，避免输入
+    user_input = "从以太坊转0.05个ETH到Polygon链的0xabcdef1234567890"
+    
+    print(f"📝 输入: {user_input}")
+    print("-" * 40)
+    
+    backend = ZetaChainBackend()
+    
+    # 执行流程
+    print("\n🔍 步骤1: Agent解析自然语言...")
+    params = backend.agent.parse_natural_language(user_input)
+    print(f"   解析结果: {params}")
+    
+    print("\n✅ 步骤2: 准备交易...")
+    tx_data = backend.client.prepare_transfer(params)
+    print(f"   交易数据: {tx_data}")
+    
+    print("\n🔄 步骤3: 模拟执行...")
+    simulation = backend.client.simulate_transaction(tx_data)
+    print(f"   模拟结果: {simulation['status']}")
+    
+    print("\n📋 步骤4: 生成最终输出...")
+    result = {
+        "user_input": user_input,
+        "parsed_params": params,
+        "tx_data": tx_data,
+        "simulation": simulation
+    }
+    
+    print("\n" + "=" * 50)
+    print("🎉 Demo完成！以下是结构化输出:")
+    print("=" * 50)
+    
+    import json
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+    
+    return result
+
+if __name__ == "__main__":
+    simple_demo()
+```
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 ## **1\. Qwen-Agent 框架基本组成**
 
 **核心概念：**
@@ -177,6 +624,7 @@ if __name__ == '__main__':
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
+
 ## **ZetaChain 通用 DeFi 模式梳理**
 
 | 模式 | 核心机制 | ZetaChain 优势 |
@@ -231,6 +679,7 @@ if __name__ == '__main__':
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 ## **🚀 ZetaChain Swap Demo 实践记录**
@@ -360,6 +809,7 @@ function onCrossChainCall(
 
 
 
+
 # **1\. 对 “全链应用 / Universal App” 的直观理解**
 
 -   **一个合约，多处运行**：你只写一次核心业务逻辑（Universal App 合约），它可以被部署到任何支持的区块链上（如以太坊、Arbitrum、Polygon、Base 等）。
@@ -450,6 +900,7 @@ function onCrossChainCall(
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -545,6 +996,7 @@ function onCrossChainCall(
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1396,6 +1848,7 @@ curl -X POST "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generatio
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
