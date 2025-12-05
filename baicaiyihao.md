@@ -15,8 +15,14 @@ MOVE Smart Contract Dev and Security Researcher
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 串联demo和agent，利用agent执行合约操作模拟
 
 ```javascript
@@ -175,6 +181,7 @@ Transaction hash: 0xb3633b376c83dbd06a44aa2fdd5559b005e6bd0c938fa4923ef17d3dbe87
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 设计agent能够实现DeFi 意图解析，下列是样例代码
 
 ```javascript
@@ -291,11 +298,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -308,11 +317,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -329,11 +340,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -354,6 +367,7 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 安装zeta cli并且尝试qwen api调用
 
 了解了zeta如何与sui链合约进行交互
@@ -361,6 +375,7 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
