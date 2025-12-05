@@ -15,19 +15,27 @@ ZetaChain爱好者
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-04_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
+
 先打卡，明天必须学习了
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 无情的打卡机器，后面一定补上
@@ -38,11 +46,13 @@ ZetaChain爱好者
 
 
 
+
 打卡先
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -57,11 +67,13 @@ ZetaChain爱好者
 
 
 
+
 打个卡先，最近在体验Zeta中文社区新上线的产品
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -82,6 +94,7 @@ ZetaChain爱好者
 
 
 
+
 打卡  
 [https://coinmarketcap.com/community/post/371320328](https://coinmarketcap.com/community/post/371320328)  
 今天有点忙，没怎么学开发，写了篇关于evm的帖子
@@ -89,6 +102,7 @@ ZetaChain爱好者
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
