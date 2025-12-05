@@ -15,8 +15,199 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+# 学习笔记 Day 12：
+
+**学习目标**
+
+-   **核心目标**：串起一条最小通路：自然语言 → Agent → 后端 →（模拟或真实）ZetaChain 调用。
+    
+-   **技术要点**：
+    
+    1.  理解 Qwen-Agent 的 `Function Calling` (工具调用) 机制。
+        
+    2.  掌握使用 `web3.py` 连接 ZetaChain 测试网并发送交易。
+        
+    3.  完成“意图识别”到“链上执行”的闭环。
+        
+
+**学习资料**
+
+-   **ZetaChain Developers** (官方文档，查阅 RPC 和网络参数)
+    
+    -   [https://www.zetachain.com/docs/developers](https://www.zetachain.com/docs/developers)
+        
+-   **Qwen-Agent Tools** (框架文档，查阅如何注册工具)
+    
+    -   [https://qwen.readthedocs.io/en/v2.5/framework/qwen\_agent.html](https://qwen.readthedocs.io/en/v2.5/framework/qwen_agent.html)
+        
+-   **Web3.py Documentation** (Python 交互库)
+    
+    -   [https://web3py.readthedocs.io/en/stable/](https://web3py.readthedocs.io/en/stable/)
+        
+
+**扩展资料**
+
+在开发 Demo 前，请先在代码中配置以下 ZetaChain Athens Testnet 参数 1：
+
+| 参数项 | 值 | 备注 |
+| Network | Athens-3 Testnet |   |
+| Chain ID | 7001 | 用于防止跨链重放攻击 |
+| Currency | ZETA | 测试币用于支付 Gas |
+| RPC URL | https://zetachain-athens-evm.blockpi.network/v1/rpc/public | 公共节点，注意限频 |
+| Explorer | https://athens.explorer.zetachain.com | 用于验证交易结果 |
+
+**实践 / 作业指南**
+
+本次作业的核心是将 AI 的“思考”转化为区块链的“动作”。以下是完成简版 Demo 的步骤与代码骨架。
+
+### 1\. 环境准备
+
+安装必要的 Python 依赖库：
+
+```
+pip install qwen-agent web3 python-dotenv
+```
+
+_提示：请务必使用_ `.env` _文件管理你的_ `ZETA_PRIVATE_KEY`_，严禁上传私钥到代码库。_
+
+### 2\. 后端实现：定义“手”
+
+需要编写一个工具，让 Agent 能够执行转账。注意 ZetaChain 基于 Tendermint，使用 `web3.py` 时建议注入 `geth_poa_middleware` 3。
+
+Python
+
+```
+from qwen_agent.tools.base import BaseTool, register_tool
+from web3 import Web3
+from web3.middleware import geth_poa_middleware
+import json
+import os
+
+# 初始化连接
+w3 = Web3(Web3.HTTPProvider("https://zetachain-athens-evm.blockpi.network/v1/rpc/public"))
+w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+
+@register_tool('zeta_transfer')
+class ZetaTransfer(BaseTool):
+    # description 非常重要，这是给 AI 看的“说明书”
+    description = '在 ZetaChain 测试网上发送 ZETA 代币。输入参数为接收地址和金额。'
+    parameters = {
+        'name': 'zeta_transfer',
+        'type': 'object',
+        'properties': {
+            'recipient': {'type': 'string', 'description': '接收代币的 0x 开头钱包地址'},
+            'amount': {'type': 'number', 'description': '转账金额（单位：ZETA）'}
+        },
+        'required': ['recipient', 'amount']
+    }
+
+    def call(self, params: str, **kwargs) -> str:
+        # 1. 解析参数
+        params = json.loads(params)
+        recipient = w3.to_checksum_address(params['recipient'])
+        amount_ether = params['amount']
+        
+        # 2. 获取私钥和账户 (从环境变量)
+        private_key = os.getenv("ZETA_PRIVATE_KEY")
+        account = w3.eth.account.from_key(private_key)
+        
+        # 3. 构建交易 (模拟/真实)
+        # 真正发交易前，建议先打印日志，确认参数被正确提取
+        print(f"\n[后端日志] 正在构建交易: 向 {recipient} 发送 {amount_ether} ZETA...")
+        
+        try:
+            nonce = w3.eth.get_transaction_count(account.address)
+            tx = {
+                'nonce': nonce,
+                'to': recipient,
+                'value': w3.to_wei(amount_ether, 'ether'), # 注意单位转换
+                'gas': 210000,
+                'gasPrice': w3.eth.gas_price,
+                'chainId': 7001
+            }
+            
+            # 4. 签名并广播
+            signed_tx = w3.eth.account.sign_transaction(tx, private_key)
+            tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+            
+            return json.dumps({
+                "status": "success", 
+                "tx_hash": w3.to_hex(tx_hash),
+                "explorer": f"https://athens.explorer.zetachain.com/tx/{w3.to_hex(tx_hash)}"
+            })
+        except Exception as e:
+            return json.dumps({"status": "error", "message": str(e)})
+```
+
+### 3\. Agent 串联：定义“脑”
+
+配置 Qwen-Agent，使其能够根据自然语言自动调用上述工具。
+
+Python
+
+```
+from qwen_agent.agents import Assistant
+
+def main():
+    # 配置 Agent
+    bot = Assistant(
+        llm={'model': 'qwen-max', 'api_key': os.getenv("DASHSCOPE_API_KEY")},
+        name='ZetaChain Assistant',
+        system_message='你是一个区块链助手，可以帮助用户在 ZetaChain 上进行转账。转账成功后，必须返回交易哈希链接。',
+        function_list=['zeta_transfer'] # 注册刚才写的工具
+    )
+
+    # 模拟用户输入
+    query = "帮我给地址 0x123... (换成你的测试号) 转 0.001 个 ZETA"
+    
+    print(f"用户指令: {query}")
+    
+    # 运行 Agent
+    messages = [{'role': 'user', 'content': query}]
+    for response in bot.run(messages=messages):
+        # 流式输出最后一条消息
+        if response:
+            print(f"Agent 回复: {response[-1]['content']}")
+
+if __name__ == "__main__":
+    main()
+```
+
+### 4\. 作业
+
+1.  **准备账号**：确保你的 `.env` 中配置的账号在测试网有水（可在 Discord 领水）。
+    
+2.  **录屏步骤**：
+    
+    -   展示终端运行 `python demo.py`。
+        
+    -   输入自然语言指令（例如：“转 0.01 个币给 <你的另一个地址>”）。
+        
+    -   **关键点**：展示终端打印出的“\[后端日志\]”，证明参数是由 Agent 自动提取的。
+        
+    -   **高光时刻**：点击 Agent 返回的浏览器链接，展示链上交易成功的页面。
+        
+
+**常见问题 (FAQ)**
+
+-   **Q: 报错** `insufficient funds`**？**
+    
+    -   A: 检查你的 Gas Price 设置，或者去水龙头再领一点测试币。
+        
+-   **Q: Agent 总是只聊天不调用工具？**
+    
+    -   A: 检查 `system_message` 是否足够明确，或者尝试在 prompt 中强制要求使用工具。
+        
+-   **Q: 报错** `extraData` **长度错误？**
+    
+    -   A: 确保在 `web3` 初始化时注入了 `geth_poa_middleware`。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 ### 学习笔记 Day 11:
 
 ## 一、今天我又双叒叕要干啥？
@@ -406,6 +597,7 @@ app.post("/swap-intent", (req, res) => {
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 ### Day 10 学习笔记：
 
 ## 1\. 今天干了啥
@@ -729,6 +921,7 @@ resp = client.chat.completions.create(
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 ### 学习笔记 Day 9:
@@ -1092,6 +1285,7 @@ Agent 就应该调用 `add` 工具并给出计算结果。
 
 
 
+
 ### 学习笔记 Day8：
 
 ## 一、今日学习内容
@@ -1440,6 +1634,7 @@ if __name__ == "__main__":
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -1868,6 +2063,7 @@ Swap + Messaging + Omnichain Contracts 则是「通用 DeFi 的操作系统」�
 
 
 
+
 **Day 6 学习笔记：**
 
 ## 一、一次调用完成跨链 DeFi
@@ -2209,6 +2405,7 @@ npx zetachain evm deposit-and-call \
 
 
 
+
 ### Day 5 学习笔记：
 
 ## 一、今天要搞清楚的三个核心概念
@@ -2510,6 +2707,7 @@ npx zetachain evm deposit-and-call \
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -2890,6 +3088,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 
 
+
 # 学习笔记 Day 3：ZetaChain & Universal Blockchain 核心概念
 
 ## 1\. 整体认识：什么是 “Universal Blockchain / Universal EVM”？
@@ -3091,6 +3290,7 @@ ZetaChain 官方说明：平台原生支持 Foundry、Hardhat、Slither、Ethers
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -3450,6 +3650,7 @@ Body（raw + JSON）示例：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
