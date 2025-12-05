@@ -76,10 +76,16 @@ You may find distributed inference with Transformers is not as fast as you would
 GGUF[\[1\]](https://qwen.readthedocs.io/en/latest/run_locally/llama.cpp.html#gguf) is a file format for storing information needed to run a model, including but not limited to model weights, model hyperparameters, default generation configuration, and tokenizer.
 
 We provide a series of GGUF models in our Hugging Face organization, and to search for what you need you can search the repo names with `-GGUF`.
+
+```
+llama-cli -m ./models/Qwen3-8B-Q4_K_M.gguf --jinja --color -ngl 99 --flash-attn auto -sm row
+    --temp 0.6 --top-k 20 --top-p 0.95 --min-p 0 -c 40960 -n 32768 --no-context-shift
+```
 <!-- DAILY_CHECKIN_2025-12-05_END -->
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthedocs.io/zh-cn/latest/index.html)
 
@@ -200,11 +206,13 @@ Transformers is a library of pretrained natural language processing for inferenc
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 今天主要看了一下 [https://www.zetachain.com/docs/developers/tutorials/swap](https://www.zetachain.com/docs/developers/tutorials/swap) 这个资料
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -215,6 +223,7 @@ Transformers is a library of pretrained natural language processing for inferenc
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -345,6 +354,7 @@ TSS has emerged as a solution in blockchain systems to enhance security and trus
 
 
 
+
 [https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-27-1764275585407-image.png)
@@ -403,6 +413,7 @@ Validators are comprised of 2 different roles: Core Validators and Observer-Sign
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -494,6 +505,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -606,6 +618,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -839,6 +852,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
