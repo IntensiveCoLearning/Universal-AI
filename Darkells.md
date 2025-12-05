@@ -15,8 +15,20 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+今日打卡
+
+工作繁忙 卡点 打卡
+
+正在肝作业。。。。
+
+![QQ20251206-010856.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-12-05-1764954560706-QQ20251206-010856.png)![QQ20251206-010909.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Darkells/images/2025-12-05-1764954578713-QQ20251206-010909.png)
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 今日作业：
 
 Qwen Agent x ZetaChain
@@ -66,6 +78,7 @@ Qwen Agent x ZetaChain
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 ## 今日作业：
 
@@ -130,6 +143,7 @@ Qwen Agent x ZetaChain
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 今日作业：
 
 对于 AI 相关的知识比较薄弱，今日的作业完成的不是很好
@@ -141,6 +155,7 @@ Qwen Agent x ZetaChain
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -163,6 +178,7 @@ Qwen Agent x ZetaChain
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -233,6 +249,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 
 
+
 今天实际去跑 swap 的 demo记录遇到的问题
 
 在 deplo 合约上都没遇到问题，只是在获取 zetachain 测试网的以太坊 Sepolia ETH 的 ZRC-20 地址报错了
@@ -266,6 +283,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -331,6 +349,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 
 
+
 -   **ZRC-20 和普通 ERC-20 的直观区别**
     
 
@@ -357,6 +376,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -412,6 +432,7 @@ Swap 工作流程
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -477,6 +498,7 @@ ZetaChain为开发者提供了一个统一的平台来处理跨链消息、资�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
