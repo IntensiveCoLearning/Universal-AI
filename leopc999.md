@@ -15,13 +15,20 @@ A Web3 enthusiast interested in AI and DeFi.
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+今天观看了 Workshop 的回放视频
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 继续学习资料，形成总结笔记
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 ZetaChain + Universal EVM + Gateway + 多链 (EVM / 非 EVM / Bitcoin…) 之间的调用 / 资产 / 消息流动关系总结如下：
 
@@ -30,6 +37,7 @@ ZetaChain + Universal EVM + Gateway + 多链 (EVM / 非 EVM / Bitcoin…) 之间
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 ## 🌐 ZetaChain 的定位 — “通用区块链 (Universal Blockchain)”
@@ -122,6 +130,7 @@ ZetaChain + Universal EVM + Gateway + 多链 (EVM / 非 EVM / Bitcoin…) 之间
 
 
 
+
 继续阅读相关文档
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
@@ -131,11 +140,13 @@ ZetaChain + Universal EVM + Gateway + 多链 (EVM / 非 EVM / Bitcoin…) 之间
 
 
 
+
 参加了第一次 Workshop，之后还需要看回放视频来巩固
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -152,11 +163,13 @@ ZetaChain + Universal EVM + Gateway + 多链 (EVM / 非 EVM / Bitcoin…) 之间
 
 
 
+
 今天配置了开发环境，学习了一些基础知识。
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
