@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+先打个卡，明天再补
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 # 2025-12-03学习笔记
 
 -   设计一个工具：`parse_swap_intent(text)`，返回结构化 JSON，例如：`{ "chain": "base", "tokenIn": "USDC", "tokenOut": "ETH", "amount": "10" }`
@@ -385,11 +391,13 @@ while True:
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 先打个卡，手上任务有点多，明天合并一起打卡掉，抱歉哈
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 # 2025-12-01学习笔记
@@ -524,11 +532,13 @@ available_functions = {
 
 
 
+
 先卡个卡，今天有点忙，明天抽空把这两天的任务都补上。
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -641,6 +651,7 @@ OmniYield 自动：
 
 
 
+
 -   在测试网跑通官方跨链Demo（Swap）
     
 
@@ -675,6 +686,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -722,6 +734,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
     
 
@@ -735,6 +748,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -767,6 +781,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   ZetaChain CLI本地环境安装及使用：
     
 
@@ -787,6 +802,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
