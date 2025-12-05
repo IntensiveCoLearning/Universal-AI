@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+[Qwen 代理](https://github.com/QwenLM/Qwen-Agent)是一个基于 Qwen 指令遵循、工具使用、规划和内存能力开发 LLM 应用的框架。它还附带了浏览器助理、代码解释器和自定义助手等示例应用程序。
+
+Qwen-Agent 提供原子组件，如大型语言模型（LLM）和提示符，以及高级组件（如代理）。下面的示例以助手组件为例，演示如何添加自定义工具并快速开发使用工具的代理。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 跨链交易（CCTX）可分为两大类：进出交易。  
 **入账交易** （连接链→ZetaChain）是在连接链上发起的，并导致在 ZetaChain 上进行交易。一个入账交易由两个交易组成：入站：交易在连接链上被发起并观察。出站：对应的交易在 ZetaChain 上广播并执行。
 
@@ -25,6 +33,7 @@ timezone: UTC+8
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 调用通义千问
 
@@ -45,11 +54,13 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-30_START -->
 
 
+
 `Swap` 合约是部署在 ZetaChain 上的通用应用。它使用户能够通过一次跨链调用在区块链间进行代币交换。代币以 ZRC-20 形式接收，可选择使用 Uniswap v2 流动性进行交换，并提取回连接链。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -78,11 +89,13 @@ timezone: UTC+8
 
 
 
+
 ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通过 ZRC-20，开发者可以构建 dApp，在任何连接链上协调本地资产。这使得构建全链 DeFi 协议和 dApps，如全链去中心化交易所（Omnichain DEX）、全链借贷、全链投资组合管理，以及任何涉及多条链上的同质化代币，从一个地方变得极其简单——就像它们都存在于一条链上一样。
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -109,6 +122,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 
 
+
 \## zeta架构
 
 \- 交互路径：区块链→zetaclient→zetavm→zetacore（ Tendermint 共识和 PoS 验证者网络）→ZetaCore / Blockchain（核心区块链）→签名者签名
@@ -129,6 +143,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 
 
+
 \- 安装zetachain CLI：npm install -g zetachain
 
 \- 检查版本：zetachain --version
@@ -140,6 +155,7 @@ ZRC-20 是集成在 ZetaChain 全链智能合约平台中的代币标准。通�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
