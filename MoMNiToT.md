@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+正在重新跑通Demo，但是并未成功
+
+![屏幕截图 2025-12-04 211444.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/MoMNiToT/images/2025-12-05-1764945128448-_____2025-12-04_211444.png)
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 # **Day10：DeFi 意图解析**
 
 ## **函数调用**
@@ -277,6 +285,7 @@ timezone: UTC+8
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 # **Day9：Qwen-Agent 入门 & 简单 Tool**
 
 **_\##_ import**
@@ -512,6 +521,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 # **Day8：Qwen AI 基础 & API 调用**
 
 ## **地址与 base\_url**
@@ -621,6 +631,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -823,6 +834,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 
 
 
+
 # **Day5：Universal DeFi & 全链资产**
 
 **💫通用资产：通用合约和连接合约**
@@ -862,6 +874,7 @@ ERC20：以太坊生态系统的 "通用语言"，几乎所有 DeFi 应用都支
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -930,6 +943,7 @@ NaN.  出站：发起要求、验证者准备、TSS签名、提交广播、跨�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1017,6 +1031,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1196,6 +1211,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
