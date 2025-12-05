@@ -15,13 +15,20 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 打卡
 <!-- DAILY_CHECKIN_2025-12-01_END -->
@@ -30,11 +37,13 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-11-29_START -->
 
 
+
 继续阅读学习
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -131,6 +140,7 @@ RPC (Remote Procedure Call) 是前端和部署工具与区块链网络通信的�
 
 
 
+
 ## 1\. 理解 “通用区块链 / Universal EVM / Universal App / Omnichain Smart Contract” 的基本含义。
 
 **通用区块链 (Universal Blockchain) / ZetaChain** ZetaChain 是一个建立在 Cosmos SDK 和 Comet BFT 共识引擎之上的 **PoS 区块链**。ZetaChain 的核心目标是提供基础设施，使开发者能够创建可与**任何区块链**（包括像 Bitcoin 这样的非智能合约区块链、以及 Ethereum、Solana、TON 等）**无缝交互**的通用应用程序。ZetaChain 通过内置的全链互操作性功能，将多样化的区块链生态系统统一在一个单一的开发框架之下。
@@ -213,11 +223,13 @@ RPC (Remote Procedure Call) 是前端和部署工具与区块链网络通信的�
 
 
 
+
 了解了qwen，zetachain的部署使用，llm api调用没问题，链相关的内容还没太搞懂
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
