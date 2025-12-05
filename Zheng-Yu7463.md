@@ -15,8 +15,55 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+项目概要：ZetaMind —— 基于自然语言的全链交易意图 Agent
+
+**1\. 目标用户 / 场景**
+
+-   **用户：** 持有 BTC/DOGE 等非智能合约链资产，想参与 DeFi 但不懂复杂的跨链桥、Gas 费机制的小白用户。
+    
+-   **场景：** 用户直接在对话框输入：“把我的 0.01 BTC 换成 ETH 并在那边存入生息。” Agent 自动识别意图并构建交易，用户只需签名确认。
+    
+
+**2\. 关键功能（MVP 范围）**
+
+1.  **自然语言转交易（Intent-to-Transaction）：** 聊天界面解析用户口语化指令（如“兑换”、“转账”）。
+    
+2.  **一键跨链 Swap：** 支持从 Bitcoin 网络直接 Swap 到 ZetaChain 或 Ethereum（利用 ZRC-20）。
+    
+3.  **智能汇率查询：** 在执行前，AI 自动调用 API 告知用户当前汇率和预估 Gas，给出“是否继续”的建议。
+    
+
+**3\. 技术路线（ZetaChain + Qwen 配合）**
+
+-   **前端/交互：** 用户输入文本 -> 发送给后端。
+    
+-   **AI 层 (Qwen Agent)：**
+    
+    -   使用 `Qwen-2.5` 模型进行自然语言理解。
+        
+    -   利用 **Function Calling (工具调用)** 功能，将自然语言提取为 JSON 参数（例如：`{action: "swap", source_token: "BTC", target_token: "ETH", amount: 0.01}`）。
+        
+-   **合约层 (ZetaChain)：**
+    
+    -   接收 AI 解析后的 JSON 参数。
+        
+    -   调用 **Universal Contract (通用合约)**。
+        
+    -   利用 `ZRC20` 标准，在合约内部调用 `swap` 逻辑（参考 ZetaChain Swap 教程）。
+        
+
+**4\. 计划复用的 Demo / 模板**
+
+-   **ZetaChain 侧：** 复用官方 `swap` 教程中的 Uniswap v2 风格合约模板。
+    
+-   **AI 侧：** 复用 Qwen Agent 的 "Function Calling" demo 代码块。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 ### 代码
 
 \# transaction\_[service.py](http://service.py)
@@ -209,6 +256,7 @@ print(json.dumps(result, indent=4))
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 ### 代码
 
 ```
@@ -304,6 +352,7 @@ Result: {'messages': \[HumanMessage(content='帮我在 Base 上用 10 USDC 换�
 <!-- DAILY_CHECKIN_2025-12-01_START -->
 
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Zheng-Yu7463/images/2025-12-01-1764598124673-image.png)
 
 langchain v1 create\_agent调用
@@ -317,6 +366,7 @@ langchain v1 create\_agent调用
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -353,6 +403,7 @@ langchain v1 create\_agent调用
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -400,6 +451,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 
 
+
 **1\. ZRC-20 和普通 ERC-20 的直观区别（开发者视角）**
 
 虽然在写代码时，ZRC-20 也可以用 `transfer`、`approve` 这些熟悉的接口，但我觉得两者在**底层逻辑**上有两个最大的不同：
@@ -426,6 +478,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 
 
+
 **“全链涂鸦墙”**
 
 > 这是一块立在 ZetaChain 上的**公共黑板**。
@@ -441,6 +494,7 @@ echo "My Swap Contract Address: $UNIVERSAL"
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -489,6 +543,7 @@ Gateway 是 ZetaChain 与外部区块链（如 Ethereum, Bitcoin）进行沟通�
 
 
 
+
 -   安装尝试Zeta cli ✅
     
 -   ZetaChain Node / RPC / Faucet / Explorer / 测试币获取 ✅
@@ -514,6 +569,7 @@ Qwen api调试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
