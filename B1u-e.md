@@ -15,8 +15,21 @@ Web3 全沾开发者、社区运营
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+安全性与审计
+
+-   **公开审计与透明度**：ZetaChain 在其 GitHub / 官方仓库中公开了多份审计报告与安全相关文档（例如 Hashlock 审计、Hacken 报告等），并在社区展示修复进展。虽然有审计，但跨链写入外链交易本身增加了额外攻击面（oracle/observer/TSS 协调、外链节点故障、重放与前端攻击等）。建议重点审阅最新的审计执行记录与修复日志。
+    
+
+团队与资金面
+
+-   **团队构成**：资料显示项目由一批有交易所/区块链背景的成员领导（公开记录有 Ankur Nandwani、Charlie Pyle、Charlie McCowan 等核心成员），团队曾获得数轮风投资金（公开报道有 ~2700万美元等），且有机构/交易所背书。团队背景是技术与运营相对强的加分项，但也要实时核验团队治理与人员变动。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 5) 安全性与审计（Audits）
 
 -   **公开审计与透明度**：ZetaChain 在其 GitHub / 官方仓库中公开了多份审计报告与安全相关文档（例如 Hashlock 审计、Hacken 报告等），并在社区展示修复进展。虽然有审计，但跨链写入外链交易本身增加了额外攻击面（oracle/observer/TSS 协调、外链节点故障、重放与前端攻击等）。建议重点审阅最新的审计执行记录与修复日志。
@@ -29,6 +42,7 @@ Web3 全沾开发者、社区运营
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 **代币经济（Tokenomics & Utility）**
 
@@ -48,6 +62,7 @@ Web3 全沾开发者、社区运营
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 1) 项目概述（What）
@@ -70,6 +85,7 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 
 
 
+
 30好今天，卡卡卡卡打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
@@ -79,11 +95,13 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 
 
 
+
 今天水一下打卡，在外出活动，手机水水水水水水
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -104,6 +122,7 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -197,6 +216,7 @@ EVM（Ethereum Virtual Machine）是以太坊的智能合约执行环境。
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
