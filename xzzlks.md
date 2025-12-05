@@ -15,8 +15,157 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+# Day 12：端到端 Demo 串联（自然语言→ZetaChain 调用）学习笔记
+
+**日期**：2025年12月5日 星期五
+
+## 架构图设计
+
+![下载.jpeg](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/xzzlks/images/2025-12-05-1764949389918-__.jpeg)
+
+## 端到端 Demo 实现
+
+复用意图解析工具与中间层模块
+
+新增ZetaChain 调用模块
+
+```python
+class ZetaTransactionExecutor:
+    """ZetaChain 交易执行器：支持模拟打印与真实交易"""
+    def __init__(self, mode: str = "simulate"):
+        """mode: simulate（模拟）/ real（真实交易）"""
+        self.mode = mode
+        self.w3 = None
+
+    def _init_web3(self, rpc_url: str):
+        """初始化 Web3 客户端"""
+        self.w3 = Web3(Web3.HTTPProvider(rpc_url))
+        if not self.w3.is_connected():
+            raise ConnectionError("无法连接 ZetaChain 测试网")
+
+    def execute(self, transaction_cmd: dict) -> str:
+        """执行交易：根据模式返回不同结果"""
+        if self.mode == "real":
+            return self._execute_real(transaction_cmd)
+        else:
+            return self._execute_simulate(transaction_cmd)
+
+    def _execute_simulate(self, transaction_cmd: dict) -> str:
+        """模拟交易：打印交易详情，不发起真实调用"""
+        details = f"""
+        [模拟交易详情]
+        交易类型：ZetaChain 单链 Swap
+        目标链：{transaction_cmd['chain_id']}（Base 测试网）
+        调用合约：{transaction_cmd['contract_address']}
+        输入代币：USDC（ZRC-20 地址：{self.zeta_config['zrc20_tokens']['base']['USDC']}）
+        输出代币：ETH（ZRC-20 地址：{self.zeta_config['zrc20_tokens']['base']['ETH']}）
+        交易金额：{float(transaction_cmd['encoded_transaction']['value'])/10**6} USDC
+        发起地址：{transaction_cmd['encoded_transaction']['from']}
+        """
+        print(details)
+        return f"模拟交易成功，详情如上。若需发起真实交易，将 mode 设为 'real'。"
+
+    def _execute_real(self, transaction_cmd: dict) -> str:
+        """真实交易：签名并发送至 ZetaChain 测试网"""
+        self._init_web3(transaction_cmd["rpc_url"])
+        # 1. 签名交易
+        private_key = os.getenv("WALLET_PRIVATE_KEY")
+        signed_txn = self.w3.eth.account.sign_transaction(
+            transaction_cmd["encoded_transaction"],
+            private_key=private_key
+        )
+        # 2. 发送交易
+        tx_hash = self.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+        # 3. 生成区块浏览器链接
+        tx_url = f"https://athens2.explorer.zetachain.com/tx/{self.w3.to_hex(tx_hash)}"
+        result = f"""
+        [真实交易结果]
+        交易已提交至 ZetaChain 测试网
+        交易哈希：{self.w3.to_hex(tx_hash)}
+        查看详情：{tx_url}
+        请等待区块确认（约10秒）。
+        """
+        print(result)
+        return result
+
+# 给中间层添加配置引用（简化处理）
+ZetaSwapInterface.zeta_config = ZetaSwapInterface().zeta_config
+```
+
+串联全流程并提供交互
+
+```python
+def run_end2end_demo():
+    """端到端 Demo 入口函数"""
+    print("="*60)
+    print("Qwen-Agent × ZetaChain 端到端 Demo（Day12）")
+    print("支持场景：Base 测试网 USDC 兑换 ETH（单链）、跨链 Swap（扩展）")
+    print("="*60)
+    
+    # 1. 初始化组件
+    memory = SimpleMemory()
+    # 初始化意图解析工具
+    parse_tool = ParseSwapIntent()
+    # 初始化中间层服务
+    zeta_interface = ZetaSwapInterface()
+    # 初始化交易执行器（默认模拟模式，可改为 "real" 发起真实交易）
+    tx_executor = ZetaTransactionExecutor(mode="simulate")
+    
+    # 2. 初始化 Agent 并注册工具
+    agent = QwenAgent(
+        llm={
+            "model": "qwen-plus",
+            "api_key": os.getenv("QWEN_API_KEY"),
+            "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        },
+        tools=[parse_tool],
+        memory=memory,
+        function_call_mode="auto"
+    )
+    
+    # 3. 接收用户输入
+    user_input = input("\n请输入你的 DeFi 需求（例如：'在 Base 测试网用 10 USDC 换 ETH'）：")
+    
+    # 4. 全流程执行
+    try:
+        # 步骤1：Agent 调用工具解析意图
+        print("\n[步骤1/4] Agent 正在解析你的需求...")
+        agent_resp = agent.run(query=user_input)
+        # 提取工具返回的结构化参数（Agent 响应中包含 JSON）
+        intent_params = json.loads([c for c in agent_resp if c in "{}[]" or c.isalnum() or c in '":,'])[0]  # 简化提取
+        print(f"[意图解析结果] {json.dumps(intent_params, indent=2)}")
+        
+        # 步骤2：中间层处理参数，生成交易指令
+        print("\n[步骤2/4] 中间层正在处理参数并生成交易指令...")
+        transaction_cmd = zeta_interface.process(intent_params)
+        print(f"[交易指令生成成功] 合约地址：{transaction_cmd['contract_address']}")
+        
+        # 步骤3：执行交易（模拟/真实）
+        print("\n[步骤3/4] 正在执行交易...")
+        tx_result = tx_executor.execute(transaction_cmd)
+        
+        # 步骤4：Agent 整理最终响应
+        print("\n[步骤4/4] 生成最终响应...")
+        final_resp = agent.run(query=f"总结以下交易结果，用自然语言反馈给用户：{tx_result}")
+        print("\n" + "="*60)
+        print("🎯 最终反馈：", final_resp)
+        print("="*60)
+        
+    except Exception as e:
+        print(f"\n❌ 流程执行失败：{str(e)}")
+        print("请检查：1. QWEN_API_KEY 有效；2. ZetaChain 测试网 RPC 可连接；3. 需求表述清晰")
+
+# 启动 Demo
+if __name__ == "__main__":
+    run_end2end_demo()
+```
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 # Day 11：Qwen-Agent × ZetaChain（接口层设计）
 
 **日期**：2025年12月4日 星期四
@@ -284,6 +433,7 @@ if __name__ == "__main__":
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 # Day 10：DeFi 意图解析（从自然语言到结构化参数）学习笔记
 
 **日期**：2025年12月3日 星期三
@@ -532,6 +682,7 @@ Agent 响应（结构化参数）：
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 # Day 9：Qwen-Agent 入门 & 简单 Tool 开发学习笔记
 
 **日期**：2025年12月2日 星期二
@@ -713,6 +864,7 @@ StringToUpper字符串转全大写，传入参数text；NumberSum两数求和，
 
 
 
+
 # Day 8：Qwen AI 基础 & API 调用（实战）学习笔记
 
 **日期**：2025年12月1日 星期一 **核心主题**：Qwen API 调用全流程实战（以生成ZetaChain介绍为例）
@@ -789,6 +941,7 @@ print("=" * 50)
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -1010,6 +1163,7 @@ npx hardhat run scripts/swap.js --network goerli \
 
 
 
+
 # DAY6：本周workshop学习笔记
 
 ## 基于 ZRC20 标准的跨链资产映射、兑换与跨链调用逻辑
@@ -1068,6 +1222,7 @@ IZRC20(targetToken).withdraw(amountOut,recipient,targetChainID);
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -1168,6 +1323,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 4：Universal App + Hello World 心智模型学习笔记
 
 **日期**：2025年11月27日 星期四 **核心主题**：Universal App认知深化与Hello World Demo落地规划
@@ -1259,6 +1415,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 3：ZetaChain & Universal Blockchain 核心概念学习笔记
 
 **日期**：2025年11月26日 星期三 **核心主题**：Universal Blockchain系列概念解析与ZetaChain架构可视化
@@ -1330,6 +1487,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 ### ZetaChain CLI 安装与验证（本地环境：Windows）
 
 1.  **安装步骤**： 前置依赖：确认已安装Go（版本≥1.20）。打开命令提示符（CMD）或PowerShell，输入`go version`验证；若未安装，访问Go官网（[https://go.dev/dl/）下载Windows版安装包，勾选“Add](https://go.dev/dl/）下载Windows版安装包，勾选“Add) Go to PATH”选项后完成安装。
@@ -1376,6 +1534,7 @@ Postman测试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
