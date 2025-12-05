@@ -15,8 +15,392 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+时间莫名其妙就没有了，今天就简单完成任务，继续鸽技术文档
+
+**学习目标**
+
+\- 串起一条最小通路：自然语言 → Agent → 后端 →（模拟或真实）ZetaChain 调用。
+
+\- 完成一个简版 Demo：
+
+\- 输入一句自然语言；
+
+\- Agent 输出结构化参数；
+
+\- 后端打印计划执行的链上操作（或在测试网上真的发一笔交易）。
+
+结合前两天的千问模板，还有今天的任务，让ai帮我生成了相应代码，我这里只采用了模拟zetachain的调用
+
+\`\`\`python
+
+import os
+
+import json5
+
+from qwen\_agent.agents import Assistant
+
+from qwen\_[agent.tools](http://agent.tools).base import BaseTool, register\_tool
+
+\# ======================
+
+\# 1. 自定义工具：ZETA 转账模拟（保留你的逻辑）
+
+\# ======================
+
+@register\_tool(‘zeta\_transfer\_simulate’)
+
+class ZetaTransferSimulateTool(BaseTool):
+
+description = ‘’'Simulate ZETA token transfer on ZetaChain testnet.
+
+Need to input recipient wallet address (42-bit Ethereum format like 0x…) and transfer amount (ZETA unit, 0.001~0.01 recommended for testnet).
+
+No real transaction will be sent, only print simulation result.‘’’
+
+parameters = \[
+
+{
+
+‘name’: ‘recipient\_address’,
+
+‘type’: ‘string’,
+
+‘description’: ‘Recipient wallet address (must be 42-bit Ethereum address, e.g., 0x1234567890abcdef1234567890abcdef12345678)’,
+
+‘required’: True
+
+},
+
+{
+
+‘name’: ‘amount’,
+
+‘type’: ‘number’,
+
+‘description’: ‘Transfer amount (unit: ZETA, must be greater than 0, testnet recommended 0.001~0.01)’,
+
+‘required’: True
+
+},
+
+{
+
+‘name’: ‘token’,
+
+‘type’: ‘string’,
+
+‘description’: ‘Token type, only ZETA supported now’,
+
+‘default’: ‘ZETA’,
+
+‘required’: False
+
+}
+
+\]
+
+def call(self, params: str, \*\*kwargs) -> str:
+
+try:
+
+params\_dict = json5.loads(params)
+
+recipient = params\_dict.get(‘recipient\_address’, ‘’)
+
+amount = params\_dict.get(‘amount’, 0)
+
+token = params\_dict.get(‘token’, ‘ZETA’)
+
+simulate\_result = {
+
+“状态”: “模拟成功”,
+
+“网络”: “ZetaChain Testnet”,
+
+“代币类型”: token,
+
+“接收地址”: recipient,
+
+“转账金额”: f"{amount} {token}",
+
+“说明”: “仅演示流程，未发送真实链上交易”,
+
+“提示”: “如需真实转账，可对接 Zeta SDK 并配置测试网私钥”
+
+}
+
+\# 返回结构化 JSON，后续直接解析显示
+
+return json5.dumps(simulate\_result, ensure\_ascii=False, indent=2)
+
+except Exception as e:
+
+return json5.dumps({‘状态’: ‘模拟失败’, ‘错误信息’: str(e)}, ensure\_ascii=False)
+
+\# ======================
+
+\# 2. 保留你原有的工具
+
+\# ======================
+
+@register\_tool(‘string\_to\_upper’)
+
+class StringToUpperTool(BaseTool):
+
+description = ‘Convert input string to uppercase, input text content, return uppercase result.’
+
+parameters = \[{
+
+‘name’: ‘text’,
+
+‘type’: ‘string’,
+
+‘description’: ‘Original string that needs to be converted to uppercase’,
+
+‘required’: True
+
+}\]
+
+def call(self, params: str, \*\*kwargs) -> str:
+
+try:
+
+params\_dict = json5.loads(params)
+
+text = params\_dict.get(‘text’, ‘’)
+
+return json5.dumps({‘result’: text.upper()}, ensure\_ascii=False)
+
+except Exception as e:
+
+return json5.dumps({‘error’: str(e)}, ensure\_ascii=False)
+
+@register\_tool(‘add\_two\_numbers’)
+
+class AddTwoNumbersTool(BaseTool):
+
+description = ‘Calculate the sum of two numbers, input two numbers, return their sum.’
+
+parameters = \[
+
+{
+
+‘name’: ‘num1’,
+
+‘type’: ‘number’,
+
+‘description’: ‘First number (integer or float)’,
+
+‘required’: True
+
+},
+
+{
+
+‘name’: ‘num2’,
+
+‘type’: ‘number’,
+
+‘description’: ‘Second number (integer or float)’,
+
+‘required’: True
+
+}
+
+\]
+
+def call(self, params: str, \*\*kwargs) -> str:
+
+try:
+
+params\_dict = json5.loads(params)
+
+num1 = float(params\_dict.get(‘num1’, 0))
+
+num2 = float(params\_dict.get(‘num2’, 0))
+
+sum\_result = num1 + num2
+
+return json5.dumps({‘result’: sum\_result}, ensure\_ascii=False)
+
+except Exception as e:
+
+return json5.dumps({‘error’: str(e)}, ensure\_ascii=False)
+
+\# ======================
+
+\# 3. 配置智能体（移除 stream 参数，适配旧版本）
+
+\# ======================
+
+os.environ\[“DASHSCOPE\_API\_KEY”\] = “xxx”
+
+bot = Assistant(
+
+llm={‘model’: ‘qwen-max’, ‘model\_server’: ‘dashscope’},
+
+\# 简化提示：让 LLM 只返回工具结果，不返回中间垃圾
+
+system\_message=‘’'You are a tool executor:
+
+1\. For transfer requests: Call zeta\_transfer\_simulate, return the tool’s JSON result directly (only the JSON string).
+
+2\. For uppercase requests: Call string\_to\_upper, return the tool’s JSON result directly.
+
+3\. For sum requests: Call add\_two\_numbers, return the tool’s JSON result directly.
+
+4\. Do NOT return function call logs, model info, or extra text. Only return the tool’s JSON output.‘’',
+
+function\_list=\[‘string\_to\_upper’, ‘add\_two\_numbers’, ‘zeta\_transfer\_simulate’\]
+
+\# 移除 stream=False，适配你的 Qwen-Agent 版本
+
+)
+
+\# ======================
+
+\# 4. 交互测试（手动过滤，获取纯净结果）
+
+\# ======================
+
+messages = \[\]
+
+print(“=” \* 60)
+
+print(“ZETA 转账模拟 Demo（输入 ‘exit’ 退出）”)
+
+print(“=” \* 60)
+
+print(“示例输入：帮我往地址 0x7890abcdef1234567890abcdef1234567890abcd 转 0.001 个 ZETA”)
+
+print(“=” \* 60)
+
+while True:
+
+query = input(‘\\n请输入你的需求：’)
+
+if query.lower() == ‘exit’:
+
+print(“\\n退出程序，感谢使用！”)
+
+break
+
+messages.append({‘role’: ‘user’, ‘content’: query})
+
+print(“\\n📋 执行结果：”)
+
+print(“-” \* 40)
+
+try:
+
+\# 执行 Agent，收集所有响应片段
+
+response\_chunks = \[\]
+
+for chunk in [bot.run](http://bot.run)(messages=messages):
+
+response\_chunks.extend(chunk)
+
+\# 从响应中提取工具返回的 JSON 结果
+
+tool\_output = “”
+
+for item in response\_chunks:
+
+if isinstance(item, dict):
+
+\# 提取工具执行后的结果（可能在 content 或 function\_call.arguments 中）
+
+if ‘content’ in item and item\[‘content’\] and item\[‘content’\].strip().startswith(‘{’):
+
+tool\_output = item\[‘content’\].strip()
+
+elif ‘function\_call’ in item and ‘arguments’ in item\[‘function\_call’\]:
+
+arg = item\[‘function\_call’\]\[‘arguments’\].strip()
+
+if arg.startswith(‘{’):
+
+tool\_output = arg
+
+\# 解析并格式化显示结果
+
+if tool\_output:
+
+result = json5.loads(tool\_output)
+
+if ‘网络’ in result: # 转账模拟结果
+
+for key, value in result.items():
+
+print(f"✅ {key}：{value}")
+
+elif ‘result’ in result: # 转大写/求和结果
+
+print(f"✅ 操作成功：{result\[‘result’\]}")
+
+else: # 错误结果
+
+print(f"❌ {result}")
+
+else:
+
+\# 若未提取到，说明 LLM 返回了自然语言，直接显示
+
+natural\_text = “”
+
+for item in response\_chunks:
+
+if isinstance(item, dict) and ‘content’ in item and item\[‘content’\]:
+
+natural\_text += item\[‘content’\]
+
+if natural\_text:
+
+print(f"✅ {natural\_text}")
+
+else:
+
+print(“❌ 未获取到有效结果”)
+
+except Exception as e:
+
+print(f"❌ 执行出错：{str(e)}")
+
+print(“-” \* 40)
+
+messages.extend(response\_chunks)
+
+\`\`\`
+
+结果代码如下：
+
+!\[\[Pasted image 20251205220719.png\]\]
+
+![Pasted image 20251205220719.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/younggogogo/images/2025-12-05-1764944176680-Pasted_image_20251205220719.png)
+
+今天的核心就是把昨天做的中间层和前天完成的agent部分结合起来
+
+执行流程如下：
+
+1\. 用户输入：“帮我往地址 0x7890abcdef1234567890abcdef1234567890abcd 转 0.001 个 ZETA”；
+
+2\. Agent 理解：“用户要转账，需要调用 zeta\_transfer\_simulate，提取参数：地址 = 0x…，金额 = 0.001”；
+
+3\. Agent 调用工具，把参数传给 `zeta_transfer_simulate`；
+
+4\. 工具执行：构造模拟结果（网络 = ZetaChain 测试网、地址 =…、金额 = 0.001 ZETA）；
+
+5\. 我们过滤中间垃圾数据，只显示工具返回的核心结果，用户就能看到清晰的模拟信息。
+
+明天会开始看技术文档吗哈哈哈哈，再不看都要开始黑客松了，今天就这样，明天继续加油
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 今天的内容和DAY6的swap有关，但我之前我没跑通官方的示例，限制只能先回去折腾第六周的内容。
 
 \---
@@ -222,6 +606,7 @@ middleware.process\_swap(user\_swap\_intent)
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 \### Day 10：DeFi 意图解析（从自然语言到结构化参数）
 
@@ -690,6 +1075,7 @@ json
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 **学习目标**
 
 \- 理解 Qwen-Agent 框架的基本组成（LLM / Agent / Tools / Memory）。
@@ -922,6 +1308,7 @@ messages.extend(response)
 
 
 
+
 \# \*下面是今天的任务
 
 \- 使用自己熟悉的语言完成一次 Qwen API 调用。
@@ -999,6 +1386,7 @@ result = response.json()\["choices"\]\[0\]\["message"\]\["content"\] print(resul
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -1091,11 +1479,13 @@ Idea 2：跨链收益聚合器
 
 
 
+
 今天不行，两个小时没跑通swap，拿水卡了半天，拿了水安装例子安装了半天，最后各种出问题，明天继续弄！今天失败
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -1140,6 +1530,7 @@ Idea 2：跨链收益聚合器
 
 
 
+
 \- 建立对 “全链应用 / Universal App 合约” 的直观理解。
 
 \- 清楚后面要实现的 Hello World / Demo 会包含哪些模块（合约 + 前端 + RPC）。
@@ -1167,6 +1558,7 @@ Idea 2：跨链收益聚合器
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1224,6 +1616,7 @@ Universal EVM：一个万能播放器，比如能让以太坊的的代码应用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1302,6 +1695,7 @@ curl -X POST [https://dashscope.aliyuncs.com/api/v1/chat/completions](https://da
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
