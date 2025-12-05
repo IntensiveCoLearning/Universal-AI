@@ -15,8 +15,36 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+日期：2025.12.05 进度：完成全栈 Demo 联调与演示准备
+
+今天进行了Demo 串联。由于我在前两天已经完成了后端的多代币动态路由，今天的主要工作是将这些能力完整地映射到前端 UI 上，完成“自然语言 -\\> AI -\\> 链上执行 -\\> 状态反馈”的端到端闭环。
+
+工程优化细节：
+
+为了匹配后端的通用能力，我重构了 Streamlit 的 Sidebar 逻辑。之前的 UI 仅硬编码了 ETH 余额查询，无法体现“通用 DeFi”的优势。今天我引入了资产列表遍历逻辑，让侧边栏能够实时拉取 ZETA、zETH、zBTC 和 zBNB 的链上余额。
+
+端到端测试记录：
+
+我进行了一次全链路测试：
+
+![DAY第二周第五天1.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Ylim314/images/2025-12-05-1764937327309-DAY______1.png)
+
+1\. 输入指令：“把 1 个 ZETA 换成 BTC”
+
+2\. 意图层：Qwen 准确识别 Target Token 为 "BTC"。
+
+3\. 路由层：agent\\\_hand 自动映射到 BTC 的 ZRC-20 合约地址。
+
+4\. 执行层：构建 Swap 交易并上链。
+
+5\. 反馈层：等待区块确认后，侧边栏的 zBTC 余额发生变更。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 **日期**：2025.12.04 **进度**：完成意图解析层与通用接口层的双重升级
 
 这两天的开发重点在于打破系统的“硬编码”限制，实现一个真正通用的 DeFi Agent。我将任务拆解为两部分并行推进：上游的 AI 意图解析优化，以及下游的 Web3 接口层泛化设计。
@@ -35,6 +63,7 @@ timezone: UTC+8
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
+
 **日期**：2025.12.02 **进度**：实现 Agent 的工具调用逻辑
 
 今天的官方任务是学习 Qwen-Agent 框架并挂载工具。我仔细研究了一下官方文档，发现所谓的 Agent 核心其实就是“LLM 决策 + 本地函数执行”。既然我已经用 OpenAI SDK 写好了底层交互，就没有必要为了用框架而用框架，所以我决定继续完善自己手写的这个轻量级 Agent 架构。
@@ -50,6 +79,7 @@ timezone: UTC+8
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 **日期**：2025.12.01 **进度**：Qwen API 实战与意图解析层开发
@@ -70,6 +100,7 @@ timezone: UTC+8
 
 
 
+
 日期：2025.11.30
 
 进度：完成 Universal DeFi 核心功能（Swap）开发
@@ -87,6 +118,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -115,6 +147,7 @@ timezone: UTC+8
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -149,6 +182,7 @@ timezone: UTC+8
 
 
 
+
 **日期**：2025.11.26 **进度**：完成从 AI 指令到链上 Write 操作的闭环
 
 今天的主要工作是解决“只读不写”的问题。昨天的脚本只能查余额，今天是真枪实弹地发了一笔交易到 ZetaChain 测试网。
@@ -177,6 +211,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -245,6 +280,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
