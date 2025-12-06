@@ -15,8 +15,14 @@ Again and again ~
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+DeFi / AI 两大方向中，先选定一个清晰赛道和题目。
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 置的账号在测试网有水（可在 Discord 领水）。
 
 录屏步骤：
@@ -32,6 +38,7 @@ Again and again ~
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 **Qwen-Agent × ZetaChain 的接口层设计**
 
@@ -94,6 +101,7 @@ Swap 合约部署在 ZetaChain，遵循 UniversalContract 接口。
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 **设计一个 parse\_swap\_intent 工具 + 相应的参数 schema**，完成一个最小可用的意图解析层。**工具（tools）数组的结构**
 
 ```
@@ -147,6 +155,7 @@ JSON 字符串形式的 arguments
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -218,6 +227,7 @@ class MyTool(BaseTool):
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -422,6 +432,7 @@ API key is invalid
 
 
 
+
 # 跨链SWAP
 
 普通的链只能从它当前链进行swap
@@ -468,6 +479,7 @@ function onCrossChainCall(
 
 
 
+
 # ZetaChain函数
 
 ```
@@ -486,6 +498,7 @@ interface IZRC20{
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -573,11 +586,13 @@ ZetaChain 的共识机制
 
 
 
+
 加班，明天补笔记
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -716,6 +731,7 @@ ZetaChain 的共识机制
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -962,6 +978,7 @@ universalContract.onCall(
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
