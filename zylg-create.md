@@ -15,8 +15,52 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+学一下DeFi，之前不太了解DeFi具体是干什么的，只知道质押、金库智能合约。
+
+## **LSDFi**
+
+`Liquid Derivatives Finance 流动性质押衍生品金融` 建立在`Liquid staking + staking derivatives` 之上 所谓流动性质押，就是用户把 ETH 或者其他加密资产质押(`staking`)用来支持网络，同时代表一种质押权益的代币(`LSD / LST`)，它是可以`流动`的，也就是可以被交易。通过 LST，持有者可以既获得质押奖励，同时也可以将手中的 LST 进行 DeFi 实用 `借贷`、`抵押`、`流动性挖矿` (`liquidity-pool`)、`收益耕种` (`yield farming`)、`发行稳定币` (`stablecoin`)、或者参与组合策略 (yield-aggregation) 等。
+
+### **通常 LSDFi 的流程如下：**
+
+1.质押 (Staking) — 用户将原生加密资产 (例如 ETH) staking 到某个“流动质押 (liquid staking)”协议。
+
+2.发行衍生代币 (LSD / LST) — 协议给用户一个代币 (比如 stETH、rETH、wstETH 等)，这个代币代表你质押的资产 + 随时间累积的质押奖励。
+
+3.DeFi 使用 / 投资 (Composability) — 你可以将这个代币 (LST) 用到其他 DeFi 协议里：借贷、提供流动性、作为抵押品、参与收益耕作等。
+
+获得双重收益 / 功能 — 你既持续获得 staking 奖励 (因为底层资产仍在质押中)，也能通过 DeFi 活动获取额外收益 (如利息、手续费、奖励代币等)；同时保持流动性 (你可以交易 / 转让 LST)。
+
+### **在跨链场景下**
+
+流动性质押会更加灵活，比如
+
+在链 A 质押获得 LST
+
+桥到链 B 借稳定币
+
+再桥到链 C 做 LP 收手续费
+
+再回链 A 抵押获得更多 LST（杠杆策略）
+
+## **收益管理**
+
+当前的区块链有几个痛点：
+
+`收益来源碎片化` 每一条链都由自己的 DeFi，Staking，流动性池等等
+
+`流动性碎片话` 各链的 USDT/USDC 都不一样
+
+`用户操作成本极高`  南。 `用户作成本极高`
+
+zetachain 有几个优势。首先是不同链的加密货币可以用 ZRC20 统一标识，也就是说，不同加密货币在 zetachain 侧的交换会非常方便，不需要 burn-mint 这种形式 (我只是说在 zetachain 内部，zetachain 和别的链交互的时候还是得 burn-mint 的) 昨天刚刚看了`Messaging`。zetachain 对于 ERC20 的跨链交易非常友好。
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 发现远程工作的公司好像都喜欢在周四晚上开会，正好赶上另一家今晚发布新工具，又去学了一下mcp的使用。
 
 今晚的作业就速成一下。
@@ -26,6 +70,7 @@ timezone: UTC+8
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 ### 1.成功调用Qwen的API
 
@@ -62,6 +107,7 @@ data = {
 
 
 
+
 尝试在本地部署第一份合约，输入自己的私钥已经连接成功了，但我不知道怎么把私钥“隐藏起来”（群里大佬已详细解答，我自己尝试一遍后会写笔记）
 
 ![fa6539e20a52d6248a2959a47c60a13e.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/zylg-create/images/2025-12-01-1764587262621-fa6539e20a52d6248a2959a47c60a13e.png)
@@ -77,6 +123,7 @@ data = {
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -118,6 +165,7 @@ data = {
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -168,6 +216,7 @@ ZRC20文檔中看到 **Ominichain**（全鏈）這個區塊鏈架構概念，很
 
 
 
+
 **Universal App 是什么？**  
 Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于某一条链的合约。它能同时接受来自任意连接链 (例如 Ethereum、Bitcoin、Solana……) 的资产、消息或合约调用，也能向任意连接链发送资产/调用。这样，开发者只用写一个合约，就能做到跨所有支持链的 dApp，用户也能用同一个界面 / 钱包操作不同链资产，无需切换网络或用桥 + wrapper。
 
@@ -178,6 +227,7 @@ Universal App 是部署在 ZetaChain 上的智能合约，但它不是局限于�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -209,6 +259,7 @@ zeta测试币领取成功
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
