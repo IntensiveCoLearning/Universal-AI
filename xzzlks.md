@@ -35,7 +35,7 @@ timezone: UTC+8
 
 ### 关键功能
 
--   \*\*功能1：全链资产一键捐赠：\*\*支持Ethereum/Polygon/Base等链原生资产（无需手动封装ZRC-20），自然语言输入需求即可触发； Qwen-AI自动解析“资产所在链、金额、目标项目”，ZetaChain完成跨链资产划转，全程无需用户设置合约地址、Gas参数；
+-   **功能1：全链资产一键捐赠：**支持Ethereum/Polygon/Base等链原生资产（无需手动封装ZRC-20），自然语言输入需求即可触发； Qwen-AI自动解析“资产所在链、金额、目标项目”，ZetaChain完成跨链资产划转，全程无需用户设置合约地址、Gas参数；
     
 -   **功能2：全链路透明追溯系统**：每笔捐赠生成唯一链上凭证，AI将交易哈希转化为“自然语言报告”，清晰展示资金流向；项目方提现需提交用途说明并上链，杜绝挪用，捐赠者可通过平台或区块浏览器实时查询；
     
@@ -46,13 +46,13 @@ timezone: UTC+8
 
 **四层架构，分工明确且复用前序成果**：
 
-1\. \*\*AI交互层（Qwen-Agent）：\*\*复用Day10意图解析工具（改造为ParseDonationIntent，提取“链+金额+项目”参数）；生成自然语言追溯报告、NFT定制化描述（如“2025年地震救助爱心捐赠者”）；
+1\. **AI交互层（Qwen-Agent）**：复用Day10意图解析工具（改造为ParseDonationIntent，提取“链+金额+项目”参数）；生成自然语言追溯报告、NFT定制化描述（如“2025年地震救助爱心捐赠者”）；
 
 2\. **中间适配层（自主开发）**： 复用Day11参数校验逻辑，新增“公益合约路由”模块（匹配项目专属地址）；对接ZetaChain跨链接口与NFT铸造接口，实现“捐赠成功即触发NFT发放”；
 
-3\. \*\*链上核心层（ZetaChain）：\*\*复用Day12交易执行器，通过ZetaEVM部署两大合约：① 公益捐赠合约（记录捐款明细与用途）；② ERC721 NFT合约（自动铸造凭证）；调用ZetaScan API抓取全链路交易数据，支撑追溯功能；
+3\. **链上核心层（ZetaChain）**：\*\*复用Day12交易执行器，通过ZetaEVM部署两大合约：① 公益捐赠合约（记录捐款明细与用途）；② ERC721 NFT合约（自动铸造凭证）；调用ZetaScan API抓取全链路交易数据，支撑追溯功能；
 
-4\. **前端展示层** - 项目列表页（含资质标识）、捐赠输入页、NFT展示与追溯页；
+4\. **前端展示层** ：项目列表页（含资质标识）、捐赠输入页、NFT展示与追溯页；
 
 **数据流转**：用户自然语言→Qwen解析→中间层匹配合约→ZetaChain执行捐赠+铸造NFT→AI生成报告→反馈用户。
 
@@ -65,6 +65,7 @@ Day10：ParseSwapIntent工具（改造为捐赠意图解析工具）；Day11：Z
 
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 
 # Day 12：端到端 Demo 串联（自然语言→ZetaChain 调用）学习笔记
 
@@ -214,6 +215,7 @@ if __name__ == "__main__":
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 # Day 11：Qwen-Agent × ZetaChain（接口层设计）
@@ -485,6 +487,7 @@ if __name__ == "__main__":
 
 
 
+
 # Day 10：DeFi 意图解析（从自然语言到结构化参数）学习笔记
 
 **日期**：2025年12月3日 星期三
@@ -735,6 +738,7 @@ Agent 响应（结构化参数）：
 
 
 
+
 # Day 9：Qwen-Agent 入门 & 简单 Tool 开发学习笔记
 
 **日期**：2025年12月2日 星期二
@@ -918,6 +922,7 @@ StringToUpper字符串转全大写，传入参数text；NumberSum两数求和，
 
 
 
+
 # Day 8：Qwen AI 基础 & API 调用（实战）学习笔记
 
 **日期**：2025年12月1日 星期一 **核心主题**：Qwen API 调用全流程实战（以生成ZetaChain介绍为例）
@@ -994,6 +999,7 @@ print("=" * 50)
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -1219,6 +1225,7 @@ npx hardhat run scripts/swap.js --network goerli \
 
 
 
+
 # DAY6：本周workshop学习笔记
 
 ## 基于 ZRC20 标准的跨链资产映射、兑换与跨链调用逻辑
@@ -1277,6 +1284,7 @@ IZRC20(targetToken).withdraw(amountOut,recipient,targetChainID);
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -1381,6 +1389,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 4：Universal App + Hello World 心智模型学习笔记
 
 **日期**：2025年11月27日 星期四 **核心主题**：Universal App认知深化与Hello World Demo落地规划
@@ -1474,6 +1483,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 # Day 3：ZetaChain & Universal Blockchain 核心概念学习笔记
 
 **日期**：2025年11月26日 星期三 **核心主题**：Universal Blockchain系列概念解析与ZetaChain架构可视化
@@ -1547,6 +1557,7 @@ ZetaChain通过“**标准封装+地址映射+状态同步**”三大机制，�
 
 
 
+
 ### ZetaChain CLI 安装与验证（本地环境：Windows）
 
 1.  **安装步骤**： 前置依赖：确认已安装Go（版本≥1.20）。打开命令提示符（CMD）或PowerShell，输入`go version`验证；若未安装，访问Go官网（[https://go.dev/dl/）下载Windows版安装包，勾选“Add](https://go.dev/dl/）下载Windows版安装包，勾选“Add) Go to PATH”选项后完成安装。
@@ -1593,6 +1604,7 @@ Postman测试
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
