@@ -15,13 +15,335 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+```Python
+基于zetachain cli 改造使用命令行调用方式执行，
+目前根据官方文档写死通过localnet 转到BNB
+
+import json
+import os
+import subprocess
+from typing import Union
+
+from annotated_types import UpperCase
+
+from qwen_agent.tools import BaseTool
+from qwen_agent.tools.base import register_tool
+
+@register_tool('parse_swap_intent')
+class ParseSwapIntent(BaseTool):
+    description = '执行zetachain转账操作'
+    parameters = {
+        'type': 'object',
+        'properties': {
+            'chain': {
+                'description':
+                    '用户需要的chain名称',
+                'type':
+                    'string',
+            },
+            'amount': {
+                'description':
+                    '用户需要执行的金额数量',
+                'type':
+                    'string',
+            },
+            'tokenIn': {
+                'description':
+                    '用户需要转出的代币',
+                'type':
+                    'string',
+            },
+            'tokenOut': {
+                'description':
+                    '用户需要传成的代币',
+                'type':
+                    'string',
+            },
+
+        },
+        'required': ['chain','tokenIn','tokenOut','amount'],
+    }
+
+    def call(self, params: Union[str, dict], **kwargs) -> str:
+        params = self._verify_json_format_args(params)
+
+        chain = params['chain']
+        tokenIn = params['tokenIn']
+        tokenOut = params['tokenOut']
+        amount = params['amount']
+        tokens = ['ETH', 'USDC', 'USDT', 'BTC', 'BNB', 'SOL', 'SUI']
+        chains = ['Ethereum', 'Bitcoin', 'Solana', 'BNBChain', 'Sui']
+        # 检查适配的代币
+        if str(tokenIn).upper() not in [w.upper() for w in tokens]:
+            print("原始代币名称不存在！")
+            return f'{tokenIn}原始代币名称不存在,支持的代表列表{tokens}'
+        elif str(tokenOut).upper() not in [w.upper() for w in tokens]:
+            print(f"{tokenOut}转出代币名称不存在！")
+            return f'{tokenOut}转出代币名称不存在,支持的代表列表{tokens}'
+        elif str(chain).upper() not in  [w.upper() for w in chains]:
+            print("链名称不存在！")
+            return '链名称不存在'
+        else:
+            json_value = {"chain": chain, "tokenIn": tokenIn, "tokenOut": tokenOut, "amount": amount}
+            self.handle_zetachain(json_value)
+            return json.dumps(json_value, ensure_ascii=False)
+
+
+    def create_private_key(self):
+        """
+            获取私钥地址
+        """
+        # 展开 ~ 为用户主目录
+        anvil_path = os.path.expanduser("~/.zetachain/localnet/anvil.json")
+
+        # 使用 jq 解析 JSON 文件，提取第一个私钥
+        result = subprocess.run(
+            ["jq", "-r", ".private_keys[0]", anvil_path],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode == 0:
+            private_key = result.stdout.strip()  # 成功获取私钥
+            print("Private Key:", private_key)
+        else:
+            print("Error:", result.stderr)
+        return private_key
+
+
+    def deploy_contact(self, directory, rpc_url, private_key):
+        """
+        UNISWAP_ROUTER=$(jq -r '.["31337"].contracts[] | select(.contractType == "uniswapRouterInstance") | .address' ~/.zetachain/localnet/registry.json) && echo $UNISWAP_ROUTER
+
+          #UNIVERSAL=$(forge create Universal --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --evm-version paris --broadcast --json | jq -r .deployedTo) && echo $UNIVERSAL
+        """
+        # 切换到目标目录
+        os.chdir(directory)
+
+        # 构建命令
+        command = f"npx tsx commands/index.ts deploy --private-key {private_key} --rpc {rpc_url} | jq -r .contractAddress"
+
+        try:
+            # 执行命令并捕获输出
+            result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                    text=True)
+
+            # 获取合约地址
+            contract_address = result.stdout.strip()
+
+            print(f"Contract Address: {contract_address}")
+            return contract_address
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing command: {e}")
+            print(f"stderr: {e.stderr}")
+            return None
+
+    def get_gateway_address(self, network_id):
+        """
+                    获取私钥地址
+                """
+        # 展开 ~ 为用户主目录
+        anvil_path = os.path.expanduser("~/.zetachain/localnet/registry.json")
+
+        # 使用 jq 解析 JSON 文件，提取第一个私钥
+        result = subprocess.run(
+            ["jq", "-r", f".[\"{network_id}\"].contracts[] | select(.contractType == \"gateway\") | .address",
+                 anvil_path],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode == 0:
+            gateway = result.stdout.strip()  # 成功获取私钥
+            print("gateway address:", gateway)
+        else:
+            print("Error:", result.stderr)
+        return gateway
+
+    def get_the_gas_token(self, chain_id):
+        """
+        ZRC20_BNB=$(jq -r '."98".chainInfo.gasZRC20' ~/.zetachain/localnet/registry.json) && echo $ZRC20_BNB
+        """
+        # 展开 ~ 为用户主目录
+        anvil_path = os.path.expanduser("~/.zetachain/localnet/registry.json")
+
+        # 使用 jq 解析 JSON 文件，提取第一个私钥
+        result = subprocess.run(
+            ["jq", "-r", f".\"{chain_id}\".chainInfo.gasZRC20",anvil_path],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode == 0:
+            result = result.stdout.strip()  # zrc-20 chain_id
+            print("gas token address:", result)
+        else:
+            print("Error:", result.stderr)
+        return result
+
+    def get_wallet_address(self, private_key):
+        """
+        RECIPIENT=$(cast wallet address $PRIVATE_KEY) && echo $RECIPIENT
+        """
+
+
+        # 使用 jq 解析
+        result = subprocess.run(
+            ["cast", "wallet", "address", private_key],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode == 0:
+            result = result.stdout.strip()  # zrc-20 chain_id
+            print("recipient address:", result)
+        else:
+            print("Error:", result.stderr)
+        return result
+
+    def swap_token(self, tokenIn_chain_name, rpc_address, chain_id, amount, gateway, private_key, receiver_address, sender, gas_token):
+        """
+        npx zetachain evm deposit-and-call --rpc http://localhost:8545 \
+  --chain-id 11155112 \
+  --gateway $GATEWAY_ETHEREUM \
+  --amount 0.001 \
+  --types address bytes bool \
+  --receiver $UNIVERSAL \
+  --private-key $PRIVATE_KEY \
+  --values $ZRC20_BNB $RECIPIENT true
+        """
+        # 构建命令
+        command = (f"npx zetachain {tokenIn_chain_name} deposit-and-call --rpc {rpc_address} --chain-id {chain_id} "
+                   f" --amount {amount} --private-key {private_key} "
+                   f" --gateway {gateway} --receiver {receiver_address} "
+                   f" --types address bytes bool "
+                   f"--values {gas_token} {sender} true")
+        print(command)
+        try:
+            # 执行命令并捕获输出
+            process = subprocess.Popen(command, shell=True,
+                                    stdin=subprocess.PIPE,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                    text=True)
+            # 读取输出并检查是否需要确认
+            stdout, stderr = process.communicate(input="y\n")
+            #print(f"最终返回：{stdout}")
+            # 获取合约地址
+            result = stdout.strip()
+            #print(f"result: {result}")
+            return result
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing command: {e}")
+            print(f"stderr: {e.stderr}")
+            return None
+
+
+    def handle_zetachain(self, json_value):
+        print(f"传入参数：{json_value}")
+        chain = json_value['chain']
+        tokenIn = json_value['tokenIn']
+        tokenOut = json_value['tokenOut']
+        amount = json_value['amount']
+        my_address = "test_address"
+        chain_id = "11155112"
+        #chain_number = 84532
+        print(f"参数：chain：{chain}, tokenIn:{tokenIn}, tokenOut:{tokenOut}, amount:{amount}")
+        print(f"模拟执行转移代币操作----------")
+        print(f"执行命令，把链上[{chain}]数量[{amount}]的[{tokenIn}]转换成[{tokenOut}].")
+
+        chain_type = ["evm", "solana", "sui", "bitcoin", "ton"]
+        #self.handle_test(123)
+        # print(f"部署合约并返回合约地址：UNIVERSAL =$(npx tsx commands deploy --private-key $PRIVATE_KEY | jq -r.contractAddress) && echo $UNIVERSAL")
+        # print(f"执行shell命令：ZRC20_ETHEREUM_ETH =$(zetachain q tokens show --symbol sETH.SEPOLIA -f zrc20) && echo $ZRC20_ETHEREUM_ETH")
+        # print(f"执行shell命令,获取：RECIPIENT =$(cast wallet address $PRIVATE_KEY) & & echo $RECIPIENT")
+        # print(f"命令：npx zetachain evm deposit-and-call \
+        #           --chain-id {chain_id} \
+        #           --amount {amount} \
+        #           --types address bytes bool \
+        #           --receiver {my_address} \
+        #           --values $ZRC20_ETHEREUM_ETH $RECIPIENT true")
+
+        rpc_address = "http://localhost:8545"
+        gas_chain_id = 98
+        from_chain_name = "evm"
+        private_key = self.create_private_key()
+        print(f"返回的私钥：{private_key}")
+        deploy_address = self.deploy_contact("/Users/a1/zetachain/swap", rpc_address, private_key)
+        gateway = self.get_gateway_address(chain_id)
+        print(f"获取gateway地址：{gateway}")
+        gas_token = self.get_the_gas_token(gas_chain_id)
+        print(f"获取zrc-20 BNB gas token:{gas_token}")
+        wallet_address = self.get_wallet_address(private_key)
+        print(f"wallet_address address:{wallet_address}")
+        swap_result = self.swap_token(from_chain_name, rpc_address, chain_id,
+                                      str(amount), gateway, private_key, deploy_address, wallet_address, gas_token)
+        print(f"swap_result:{swap_result}")
+
+if __name__ == '__main__':
+    swap = ParseSwapIntent()
+    rpc_address = "http://localhost:8545"
+    chain_id = "11155112"
+    gas_chain_id = 98
+    from_chain_name = "evm"
+    private_key = swap.create_private_key()
+    print(f"返回的私钥：{private_key}")
+    deploy_address = swap.deploy_contact("/Users/a1/zetachain/swap", "http://localhost:8545", private_key)
+    #0xffa7CA1AEEEbBc30C874d32C7e22F052BbEa0429
+    #print(f"返回部署地址：{deploy_address}")
+    gateway = swap.get_gateway_address(chain_id)
+    print(f"获取gateway地址：{gateway}")
+    gas_token = swap.get_the_gas_token(gas_chain_id)
+    print(f"获取zrc-20 BNB gas token:{gas_token}")
+    wallet_address = swap.get_wallet_address(private_key)
+    print(f"wallet_address address:{wallet_address}")
+    swap_result = swap.swap_token(from_chain_name, rpc_address, chain_id,
+                                  "0.01", gateway, private_key,deploy_address, wallet_address, gas_token)
+    print(f"swap_result:{swap_result}")
+    
+  
+测试代码
+from qwen_agent.agents import Assistant
+from qwen_agent.tools.parse_swap_intent import ParseSwapIntent
+
+
+def init_parse_agent_service():
+    llm_cfg = {'model': 'qwen-max', 'api_key': 'xxxx',
+               'model_server': 'dashscope'}
+    system = ('According to the user\'s request, get the result with parse_swap_intent tool ,'
+              'if the tool return a json data , reply the process is success and the json data')
+
+    tools = [ParseSwapIntent(), 'code_interpreter']  # code_interpreter is a built-in tool in Qwen-Agent
+    bot = Assistant(llm=llm_cfg, system_message=system, function_list=tools)
+
+    return bot
+
+def test_custom_parse_agent_object_fail():
+    # Define the agent
+    bot = init_parse_agent_service()
+
+    # Chat
+    messages = [{'role': 'user', 'content': '把我 50 USDC 兑换成 Ethereum 上的 USDT'}]
+    for response in bot.run(messages=messages):
+        print('bot response:', response)
+    messages.extend(response)
+    for result in response:
+        print(result)
+        if result['role'] == 'assistant' and result['content'] is not None:
+            print(f"回复内容：{result['content']}")
+```
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 记录先打个卡
 <!-- DAILY_CHECKIN_2025-12-05_END -->
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 前端层：用户界面
 
@@ -80,6 +402,7 @@ java开发，了解智能合约，熟悉使用dify，coze，ai编程工具
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 ```Python
@@ -193,6 +516,7 @@ def test_custom_parse_agent_object():
 
 
 
+
 -   自定义两个数相加的took
     
 
@@ -270,6 +594,7 @@ if __name__ == '__main__':
 
 
 
+
 -   实践流程  
     
 
@@ -336,6 +661,7 @@ if __name__ == '__main__':
 
 
 
+
 # NFT 拍卖中心
 
 ## 目标客户：NFT平台和爱好者
@@ -354,6 +680,7 @@ if __name__ == '__main__':
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -393,6 +720,7 @@ if __name__ == '__main__':
 
 
 
+
 -   zrc-20为zetachain的代币， Universal Token 是ERC-20的同质化代币，Universal NFT 是ERC-721的非同质化代币
     
 -     ERC-20代币存入zetachain，写在TSS地址/ERC-20智能合约，ERC-20跟ZRC-20代币一起铸造后发到接收者的钱包上。
@@ -415,6 +743,7 @@ if __name__ == '__main__':
 
 
 
+
 -   全链路应用，包括前端，Universal Contract, ZetaChain , Rpc
     
 -   第一个Universal 应用实现类似跨链聊天室的功能。连接钱包后，在不同的链上可以互相发消息。
@@ -426,6 +755,7 @@ if __name__ == '__main__':
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -466,6 +796,7 @@ A universal app is a smart contract on ZetaChain that is natively connected to o
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -561,6 +892,7 @@ curl https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generat
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
