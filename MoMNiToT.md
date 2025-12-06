@@ -15,8 +15,87 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+# **项目概要：跨链智能资产兑换助手（Cross-Chain AI Swap Assistant）**
+
+## **一、项目名称**
+
+跨链智能资产兑换助手（暂定名：ZetaAI Swap）
+
+## **二、目标用户 / 场景**
+
+### **目标用户**
+
+-   跨链 DeFi 初学者：不熟悉多链资产映射规则、跨链手续费计算的新手用户；
+    
+-   高频跨链交易者：需要在不同公链（如 Ethereum、Solana、Bitcoin）间快速切换资产的用户；
+    
+-   低门槛资产配置者：希望通过简单操作实现多链资产分散配置的普通用户。
+    
+
+### **核心场景**
+
+-   用户持有 A 链资产（如 Ethereum 上的 USDC），希望兑换为 B 链资产（如 Bitcoin 上的 BTC），无需手动处理跨链桥、 liquidity 池选择、手续费换算等复杂操作；
+    
+-   用户不确定不同链上资产的兑换汇率、手续费成本，需要 AI 实时计算最优兑换路径；
+    
+-   非技术用户希望通过自然语言指令（如 “把 0.5 个 ETH 换成 Solana 上的 USDT”）完成跨链兑换，无需编写代码或操作合约。
+    
+
+## **三、关键功能（3 点核心）**
+
+1.  自然语言交互解析：用户通过文字描述跨链兑换需求（如 “从 BSC 转 100 USDT 到 Avalanche”），AI 自动提取关键信息（源链、目标链、资产类型、金额），生成标准化兑换参数；
+    
+2.  智能兑换路径规划：基于 ZetaChain 的 ZRC-20 资产映射规则，自动查询支持的跨链资产、liquidity 池状态，计算最优兑换路径（含手续费预估、兑换汇率），并提示用户确认；
+    
+3.  一键跨链执行：集成 ZetaChain Swap 合约逻辑，用户确认后自动触发跨链兑换交易（含资产 Deposit、ZRC-20swap、目标链 Withdraw 全流程），无需手动调用多步合约。
+    
+
+## **四、技术路线（ZetaChain + Qwen 配合）**
+
+### **核心技术栈**
+
+-   跨链底层：ZetaChain（ZRC-20 资产映射、跨链 Swap 合约、Gateway 网关）；
+    
+-   AI 能力：Qwen-Agent（自然语言解析、用户意图识别、兑换参数生成、流程引导）；
+    
+-   合约层：复用 ZetaChain Swap 合约模板，适配多链资产兑换逻辑；
+    
+-   前端交互：简化版 Web 界面（聚焦兑换需求输入、参数确认、交易状态查询）。
+    
+
+### **协作逻辑**
+
+1.  用户层：通过自然语言向 Qwen-Agent 输入跨链兑换需求（如 “把以太坊的 USDC 换成 Solana 的 SOL”）；
+    
+2.  AI 处理层：Qwen-Agent 调用自定义工具（基于 ZetaChain API），完成 3 件事：
+    
+    -   解析需求：提取源链、目标链、资产类型、金额等关键参数；
+        
+    -   验证可行性：查询 ZetaChain 支持的 ZRC-20 资产列表（如 USDC.ETH、SOL.SOL 的映射地址）、liquidity 池容量；
+        
+    -   计算成本：调用 ZetaChain 接口获取跨链手续费（withdrawGasFee）、实时兑换汇率；
+        
+3.  跨链执行层：Qwen-Agent 将标准化参数（源资产 ZRC-20 地址、目标资产 ZRC-20 地址、 recipient 地址等）传入 ZetaChain Swap 合约，触发 Deposit-and-Call 流程，自动完成 “资产上链→swap→下链” 全流程；
+    
+4.  反馈层：AI 实时查询跨链交易状态（CCTX），向用户推送进度（如 “资产已锁定→兑换中→已到账”）。
+    
+
+## **五、计划复用的 Demo / 模板**
+
+1.  ZetaChain Swap 合约模板：复用官方跨链兑换合约逻辑（onCall 函数、ZRC-20 swap、Gateway withdraw 流程），减少合约开发工作量；
+    
+2.  ZetaChain 资产映射表：直接使用官方支持的 ZRC-20 资产列表（如 ETH.ETH、USDC.SOL 等），无需额外适配多链资产；
+    
+3.  Qwen-Agent 工具扩展模板：复用自定义工具注册逻辑（如示例中的 my\_image\_gen），开发 “ZetaChain 跨链查询工具”（查询支持资产、手续费、交易状态）；
+    
+4.  官方跨链交易 Demo：参考 Base→Ethereum、Solana→Ethereum 的兑换示例，适配多链间的交易参数传递逻辑。
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 正在重新跑通Demo，但是并未成功
 
 ![屏幕截图 2025-12-04 211444.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/MoMNiToT/images/2025-12-05-1764945128448-_____2025-12-04_211444.png)
@@ -24,6 +103,7 @@ timezone: UTC+8
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 # **Day10：DeFi 意图解析**
 
@@ -286,6 +366,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 # **Day9：Qwen-Agent 入门 & 简单 Tool**
 
 **_\##_ import**
@@ -522,6 +603,7 @@ timezone: UTC+8
 
 
 
+
 # **Day8：Qwen AI 基础 & API 调用**
 
 ## **地址与 base\_url**
@@ -631,6 +713,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -835,6 +918,7 @@ temperature越高，生成的文本更多样，反之，生成的文本更确定
 
 
 
+
 # **Day5：Universal DeFi & 全链资产**
 
 **💫通用资产：通用合约和连接合约**
@@ -874,6 +958,7 @@ ERC20：以太坊生态系统的 "通用语言"，几乎所有 DeFi 应用都支
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -943,6 +1028,7 @@ NaN.  出站：发起要求、验证者准备、TSS签名、提交广播、跨�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1031,6 +1117,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1211,6 +1298,7 @@ NaN.  用户最终结果：只签了一笔比特币交易，没管任何 gas 细
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
