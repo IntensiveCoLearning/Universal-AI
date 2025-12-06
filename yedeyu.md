@@ -15,8 +15,62 @@ Web3 新手
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-05
+<!-- DAILY_CHECKIN_2025-12-05_START -->
+今天尝试部署 Jules 更新后的合约，因 gas 费不够而失败。
+
+然后尝试按照 \[教程\]([https://www.zetachain.com/docs/developers/tutorials/swap#option-2:-deploy-on-localnet](https://www.zetachain.com/docs/developers/tutorials/swap#option-2:-deploy-on-localnet)) 部署到本地网，又接连遇到两个错误，
+
+````
+```
+UNISWAP_ROUTER=$(jq -r '.["31337"].contracts[] | select(.contractType == "uniswapRouterInstance") | .address' ~/.zetachain/localnet/registry.json) && echo $UNISWAP_ROUTER
+```
+
+返回结果是空的，搜索了共学 repo 的笔记，发现有一个具体地址，先直接用来看看。
+
+然后又遇到问题：
+
+```UNIVERSAL=$(npx tsx commands/index.ts deploy \
+  --private-key $PRIVATE_KEY \
+  --rpc http://localhost:8545 \
+  --gateway $GATEWAY_ZETACHAIN \
+  --uniswap-router $UNISWAP_ROUTER | jq -r .contractAddress) && echo $UNIVERSAL
+```
+
+```
+error: unknown option '--gateway'
+```
+
+询问 AI，查看这个命令的文档，依据打印出的帮助信息，发现就不支持这个 flag，连同义的 flag 都没有。
+
+```
+npx tsx commands/index.ts deploy --help
+```
+
+```
+Usage: index deploy [options]
+
+Deploy a swap contract
+
+Options:
+  -r, --rpc <url>          RPC URL (default: testnet) (default:
+                           "https://zetachain-athens-evm.blockpi.network/v1/rpc/public")
+  -k, --private-key <key>  Private key
+  -n, --name <name>        Contract name (default: "Swap")
+  --gas-limit <number>     Gas limit for the transaction (default: "1000000")
+  --tx-gas-limit <number>  Gas limit override for deployment transactions (default: "4000000")
+  -h, --help               display help for command
+```
+````
+
+### 总结
+
+ZetaChain 太早期，文档和工具链都不完善，不适合我这样的新手。
+<!-- DAILY_CHECKIN_2025-12-05_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 今天使用谷歌的 Jules Coding Agent，开启了三个同样的任务，试图为 swap 合约增加log，使得调用者能够知道具体的失败/回退原因。  
   
 目前，只有一个任务显示成功，一个还未结束，另一个遇到问题，询问我的意见。  
@@ -29,11 +83,13 @@ Web3 新手
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 今天学习 Solidity 的 Emit Event 和 Log 机制，使用 AI 为 Swap 合约 Emit 具体的失败原因，依然不成功。
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 ## 继续探索 Swap 合约 资金回退的问题
@@ -45,6 +101,7 @@ Web3 新手
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -69,6 +126,7 @@ Web3 新手
 
 
 
+
 提了一个 pr 去修复 Swap 教程中的 \`sETH.SEPOLIA\` 错误。  
   
 [https://github.com/zeta-chain/docs/pull/766](https://github.com/zeta-chain/docs/pull/766)
@@ -76,6 +134,7 @@ Web3 新手
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -676,6 +735,7 @@ https://testnet.zetascan.com/tx/0x4dac39681070cdf61ae99d3087fac97a712e78d99a7175
 
 
 
+
 ## 探究 Hello Webapp Base Testnet 交易页面显示无此交易问题
 
 今天重新创建 Hello Webapp 项目，在网页端，分别在 Ethereum 和 Base 测试，结果和昨天一样。
@@ -743,6 +803,7 @@ Failed to switch chain:
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1182,6 +1243,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 
 
+
 ## 回顾与反思
 
 ### 继续探究昨天提到的内存不足导致编译失败问题
@@ -1207,6 +1269,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1788,6 +1851,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
