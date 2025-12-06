@@ -15,8 +15,52 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+### Day 13：黑客松项目选题 & Scope 收敛
+
+**学习目标**
+
+-   在通用 DeFi / 通用 AI 应用两大方向中确定自己团队的赛道与题目。
+    
+-   明确项目的 MVP 范围，不贪多。
+    
+
+**学习资料**
+
+-   回顾 Module 0–5 的所有笔记和 Demo。
+    
+-   再看一眼与你 idea 最相关的文档：
+    
+    -   DeFi 侧：
+        
+        [https://www.zetachain.com/docs/developers/evm/zrc20/](https://www.zetachain.com/docs/developers/evm/zrc20/)
+        
+        [https://www.zetachain.com/docs/developers/tutorials/swap](https://www.zetachain.com/docs/developers/tutorials/swap)
+        
+    -   AI 侧：
+        
+        [https://qwen.readthedocs.io/en/v2.5/framework/qwen\_agent.html](https://qwen.readthedocs.io/en/v2.5/framework/qwen_agent.html)
+        
+
+**实践 / 作业**
+
+-   输出一页项目概要（建议用 Notion / 文档）：
+    
+    -   项目名称（临时的也可以）
+        
+    -   目标用户 / 场景
+        
+    -   关键功能（最多 3 点）
+        
+    -   技术路线（ZetaChain + Qwen 怎么配合）
+        
+    -   计划复用的 Demo / 模板
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 **1\. 框架概述**
 
 •  **Qwen-Agent**：一个基于 Qwen LLM 的框架，支持指令跟随、工具使用、规划和内存功能。
@@ -75,6 +119,7 @@ llm\_cfg = {
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
+
 111
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
@@ -82,11 +127,13 @@ llm\_cfg = {
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 今天搞了一天审计
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -128,6 +175,7 @@ print(completion.choices[0].message.content)
 
 
 
+
 ### 全链收益聚合器结合Restaking集成
 
 -   **目标用户**：DeFi 农民和质押者，他们在多个链上持有资产（如以太坊上的ETH、比特币上的BTC、Solana上的SOL），希望优化收益而无需手动桥接或链间切换。
@@ -139,6 +187,7 @@ print(completion.choices[0].message.content)
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -210,6 +259,7 @@ print(completion.choices[0].message.content)
 
 
 
+
 ZRC-20 和普通 ERC-20 的直观区别（从开发者视角）
 
 ERC-20（以太坊/单链视角）
@@ -268,6 +318,7 @@ PS：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -351,6 +402,7 @@ forge test -v
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -597,6 +649,7 @@ ZetaChain & Universal Blockchain 核心概念
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
