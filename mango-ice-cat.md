@@ -15,8 +15,14 @@ code everything
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+# 1，打卡签到
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 # 1，打卡签到
 
 # 2，Day 12：端到端 Demo 串联（最小可用版）学习笔记
@@ -329,6 +335,7 @@ RPC           : https://polygon-rpc.example-rpc
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
 
+
 # 1，打卡签到
 
 # 2，Day 11：Qwen-Agent × ZetaChain（接口层设计）学习笔记
@@ -629,6 +636,7 @@ Day 11 做的是：
 
 
 
+
 # 1，打卡签到
 
 # 2，**Day 10 学习笔记：DeFi 意图解析（从自然语言 → 结构化参数）**
@@ -835,6 +843,7 @@ python parse_intent_agent.py
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -1049,6 +1058,7 @@ python agent_demo.py
 
 
 
+
 # 1，打卡签到
 
 # **2，Day 8：Qwen AI 基础 & API 调用（实战）学习笔记**
@@ -1202,6 +1212,7 @@ ZetaChain 的核心特性包括：通用资产（ZRC-20）、跨链消息传递�
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -1521,6 +1532,7 @@ ZetaChain 能原生解决。
 
 
 
+
 # 1，打卡签到
 
 # 2， **Day 6 学习笔记：Universal DeFi & Demo 实战**
@@ -1724,6 +1736,7 @@ Day 6 在今天我终于真正“看见了”跨链动作在链上运行的样�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -1989,6 +2002,7 @@ Universal NFT 就像：
 
 
 
+
 # 1，打卡签到
 
 # 2，今日学习内容
@@ -2193,6 +2207,7 @@ ZetaChain：
 
 
 
+
 # 1，打卡签到
 
 # 2，Day 3 笔记 — ZetaChain & Universal Blockchain 核心概念
@@ -2307,6 +2322,7 @@ Day 3 的重点是 **概念理解 + 架构梳理**，我觉得最重要的是把
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -2491,6 +2507,7 @@ ZetaChain 是一个支持原生跨链消息与资产转移的通用区块链。
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
