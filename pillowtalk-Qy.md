@@ -17,13 +17,11 @@ timezone: UTC+8
 <!-- Content_START -->
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
-# 🎮 **项目 ：全链 AI 宠物（Cross-Chain AI Pet）**
+# **项目 ：全链 AI 宠物（Cross-Chain AI Pet）**
 
-> 每条链都能“喂养”你的宠物，AI 让宠物个性成长。
+每条链都能“喂养”你的宠物，AI 让宠物个性成长。
 
-* * *
-
-## 🌈 概念
+## 概念：
 
 你养一只“链宠物”，它的行为和性格是由：
 
@@ -44,6 +42,7 @@ ZetaChain 负责同步“宠物状态”到所有链。
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
+
 -   NVIDIA A100 80GB
     
 -   CUDA 12.1
@@ -59,6 +58,7 @@ ZetaChain 负责同步“宠物状态”到所有链。
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 -   NVIDIA A100 80GB
@@ -78,6 +78,7 @@ ZetaChain 负责同步“宠物状态”到所有链。
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 
@@ -167,11 +168,13 @@ class Qwen(LLM, ABC):
 
 
 
+
 摆烂一天
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -208,6 +211,7 @@ class Qwen(LLM, ABC):
 
 
 
+
 1.**将 AWQ 模型与 vLLM 结合使用**
 
 vLLM 已支持 AWQ，这意味着您可以直接使用我们提供的 AWQ 模型，或者使用`AutoAWQ`vLLM 量化的模型。我们建议使用最新版本的 vLLM（`vllm>=0.6.1`），该版本对 AWQ 模型进行了性能优化；否则，性能可能无法得到充分发挥。
@@ -235,6 +239,7 @@ pip install "autoawq<0.2.7"
 
 
 
+
 Workshop回放：
 
 【ZetaChain 通用资产与跨链 DeFi 开发导论】 [https://www.bilibili.com/video/BV1zWSgBnEcE/?share\_source=copy\_web&vd\_source=fd6ac63c6fb1f02dcdf46371c30b2168](https://www.bilibili.com/video/BV1zWSgBnEcE/?share_source=copy_web&vd_source=fd6ac63c6fb1f02dcdf46371c30b2168)
@@ -253,11 +258,13 @@ Workshop回放：
 
 
 
+
 摸鱼一天
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -285,6 +292,7 @@ Workshop回放：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
