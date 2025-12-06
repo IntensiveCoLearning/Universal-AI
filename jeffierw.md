@@ -15,8 +15,61 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+# Day 13：黑客松项目选题 & Scope 收敛
+
+## 项目概要：ZetaGenie - 全链智能 DeFi 助手
+
+**1\. 项目名称** ZetaGenie (或 ZetaAgent)
+
+**2\. 目标用户 / 场景**
+
+-   **目标用户**：被复杂的跨链操作（Bridge, Swap, Gas fee）劝退的 Web3 新手，以及追求效率的 DeFi 玩家。
+    
+-   **场景**：用户通过自然语言（Chat）表达需求，Agent 自动并在后台完成复杂的跨链交互。
+    
+    -   _Example_: “把我在以太坊上的 USDC 全部换成比特币。”
+        
+
+**3\. 关键功能 (MVP Scope)**
+
+1.  **自然语言意图解析**：利用 Qwen Agent 将用户口语转化为标准化交易意图（Token, Amount, Chain）。
+    
+2.  **全链资产路由**：后端对接 ZetaChain 合约（ZRC-20），实现一笔交易完成跨链 Swap。
+    
+3.  **对话式交互**：在交易前弹出“确认卡片”（Amount, Fee, Route），交易后反馈这笔交易的 Explorer 链接。
+    
+
+**4\. 技术路线 (ZetaChain + Qwen)**
+
+-   **AI 层 (Qwen-Agent)**：
+    
+    -   使用 Function Calling 提取交易参数。
+        
+    -   System Prompt 设定为“DeFi 交易专员”，专注于准确解析金额和币种。
+        
+-   **链上层 (ZetaChain)**：
+    
+    -   编写一个简单的 Omnichain 合约，或者直接调用系统内置的 Uniswap v2 (on ZetaChain) 进行 ZRC-20 兑换。
+        
+-   **后端 (Python)**：
+    
+    -   复用 Day 12 的 FastAPI 架构。
+        
+    -   增加 `web3` 调用 Swap 合约的逻辑。
+        
+
+**5\. 计划复用的 Demo / 模板**
+
+-   **前端 & 后端框架**：直接基于 Day 12 的 `zeta-agent-demo` 迭代，仅修改 UI 细节和后端逻辑。
+    
+-   **合约逻辑**：复用 [ZetaChain Swap Tutorial](https://www.zetachain.com/docs/developers/tutorials/swap) 中的合约代码。
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 # Day 12
 
 1.  端到端 Demo 串联
@@ -27,6 +80,7 @@ timezone: UTC+8
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 ````markdown
 # Day 11
@@ -122,6 +176,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 ````markdown
 # Day 10
 
@@ -197,6 +252,7 @@ timezone: UTC+8
 
 
 
+
 ````markdown
 # Day 9
 
@@ -262,6 +318,7 @@ timezone: UTC+8
 
 
 
+
 ````markdown
 # Day 8
 
@@ -289,6 +346,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -334,6 +392,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -449,6 +508,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 5
 
 1.  ZRC-20 和普通 ERC-20 的直观区别
@@ -477,6 +537,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 4
 
 1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
@@ -490,6 +551,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -533,6 +595,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 2
 
 1.  安装了 zetachain cli
@@ -565,6 +628,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
