@@ -15,8 +15,64 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+"Universal Web3 Copilot"
+
+**核心理念：** 这是一个浏览器插件或 Telegram Bot，AI 负责读懂网页/聊天内容，ZetaChain 负责打赏或支付。
+
+\*\*项目名称：\*\* **ZetaLens (全链识图支付助手)**
+
+\* **目标用户 / 场景：**
+
+\* Web3 新手或创作者经济参与者。
+
+\* 场景：用户在推特上看到一个很棒的 NFT 图片或文章，截图发给 Bot，说“这图不错，查查价格，我想买/打赏作者”。
+
+\* **关键功能 (MVP)：**
+
+\* **多模态识别 (Multimodal):** 利用 Qwen-VL (Vision Language) 识别用户上传的图片内容或合约地址。
+
+\* **智能询价：** Agent 调用工具查询该资产在 ZetaChain 上的价格。
+
+\* **一键支付：** 用户确认后，Agent 构建交易，通过 ZetaChain 向目标地址发送代币（支持用 BTC 支付 ETH 上的资产）。
+
+\* **技术路线：**
+
+\* **Interface:** Telegram Bot (容易开发，且移动端体验好)。
+
+\* **AI Agent:** Qwen-VL 模型（识别图片）+ Tool Use（查询价格 API）。
+
+\* **Blockchain:** ZetaChain 用于处理跨链支付结算（利用 ZRC-20 的互操作性）。
+
+\* **复用 Demo：**
+
+\* ZetaChain: `hello-world` 或 `value-transfer` 基础转账代码。
+
+\* AI: Qwen 的 `react_agent` (Reasoning + Acting) 模式。
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Eeeeye/images/2025-12-06-1765020456430-image.png)
+
+1\. **Why ZetaChain?**
+
+_如果你的项目不需要_\*跨链\*\*（例如只在 ETH 上玩），那为什么用 ZetaChain？
+
+\* _标准答案暗示：因为我要操作原生 BTC，或者我想让用户用一种 Gas Token 交互所有链。_
+
+2\. **Why Qwen?** 
+
+\* 如果只是简单的正则匹配就能做，为什么要用 LLM？
+
+\* _标准答案暗示：因为需要理解模糊的自然语言，或者需要多轮对话来确认用户意图。_
+
+3\. **Can we finish it?**
+
+\* 你是否有现成的 API Key？你的本地环境（Manjaro）是否已经跑通了 ZetaChain 的测试网部署？
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 ## 1\. 项目目标
 
 构建一个具备真实资产操作能力的 AI Agent。
@@ -125,6 +181,7 @@ timezone: UTC+8
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 * * *
 
@@ -265,6 +322,7 @@ Class ZetaMiddleware:
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 ## 12月2日打卡内容补交
@@ -735,6 +793,7 @@ Day 10 的核心不在于写了多少行代码，而在于理解了 **AI Agent �
 
 
 
+
 1\. 今日目标
 
 -   用 Python 调一次 Qwen 模型 API。
@@ -861,6 +920,7 @@ python qwen_api_demo.py
 
 
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -933,6 +993,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -1068,6 +1129,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -1145,6 +1207,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1246,6 +1309,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1409,6 +1473,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1590,6 +1655,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
