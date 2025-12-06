@@ -15,8 +15,40 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+日期：2025.12.06 进度：完成 MVP 功能边界锁定
+
+今天是倒数第二天，我重新梳理了这 12 天的代码成果,做个总结：
+
+项目名称定为 Zeta-Intent。这是一个非托管的 DeFi AI 交互终端，旨在解决 Web3 交互门槛过高的问题。不同于传统的 Chatbot，它不仅能陪聊，核心价值在于能通过 Intent-Centric（以意图为中心）的逻辑，将自然语言转化为真实的链上交易。
+
+技术栈最终清单
+
+经过两周的迭代，最终架构确定如下：
+
+1.  LLM 层：Qwen-Plus 模型。通过 System Prompt 工程实现了基于 ReAct 模式的参数提取，舍弃了笨重的 LangChain，采用原生 OpenAI SDK 以降低延迟。
+    
+2.  交互层：[Web3.py](http://Web3.py) + python-dotenv。实现了本地私钥签名和 nonce 管理，支持 ZRC-20 协议下的 Approve 和 Router Swap 操作。
+    
+3.  前端层：Streamlit。构建了包含多币种（ZETA/ETH/BTC/BNB）资产看板和实时状态反馈的 Web 界面。
+    
+
+MVP 功能边界 (Scope)：专注于打磨现有的三个核心场景：
+
+-   原生资产转账 (Native Transfer)
+    
+-   多代币去中心化交易 (Any-Token Swap)
+    
+-   链上资产穿透查询 (Universal Balance Check)
+    
+
+今天的任务主要是整理 GitHub 仓库的 README 文档，绘制架构图，。代码层面不再进行大的逻辑变动，仅做 UI 文案的微调。
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 日期：2025.12.05 进度：完成全栈 Demo 联调与演示准备
 
 今天进行了Demo 串联。由于我在前两天已经完成了后端的多代币动态路由，今天的主要工作是将这些能力完整地映射到前端 UI 上，完成“自然语言 -\\> AI -\\> 链上执行 -\\> 状态反馈”的端到端闭环。
@@ -45,6 +77,7 @@ timezone: UTC+8
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 **日期**：2025.12.04 **进度**：完成意图解析层与通用接口层的双重升级
 
 这两天的开发重点在于打破系统的“硬编码”限制，实现一个真正通用的 DeFi Agent。我将任务拆解为两部分并行推进：上游的 AI 意图解析优化，以及下游的 Web3 接口层泛化设计。
@@ -64,6 +97,7 @@ timezone: UTC+8
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 **日期**：2025.12.02 **进度**：实现 Agent 的工具调用逻辑
 
 今天的官方任务是学习 Qwen-Agent 框架并挂载工具。我仔细研究了一下官方文档，发现所谓的 Agent 核心其实就是“LLM 决策 + 本地函数执行”。既然我已经用 OpenAI SDK 写好了底层交互，就没有必要为了用框架而用框架，所以我决定继续完善自己手写的这个轻量级 Agent 架构。
@@ -79,6 +113,7 @@ timezone: UTC+8
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -101,6 +136,7 @@ timezone: UTC+8
 
 
 
+
 日期：2025.11.30
 
 进度：完成 Universal DeFi 核心功能（Swap）开发
@@ -118,6 +154,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -147,6 +184,7 @@ timezone: UTC+8
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -183,6 +221,7 @@ timezone: UTC+8
 
 
 
+
 **日期**：2025.11.26 **进度**：完成从 AI 指令到链上 Write 操作的闭环
 
 今天的主要工作是解决“只读不写”的问题。昨天的脚本只能查余额，今天是真枪实弹地发了一笔交易到 ZetaChain 测试网。
@@ -211,6 +250,7 @@ timezone: UTC+8
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -280,6 +320,7 @@ timezone: UTC+8
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
