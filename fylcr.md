@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 ```
 import json
 import os
@@ -121,6 +127,7 @@ if __name__ == '__main__':
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 # 基本实现链上操作 tool
 
 我们来把所有链的代币都搞到 Ethereum Sepolia 上去。
@@ -195,6 +202,7 @@ class parse_swap_intent(BaseTool):
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 # Defi 意图理解
@@ -274,6 +282,7 @@ if __name__ == '__main__':
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -482,6 +491,7 @@ if __name__ == '__main__':
 
 
 
+
 # 使用 Python 调用 Qwen 的简单实例
 
 1.  新建一个 python 文件，写入
@@ -526,11 +536,13 @@ print(completion.model_dump_json())
 
 
 
+
 主要还是想做聚币器，把n条链上的资产自动转移到一条链上，就这样。
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -865,6 +877,7 @@ Transaction hash: 0x3b467a9e30ac52e49b854d27313c902bd3dc98b0a721e44e67727111dc72
 
 
 
+
 # ZRC-20 VS ERC-20
 
 ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部署。ZRC-20 具有跨链地能力，而 ERC-20 不能跨链。
@@ -886,6 +899,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 
 
+
 # 我想做的第一个 Universal App
 
 实现所有链的资产都汇集到同一条链的同一个地址上。
@@ -895,6 +909,7 @@ ZRC-20 只能通过 ZetaChain 协议铸造，而 ERC-20 可以不经许可地部
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -923,6 +938,7 @@ Gateway 是连接 ZetaChain 和其他链的桥梁。有了 Gateway 的存在，�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1187,6 +1203,7 @@ data: [DONE]
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
