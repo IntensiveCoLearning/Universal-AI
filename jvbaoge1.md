@@ -15,8 +15,186 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+## **✅ 第一步：安装 Qwen-Agent**
+
+需要 Python ≥ 3.10（推荐 3.10+）。在终端中执行：
+
+git clone [https://github.com/QwenLM/Qwen-Agent.git](https://github.com/QwenLM/Qwen-Agent.git)
+
+cd Qwen-Agent
+
+pip install -e ./"\[code\_interpreter\]"
+
+## **✅ 第二步：跑通一个官方示例（可选验证）**
+
+可以先测试官方示例是否工作。例如运行：
+
+from qwen\_agent.agents import Assistant
+
+bot = Assistant(llm={'model': 'qwen-max'}, function\_list=\['code\_interpreter'\])
+
+messages = \[{'role': 'user', 'content': '计算 123 + 456'}\]
+
+for rsp in [bot.run](http://bot.run)(messages=messages):
+
+print(rsp)
+
+注意：如果用 `qwen-max`，需要设置 `DASHSCOPE_API_KEY` 环境变量：
+
+export DASHSCOENCE\_API\_KEY="your\_key\_here"
+
+如果**没有 DashScope API Key**，也可以用本地模型（如 Ollama + qwen2.5）
+
+## **✅ 第三步：自定义一个简单 Tool（字符串转大写）**
+
+创建一个新 Python 文件，比如 `day9_homework.py`，内容如下：
+
+import json5
+
+from qwen\_agent.agents import Assistant
+
+from qwen\_[agent.tools](http://agent.tools).base import BaseTool, register\_tool
+
+\# === Step 1: 定义并注册自定义 Tool ===
+
+@register\_tool('uppercase')
+
+class UpperCaseTool(BaseTool):
+
+description = '将输入的英文字符串转换为大写形式。'
+
+parameters = \[{
+
+'name': 'text',
+
+'type': 'string',
+
+'description': '需要转为大写的字符串',
+
+'required': True
+
+}\]
+
+def call(self, params: str, \*\*kwargs) -> str:
+
+\# 解析 LLM 传来的参数
+
+input\_text = json5.loads(params)\['text'\]
+
+\# 执行逻辑
+
+result = input\_text.upper()
+
+\# 返回 JSON 字符串（必须是 str）
+
+return json5.dumps({'result': result}, ensure\_ascii=False)
+
+✅ 说明：
+
+`@register_tool('uppercase')`：注册工具名，后面 Agent 会通过这个名字调用。`description` 和 `parameters`：告诉 LLM 这个工具能做什么、需要什么参数。`call()`：实际执行逻辑，返回 **字符串格式的 JSON**
+
+**✅ 第四步：创建使用该 Tool 的 Agent**
+
+继续在 `day9_homework.py` 中添加：
+
+\# === Step 2: 配置 LLM（这里用本地 mock，不调真实模型）===
+
+\# 如果你有 DashScope API Key，可以换成真实模型：
+
+llm\_cfg = {
+
+'model': 'qwen-max',
+
+\# 'api\_key': 'YOUR\_KEY', # 可选，否则读环境变量
+
+}
+
+\# === Step 3: 创建 Agent ===
+
+system\_msg = '你是一个助手，当用户要求将字符串转大写时，请使用 uppercase 工具。'
+
+bot = Assistant(
+
+llm=llm\_cfg,
+
+system\_message=system\_msg,
+
+function\_list=\['uppercase'\] # 注册我们的工具
+
+)
+
+\# === Step 4: 模拟对话 ===
+
+messages = \[\]
+
+user\_input = "把 'hello world' 转成大写"
+
+messages.append({'role': 'user', 'content': user\_input})
+
+print("用户输入:", user\_input)
+
+print("Agent 正在处理...\\n")
+
+for response in [bot.run](http://bot.run)(messages=messages):
+
+\# 打印流式响应
+
+for msg in response:
+
+if msg\['role'\] == 'function':
+
+print(f"\[Tool 调用\] {msg\['name'\]}({msg\['content'\]})")
+
+elif msg\['role'\] == 'assistant':
+
+print("Agent 回复:", msg\['content'\])
+
+messages.extend(response)
+
+## **✅ 第五步：测试（两种方式）**
+
+### **✅ 方式 A：你有 DashScope API Key（推荐）**
+
+1.  设置环境变量：  
+    export DASHSCOPE\_API\_KEY="sk-xxxxxx"
+    
+
+2.运行：
+
+python day9\_[homework.py](http://homework.py)
+
+3.输出：
+
+\[Tool 调用\] uppercase({"text": "hello world"})
+
+Agent 回复: 转换结果是：HELLO WORLD
+
+### **✅ 方式 B：没有 API Key？用“伪 LLM”测试逻辑（仅验证 Tool 注册）**
+
+Qwen-Agent 要求 LLM 必须能生成工具调用，所以**纯本地无法绕过 LLM**。但你可以：先用 `qwen-max` 试一次（注册免费额度有 100 万 tokens）或改用 **Ollama + qwen2.5:7b**（本地运行），配置如下：
+
+llm\_cfg = {
+
+'model': 'qwen2.5:7b', # Ollama 模型名
+
+'model\_server': '[http://localhost:11434/v1](http://localhost:11434/v1)',
+
+'api\_key': 'ollama',
+
+}
+
+然后启动 Ollama：
+
+ollama run qwen2.5:7b # 先 pull
+
+注意：小模型可能不会自动调用 Tool，建议**优先用 DashScope 免费额度**完成作业。
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 ✅ 第一步：任务拆解与分工表（假设团队有 3 人）
 
 成员 A
@@ -102,6 +280,7 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 # **📝 项目概要（草稿）**
 
@@ -235,6 +414,7 @@ just share ，dyor ，hope to earn  空投不撸枉少年  新协议我先上车
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 ✅ 第一步：确认前提条件
 
 一个阿里云账号（用于获取 API Key）
@@ -359,6 +539,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 
 
+
 ## **第一步：提炼 ZetaChain 的通用 DeFi 能力**
 
 根据文档整理出以下核心能力，作为 idea 构思基础：
@@ -478,6 +659,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 
 
+
 > 我从 **Ethereum Localnet（chain ID 11155112）** 发起了一笔 `depositAndCall` 交易，向 ZetaChain 的 Swap 合约发送了 0.001 ETH，并附带了目标链（BNB）、目标地址和目标资产（ZRC-20 BNB）的指令。
 
 > **最终在 ZetaChain 上发生了什么？**  
@@ -495,6 +677,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -525,6 +708,7 @@ temperature: 0.7（保证一定创意性，又不至于太随机）
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -564,6 +748,7 @@ Gateway（网关）是 **每条连接到 ZetaChain 的公链上的一个特殊�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -732,6 +917,7 @@ GitHub 仓库：[https://github.com/jvbaoge1/zetachain](https://github.com/jvbao
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
