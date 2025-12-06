@@ -15,8 +15,92 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+\# 项目概要：多链稳盈聚合器（Multi-Chain StableGain Aggregator）
+
+\## 一、项目定位与名称
+
+\- **项目名称**：多链稳盈聚合器（临时名称）
+
+\- **赛道归属**：\*\*通用 DeFi 应用\*\*（核心是解决多链稳定币理财的效率与收益聚合问题，AI 仅作为辅助优化交互体验，不改变 DeFi 核心属性）
+
+\## 二、目标用户 / 场景
+
+\### 目标用户
+
+\- 持有多链稳定币（USDT、USDC），追求低风险稳健收益的普通用户；
+
+\- 缺乏多链理财经验，不想手动操作跨链、矿池配置的 DeFi 新手；
+
+\- 希望统一管理多链理财资金，避免收益分散、提现繁琐的用户。
+
+\### 核心场景
+
+用户手头有 Ethereum 的 USDC 和 BSC 的 USDT，想通过低风险矿池（如 Aave、PancakeSwap）理财，但不想分别在两条链操作存款、跟踪收益、跨链提现。通过本产品，用户仅需一次授权，即可实现资金自动跨链归集、按策略分配到高收益矿池，提现时可选择任意支持链接收资产，全程无需关注跨链细节。
+
+\## 三、关键功能（MVP 核心，仅 3 点）
+
+1\. 多链稳定币归集：用户授权后，自动将 Ethereum/BSC 上的 USDC/USDT 跨链转入 ZetaChain 聚合器合约，统一包装为 ZRC-20 稳定币；
+
+2\. 自动策略分配：按预设固定比例（如 70% 投入 Aave Ethereum 矿池、30% 投入 PancakeSwap BSC 矿池），通过 ZetaChain 跨链消息将资金分配到目标矿池；
+
+3\. 一键跨链提现：用户可选择任意支持链（Ethereum/BSC）提现本金 + 收益，合约自动完成矿池收益提取、跨链解包，资产直接到账用户指定地址。
+
+\## 四、技术路线（ZetaChain + Qwen 协同）
+
+\### 核心协同逻辑
+
+ZetaChain 负责「跨链资产流转、矿池交互、ZRC-20 资产映射」的核心 DeFi 流程，Qwen 仅作为「交互辅助工具」优化用户体验，不参与核心链上逻辑。
+
+\### 具体技术拆解
+
+1\. ZetaChain 侧（核心）
+
+\- 资产归集：复用 ZRC-20 标准，用户在原链授权后，通过 Gateway 合约将 USDC/USDT 锁定，在 ZetaChain 铸造对应 ZRC-20 代币（如 USDC.ETH → ZRC-20 USDC.ETH、USDT.BSC → ZRC-20 USDT.BSC），统一归集到聚合器合约；
+
+\- 矿池分配：聚合器合约预设矿池地址（Aave V3 Ethereum、PancakeSwap StableSwap BSC）和分配比例，通过 ZetaChain 跨链消息触发目标链矿池的 `deposit()` 接口，完成资金注入；
+
+\- 收益提取与提现：用户发起提现时，合约通过跨链消息调用矿池 `withdraw()` 接口提取收益，汇总后兑换为 ZRC-20 稳定币，再通过 ZetaChain 销毁 ZRC-20 代币，在目标链释放原生稳定币到用户地址；
+
+\- Gas 费处理：复用 Swap 合约的 Gas 自动兑换逻辑，从用户存款中抽取少量资金，通过 ZetaChain 生态 DEX 兑换为目标链 Gas 代币（ETH/BNB），支付矿池交互和跨链的 Gas 费，用户无需额外支付。
+
+2\. Qwen 侧（辅助）
+
+\- 注册「理财需求解析工具」：用户通过自然语言描述需求（如 “把以太坊的 1000 USDC 和 BSC 的 500 USDT 存进去理财”），Qwen 自动解析为链上参数（资产类型、金额、原链 ID），生成合约调用指令；
+
+\- 收益查询与反馈：集成「链上数据查询工具」，通过 ZetaChain API 获取用户持仓、矿池收益数据，以自然语言向用户反馈（如 “你的 1500 稳定币已分配 1050 到 Aave，450 到 PancakeSwap，当前累计收益 23.5 USDC”）；
+
+\- 多轮交互澄清：当用户需求模糊时（如 “存点稳定币理财”），自动询问补充关键信息（如 “请问你要存入的稳定币在哪个链？金额是多少？”）。
+
+\### 联动逻辑
+
+用户通过前端输入需求 → Qwen 解析为合约参数 → 前端调用 ZetaChain 聚合器合约 → 合约执行跨链归集 / 分配 / 提现 → Qwen 同步链上状态并反馈给用户。
+
+\## 五、计划复用的 Demo / 模板
+
+1\. ZetaChain 侧
+
+\- 复用 ZRC-20 资产映射模板（\[[https://www.zetachain.com/docs/developers/evm/zrc20/\](https://www.zetachain.com/docs/developers/evm/zrc20/)），直接使用已支持的](https://www.zetachain.com/docs/developers/evm/zrc20/]\(https://www.zetachain.com/docs/developers/evm/zrc20/\)），直接使用已支持的) USDC/USDT 对应的 ZRC-20 地址，无需额外适配；
+
+\- 复用 Swap 合约的跨链消息、Gas 费计算、Gateway 交互逻辑（\[[https://www.zetachain.com/docs/developers/tutorials/swap\](https://www.zetachain.com/docs/developers/tutorials/swap)），简化矿池交互的跨链调用流程；](https://www.zetachain.com/docs/developers/tutorials/swap]\(https://www.zetachain.com/docs/developers/tutorials/swap\)），简化矿池交互的跨链调用流程；)
+
+\- 复用 OpenZeppelin 的 `ReentrancyGuard` 模板，防护合约重入攻击，确保资产安全。
+
+2\. Qwen 侧
+
+\- 复用 Qwen-Agent 的工具注册模板（\[[https://qwen.readthedocs.io/en/v2.5/framework/qwen\_agent.html\](https://qwen.readthedocs.io/en/v2.5/framework/qwen\_agent.html)），快速开发「需求解析工具」和「链上数据查询工具」；](https://qwen.readthedocs.io/en/v2.5/framework/qwen_agent.html]\(https://qwen.readthedocs.io/en/v2.5/framework/qwen_agent.html\)），快速开发「需求解析工具」和「链上数据查询工具」；)
+
+\- 复用 Assistant 组件的对话交互逻辑，实现用户需求的多轮澄清与反馈。
+
+\---
+
+根据之前想做的东西，让ai给我生成了一个，至于能不能实现再说哈哈哈哈，还是天方夜谭，读了俩次还有一堆的名词不懂，环节也没有搞清楚，就先这样
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 时间莫名其妙就没有了，今天就简单完成任务，继续鸽技术文档
 
 **学习目标**
@@ -401,6 +485,7 @@ messages.extend(response\_chunks)
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 今天的内容和DAY6的swap有关，但我之前我没跑通官方的示例，限制只能先回去折腾第六周的内容。
 
 \---
@@ -606,6 +691,7 @@ middleware.process\_swap(user\_swap\_intent)
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 \### Day 10：DeFi 意图解析（从自然语言到结构化参数）
@@ -1076,6 +1162,7 @@ json
 
 
 
+
 **学习目标**
 
 \- 理解 Qwen-Agent 框架的基本组成（LLM / Agent / Tools / Memory）。
@@ -1309,6 +1396,7 @@ messages.extend(response)
 
 
 
+
 \# \*下面是今天的任务
 
 \- 使用自己熟悉的语言完成一次 Qwen API 调用。
@@ -1386,6 +1474,7 @@ result = response.json()\["choices"\]\[0\]\["message"\]\["content"\] print(resul
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -1480,11 +1569,13 @@ Idea 2：跨链收益聚合器
 
 
 
+
 今天不行，两个小时没跑通swap，拿水卡了半天，拿了水安装例子安装了半天，最后各种出问题，明天继续弄！今天失败
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -1531,6 +1622,7 @@ Idea 2：跨链收益聚合器
 
 
 
+
 \- 建立对 “全链应用 / Universal App 合约” 的直观理解。
 
 \- 清楚后面要实现的 Hello World / Demo 会包含哪些模块（合约 + 前端 + RPC）。
@@ -1558,6 +1650,7 @@ Idea 2：跨链收益聚合器
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1616,6 +1709,7 @@ Universal EVM：一个万能播放器，比如能让以太坊的的代码应用�
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1695,6 +1789,7 @@ curl -X POST [https://dashscope.aliyuncs.com/api/v1/chat/completions](https://da
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
