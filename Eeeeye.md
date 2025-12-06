@@ -74,6 +74,7 @@ _如果你的项目不需要_\*跨链\*\*（例如只在 ETH 上玩），那为�
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
 
+
 ## 1\. 项目目标
 
 构建一个具备真实资产操作能力的 AI Agent。
@@ -182,6 +183,7 @@ _如果你的项目不需要_\*跨链\*\*（例如只在 ETH 上玩），那为�
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 
@@ -324,6 +326,7 @@ Class ZetaMiddleware:
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 
@@ -798,6 +801,7 @@ Day 10 的核心不在于写了多少行代码，而在于理解了 **AI Agent �
 
 
 
+
 1\. 今日目标
 
 -   用 Python 调一次 Qwen 模型 API。
@@ -926,6 +930,7 @@ python qwen_api_demo.py
 
 
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -998,6 +1003,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -1137,6 +1143,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -1214,6 +1221,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1317,6 +1325,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1482,6 +1491,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1665,6 +1675,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
