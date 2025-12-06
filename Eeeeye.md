@@ -17,7 +17,7 @@ timezone: UTC+8
 <!-- Content_START -->
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
-"Universal Web3 Copilot"
+“Universal Web3 Copilot”
 
 **核心理念：** 这是一个浏览器插件或 Telegram Bot，AI 负责读懂网页/聊天内容，ZetaChain 负责打赏或支付。
 
@@ -59,7 +59,7 @@ _如果你的项目不需要_\*跨链\*\*（例如只在 ETH 上玩），那为�
 
 \* _标准答案暗示：因为我要操作原生 BTC，或者我想让用户用一种 Gas Token 交互所有链。_
 
-2\. **Why Qwen?** 
+2\. **Why Qwen?**
 
 \* 如果只是简单的正则匹配就能做，为什么要用 LLM？
 
@@ -72,6 +72,7 @@ _如果你的项目不需要_\*跨链\*\*（例如只在 ETH 上玩），那为�
 
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 
 ## 1\. 项目目标
 
@@ -181,6 +182,7 @@ _如果你的项目不需要_\*跨链\*\*（例如只在 ETH 上玩），那为�
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 * * *
@@ -322,6 +324,7 @@ Class ZetaMiddleware:
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 
@@ -794,6 +797,7 @@ Day 10 的核心不在于写了多少行代码，而在于理解了 **AI Agent �
 
 
 
+
 1\. 今日目标
 
 -   用 Python 调一次 Qwen 模型 API。
@@ -921,6 +925,7 @@ python qwen_api_demo.py
 
 
 
+
 ## **ZetaChain 上常见的通用 DeFi 模式**
 
 1.  **跨链 AMM / DEX / Swap**
@@ -993,6 +998,7 @@ python qwen_api_demo.py
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -1130,6 +1136,7 @@ ZRC20_ETHEREUM_ETH=$(zetachain q tokens show --symbol ETH.ETHSEP -f zrc20) && ec
 
 
 
+
 ## **ZRC-20和ERC-20的区别**
 
 |   | ZRC‑20 | ERC‑20 |
@@ -1207,6 +1214,7 @@ Businesses can utilize Universal Tokens for streamlined multi-chain payroll and 
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1309,6 +1317,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -1473,6 +1482,7 @@ function sendMessage(string memory message) external {
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1655,6 +1665,7 @@ os.environ\["ALL\_PROXY"\] = ""
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
