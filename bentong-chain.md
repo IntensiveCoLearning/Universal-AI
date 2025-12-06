@@ -15,8 +15,136 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+# 使用VUE实现Universal APP前端
+
+```
+<script setup>
+import {init, useOnboard} from '@web3-onboard/vue'
+import injectedModule from '@web3-onboard/injected-wallets'
+import {BrowserProvider, ethers, ZeroAddress} from 'ethers'
+import {computed, ref, watch} from "vue";
+import Util from '@/utils/common-util.js'
+import { evmCall } from "@zetachain/toolkit/chains/evm"
+
+const UNIVERSAL_APP_CONTRACT = '0x31A4708D1DAd97f91F89D4ffc10DC3Ef7685876b'
+const CCTX_POLLING_URL = 'https://zetachain-athens.blockpi.network/lcd/v1/public/zeta-chain/crosschain/inboundHashToCctxData'
+
+// 实例化一个injected钱包配置
+const injected = injectedModule()
+// 支持的链，每个链的信息包括：id、token、label、rpcUrl
+const chains = [
+  {
+    id: '0x61',
+    token: 'tBNB',
+    label: 'BSC Testnet',
+    rpcUrl: 'https://data-seed-prebsc-1-s1.bnbchain.org:8545'
+  },
+  {
+    id: '0xaa36a7',
+    token: 'SepoliaETH',
+    label: 'Ethereum Sepolia',
+    rpcUrl: 'https://1rpc.io/sepolia'
+  }
+]
+// 初始化配置支持的钱包和链
+const web3Onboard = init({
+  wallets: [injected],   // 表示UI里会展示所有浏览器注入类钱包
+  chains                 // 配置支持的链
+})
+
+// 必须在init后调用， useOnboard() 拿到响应式的对象
+// wallets: 当前所有曾连接过的钱包列表
+// connectWallet: 打开连接弹窗
+// disconnectConnectedWallet: 断开当前选中的connectedWallet
+// connectedWallet: 当前已连接的钱包对象
+const { wallets, connectWallet, disconnectConnectedWallet, connectedWallet, connectedChain } = useOnboard()
+
+const connect = async () => connectWallet()
+const disconnect = async () => disconnectConnectedWallet()
+
+let ethersProvider = ref<BrowserProvider | null>null
+let signer = ref<null>null
+let curAddress = ref(null)
+watch(connectedWallet,  async (wallet) => {
+  if (wallet && wallet.provider) {
+    ethersProvider = new BrowserProvider(wallet.provider)
+    // 这里可以继续做：拿 signer、加载合约等等
+    signer = await ethersProvider.getSigner()
+    curAddress.value = await signer.getAddress()
+
+    console.log(connectedChain.value)
+  } else {
+    ethersProvider = null
+    signer = null
+    curAddress.value = null
+  }
+})
+
+
+const sendTransaction = async () => {
+  if (!signer) {
+    return
+  }
+
+  // zetachain
+  const evmCallParams = {
+    receiver: UNIVERSAL_APP_CONTRACT,
+    types: ['string'],
+    values: ['Tang Hao'],
+    revertOptions: {
+      callOnRevert: false,
+      revertAddress: ZeroAddress,
+      revertMessage: '',
+      abortAddress: ZeroAddress,
+      onRevertGasLimit: 1000000,
+    }
+  }
+
+  const evmCallOptions = {
+    signer,
+    txOptions: {
+      gasLimit: 1000000
+    }
+  }
+
+  const result = await evmCall(evmCallParams, evmCallOptions)
+  await result.wait()
+
+  const hash = result.hash
+  console.log(hash)
+
+  setTimeout(async () => {
+    const response = await fetch(CCTX_POLLING_URL + '/' + hash)
+    if (response.ok) {
+      const data = await response.json()
+      console.log(data)
+    }
+  }, 10000)
+
+}
+
+
+
+</script>
+
+<template>
+  <div>
+    <el-button type="primary" v-if="connectedWallet" @click="disconnect">{{Util.omitAddress(curAddress, 10)}}</el-button>
+    <el-button @click="connect" v-else>连接钱包</el-button>
+
+    <div style="width:100%;margin-top:50px">
+      <el-button @click="sendTransaction">发送交易</el-button>
+    </div>
+  </div>
+</template>
+```
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 在链上部署
 
 1\. 设置私钥
@@ -118,6 +246,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 ### 部署第一个合约
 
 创建项目
@@ -198,11 +327,13 @@ struct MessageContext {
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 [学习笔记](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -215,11 +346,13 @@ struct MessageContext {
 
 
 
+
 [笔记链接](https://www.processon.com/view/link/692dba4f6f521468d3f8ff9c)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -257,11 +390,13 @@ contract Universal is UniversalContract {
 
 
 
+
 ![Universal EVM.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/bentong-chain/images/2025-11-29-1764430913796-Universal_EVM.png)
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -283,6 +418,7 @@ Universal App部署在ZetaChain的Universal EVM上。Universal EVM在原EVM上�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -356,6 +492,7 @@ zeta
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
