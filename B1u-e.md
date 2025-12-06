@@ -15,8 +15,27 @@ Web3 全沾开发者、社区运营
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+竞争格局
+
+-   直接或间接竞争者包括：**LayerZero（消息层）**、**Axelar**、**THORChain**（跨链流动性）、**Chainlink CCIP** 等。Zeta 的差异化在于“把跨链能力做成 L1 原生”，而不是外部消息层或桥接器。但这也意味着承担更复杂的安全与合规责任。
+    
+
+风险点
+
+1.  **安全复杂度高**：与外链交互、TSS 协调与签名分发等模块若存在漏洞，会带来高额损失。尽管有审计，但链上复杂交互会带来新型攻击向量。
+    
+2.  **经济与流动性风险**：生态 TVL 小、代币已出现极端价格波动的历史（见社区讨论与价格历史），代币解锁或市场情绪波动会放大下行风险。
+    
+3.  **法规与合规不确定性**：跨链资产管理（尤其涉及 BTC、法币对接或托管式操作）在多国监管下可能面对更严格审查。
+    
+4.  **激烈的竞争**：LayerZero、Axelar、CCIP 等都在加速产品发展；开发者与项目方对跨链方案有多种选择，市场份额争夺激烈。
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 安全性与审计
 
 -   **公开审计与透明度**：ZetaChain 在其 GitHub / 官方仓库中公开了多份审计报告与安全相关文档（例如 Hashlock 审计、Hacken 报告等），并在社区展示修复进展。虽然有审计，但跨链写入外链交易本身增加了额外攻击面（oracle/observer/TSS 协调、外链节点故障、重放与前端攻击等）。建议重点审阅最新的审计执行记录与修复日志。
@@ -30,6 +49,7 @@ Web3 全沾开发者、社区运营
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 5) 安全性与审计（Audits）
 
 -   **公开审计与透明度**：ZetaChain 在其 GitHub / 官方仓库中公开了多份审计报告与安全相关文档（例如 Hashlock 审计、Hacken 报告等），并在社区展示修复进展。虽然有审计，但跨链写入外链交易本身增加了额外攻击面（oracle/observer/TSS 协调、外链节点故障、重放与前端攻击等）。建议重点审阅最新的审计执行记录与修复日志。
@@ -42,6 +62,7 @@ Web3 全沾开发者、社区运营
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 **代币经济（Tokenomics & Utility）**
@@ -62,6 +83,7 @@ Web3 全沾开发者、社区运营
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -86,6 +108,7 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 
 
 
+
 30好今天，卡卡卡卡打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
@@ -96,11 +119,13 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 
 
 
+
 今天水一下打卡，在外出活动，手机水水水水水水
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -122,6 +147,7 @@ Omnichain Smart Contracts / Omnichain Accounts：Zeta 推出“Omnichain Account
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -216,6 +242,7 @@ EVM（Ethereum Virtual Machine）是以太坊的智能合约执行环境。
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
