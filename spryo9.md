@@ -15,8 +15,14 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-06-1765033181402-image.png)
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-04-1764856570829-image.png)
 
 第一次接触区块链，学到很多收获很多，周末再继续加码！赶进度！
@@ -24,6 +30,7 @@ timezone: UTC+8
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 ```
 from qwen_agent import QwenAgent
@@ -93,6 +100,7 @@ print("Agent响应：", response)
 <!-- DAILY_CHECKIN_2025-12-02_START -->
 
 
+
 今天大部分时间花在自己的课题，晚上补了一下btc的交易脚本的逻辑
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-02-1764681390646-image.png)
@@ -109,6 +117,7 @@ print("Agent响应：", response)
 
 
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-01-1764585113001-image.png)![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/spryo9/images/2025-12-01-1764585140252-image.png)
 
 今天搞了一下午，反而越来越糊涂了
@@ -116,6 +125,7 @@ print("Agent响应：", response)
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -158,6 +168,7 @@ UNIVERSAL=$(forge create Universal \
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -229,6 +240,7 @@ ZRC-20: 它是被ZetaChain 协议层（System Contract）高度管控的。 当�
 
 
 
+
 今天学校事情太多，很多学习资料都没有看，workshop也因为组会错过。周末补上。  
 1.环境配置选择Foundry (Rust/Solidity): **首先** 其速度极快，用 Solidity 写测试。是现在高阶开发者的心头好，但学习曲线陡峭。虽然我没有 Rust 基础，但还是想N+100挑战一下。  
 2.网络选择：我决定使用 **Testnet (Athens 测试网)**。  
@@ -237,6 +249,7 @@ ZRC-20: 它是被ZetaChain 协议层（System Contract）高度管控的。 当�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -396,6 +409,7 @@ except Exception as e:
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -612,6 +626,7 @@ contract Swap is zContract {
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
