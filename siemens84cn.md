@@ -15,13 +15,129 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+# 2025-12-06学习笔记
+
+1.  项目名称：链上理财宝
+    
+2.  描述：全链收益优化协议 - 让您的资产自动在所有区块链上寻找最佳收益机会
+    
+3.  目标用户：
+    
+    1.  DeFi散户投资者（60%）
+        
+        -   持有$1,000 - $50,000资产
+            
+        -   希望获得稳定收益但不想复杂操作
+            
+        -   痛点：不懂跨链、Gas 费高、收益率监控困难
+            
+    2.  DeFi老手/"收益农民"（30%）
+        
+        -   持有$50,000+资产
+            
+        -   追求最大化收益
+            
+        -   痛点：手动跨链费时费力、流动性分散、机会成本高
+            
+    3.  DAO金库管理者（10%）
+        
+        -   管理数百万美元资产
+            
+        -   需要安全稳健的收益策略
+            
+        -   痛点：多链资产管理复杂、审计困难
+            
+4.  使用场景：
+    
+    1.  个性化理财助手，这个场景为了解决流动性碎片化问题（流动性在不同链上变得分散，限制了交易、借贷和质押机会。由于流动性在每条链上被隔离，用户面临受限的市场访问，导致流动性水平降低。）
+        
+    2.  链上转账助手，这个场景为了解决手动跨链的复杂性和成本问题（资产被困在不同的区块链上，无法轻松互动。这导致每个池子变得更小，价格随着每次交易波动更大，导致更高的滑点和更少的交易机会。）
+        
+    3.  智能收益分析助手，这个场景为了解决收益率追踪困难问题（各链分别在各自平台上实时展示收益率变化，投资者面临在多个平台监控收益率的问题。）
+        
+5.  核心功能：
+    
+    -   一键全链收益优化
+        
+
+```
+用户操作：
+1. 连接钱包
+2. 存入USDT/USDC/ETH
+3. 选择风险偏好（保守/平衡/激进）
+4. 点击"开始赚收益"
+
+后台自动：
+✅ 扫描 Ethereum、BSC、Polygon、Optimism、Base 等链的收益率
+✅ 自动将资产部署到最高收益的协议
+✅ 定期再平衡（每日/每周）
+✅ 收益自动复投
+```
+
+-   智能路由引擎
+    
+
+javascript
+
+```
+// 伪代码示例
+function findBestYield(asset, amount, riskLevel) {
+    // 实时扫描所有链的收益协议
+    const opportunities = [
+        { chain: "Ethereum", protocol: "Aave", apy: 4.5%, risk: "low" },
+        { chain: "BSC", protocol: "Venus", apy: 7.8%, risk: "medium" },
+        { chain: "Polygon", protocol: "Aave", apy: 6.2%, risk: "low" },
+        { chain: "Base", protocol: "Moonwell", apy: 8.5%, risk: "medium" }
+    ];
+    
+    // 考虑 Gas 费和收益率
+    const netAPY = calculateNetReturn(opportunity, amount);
+    
+    // 根据风险偏好筛选
+    return selectBestOption(opportunities, riskLevel);
+}
+```
+
+-   Universal Token 自动再平衡
+    
+
+当某条链的收益率变化时，自动跨链转移资产：
+
+```
+场景：用户在 Ethereum Aave 存了 10,000 USDT (4.5% APY)
+      
+第 3 天：Base Moonwell 的 APY 涨到 9.2%
+
+OmniYield 自动：
+1. 从 Ethereum Aave 赎回 USDT
+2. 通过 ZetaChain 转移到 Base
+3. 存入 Base Moonwell
+4. 用户收益立即提升到 9.2%
+```
+
+6.  技术路径
+    
+
+前端层（用户界面） ------ Qwen AI智能层 ------ ZetaChain 智能合约层 ------ 外部链 DeFi 协议层
+
+# 2025-12-05学习笔记
+
+目前实现是仅仅打印出计划执行的链上操作，在测试网的真实交易操作暂没有实现
+
+![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/siemens84cn/images/2025-12-06-1765026050462-image.png)
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 先打个卡，明天再补
 <!-- DAILY_CHECKIN_2025-12-05_END -->
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 # 2025-12-03学习笔记
 
@@ -392,11 +508,13 @@ while True:
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 先打个卡，手上任务有点多，明天合并一起打卡掉，抱歉哈
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -533,11 +651,13 @@ available_functions = {
 
 
 
+
 先卡个卡，今天有点忙，明天抽空把这两天的任务都补上。
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -652,6 +772,7 @@ OmniYield 自动：
 
 
 
+
 -   在测试网跑通官方跨链Demo（Swap）
     
 
@@ -686,6 +807,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -735,6 +857,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
     
 
@@ -748,6 +871,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -782,6 +906,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 
 
+
 -   ZetaChain CLI本地环境安装及使用：
     
 
@@ -802,6 +927,7 @@ npx hardhat run scripts/swap.ts --network sepolia
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
