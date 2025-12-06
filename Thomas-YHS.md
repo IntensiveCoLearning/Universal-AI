@@ -15,8 +15,14 @@ LXDAO成员，智能合约开发者，AI Agent开发者，参与了 ZetaChain �
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+打个卡，正在写项目
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 # Universal EVM
 
 > ZetaChain is a Proof of Stake (PoS) blockchain built with the [Cosmos SDK](https://docs.cosmos.network/), the [CometBFT](https://docs.cometbft.com/) consensus engine, and [Cosmos EVM](https://evm.cosmos.network/).
@@ -65,11 +71,13 @@ ZetaChain 上的合约：
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 今天参加了workshop，顺便打个卡
 <!-- DAILY_CHECKIN_2025-12-04_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 # My First ZETA
@@ -285,6 +293,7 @@ npx zetachain evm call \\
 
 
 
+
 打卡一下
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
@@ -294,11 +303,13 @@ npx zetachain evm call \\
 
 
 
+
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/Thomas-YHS/images/2025-11-29-1764429918263-image.png)
 <!-- DAILY_CHECKIN_2025-11-29_END -->
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -383,6 +394,7 @@ ZetaChain 采用了PoS 的质押模式，基于Cosmos SDK + CometBFT 来构建�
 
 
 
+
 今天先打个卡，刚到家，准备一会写一个ZRC-20合约，本地部署一下
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
@@ -395,11 +407,13 @@ ZetaChain 采用了PoS 的质押模式，基于Cosmos SDK + CometBFT 来构建�
 
 
 
+
 今天主要看了ZetaChain的文档，搭建了ZetaChain cli 测试网节点
 <!-- DAILY_CHECKIN_2025-11-26_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
