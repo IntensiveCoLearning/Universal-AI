@@ -15,19 +15,27 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+目前demo还没有个很好的想法，只能暂时空缺了
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 之前的demo感觉不适合用来做开发，暂时没办法处理今天的任务
 <!-- DAILY_CHECKIN_2025-12-06_END -->
 
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
+
 ![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/NoTks0808/images/2025-12-05-1764945121694-__.png)
 <!-- DAILY_CHECKIN_2025-12-05_END -->
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 ![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/NoTks0808/images/2025-12-04-1764846947288-__.png)
@@ -38,6 +46,7 @@ timezone: UTC+8
 
 
 
+
 ![图片.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/NoTks0808/images/2025-12-03-1764769253696-__.png)
 
 由gemini生成的货币交易tool，符合作业里的输出原则，经测试后能够使用qwen将自然语言转为json格式，为之后上链做好基础
@@ -45,6 +54,7 @@ timezone: UTC+8
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -60,6 +70,7 @@ timezone: UTC+8
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -86,6 +97,7 @@ timezone: UTC+8
 
 
 
+
 项目：利用zetachain的全链性，在web3制作一个音乐平台，创作者可以在平台上出售自己的音乐版权，用户利用各类货币支付并永久拥有。持有BTC用户可以直接在平台上购买以太坊中的音乐。
 
 目标用户：主要以独立音乐人和各类音乐制作者的粉丝群体服务，可以考虑做一些defi的项目，比如用户将版权代币质押在 ZetaChain 的 DeFi 池中，不仅获得版税分红，还能获得 DeFi 协议的治理代币奖励。
@@ -103,6 +115,7 @@ timezone: UTC+8
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -143,6 +156,7 @@ timezone: UTC+8
 
 
 
+
 ZRC-20和ERC-20的区别主要在于ZRC-20是zetachain的原生代币，能在zetachain上流通，是在zetachain上做开发时使用的主流代币，而ERC-20不能直接在zetachain上使用
 
 通用资产可用于全链借贷
@@ -150,6 +164,7 @@ ZRC-20和ERC-20的区别主要在于ZRC-20是zetachain的原生代币，能在ze
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -168,6 +183,7 @@ ZRC-20和ERC-20的区别主要在于ZRC-20是zetachain的原生代币，能在ze
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -200,11 +216,13 @@ Gateway 是部署在**外部连接链（Connected Chains，如 Ethereum mainnet,
 
 
 
+
 今天终于是把环境搭建完了，foundry的搭建在国内一定要提前了解好端口，要在梯子里开启局域网连接，AI给你推荐的直接关掉梯子是不可行的，因为GitHub没办法登上去，qwen的API调用刚开始可能是因为挂着梯子直接注册到国际服了，一直没有权限，最后关掉梯子用支付宝登录了以后才获得权限，有了API key，这个环境搭建对一个小白来讲真的非常痛苦，不过这样的学习确实会了不少关于API调用的知识
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
