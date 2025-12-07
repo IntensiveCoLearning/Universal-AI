@@ -15,19 +15,27 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-06_END -->
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-04_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 ````markdown
@@ -132,6 +140,7 @@ print(responses)
 
 
 
+
 # Day7
 
 ## AI链上储钱罐
@@ -156,6 +165,7 @@ print(responses)
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -207,6 +217,7 @@ https://zetachain.blockpi.network/lcd/v1/public/zeta-chain/fungible/foreign_coin
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -375,6 +386,7 @@ AI 通过 ZetaChain 获取数据：
 
 
 
+
 ## **📌 Part 1：Universal App 的第一个功能（打印 / 记录 / 简单逻辑）**
 
 我的 Universal App（AI 全链存钱罐 OmniPiggy）的第一个要实现的最小功能是：
@@ -483,6 +495,7 @@ AI 通过 ZetaChain 获取数据：
 
 
 
+
 ## Universal App 是什么？
 
 UniversalApp是部署在ZetaChain上的智能合约, 兼容EVM以及BTC, Solana, Ton, Sui等链, 实现复杂的跨链操作.
@@ -501,6 +514,7 @@ ZetaChain 中心 + Bitcoin / Ethereum / Solana 等外围链 + Gateway。
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -537,6 +551,7 @@ https://signetfaucet.com/ 	Bitcoin Signet  比特币签名
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
