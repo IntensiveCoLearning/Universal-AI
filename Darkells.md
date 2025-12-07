@@ -15,8 +15,16 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+今日打卡 水一期
+
+在实现黑客松项目
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 -   **项目名称：give me a co'l项目名称：give me a cola （全链创作者打赏平台）**
     
 -   **目标用户 / 场景：**
@@ -56,6 +64,7 @@ timezone: UTC+8
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
+
 今日打卡
 
 工作繁忙 卡点 打卡
@@ -67,6 +76,7 @@ timezone: UTC+8
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 今日作业：
@@ -118,6 +128,7 @@ Qwen Agent x ZetaChain
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 
@@ -186,6 +197,7 @@ Qwen Agent x ZetaChain
 
 
 
+
 今日作业：
 
 对于 AI 相关的知识比较薄弱，今日的作业完成的不是很好
@@ -197,6 +209,7 @@ Qwen Agent x ZetaChain
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -221,6 +234,7 @@ Qwen Agent x ZetaChain
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -295,6 +309,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 
 
+
 今天实际去跑 swap 的 demo记录遇到的问题
 
 在 deplo 合约上都没遇到问题，只是在获取 zetachain 测试网的以太坊 Sepolia ETH 的 ZRC-20 地址报错了
@@ -328,6 +343,7 @@ Web3 正在从「单链世界（ETH）」进入「多链世界（OP、Arbitrum�
 
 # 2025-11-28
 <!-- DAILY_CHECKIN_2025-11-28_START -->
+
 
 
 
@@ -397,6 +413,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 
 
+
 -   **ZRC-20 和普通 ERC-20 的直观区别**
     
 
@@ -423,6 +440,7 @@ ZetaChain 铸造等值的 ZRC20 代币
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -491,6 +509,7 @@ Swap 工作流程
 
 
 
+
 1\. **ZetaChain的技术栈核心组件**
 
 ZetaChain的技术栈由Cosmos SDK、CometBFT共识引擎和Cosmos EVM构成。Cosmos SDK提供了模块化和灵活可升级的架构；CometBFT通过其即时共识机制实现了快速最终性；而Cosmos EVM则确保了与以太坊的完全兼容性，使以太坊智能合约无需修改即可运行。
@@ -547,6 +566,7 @@ ZetaChain为开发者提供了一个统一的平台来处理跨链消息、资�
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
