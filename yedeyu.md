@@ -15,8 +15,16 @@ Web3 新手
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-06
+<!-- DAILY_CHECKIN_2025-12-06_START -->
+今天在 AI Studio Build 做了一个解析 一篇笔记内容的在线工具，以后可能会做一个分析共学笔记内容和数据的app。  
+  
+[https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%22121a\_gar91SBBZxPgXgJin70R09WZDwqq%22%5D,%22action%22:%22open%22,%22userId%22:%22102497247554305977065%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing](https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%22121a_gar91SBBZxPgXgJin70R09WZDwqq%22%5D,%22action%22:%22open%22,%22userId%22:%22102497247554305977065%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing)
+<!-- DAILY_CHECKIN_2025-12-06_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 今天尝试部署 Jules 更新后的合约，因 gas 费不够而失败。
 
 然后尝试按照 \[教程\]([https://www.zetachain.com/docs/developers/tutorials/swap#option-2:-deploy-on-localnet](https://www.zetachain.com/docs/developers/tutorials/swap#option-2:-deploy-on-localnet)) 部署到本地网，又接连遇到两个错误：
@@ -72,6 +80,7 @@ ZetaChain 太早期，文档和工具链都不完善，不适合我这样的新�
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
 
+
 今天使用谷歌的 Jules Coding Agent，开启了三个同样的任务，试图为 swap 合约增加log，使得调用者能够知道具体的失败/回退原因。  
   
 目前，只有一个任务显示成功，一个还未结束，另一个遇到问题，询问我的意见。  
@@ -86,11 +95,13 @@ ZetaChain 太早期，文档和工具链都不完善，不适合我这样的新�
 
 
 
+
 今天学习 Solidity 的 Emit Event 和 Log 机制，使用 AI 为 Swap 合约 Emit 具体的失败原因，依然不成功。
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -104,6 +115,7 @@ ZetaChain 太早期，文档和工具链都不完善，不适合我这样的新�
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -132,6 +144,7 @@ ZetaChain 太早期，文档和工具链都不完善，不适合我这样的新�
 
 
 
+
 提了一个 pr 去修复 Swap 教程中的 \`sETH.SEPOLIA\` 错误。  
   
 [https://github.com/zeta-chain/docs/pull/766](https://github.com/zeta-chain/docs/pull/766)
@@ -139,6 +152,7 @@ ZetaChain 太早期，文档和工具链都不完善，不适合我这样的新�
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -743,6 +757,7 @@ https://testnet.zetascan.com/tx/0x4dac39681070cdf61ae99d3087fac97a712e78d99a7175
 
 
 
+
 ## 探究 Hello Webapp Base Testnet 交易页面显示无此交易问题
 
 今天重新创建 Hello Webapp 项目，在网页端，分别在 Ethereum 和 Base 测试，结果和昨天一样。
@@ -810,6 +825,7 @@ Failed to switch chain:
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -1253,6 +1269,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 
 
+
 ## 回顾与反思
 
 ### 继续探究昨天提到的内存不足导致编译失败问题
@@ -1278,6 +1295,7 @@ https://testnet.zetascan.com/tx/0xd6cb916ee67244785a171175e4ed08281417269863cac4
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1861,6 +1879,7 @@ Message:  0000000000000000000000000000000000000000000000000000000000000020000000
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
