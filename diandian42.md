@@ -15,8 +15,76 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+# **day10**
+
+## **一、框架概述**
+
+Qwen-Agent 是通义千问团队开发的 LLM 应用开发框架，基于 Qwen 模型，提供工具调用、RAG、多轮对话等核心能力，支持快速构建智能 Agent 应用，可作为各类 LLM 应用的后端底座。
+
+## **二、三大核心组件（极简架构）**
+
+### **1\. Agent（核心调度层）**
+
+-   定位：框架主体，负责接收指令、规划流程、调用 LLM / 工具
+    
+-   核心接口：`run()`（统一处理输入）、`_run()`（子类实现具体逻辑）、`_call_llm()`/`_call_tool()`（调用依赖）
+    
+-   常用实现：`Assistant`（通用型，集成 RAG + 工具）、`ReActChat`（思考 - 行动循环）、`VirtualMemoryAgent`（长文档处理）
+    
+
+### **2\. Tool（能力扩展层）**
+
+-   定位：Agent 外部能力载体，支持执行代码、搜索、文件处理等
+    
+-   类型：内置工具（`code_interpreter`/`web_search`/`image_gen`）、自定义工具（继承 `BaseTool` 或通过 MCP 配置）
+    
+-   管理：`TOOL_REGISTRY` 注册，`MCPManager` 管理工具服务器
+    
+
+### **3\. LLM（智能驱动层）**
+
+-   定位：Agent 大脑，负责理解指令、决策工具调用、生成响应
+    
+-   支持：Qwen 系列模型（`qwen3-coder`/`qwen3-vl`等）、DashScope/OpenAI 兼容接口
+    
+-   配置：通过 `llm_cfg` 设置模型名称、服务地址、API 密钥、生成参数
+    
+
+## **三、核心开发与部署**
+
+### **1\. 开发模式**
+
+-   快速开发：实例化内置 Agent，配置 `llm_cfg` 和 `function_list`（工具列表）
+    
+-   定制开发：继承 `Agent` 类重写 `_run()`，支持多 Agent 嵌套协作
+    
+
+### **2\. 典型示例**
+
+-   文档问答：基于 `VirtualMemoryAgent` 解析 PDF 问答
+    
+-   数据分析：`ReActChat` + `code_interpreter` 处理数据、绘图
+    
+-   多模态：`qwen3-vl` 模型 + 图像工具实现图文交互
+    
+
+### **3\. 部署交互**
+
+-   支持 TUI（终端）、GUI（Gradio 网页）交互
+    
+-   一行代码启动 WebUI：`WebUI(bot).run()`
+    
+
+## **总结**
+
+Qwen-Agent 以「Agent 调度 + Tool 扩展 + LLM 驱动」的模块化架构，实现了 LLM 应用的快速开发与灵活扩展，极简设计降低了复杂场景的落地门槛。
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 # **day9：从web2的视角看zetachain**
 
 要理解 ZetaChain 在 Web3 生态中的定位，核心是先打破「Web2 单一组件类比」的思维 ——Web2 里 Spring/Vue/Redis 是**单一功能组件**（框架 / 前端 / 缓存），而 ZetaChain 是 Web3 多链时代的**全链基础设施底座**，相当于「跨链网关 + 通用开发框架 + 分布式事务中间件 + 资产统一层」的组合体，是连接孤立公链、实现 “全链 Web3” 的核心枢纽。
@@ -209,6 +277,7 @@ ZetaChain 在 Web3 生态中的定位，可总结为三句话：
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
 
+
 # **day8**
 
 ## **一、AI + 区块链核心定位（千问 3Engine 角色）**
@@ -268,6 +337,7 @@ ZetaChain 在 Web3 生态中的定位，可总结为三句话：
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 ## **一、ZetaChain 通用 DeFi 核心模式梳理**
@@ -477,6 +547,7 @@ ZetaChain 在 Web3 生态中的定位，可总结为三句话：
 
 
 
+
 ### **1\. ZRC-20 标准：跨链资产的 “通用接口”**
 
 **（1）定义与核心定位**
@@ -543,6 +614,7 @@ ZetaChain 通过 “**映射 + 统一状态层**” 实现多链资产的统一�
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -649,6 +721,7 @@ ZetaChain 通过 “**映射 + 统一状态层**” 实现多链资产的统一�
 
 
 
+
 ### 1\. 核心认知：Universal App 合约 = “跨链翻译官 + 全链协调器”
 
 它不是传统单链合约的 “升级版”，而是专为 ZetaChain 跨链生态设计的 “多链交互中枢”—— 用一套 Solidity 代码，就能和 Bitcoin、Ethereum、Solana 等所有链通信，核心作用是：
@@ -677,6 +750,7 @@ Universal App 合约 → 能服务 “全球所有城市” 的居民，自带�
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -745,6 +819,7 @@ Gateway（网关）是 ZetaChain 实现**跨链交互的 “统一翻译官” �
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -1075,6 +1150,7 @@ NaN.  **错误处理**
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
