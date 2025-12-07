@@ -15,8 +15,14 @@ Learning AI and Web3.
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+最后一天了，看了一些新东西，新的想法和事物即将诞生。
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 [https://qwen.readthedocs.io/en/latest/deployment/sglang.html](https://qwen.readthedocs.io/en/latest/deployment/sglang.html)
 
 [SGLang](https://github.com/sgl-project/sglang) is a fast serving framework for large language models and vision language models. It is easy to build an OpenAI-compatible API service with SGLang, which can be deployed as a server that implements OpenAI API protocol.
@@ -24,6 +30,7 @@ Learning AI and Web3.
 
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 
 To download model files to a local directory, you could use
 
@@ -93,6 +100,7 @@ llama-cli -m ./models/Qwen3-8B-Q4_K_M.gguf --jinja --color -ngl 99 --flash-attn 
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 
@@ -217,11 +225,13 @@ Transformers is a library of pretrained natural language processing for inferenc
 
 
 
+
 今天主要看了一下 [https://www.zetachain.com/docs/developers/tutorials/swap](https://www.zetachain.com/docs/developers/tutorials/swap) 这个资料
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -234,6 +244,7 @@ Transformers is a library of pretrained natural language processing for inferenc
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -368,6 +379,7 @@ TSS has emerged as a solution in blockchain systems to enhance security and trus
 
 
 
+
 [https://www.zetachain.com/docs/start/app](https://www.zetachain.com/docs/start/app)
 
 ![image.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/brucexu-eth/images/2025-11-27-1764275585407-image.png)
@@ -426,6 +438,7 @@ Validators are comprised of 2 different roles: Core Validators and Observer-Sign
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -519,6 +532,7 @@ In summary, `memory` is used for temporary variables that are only needed during
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -633,6 +647,7 @@ TODO [https://qwen.readthedocs.io/zh-cn/latest/index.html](https://qwen.readthed
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -868,6 +883,7 @@ To make sense of the data, we split the long string into chunks of 64 characters
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
