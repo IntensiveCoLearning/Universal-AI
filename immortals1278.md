@@ -15,8 +15,44 @@ tg写的微信号
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+ZetaDCA——一个能让你用任意链上的资产，自动跨链定投任意链代币的工具
+
+定投是所有交易者都会用到的基础功能
+
+用户填写三项内容：
+
+-   每次买多少
+    
+-   买哪个链（比如 Sol）
+    
+-   频率（每天/每周）
+    
+
+然后点 “开始定投”。
+
+从现在起，用户就可以关闭页面，不用再管。
+
+每次定投周期到了，我们的合约会调用 ZetaChain：
+
+1.  从用户存款链 扣除 USDT
+    
+2.  跨链发送消息到目的链
+    
+3.  在目的链 自动 Swap 成目标代币（例如 SOL）
+    
+4.  把资产转给用户
+    
+
+整个过程无需桥、无需用户授权、无需切链。
+
+**ZetaChain 发力点：跨链消息 + 目标链执行 Swap 的能力，让一次设定就能自动跨链执行策略**
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 ## 黑客松方案：通用defi
 
 跨链定投工具，借助zetachain使用仅用usdt就能定投别的链上的代币。
@@ -25,6 +61,7 @@ tg写的微信号
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
+
 全链gas充值：用一条链的资产为多链gas费充值，服务于经常进行跨链操作的defi用户
 
 全链一键存款：对刚进入区块链的用户更加方便的在各链上都能买入资产。只用在zetachain上操作更加方便
@@ -32,6 +69,7 @@ tg写的微信号
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 
@@ -92,6 +130,7 @@ nvm use 20
 
 
 
+
 ## demo补充
 
 让电脑开着梯子wsl就能用梯子，电脑关梯子wsl就用普通网络
@@ -113,6 +152,7 @@ ctrl+o，enter，保存，ctrl+x退出配置文件界面
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -214,11 +254,13 @@ if __name__ == "__main__":
 
 
 
+
 ![c7c01e2c3613ccd755755cb94cece827.png](https://raw.githubusercontent.com/IntensiveCoLearning/Universal-AI/main/assets/immortals1278/images/2025-12-01-1764601790727-c7c01e2c3613ccd755755cb94cece827.png)
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -238,6 +280,7 @@ if __name__ == "__main__":
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -282,6 +325,7 @@ npx hardhat run scripts/swap.js --network localnet
 
 
 
+
 **多链资产被包装成zrc20然后在zetachain上使用于defi**
 
 **作业**
@@ -305,6 +349,7 @@ gateway.depositAndCall()函数的RevertOptions结构体参数会在跨链调用�
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -363,6 +408,7 @@ onlyGateway确保只有网关能调用
 
 
 
+
 ## cctx
 
 跨链交易
@@ -382,6 +428,7 @@ Cosmos SDK：区块链开发开源框架，帮忙快速构建区块链
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
@@ -425,6 +472,7 @@ call：在源链上调用gateway的send函数->调用zetachain上通用合约的
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
