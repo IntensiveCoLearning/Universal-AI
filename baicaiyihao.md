@@ -15,13 +15,41 @@ MOVE Smart Contract Dev and Security Researcher
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+# Day 14：黑客松项目决战规划文档
+
+## 1\. 项目概况 (Project Profile)
+
+-   **项目名称：** **Omni-Agent Arena (全链特工竞技场)**
+    
+-   **一句话介绍：** 基于 ZetaChain 和 Qwen 大模型的全链自主 AI 对战平台。
+    
+-   **核心价值：** 展示了 "AI Agent 自主操控区块链" 的未来——用户无需手动签名交易，AI 根据博弈策略自动跨链互操作。
+    
+
+* * *
+
+## 2\. 任务拆解与分工 (Task Breakdown)
+
+| 模块 | 关键任务 | 负责人 | 状态 |
+| 🧠 Agent / 后端 | 优化 battle_v4.js 的 Prompt，让狂战士/法师说话更有趣；确保 JSON.parse 容错率。 | baicaiihao | ✅ 已完成 (v4) |
+| ⛓️ 合约 / 链上 | 确保 Base/Eth 的 Messaging 合约有足够的 Gas；备份 Universal 合约地址。 | baicaiihao | ✅ 已部署 |
+| 🎨 前端 / 展示 | (重要) 录制一个漂亮的 CLI 运行视频。可以使用 asciinema 或 OBS 录制高大上的终端界面。 | 待定 | 🚧 进行中 |
+| 📢 Pitch / 文档 | 撰写 PPT，录制 Demo 视频，填写 DevPost/DoraHacks 提交表单。 | baicaiihao | 📅 今日重点 |
+
+* * *
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-05_END -->
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 串联demo和agent，利用agent执行合约操作模拟
 
@@ -182,6 +210,7 @@ Transaction hash: 0xb3633b376c83dbd06a44aa2fdd5559b005e6bd0c938fa4923ef17d3dbe87
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 设计agent能够实现DeFi 意图解析，下列是样例代码
 
 ```javascript
@@ -299,11 +328,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-02_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -318,11 +349,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -341,11 +374,13 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -368,6 +403,7 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 
 
+
 安装zeta cli并且尝试qwen api调用
 
 了解了zeta如何与sui链合约进行交互
@@ -375,6 +411,7 @@ runAgent("帮我在 Base 链上把 0.05 个 ETH 换成 USDC");
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
