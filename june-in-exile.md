@@ -15,13 +15,20 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+打卡
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-06_END -->
 
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 
 打卡
 <!-- DAILY_CHECKIN_2025-12-05_END -->
@@ -30,11 +37,13 @@ A cross-disciplinary self-learner who transitioned from marketing to blockchain 
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -100,6 +109,7 @@ https://sepolia.basescan.org/tx/0xf4c28c4314a9cb073c391ae6613dc5f42b5f3d99e38bae
 
 
 
+
 打卡
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
@@ -111,11 +121,13 @@ https://sepolia.basescan.org/tx/0xf4c28c4314a9cb073c391ae6613dc5f42b5f3d99e38bae
 
 
 
+
 先打卡 等等補筆記
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -334,11 +346,13 @@ CCTX 的部份不外乎就是
 
 
 
+
 先打個卡，晚點補上 Zeta 概念統整
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -363,6 +377,7 @@ CCTX 的部份不外乎就是
 
 
 
+
 -   **ZetaChain Sui Localnet 啟動失敗**：原因是 CLI 錯誤抓取了 Git `main` 分支（缺少必要函式），正確的合約程式碼應在 `develop` 分支。
     
 -   **Qwen API 啟用**：完成阿里巴巴雲註冊與信用卡驗證，在新加坡 Playground 獲取 API Key，並成功配置環境變數 `DASHSCOPE_API_KEY` 進行調用。
@@ -376,6 +391,7 @@ CCTX 的部份不外乎就是
 
 # 2025-11-25
 <!-- DAILY_CHECKIN_2025-11-25_START -->
+
 
 
 
