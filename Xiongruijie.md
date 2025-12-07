@@ -15,19 +15,27 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+1
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 今天看了xiaohai大神的笔记复现了30-24号的实验部分
 <!-- DAILY_CHECKIN_2025-12-06_END -->
 
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
+
 学完打卡
 <!-- DAILY_CHECKIN_2025-12-05_END -->
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 学完打卡
@@ -38,11 +46,13 @@ timezone: UTC+8
 
 
 
+
 学了打个卡
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-02
 <!-- DAILY_CHECKIN_2025-12-02_START -->
+
 
 
 
@@ -79,11 +89,13 @@ token Universal Token enables ERC-20 tokens to minted and transferred between co
 
 
 
+
 今天网太卡了打个卡
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -112,6 +124,7 @@ token Universal Token enables ERC-20 tokens to minted and transferred between co
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -367,11 +380,13 @@ Gas Limit / Gas Price
 
 
 
+
 2025年11月27日22点49分
 <!-- DAILY_CHECKIN_2025-11-27_END -->
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -402,11 +417,13 @@ Gas Limit / Gas Price
 
 
 
+
 刚下班，打个卡，现在开始学，待会儿补齐笔记。。。。。
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
