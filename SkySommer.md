@@ -15,13 +15,20 @@ Web3 product manager and engineer, LXDAO designer, AI enthusiast.
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+1111
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 111
 <!-- DAILY_CHECKIN_2025-12-06_END -->
 
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
+
 
 学习了QWEN ai结合DApp
 <!-- DAILY_CHECKIN_2025-12-05_END -->
@@ -30,11 +37,13 @@ Web3 product manager and engineer, LXDAO designer, AI enthusiast.
 <!-- DAILY_CHECKIN_2025-12-03_START -->
 
 
+
 1111
 <!-- DAILY_CHECKIN_2025-12-03_END -->
 
 # 2025-12-01
 <!-- DAILY_CHECKIN_2025-12-01_START -->
+
 
 
 
@@ -47,11 +56,13 @@ Web3 product manager and engineer, LXDAO designer, AI enthusiast.
 
 
 
+
 11111
 <!-- DAILY_CHECKIN_2025-11-30_END -->
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -211,11 +222,13 @@ if __name__ == '__main__':
 
 
 
+
 111
 <!-- DAILY_CHECKIN_2025-11-28_END -->
 
 # 2025-11-27
 <!-- DAILY_CHECKIN_2025-11-27_START -->
+
 
 
 
@@ -236,11 +249,13 @@ if __name__ == '__main__':
 
 
 
+
 先打个卡，明天来补笔记
 <!-- DAILY_CHECKIN_2025-11-25_END -->
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
