@@ -15,8 +15,47 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+# Demo 脚本草稿
+
+## **用户输入自然语言指令**
+
+**ZetaChain 发力点**：
+
+-   **ZetaChain** 提供了跨链的统一执行层。
+    
+    -   **ZetaChain** 负责让用户的资产在不同链间流动。
+        
+    -   这里，ZetaChain 将“Ethereum 上的 USDC”转为 **ZRC20** token，在 **Arbitrum** 上交换为 ETH 并存入收益池。
+        
+
+## **AI 决策与执行计划**
+
+**Qwen-Agent 发力点**：
+
+-   **Qwen-Agent** 不仅仅是解析意图，它还通过决策层为用户规划最优路径，并计算所有执行步骤（跨链转移 + swap + 存入收益池）。
+    
+-   AI 还会判断“链选择”、“最佳路径”以及“如何执行”。
+    
+
+**ZetaChain 发力点**：
+
+-   **ZetaChain** 通过 **ZRC20** 和 **Universal Swap** 功能，实现了链上资产的跨链交换。
+    
+    -   ZetaChain 将用户的资产从 Ethereum 链转换成 ZRC20 token，并完成 swap，再将 ETH 转移到 Arbitrum 链上的指定收益池。
+        
+
+## 执行结果展示
+
+**ZetaChain 发力点**：
+
+-   **ZetaChain** 完成了跨链资产交换，ETH 已经成功存入 Arbitrum 收益池。
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 # 黑客松项目选题 & Scope 收敛
 
 ## OmniYield AI（DeFi 侧）
@@ -89,6 +128,7 @@ FastAPI / Node
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
+
 **学习目标**
 
 -   串起一条最小通路：自然语言 → Agent → 后端 →（模拟或真实）ZetaChain 调用。
@@ -96,6 +136,7 @@ FastAPI / Node
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 # 后端简单实现思路
@@ -155,6 +196,7 @@ FastAPI 后端
 
 # 2025-12-03
 <!-- DAILY_CHECKIN_2025-12-03_START -->
+
 
 
 
@@ -278,6 +320,7 @@ def parse_swap_intent(text: str) -> Dict[str, Optional[str]]:
 
 
 
+
 # **Qwen‑Agent 框架的核心组成**
 
 | 组件 | 作用 | 关键特性 |
@@ -314,11 +357,13 @@ def parse_swap_intent(text: str) -> Dict[str, Optional[str]]:
 
 
 
+
 熟悉 Qwen 的基础参数
 <!-- DAILY_CHECKIN_2025-12-01_END -->
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -364,6 +409,7 @@ def parse_swap_intent(text: str) -> Dict[str, Optional[str]]:
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -427,6 +473,7 @@ npx zetachain solana deposit-and-call \
 
 
 
+
 # **ZRC-20**
 
 ZRC-20 是一种代币标准，集成到 ZetaChain 的 Omnichain 智能合约平台中。借助 ZRC-20，开发者可以构建 dApp，在任何连接的链上协调原生资产。这使得从单一平台构建 Omnichain DeFi 协议和 dApp变得极其简单。
@@ -474,6 +521,7 @@ ZRC-20 代币可以从 ZetaChain 提现到连接的区块链。提现过程中�
 
 
 
+
 # **Swap**
 
 Swap合约是一个部署在 ZetaChain 上的通用应用程序。它使用户能够通过一次跨链调用在不同区块链之间进行代币兑换。代币以 ZRC-20 的形式接收，可以选择使用 Uniswap v2 流动性进行兑换，并提取回连接的链。
@@ -499,6 +547,7 @@ Swap合约执行以下步骤：
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -562,6 +611,7 @@ Gateway支持以下功能：
 
 
 
+
 # ZetaChain ZETA 水龙头
 
 [https://cloud.google.com/application/web3/faucet](https://cloud.google.com/application/web3/faucet)
@@ -571,6 +621,7 @@ Gateway支持以下功能：
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
