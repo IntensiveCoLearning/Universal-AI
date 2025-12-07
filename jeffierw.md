@@ -15,8 +15,36 @@ timezone: UTC+8
 ## Notes
 
 <!-- Content_START -->
+# 2025-12-07
+<!-- DAILY_CHECKIN_2025-12-07_START -->
+# Day 14：任务拆解 & Demo 设计
+
+## 1\. 黑客松里程碑规划 (Hackathon Milestones)
+
+**Day 1: 核心联调** | **智能合约部署 & Agent 基础调优**
+
+1.  部署 ZetaChain Swap 合约 (Testnet)
+    
+2.  Qwen Agent 能准确解析 “Swap X to Y” 指令并输出 JSON
+    
+
+**Day 2: 全栈打通** | **前端/后端/合约 串联**
+
+1.  前端聊天框 -> 后端 API -> 触发链上交易 (Signing)
+    
+2.  交易状态实时反馈 (Pending -> Success)
+    
+
+**Day 3: 体验打磨 & 演示** | **UI 美化 & 视频录制**
+
+1.  优化聊天卡片 UI，增加 Loading 动效
+    
+2.  完成 Demo 视频录制与剪辑
+<!-- DAILY_CHECKIN_2025-12-07_END -->
+
 # 2025-12-06
 <!-- DAILY_CHECKIN_2025-12-06_START -->
+
 # Day 13：黑客松项目选题 & Scope 收敛
 
 ## 项目概要：ZetaGenie - 全链智能 DeFi 助手
@@ -70,6 +98,7 @@ timezone: UTC+8
 # 2025-12-05
 <!-- DAILY_CHECKIN_2025-12-05_START -->
 
+
 # Day 12
 
 1.  端到端 Demo 串联
@@ -80,6 +109,7 @@ timezone: UTC+8
 
 # 2025-12-04
 <!-- DAILY_CHECKIN_2025-12-04_START -->
+
 
 
 ````markdown
@@ -177,6 +207,7 @@ timezone: UTC+8
 
 
 
+
 ````markdown
 # Day 10
 
@@ -253,6 +284,7 @@ timezone: UTC+8
 
 
 
+
 ````markdown
 # Day 9
 
@@ -319,6 +351,7 @@ timezone: UTC+8
 
 
 
+
 ````markdown
 # Day 8
 
@@ -346,6 +379,7 @@ timezone: UTC+8
 
 # 2025-11-30
 <!-- DAILY_CHECKIN_2025-11-30_START -->
+
 
 
 
@@ -392,6 +426,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-29
 <!-- DAILY_CHECKIN_2025-11-29_START -->
+
 
 
 
@@ -509,6 +544,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 5
 
 1.  ZRC-20 和普通 ERC-20 的直观区别
@@ -538,6 +574,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 4
 
 1.  自己想做的第一个 Universal App 想实现的“打印 / 记录 / 简单逻辑”是什么?
@@ -551,6 +588,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-26
 <!-- DAILY_CHECKIN_2025-11-26_START -->
+
 
 
 
@@ -596,6 +634,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 
 
+
 # Day 2
 
 1.  安装了 zetachain cli
@@ -628,6 +667,7 @@ Vault 合约在 ZetaChain 上根据 Oracle 计算抵押价值
 
 # 2025-11-24
 <!-- DAILY_CHECKIN_2025-11-24_START -->
+
 
 
 
