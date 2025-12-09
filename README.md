@@ -384,7 +384,7 @@ Telegram：https://t.me/zetachain_asia
 | [Rousseau-DeworkHub](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/Rousseau-DeworkHub.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [MapleRhythm](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MapleRhythm.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
 | [MRzzz-cyber](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/MRzzz-cyber.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
-| [yedeyu](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yedeyu.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |   |
+| [yedeyu](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yedeyu.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⭕️ |
 | [yoyos12138](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/yoyos12138.md) | ✅ | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | |
 | [leran-133](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/leran-133.md) | ✅ | ⭕️ | ⭕️ | ❌ | | | | | | | | | | |
 | [YXZ252426](https://github.com/IntensiveCoLearning/Universal-AI/blob/main/YXZ252426.md) | ⭕️ | ⭕️ | ❌ | | | | | | | | | | | |
@@ -2278,13 +2278,14 @@ Telegram：https://t.me/zetachain_asia
 
 
 
+
 <!-- STATISTICALDATA_START -->
 ## 统计数据
 
 - 总参与人数: 224
 - 完成人数: 57
 - 完成用户: brucexu-eth, Darkells, jeffierw, B1u-e, younggogogo, pillowtalk-Qy, Hu-Wentao, Thomas-YHS, Appler-R, 15998431520, Max-wht, siemens84cn, BrKDDD, Ylim314, 1664730539, fylcr, kuove, baicaiyihao, immortals1278, zylg-create, JunZ-Leo, JintolChan, MoMNiToT, zg870, spryo9, Zheng-Yu7463, ShawnX-F, JoyWQ, diandian42, Airjiannan05, skelitalynn, bentong-chain, jvbaoge1, mango-ice-cat, Free-riding, fkkloorgennting-prog, Kgzsgod, tan9799, Xiongruijie, NoTks0808, XiaoHai67890, qky190525, june-in-exile, mersault18, ARZER-TW, Toby1009, ads12306, qwe638853, yedeyu, SkySommer, Augety1017, xzzlks, den1305, jmwasky-creative, 621-hykd, dreamR-cmd, Eeeeye
-- 全勤用户: Darkells, jeffierw, younggogogo, Max-wht, siemens84cn, fylcr, immortals1278, JintolChan, ShawnX-F, mango-ice-cat, NoTks0808, XiaoHai67890, qky190525, Toby1009, qwe638853, yedeyu, xzzlks, jmwasky-creative, 621-hykd, Eeeeye
+- 全勤用户: Darkells, jeffierw, younggogogo, Max-wht, siemens84cn, fylcr, immortals1278, JintolChan, ShawnX-F, mango-ice-cat, NoTks0808, XiaoHai67890, qky190525, Toby1009, qwe638853, xzzlks, jmwasky-creative, 621-hykd, Eeeeye
 - 淘汰人数: 167
 - 淘汰率: 74.55%
 <!-- STATISTICALDATA_END -->
